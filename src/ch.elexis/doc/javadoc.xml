@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="javadoc">
+	<!-- Dieses Ant-Steuerscript dient zur Erstellung der Entwicklerdokumentation
+		
+		Von Eclipse aus: Mit der rechten Maustaste anklicken und Run As.. Ant Build
+		auswählen. Von der Kommandozeile aus: ant -f javadoc.xml
+		
+		Dadurch wird jeweils die neueste Version der Dokumentation erstellt.
+		$Id: javadoc.xml 4778 2008-12-08 17:04:45Z rgw_ch $
+	-->
+<property environment="env"/>
+<property name="eclipse" value="${env.DEV}\eclipse"/>
+<target name="javadoc">
+	<javadoc access="public" 
+		 author="true" 
+		 encoding="UTF-8"
+		 charset="UTF-8"
+		 docencoding="UTF-8"
+		 classpath="${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\servlets-common.jar;
+		            ${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\commons-beanutils.jar;
+		            ${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-vaj.jar;
+			        ${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-nodeps.jar;
+		            ${eclipse}\plugins\org.eclipse.ui.forms_3.1.0.jar;
+		            ${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\tomcat-util.jar;
+		            ${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-apache-bcel.jar;
+		            ${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\jasper-compiler.jar;
+		            ${eclipse}\plugins\org.eclipse.help.webapp_3.1.0\webapp.jar;
+					${eclipse}\plugins\org.eclipse.help_3.1.0.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-trax.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\commons-modeler.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-apache-log4j.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-netrexx.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-starteam.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-commons-net.jar;
+					${eclipse}\plugins\org.eclipse.core.runtime_3.1.0.jar;
+					${eclipse}\plugins\org.eclipse.core.commands_3.1.0.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\servlets-default.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-apache-resolver.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\bootstrap.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\commons-logging-api.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\tomcatwrapper.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\jakarta-regexp-1.3.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-xslp.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-junit.jar;
+					${eclipse}\plugins\org.eclipse.help.ui_3.1.0.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-javamail.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-weblogic.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\naming-resources.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\catalina.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\naming-factory.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\jasper-runtime.jar;
+					${eclipse}\plugins\org.apache.lucene_1.4.3\lucene-1.4.3.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\servlets-manager.jar;
+					${eclipse}\plugins\org.eclipse.ui.workbench_3.1.0.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\commons-digester.jar;
+					${eclipse}\plugins\org.eclipse.swt_3.1.0.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-launcher.jar;
+					${eclipse}\plugins\org.eclipse.help.appserver_3.1.0.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\commons-collections.jar;
+					${eclipse}\plugins\org.apache.lucene_1.4.3\parser.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-jdepend.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\mx4j-jmx.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-commons-logging.jar;
+					${eclipse}\plugins\org.eclipse.help.base_3.1.0.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-icontract.jar;
+					${eclipse}\plugins\org.eclipse.swt.win32.win32.x86_3.1.0.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-apache-regexp.jar;
+					${eclipse}\plugins\org.eclipse.osgi_3.1.0.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-jmf.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-jsch.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-xalan1.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-stylebook.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-apache-bsf.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-antlr.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-apache-oro.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\servlets-invoker.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\tomcat-coyote.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\servlet.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\naming-common.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-jai.jar;
+					${eclipse}\plugins\org.eclipse.ui_3.1.0.jar;
+					${eclipse}\plugins\org.apache.ant_1.6.5\lib\ant-swing.jar;
+					${eclipse}\plugins\org.eclipse.tomcat_4.1.30.1\tomcat-http11.jar;
+					${eclipse}\plugins\org.eclipse.jface_3.1.0.jar" 
+		 destdir="..\devdoc"
+		 doctitle="Elexis Entwicklerdokumentation"
+		 nodeprecated="false"
+		 nodeprecatedlist="false"
+		 noindex="false"
+		 nonavbar="false"
+		 notree="false"
+		 overview="overview.html"
+		 packagenames="ch.elexis"
+ 
+                 source="1.5"
+	         sourcepath="../src"
+	         splitindex="true"
+	         use="true"
+	         version="true"
+	/>
+	   <!-- , ch.elexis.util,ch.elexis.actions,ch.elexis.views,
+	            ch.elexis,ch.elexis.preferences,ch.elexis.admin,ch.elexis.data,ch.elexis.wizards,ch.elexis.data.cache,
+	        ch.elexis.dialogs,ch.elexis.exchange"-->
+	<copy file="../rsc/elexis-logo.gif" tofile="../devdoc/elexis-logo.gif"/>
+
+</target>
+</project>

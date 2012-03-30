@@ -1,0 +1,11 @@
+h1. Elexis Eigenartikel
+
+Diese Plugin verwaltet Eigenartikel innerhalb von Elexis.
+
+Der beinhaltete Code wurde aus dem Kernplugin (ch.elexis) extrahiert.
+
+h2. Updates auf bestehende Artikel
+
+Nach dem Update auf dieses System werden Referenzen innerhalb von Verschreibungen ungültig, da sich die der Datentyp
+von @ch.elexis.data.Eigenartikel@ auf @ch.elexis.eigenartikel.Eigenartikel@ ändert. In Kombination mit dem DB-Check
+Tool kann dieser Fehler automatisiert durch Aufruf von @Fix references for Eigenartikel in Prescriptions@ behoben werden.

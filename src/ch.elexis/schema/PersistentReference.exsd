@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="ch.elexis">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="ch.elexis" id="PersistentReference" name="Persistierbare Objektreferenz"/>
+      </appInfo>
+      <documentation>
+         &lt;p&gt;Dieser Erweiterungspunkt dient dazu, Referenzen auf ein Datenobjekt (abgeleitet von PersistentObject) persistent zu machen. Damit ist gemeint, dass ein absoluter Bezug auf ein Datenbankobjekt extern gespeichert werden kann, so dass das Datenbankobjekt später wieder mit diesem Bezug aufgefunden werden kann&lt;/p&gt;
+&lt;p&gt;Im Gegensatz zum Serialisieren, also dem persistenten Speichern des Objekts selbst, kann es bei PersistentReferenz nicht dazu kommen, dass dasselbe Objekt mehrfach erstellt wird, weil immer nur auf das &quot;Original&quot; verwiesen wird.&lt;/p&gt;
+&lt;p&gt;Der Weg über einen Erweiterungspunkt muss darum gegangen werden, weil die PersistentReference auch dann aufgelöst werden können soll, wenn die das Objekt erstellende Anwendung sich in einem externen Plugin befindet&lt;/p&gt;
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <complexType>
+         <sequence>
+            <element ref="Factory" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="Factory">
+      <annotation>
+         <documentation>
+            Verweis auf eine Factory, die aus einem Verweis das dazugehörende PersistentObject wieder erstellen kann.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="Class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Klasse, die von PersistentObjectFactory abgeleitet ist.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="ch.elexis.data.PersistentObjectFactory"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         0.1.5
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         [Enter extension point usage example here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiInfo"/>
+      </appInfo>
+      <documentation>
+         [Enter API information here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+         (c) 2006 by G.Weirich
+      </documentation>
+   </annotation>
+
+</schema>

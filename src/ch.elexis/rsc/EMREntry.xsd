@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from EMREntry.xml by XMLBuddy -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="EMR">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="record" maxOccurs="unbounded"/>
+				<xs:element ref="analyses"/>
+				<xs:element ref="document"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:NMTOKEN" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="address">
+		<xs:complexType/>
+	</xs:element>
+	<xs:element name="analyse">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="abnormal" type="xs:boolean" use="required"/>
+					<xs:attribute name="date" type="xs:NMTOKEN" use="required"/>
+					<xs:attribute name="labEAN" type="xs:integer" use="required"/>
+					<xs:attribute name="normRange" type="xs:NMTOKEN"/>
+					<xs:attribute name="param" type="xs:string" use="required"/>
+					<xs:attribute name="type" type="xs:NMTOKEN" use="required"/>
+					<xs:attribute name="unit" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="analyses">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="analyse" maxOccurs="unbounded"/>
+				<xs:element ref="ecg"/>
+				<xs:element ref="image" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="document">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="address"/>
+				<xs:element ref="text"/>
+			</xs:sequence>
+			<xs:attribute name="date" type="xs:NMTOKEN" use="required"/>
+			<xs:attribute name="imageRef" type="xs:NMTOKEN" use="required"/>
+			<xs:attribute name="type" type="xs:NMTOKEN" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ecg">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="abnormal" type="xs:boolean" use="required"/>
+					<xs:attribute name="date" type="xs:NMTOKEN" use="required"/>
+					<xs:attribute name="imageRef" type="xs:NMTOKEN" use="required"/>
+					<xs:attribute name="labEAN" type="xs:integer" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="image">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="abnormal" type="xs:boolean" use="required"/>
+					<xs:attribute name="date" type="xs:NMTOKEN" use="required"/>
+					<xs:attribute name="imageRef" type="xs:NMTOKEN" use="required"/>
+					<xs:attribute name="type" type="xs:string" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="markup">
+		<xs:complexType>
+			<xs:attribute name="from" type="xs:integer" use="required"/>
+			<xs:attribute name="length" type="xs:integer" use="required"/>
+			<xs:attribute name="type" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="record">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="markup"/>
+				<xs:element ref="text"/>
+				<xs:element ref="xref"/>
+			</xs:choice>
+			<xs:attribute name="author" type="xs:NMTOKEN" use="required"/>
+			<xs:attribute name="date" type="xs:NMTOKEN" use="required"/>
+			<xs:attribute name="id" type="xs:NMTOKEN" use="required"/>
+			<xs:attribute name="responsibleEAN" type="xs:integer" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="text" type="xs:string"/>
+	<xs:element name="xref">
+		<xs:complexType>
+			<xs:attribute name="from" type="xs:integer" use="required"/>
+			<xs:attribute name="id" type="xs:string" use="required"/>
+			<xs:attribute name="length" type="xs:integer" use="required"/>
+			<xs:attribute name="provider" type="xs:NMTOKEN" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

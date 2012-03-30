@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service:service category="invisible" id="ch.elexis.labortarif.ch2009" name="Labortarif CH 2009" provider="support@medelexis.ch" type="Basis-System" version="1.0.2" xmlns:service="http://www.medelexis.ch/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.medelexis.ch/services ../medelexis-commons/rsc/service.xsd ">
+  <service:description>Labortarif 2009</service:description>
+  <service:depends>ch.medelexis.nucleus</service:depends>
+</service:service>

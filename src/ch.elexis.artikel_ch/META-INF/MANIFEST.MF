@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Artikelkataloge Schweiz für Elexis
+Bundle-SymbolicName: ch.elexis.artikel_ch; singleton:=true
+Bundle-Version: 2.0.5
+Bundle-Vendor: elexis.ch
+Bundle-Localization: plugin
+Require-Bundle: ch.elexis,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.forms,
+ ch.elexis.importer.div,
+ ch.rgw.utility,
+ ch.elexis.core;bundle-version="0.0.2"
+Export-Package: ch.elexis.artikel_ch.data,
+ ch.elexis.artikel_ch.views
+Bundle-ClassPath: bin/,
+ .
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

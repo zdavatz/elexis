@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service:service category="feature" id="ch.elexis.mysql.connector" name="Datenbankanbindung an MySQL" provider="weirich@elexis.ch" type="Datenbankanbindung" version="2.0.0" xmlns:service="http://www.medelexis.ch/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.medelexis.ch/services ../medelexis-commons/rsc/service.xsd ">
+  <service:docURL>http://www.medelexis.ch/unsere-produkte/elexis-plugins/plugins-database.html</service:docURL>
+  <service:description>Verbindung mit einem MySQL-Server</service:description>
+  <service:depends>ch.medelexis.nucleus</service:depends>
+</service:service>

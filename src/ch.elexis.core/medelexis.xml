@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service:service category="invisible" id="ch.elexis.core"
+	name="Elexis DB-Abkapselung" provider="weirich@elexis.ch" type="Basis-System"
+	version="2.0.0" xmlns:service="http://www.medelexis.ch/services"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.medelexis.ch/services ../medelexis-commons/rsc/service.xsd ">
+	<service:description>Elexis-Kern-Modul</service:description>
+</service:service>

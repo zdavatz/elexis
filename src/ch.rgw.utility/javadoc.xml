@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" additionalparam=" -charset &quot;utf-8&quot;&#13;&#10;-encoding &quot;utf-8&quot;&#13;&#10;-docencoding &quot;utf-8&quot;&#13;&#10;&#13;&#10;" author="true" classpath="../mysql-adapter/mysql-connector-java-5.1.6-bin.jar;../postgresql-adapter/postgresql.jar;lib/jdom.jar;lib/bcprov-jdk15-140.jar" destdir="../dokumentation/javadoc/elexis-utilities" doctitle="Elexis" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="ch.rgw.crypt,ch.rgw.tools.net,ch.rgw.compress,ch.rgw.tools,ch.rgw.io,org.apache.commons.compress.bzip2" source="1.5" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ein Beispiel für einen SAMDAS-konformen KG-Eintrag -->
+<EMR xmlns:samdas="http://www.elexis.ch/XSD/EMREntry"
+	 xsi:noNamespaceSchemaLocation="EMREntry.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="0abcuuid">
+	<record date="2006-08-24" author="gerry" responsibleEAN="0122333" id="0ab12UUID">
+		<text>Dies ist ein KG-Eintrag.</text>
+		<markup type="bold,underlined" from="5" length="2"/>
+		<markup type="italic" from="10" length="5"/>
+		<xref provider="ch.elexis:brief" id="Brief#0xddfd" from="7" length="3"/>	
+	</record>
+	<record date="2006-08-30" author="gerry" responsibleEAN="012333" id="0ab13UUID">
+		<text>Heute alles in Butter</text>
+		<xref provider="bildanzeige" id="023345354" from="4" length="5"/>
+		<xref provider="privatnotizen" id="99882334:3442?" from="10" length="8"/>
+	</record>
+	<analyses>
+		<analyse date="2006-08-24" labEAN="122345" param="Hb" type="number" normRange="10.0-15.0" unit="mmol/l" abnormal="true">
+			9.8
+		</analyse>
+		<analyse date="2006-08-24" labEAN="122345" param="Sputumzytologie" type="text" abnormal="false">Unauffällig</analyse>
+		<analyse date="2006-08-24" labEAN="122345" param="HIV suchtest" type="absolute" abnormal="false">negativ</analyse>		
+		<ecg date="2006-08-24" labEAN="012333" abnormal="false" imageRef="01xsse34UUID">nc SR, LLT, unauff. de- undRepol.</ecg>
+		<image date="2006-08-24" type="Rx Thorax pa und seitlich" abnormal="true" imageRef="01xw3454UUID">Infiltrat li Oberlappen</image>
+		<image date="2006-08-24" type="MRI Gehirn" abnormal="false" imageRef="missing">unauffällig</image>
+	</analyses>
+	<document date="2006-08-24" type="incoming" imageRef="0982423UUID">
+		<address></address>
+		<text></text>
+	</document>
+</EMR>

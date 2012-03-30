@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Core Module for elexis
+Bundle-SymbolicName: ch.elexis.core
+Bundle-Version: 0.0.2
+Bundle-Vendor: elexis.ch
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: ch.rgw.utility;bundle-version="2.0.3",
+ org.eclipse.core.runtime;bundle-version="3.5.0"
+Export-Package: ch.elexis.core,
+ ch.elexis.core.data,
+ ch.elexis.core.util

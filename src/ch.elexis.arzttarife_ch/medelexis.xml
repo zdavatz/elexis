@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service:service category="feature" id="ch.elexis.arzttarife_ch" name="Arzttarife Schweiz" provider="weirich@elexis.ch" type="Basis-System" version="2.0.6" xmlns:service="http://www.medelexis.ch/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.medelexis.ch/services ../medelexis-commons/rsc/service.xsd ">
+  <service:description>Tarmed&amp;Co</service:description>
+  <service:depends>ch.medelexis.nucleus ch.rgw.utility ch.elexis.ebanking_ch ch.elexis.importer.div ch.elexis.artikel_ch ch.elexis.labortarif.ch2009</service:depends>
+</service:service>

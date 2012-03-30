@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="ch.elexis.Verrechnungscode">
+      <Artikel
+            CodeDetailDisplay="ch.elexis.eigenartikel.EigenartikelDetailDisplay"
+            CodeSelectorFactory="ch.elexis.eigenartikel.EigenartikelSelector"
+            ElementFactory="ch.elexis.eigenartikel.EigenartikelPersistentObjectFactory"
+            name="Eigenartikel">
+      </Artikel>
+   </extension>
+   <extension
+         point="ch.elexis.PersistentReference">
+      <Factory
+            Class="ch.elexis.eigenartikel.EigenartikelPersistentObjectFactory">
+      </Factory>
+   </extension>
+
+</plugin>

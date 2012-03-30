@@ -1,0 +1,4 @@
+h1. Elexis utilities
+
+This project contains some system independent utility classes. 
+(No dependencies to SWT or eclipse)

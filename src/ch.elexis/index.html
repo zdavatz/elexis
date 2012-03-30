@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Elexis - Dateilayout</title>
+		<!-- $Id: index.html 23 2006-03-24 15:36:01Z rgw_ch $ -->
+	</head>
+	<body>
+		<h1>Elexis (Java)</h1>
+		<h2>Datenbankmodell</h2>
+		<p></p>
+		<h2>Dateilayout</h2>
+		<h3>Projektverzeichnis</h3>
+			<ul>
+				<li>src: Stammverzeichnis für Quellcodedateien</li>	
+				<li>Plugin.xml: Hauptkonfigurationsdatei f&uuml;r die Eclipse-runtime</li>
+				<li>index.html: Dieses File hier</li>
+				<li>splash.bmp: Das Bild, das beim Programmstart gezeigt wird.</li>
+				<li>hsqldb.jar: Library für die hsql-Datenbank</li>
+				<li>mysql-connector.jar: Library für Zugriff auf einen MySQL-Server</li>
+				<li>rgw-toolbox.jar: Library mit benötigten Utilities</li>
+			</ul>
+		<h3>Verzeichnis src:</h3>
+		<p>Dieses Verzeichnis enthält alle Packages, die das eigentliche Programm ausmachen. 
+		Jedes Package ist in einem eigenen Verzeichnis.</p>
+		<ul>
+			<li>ch.elexis: Die Klassen, die für den Start und die Ablaufkontrolle
+				des Plugins verantwortlich sind. Meist eclipse-Interna.
+				Von Allgemeinem Interese ist allenfalls Hub.java. Hier sind globale Objekte abgelegt:
+				Hub.plugin: Die Instanz des Plugins, Hub.cfg: Das globale Settings-objekt und Hub.Log,
+				das globale Log-Objekt. Ausserdem ist in Hub.java die Methode "start()". Hier können
+				Aktionen abgelegt werden, die noch vor dem Erscheinen des Plugin erledigt werden müssen.<br/>
+				Die restlichen Klassen dieses Verzeichnisses sollten im Prinzip nicht weiter beachtet werden.</li>
+			<li>ch.elexis.actions: Die Klassen, die Aktionen definieren. Aktionen sind Benutzereingaben über
+				Tastatur, Menu oder Toolbar.</li>
+			<li>ch.elexis.data: Die Klassen, die die Verbindung zur Datenbank herstellen. Alle Datenbankzugriffe
+ 			    sollten ausschliesslich über die hier definierten Klassen erfolgen. Dies ist notwendig, damit Datenbankzugriffe 
+			    konsistent bleiben. Änderungen und Erweiterungen dieser Klassen nur sehr vorsichtigt und mit ausgiebigem Test!</li>
+			<li>ch.elexis.util: Package für Utility-Klassen, die sonst nirgens hinpassen.</li>
+			<li>ch.elexis.views: Das eigentliche "Arbeits"-Package. Hier wird die Benutzeroberfläche konstruiert
+			    und betrieben. Für jeden Datenaspekt muss ein eigenes View erzeugt werden und eine Zusammenstellung von Views kann als
+			    Perspective gespeichert werden.</li>
+		</ul>
+		<h2>Datenbankverbindung</h2>
+		<h3>Grundsatz</h3>
+		<p>Die Idee ist, dass Datenbankzugriffe an möglichst wenigen Stellen im Programm erfolgen, damit änderungen
+		im Datenbanklayout oder der Datenbankengine nicht unübersehbare und fehlerträchtige Programmänderungen nach sich ziehen.
+		Das Programm ist grundsätzlich unabhängig von der verwendeten Datenbank und kann daher mit jeder voll SQL-fähigen
+		Datenbank betrieben werden.</p>
+		<p>Nur die Klassen des Package ch.elexis.data treten direkt mit der Datenbank in Kontakt. Alle Datenklassen
+			sind von ch.elexis.data.PersistentObject abgeleitet. Der Rest des Programms nutzt diese Klassen zum Zugriff auf die Daten.
+			Dabei ist ein recht simples Zugriffsmodell implementiert:</p>
+		<ul>
+			<li>Jedes Objekt hat eine systemweit eindeutige ID( ein 24-Zeichen-String), welche automatisch beim Erstellen
+			des Objekts erzeugt wird.</li>
+			<li>[klasse].load(String id) liefert das Objekt mit der gegebenen ID</li>
+			<li>[objekt].get("Feldname") liefert den Inhalt des Feldes "Feldname" zur�ck</li>
+			<li>[objekt].set("Feldname",Wert) setzt das Feld "Feldname" auf "Wert".</li>
+		</ul>
+		<p>Alle Änderungen werden grundsätzlich sofort in die Datenbank geschrieben; es findet keine lokale
+		Pufferung statt.</p>
+		<h3>Abfragen</h3>
+		<p>Abfragen werden über die Klasse ch.elexis.data.Query gemacht. Der Ablauf ist erneut sehr einfach:</p>
+		<ol>
+			<li>Query qbe=new Query(Patient.class) - Ein Query-Objekt für die gegebene Klasse erstellen</li>
+			<li>qbe.add("Feldname","=","Wert")     - Eine Filterbedingung eingeben</li>
+			<li>qbe.and() oder qbe.or()  - fakultativ: Verknüpfung zu weiteren Bedingunen</li>
+			<li>qbe.add("Feldname2","LIKE","Wert2%" - fakultativ: weiter Bedingung</li>
+			<li>Schritte 3 und 4 beliebig oft wiederholen</li>
+			<li>List result=qbe.execute()  - Abfrage ausführen. Die <b>ID</b> aller gefundenen Datens�tze befindet sich
+			dann in der Liste. Diese kann auch die Länge null haben, wenn keine passenden Datens�tze vorhanden sind.</li>
+		</ol>
+		<h3>Erstellen und Löschen</h3>
+		<p>Das neu Erstellen eines Datenobjekts muss über den jeweiligen Konstruktor erfolgen. Das Objekt wird sofort
+		in der Datanbank angelegt.</p><p>Löschen ist bewusst nicht unterstützt (Ist natürlich mit den Mitteln der Datenbank
+		möglich, wird aber vom Programm nicht gefördert)</p>
+	</body>
+</html>

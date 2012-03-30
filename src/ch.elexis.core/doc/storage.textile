@@ -1,0 +1,70 @@
+h1. Storing data
+
+h2. What is it all about?
+
+When talking about data storage, many people automatically think of SQL databases. SQL database enginges are mature and
+perform well. In many use cases, they fit perfectly the needs of the developer.
+
+On the other hand we tend to modify our data to make them fit the storage. Imagine you own a bicycle shop. Would you store the wheels in one room, the pedals in a second room and the screws in a third?  And whenever a customer wants to buy a bicycle of the make "SuperBike", you would run through the rooms and cry things linke @select screw from bicycle.screws where make="SuperBike"@? Some times you would do so indeed. Probably if you are a bike factory or a build-on-order shop. But in most other cases, you would not organize your shop like this. You'd rather store the bikes as a whole instead of assembling them on the fly whenever a customer asks for it.
+
+The same proves true in the case of electonic medical records. The patient record is an entity. A lab value is a property within this entity (or call it a subdocument within the master document). We could demonstrate this in Java like this:
+
+bc. class EMR{
+  String PatientID;
+  Map<Date,List<LabValues>> labValues;
+  /** .. more .. **/
+}
+ 
+But unfortunately, SQL databases do not offer means to store such data efficiently. So we disintegrate our neatly created data model (we "normalize" (uh?) the model) into several "tables" (what the heck?), to make it fit the needs of the storage engine. To retrieve a lab value, we must then ask the database enginge to produce a subset of all lab values according to our criteria:
+
+@select result from LabValues where PatientID="foo" and date="bar"@
+
+After a while (i.e. some years of studies or experience), we tend to think of this kind of storage as a "natural" way to store data. But actually it is not. In most cases, we do not need to retrieve LabValues independently from the patient record. We rather fetch a patient record and then we want to list the LabValues that are possibly part of the record. So the natural way to store such data would be to store the EMR as a single document (quite similar the way it was stored in the "good old times"^(tm)^ in the filing cabinets).
+
+h2. Storage concepts
+
+h3. SQL Engines
+
+Of course there are good reasons to scatter our data over several tables. SQL database engines ensure ACID characteristic, i.e. they can warrant, that data is always in a consistent state. Additionally, they can very efficiently extract relations between different types of data ("fetch all patient records where we found a blood sugar level above 7.0 mmol/l and a systolic blood pressure above 140 mmHg before the year 2009"). And, equally important, SQL is an easy to learn yet powerful language.
+
+On the other hand, SQL engines do not scale well and do not ensure availability by themselves. It is not trivial to set up and maintain a cluster of redundant SQL-Databases and a load balancer.
+And also, it is not trivial to set up a data model that matches the strengths and weaknesses of an sql engine best. There are tools that ease the burden of mapping objects to relational data (O/R mappers such as JDO or Hibernate) but still the learning curve is quite steep and if one wants something the mapper does not provide, this becomes cumbersome.
+
+And, evolution of the data model is a nontrivial task in SQL databases. The tables must be updated which can be time consuming and error prone. So in a rapidly evolving project, the database maintenance will be a challenging job by itself, without belonging strictly to the business logic of the project. So this imposes cost without benefit to the developer team.
+
+h3. An alternative: document oriented data design
+
+If we have not very frequently the need to make relational queries, we can use a much simpler and much more natural model for our data: We can store them simply as the objects they are. The object is just transformed to a document and all member fields of the object become subdocuments. A document is identified by a unique ID. Retrieving an object then is only a matter of querying its ID, as if it was stored in a Hashtable. The application logic does not have to make any transformations. Retrieving the lab values of a day ist just a matter of labValues.get(date).
+
+The back side is now: To extract information that is not related to a single document, we have to traverse through all documents (e.g. the above question for blood sugar level and blood pressure), which might be slow. And: since all data belonging to a document is stored within this document, documents can grow large and need high bandwith if transferred through a network.
+
+So each data storage design has its benefits and drawbacks. 
+
+h3. NoSQL Databases
+
+In the past few years a new breed of database engines evolved, that are summarized with the term "Not Only SQL" or "NoSQL". There are several different approaches such as MongoDB, BigTable, CouchDB and others. We'll discuss Apache CouchDB here.
+
+CouchDB is strictly document oriented and queries are executed as server based JavaScripts (Query documents are called views in CouchDB). This way CouchDB eliminates the need to dowload every Document to query its fields. Additionally, queries are stored on their first execution and updated with every newly added document therafter. So, the first call to a query is slow, but subsequent calls are much faster. Therefore, CouchDB ist not well suited for ad hoc queries but rather for predefined queries. A big disadvantage compared with SQL databases is the absence of a simple query language like SQL. Instead, the designer of a View (i.e. query document) must understand the concept of a Map/Reduce function and must be able to implement it in JavaScript.
+
+One big advantage comes with availability and scalability. CouchDB has built-in support for mirroring to an arbitrary number of slaves, and it is easy to configure a "Lounge" for load balancing.
+
+Another "big thing" is the ease of model evolution. Creating an additional field is a matter of just defining it in the object. It is mirrored automatically to the document. Or we can create a totally different model that will coexist happily and peacefully with the old model of a former version in the same database. Of course, the application is responsible to handle the objects correctly.
+
+
+h2. Future database design in Elexis
+
+At this time it is difficult to see what database design is best suited for Elexis. The document oriented approach is appealing, but on the other hand we have a lot of experience with mysql and postgresql and both proved to be stable. We also saw that it is sometimes difficult to propagate model updates through all running Elexis versions "out there".
+
+Therefore, the decision is postponed. We just declare a architecture that allows different storages. There are some steps to follow to achieve this goal:
+
+* Model is strictly separated from the business logic and the presentation layer-
+* business logic does not make any assumptions on how data is stored. It uses only the API of the Model.
+* The presentation layer has no knowledge of the model. It is fully driven by business logic.
+* Plugins do not have to use the same storage as the core. (In fact they __can__ not use the same storage, since they can not assume a specific storage nethod). It is perfectly possible that one plugin stores its data in CouchDB and an other Plugin uses postgresql. Therefore:
+* Each plugin must maintain its own model. We recommend that each plugin is divided in at least to parts: .core and .ui
+* To allow exchange of persisted objects between plugins, all must implement the same Interface, IPersistentObject. Scala code can use PersistentObjectTrait instead of IPersistentObject.
+* Each plugin must provide a factory (i.e. an object that implements IPersistentObjectManager) to create, store and retrieve objects of its model.
+
+
+
+

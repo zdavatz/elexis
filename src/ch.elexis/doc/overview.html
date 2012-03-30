@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Elexis Entwicklerdokumentation</title>
+<!-- $Id: overview.html 23 2006-03-24 15:36:01Z rgw_ch $ -->
+</head>
+<body>
+	<img src="elexis-logo.gif"/><br/>
+	<p>Dieses File und der gesamte Inhalt des Ordners devdoc sind als Dokumentation f&uuml;r die Elexis Entwicklung
+	   gedacht.	Dies ist nicht Teil der Dokumentation f&uuml;r Endanwender.</p>
+	<h2>Regenenerierung</h2>
+	<p>Die jeweils neueste Version dieser Dokumentation wird mit dem Ant-Script javadoc.xml aus den aktuellen
+	 Quelldateien erstellt. javadoc.xml ist im Vezeichnis doc im Elexis Projekt.</p>
+	<p>Vorgehen von Eclipse aus: Javadoc.xml mit der rechten Maustaste anklicken und <code>Run As... Ant build</code>
+	 ausw&auml;hlen.<br/>
+	Vorgehen von der Kommandozeile aus: <code>ant -f javadoc.xml</code> eingeben</p>
+	<p>In beiden F&auml;llen wird die neueste Version im Verzeichnis devdoc erstellt.</p>
+	<h2>Grundlagen</h2>	
+	<p>Elexis ist als Anwendung der Eclipse Rich Client Platform konzipiert.
+	Weiterf&uuml;hrende Dokumentation ist daher unter dem Stichtwort Eclipse RCP zu finden.</p>
+	<p>Die Ablaufumgebung ist das Java Runtime Environment Version 5 (bzw. 1.5) oder h&ouml;her.</p>
+	<p>Als darunterliegende Datenbank sollte jede &uuml;ber Jdbc erreichbare SQL-Datenbank verwendet
+	werden k&ouml;nnen. Auf datenbankspezifische Programmierung soll bewusst verzichtet werden. Die 
+	initiale Entwicklung wird mit den Datenbanken hsqldb, postgreSQL und mysql getestet</p>
+	<p>Es wird auch bewusst auf betriebssystemspezifische Programmierung verzichtet. Ziel ist, dass das Programm
+	 mindstens unter Windows 2000 oder h&ouml;her, Mac OS X oder h&ouml;her und Linux Kernel 2.6 oder h&ouml;her ohne
+	  Anpassungen funktioniert.</p>
+	<h2>Einstieg:</h2>
+	<p>Zum Einstieg in die Programmierung sind nebst dieser Dokumentation am besten die Klassen der Package
+	 ch.elexis.views geeignet. Hier zeigt beispielsweise der Beispiels-View view.java das grundlegende
+	  Konzept und die bereits  weiterentwickelten Views zeigen fortgeshrittene Konzepte.</p>
+ 	@see <a href="http://www.eclipse.org">Eclipse</a>
+	@see <a href="http://java.sun.com/j2se/1.5.0/index.jsp">Java 5.0</a>
+	@see <a href="http://www.mysql.org">MySQL</a>
+	@see <a href="http://www.postgresql.org">PostgreSQL</a>
+</body>
+</html>

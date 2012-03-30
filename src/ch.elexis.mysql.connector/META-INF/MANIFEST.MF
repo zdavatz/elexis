@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Datenbankverbindung zu MySQL
+Bundle-SymbolicName: ch.elexis.mysql.connector
+Bundle-Version: 1.0.1
+Bundle-ClassPath: mysql-connector-java-5.1.6-bin.jar
+Bundle-Vendor: elexis.ch
+Export-Package: com.mysql.jdbc;
+  uses:="javax.naming,
+   com.mysql.jdbc.profiler,
+   com.mysql.jdbc.log,
+   new com.mysql.jdbc,
+   org.xml.sax,
+   com.mysql.jdbc.util,
+   javax.xml.transform,
+   javax.net.ssl,
+   org.xml.sax.helpers",
+ com.mysql.jdbc.exceptions,
+ com.mysql.jdbc.exceptions.jdbc4;uses:="com.mysql.jdbc",
+ com.mysql.jdbc.integration.c3p0;uses:="com.mchange.v2.c3p0",
+ com.mysql.jdbc.integration.jboss;uses:="org.jboss.resource.adapter.jdbc.vendor,org.jboss.resource.adapter.jdbc",
+ com.mysql.jdbc.interceptors;uses:="com.mysql.jdbc",
+ com.mysql.jdbc.jdbc2.optional;
+  uses:="javax.naming,
+   com.mysql.jdbc.log,
+   com.mysql.jdbc,
+   javax.naming.spi,
+   javax.sql,
+   javax.transaction.xa",
+ com.mysql.jdbc.log,
+ com.mysql.jdbc.profiler;uses:="com.mysql.jdbc",
+ com.mysql.jdbc.util;uses:="com.mysql.jdbc.log,com.mysql.jdbc",
+ org.gjt.mm.mysql;uses:="com.mysql.jdbc"

@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tarife für ambulante Arztbehandlungen in der Schweiz
+Bundle-SymbolicName: ch.elexis.arzttarife_ch;singleton:=true
+Bundle-Version: 2.0.10
+Bundle-Vendor: elexis.ch
+Bundle-Localization: plugin
+Require-Bundle: ch.elexis,
+ ch.elexis.artikel_ch,
+ org.eclipse.ui.forms,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ ch.elexis.ebanking_ch,
+ ch.rgw.utility,
+ ch.elexis.importer.div,
+ ch.elexis.labortarif.ch2009,
+ ch.elexis.core;bundle-version="0.0.2"
+Export-Package: ch.elexis.TarmedRechnung,
+ ch.elexis.arzttarife_schweiz,
+ ch.elexis.data,
+ ch.elexis.tarmedprefs,
+ ch.elexis.views
+Bundle-ClassPath: bin/,
+ .
+Import-Package: org.jdom

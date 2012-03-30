@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service:service category="feature" id="ch.medelexis.text.templator" name="Alternatives Schablonenbasiertes Textsystem" provider="weirich@elexis.ch" type="Dokumentenverwaltung" version="1.0.0" xmlns:service="http://www.medelexis.ch/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.medelexis.ch/services ../medelexis-commons/rsc/service.xsd ">
+  <service:conditions>
+  	<service:roles>
+  		<service:role priceClass="free">
+  			<service:pricePerMandator amount="75.00" />
+  		</service:role>
+  	</service:roles>
+  </service:conditions>
+  <service:docURL>http://www.rgw.ch/elexis/dox/templator/medelexis-text-templator.html</service:docURL>
+  <service:description>Textsystem für alle Betriebssysteme inkl. Mac (BETA!)</service:description>
+  <service:depends>ch.medelexis.nucleus</service:depends>
+</service:service>

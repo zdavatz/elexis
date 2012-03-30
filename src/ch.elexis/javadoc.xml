@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+	<target name="javadoc">
+		<javadoc access="public" encoding="utf-8" docencoding="utf-8" charset="utf-8"
+		         author="false"
+		         classpath="../mysql-adapter/mysql-connector-java-5.1.6-bin.jar;../hsql-adapter/hsqldb.jar;D:\dev\eclipse341\plugins\org.eclipse.equinox.common_3.4.0.v20080421-2006.jar;D:\dev\eclipse341\plugins\org.eclipse.ui.forms_3.3.101.v20080708_34x.jar;D:\dev\eclipse341\plugins\org.eclipse.core.expressions_3.4.0.v20080603-2000.jar;../elexis-utilities/bin;D:\dev\eclipse341\plugins\org.eclipse.jface_3.4.1.M20080827-2000.jar;../elexis-utilities/lib/jdom.jar;D:\dev\eclipse341\plugins\org.eclipse.equinox.app_1.1.0.v20080421-2006.jar;lib/bsh-core-2.0b4.jar;D:\dev\eclipse341\plugins\org.eclipse.core.runtime.compatibility.registry_3.2.200.v20080610\runtime_registry_compatibility.jar;D:\dev\eclipse341\plugins\org.eclipse.help_3.3.101.v20080702_34x.jar;postgresql.jar;lib/commons-logging-1.1.jar;D:\dev\eclipse341\plugins\org.apache.lucene_1.9.1.v20080530-1600.jar;D:\dev\eclipse341\plugins\org.eclipse.osgi_3.4.2.R34x_v20080826-1230.jar;D:\dev\eclipse341\plugins\org.eclipse.swt.win32.win32.x86_3.4.1.v3449c.jar;D:\dev\eclipse341\plugins\org.eclipse.swt_3.4.1.v3449c.jar;D:\dev\eclipse341\plugins\org.eclipse.core.commands_3.4.0.I20080509-2000.jar;D:\dev\eclipse341\plugins\org.eclipse.ui_3.4.1.M20080910-0800.jar;../elexis-utilities/lib/bcprov-jdk15-140.jar;D:\dev\eclipse341\plugins\org.eclipse.help.base_3.3.101.M20080728_34x.jar;D:\dev\eclipse341\plugins\org.eclipse.help.ui_3.3.101.M20080715_34x.jar;D:\dev\eclipse341\plugins\org.eclipse.core.runtime_3.4.0.v20080512.jar;D:\dev\eclipse341\plugins\org.eclipse.equinox.registry_3.4.0.v20080516-0950.jar;lib/ehcache-1.5.0.jar;D:\dev\eclipse341\plugins\org.apache.lucene.analysis_1.9.1.v20080530-1600.jar;../postgresql-adapter/postgresql.jar;D:\dev\eclipse341\plugins\org.eclipse.equinox.preferences_3.2.201.R34x_v20080709.jar;D:\dev\eclipse341\plugins\org.eclipse.core.contenttype_3.3.0.v20080604-1400.jar;D:\dev\eclipse341\plugins\org.eclipse.core.jobs_3.4.0.v20080512.jar;D:\dev\eclipse341\plugins\org.eclipse.ui.workbench_3.4.1.M20080827-0800a.jar"
+		         destdir="../dokumentation/javadoc/elexis"
+		         doctitle="Elexis"
+		         nodeprecated="false"
+		         nodeprecatedlist="false"
+		         noindex="false"
+		         nonavbar="false"
+		         notree="false"
+		         packagenames="ch.elexis.preferences.inputs,ch.elexis.exchange,ch.elexis.admin,ch.elexis.exchange.elements,ch.elexis.data.cache,ch.elexis.laborlink,ch.elexis.commands,ch.elexis.views.rechnung,ch.elexis.util,ch.elexis.scripting,ch.elexis.wizards,ch.elexis.views.artikel,ch.elexis.text,ch.elexis.data,ch.elexis.preferences,com.tiff.common.ui.datepicker,ch.elexis,ch.elexis.actions,ch.elexis.views.codesystems,ch.elexis.views,ch.elexis.dialogs"
+		         source="1.5"
+		         sourcepath="src"
+		         splitindex="true"
+		         use="true"
+		         version="true">
+			<link href="file:/D:/source/elexis_trunk/dokumentation/javadoc/elexis-utilities/" />
+		</javadoc>
+	</target>
+</project>

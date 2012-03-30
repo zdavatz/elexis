@@ -1,0 +1,231 @@
+h1. Elexis Scripts
+
+{toc}
+
+h2. Was ist das?
+
+Scripts sind die "Apps" von Elexis: Schnell gebaute, leicht installier- und löschbare Helferlein für eng umrissene Aufgaben. Scripts können auf verschiedene Arten benutzt werden:
+* Als Filter in manchen Listen, z.B. der Patientenliste. Ein solches Script durchsucht alle Elemente der Liste auf beliebige Merkmale, die es dann anzeigen, summieren oder sonstwie verarbeiten kann.
+* Als Formel um einen Befund oder Laborwert zu errechnen.
+* Als Teil eines Platzhalters in einer Textvorlage.
+* Als selbständig ablaufendes Unterprogramm in Elexis
+
+Alle Scripts werden in der View  "Script" erstellt und gesammelt und können auch von dort gestartet werden. Ein Script von einem System in ein anderes zu kopieren, ist einfach eine Sache von cut&paste. Eine Einführung in die Syntax ist "hier":http://www.elexis.ch/jp/content/view/218/45/
+
+Hier soll eine Sammlung von nützlichen Scripts entstehen, die alle zur beliebigen Benutzung freigegeben sind. Wenn Sie auch ein Script entwickelt haben, senden Sie es bitte!
+
+
+h2. Scriptparade
+
+h3. BMI
+
+* Name:   BMI
+* Zweck:  Body-Mass-Index errechnen und auf 1 Stelle runden
+* Kontext:Befunde, Labor, Direkt
+* Elexis: 1.4ff
+
+
+bc. return Math.round(($gewicht/($groesse*$groesse))*10)/10.0;
+
+h3. Durschnittsalter
+
+* Name:	Counter
+* Zweck:  Durchschnitts- und medianes Alter einer Patientenliste anzeigen.
+* Kontext:Filter Patientenliste; z.B. in Folge mit anderen Filtern
+* Elexis:	1.4ff
+
+bc. import ch.elexis.scripting.*;          //  Hilfsklassen 
+
+bc. if(init){                              // Vor dem ersten Durchlauf wird init aufgerufen 
+   counter=new Counter();             
+   maenner=0;                              // maenner und frauen als Ganzzahlen 
+   frauen=0; 
+}else if(finished){                        // nach dem letzten Durchlauf wird finished aufgerufen 
+   // Ergebnis auf 2 Stellen runden 
+   float sc=counter.getAverage(2); 
+   Util.display("Ausgewählte Patienten", 
+      Integer.toString(maenner)+" Männer, "+ 
+      Integer.toString(frauen)+" Frauen, "+ 
+      "Durchschnittsalter: "+Float.toString(sc)+ 
+      ", Median: "+counter.getMedian() 
+ 	); 
+}else{                              // Dieser Block wird für jeden Patienten aufgerufen 
+   if([Patient.Geschlecht].equalsIgnoreCase("m")){ 
+      maenner++; 
+   }else{ 
+      frauen++; 
+   } 
+   int jahre=Integer.parseInt([Patient.Alter]); 
+   counter.add(jahre); 
+} 
+return 1;                           // Wir lassen alle durch (wir zählen ja nur) 
+
+h3. Hausarztmodell anzeigen
+
+* Name:  	Hausarztmodell
+* Zweck:  Gibt einen Text zurück, wenn der aktuelle Patient im Hausarztmodell ist
+* Kontext:  Briefvorlagen
+* Elexis:  2.1ff
+
+bc. import java.util.List;
+import ch.elexis.data.*;
+List stickers=actPatient.getStickers();
+for(int i=0;i<stickers.size();i++){
+	sticker=stickers.get(i);
+	if(sticker.getLabel().equals("Hausarztmodell")){
+		return "(Patient ist im Hausarztmodell versichert; bitte vor Weiterabklärungen Rücksprache nehmen)";
+	}
+}
+return ""; // Nicht im Hausarztmodell, nichts schreiben.
+
+h3. Kopie an Hausarzt
+
+* Name: KopieAnHA
+* Zweck:  Erzeugt eine Zeile "Kopie an: ", sofern ein Hausarzt oder Zuweiser erfasst is
+* Kontext: Briefvorlagen
+* Elexis:  2.1ff
+
+bc. import ch.elexis.data.*;
+import java.util.List;
+
+bc. List bezugskontakte=actPatient.getBezugsKontakte();
+if(bezugskontakte.size()>0){
+	for(int i=0;i<bezugskontakte.size();i++){
+ 		bz=bezugskontakte.get(i);
+ 		bezug=bz.getBezug();
+ 		if(bezug.equals("Hausarzt") || bezug.equals("Zuweiser")){
+ 			ha=bz.getBezugsKontakt();
+ 			return "Kopie: "+ha.getPostAnschrift(false);
+ 		}
+ 	}
+}
+return ""; // Wenn kein Bezugskontakt gefunden wurde, Kopie-Zeile leer lassen.
+
+h3. MDRD Formel zur Abschätzung der Kreatininclearance
+
+* Name:  MDRD
+* Zweck: Aus Alter, Geschlecht und Serumkreatinin einen Schätzwert für die Kreatininclearance errechnen.
+* Kontext: Laborblatt, Direkt
+* Elexis: 1.4ff
+
+bc. // 186 x (cCr /88.4)^-1.154 x alter^0.203 (x0.742 bei Frauen) 
+factor=1.0; 
+if([Patient.Geschlecht].equals(Person.FEMALE)){ 
+	factor=0.742;
+} 
+crea=$krea/88.4; 
+term1=Math.pow(crea,-1.154); 
+term2=Math.pow(Integer.parseInt([Patient.Alter]),-0.203); 
+return Math.round(term1*term2*factor*186); 
+
+h3. Patient nach Gruppe filtern
+
+* Name: GruppeMandant1
+* Zweck: Filtert die Patientenliste nach Patienten, die der Gruppe "Mandant1" zugeordnet wurden
+* Kontext: Filter Patientenliste
+* Elexis: 1.4ff 
+
+bc. if([Patient.Gruppe].equals("Mandant1")) return 1; else return -1;
+
+h3. Patienten nach Konsultationsdatum auflisten
+
+* Name:   PatNachDatum
+* Zweck:  Listet alle Patienten, die eine Konsultation im angegebenen Zeitraum hatten
+* Kontext:Filter Patientenliste
+* Elexis: 1.4 ff
+
+bc. import ch.elexis.data.*; 
+import ch.elexis.scripting.Util; 
+
+bc. if(patient!=void){ 
+   Fall[] faelle=patient.getFaelle(); 
+   for(Fall fall:faelle){ 
+      Konsultation[] konsen=fall.getBehandlungen(false); 
+      for(Konsultation kons:konsen){ 
+         String konsDatum=kons.getDatum(); 
+         if(Util.compareDates(konsDatum, "01.06.2008")>0) { 
+            return 1; 
+         } 
+      } 
+   } 
+} 
+return -1;
+ 
+h3. Patienten in Zeitraum pro Mandant
+
+* Name: PatientenVonBis
+* Zweck: Ausgabe wieviele Konsultationen von wievielen in der anzuegbenden Zeit stattgefunden haben
+* Kontext: Direkt
+* Elexis: 1.4ff
+
+bc. import ch.elexis.data.*;
+import ch.elexis.scripting.Patientenzaehler;
+z=new Patientenzaehler();
+z.open();
+return z.getResult();
+ 
+h3. Rechnung an Patient oder an Kasse
+
+* Name: RnAnPatient
+* Zweck: Wenn der Patient es wünscht, wird die Rechnung z.B. des Labors an ihn geschickt, sonst an die Kasse. Dazu muss ein Sticker "Rechnung an Patient" erstellt und den entsprechenden Patienten zugeteilt werden. Das Script gibt entweder die Krankenkassendaten oder den Text "Rechnung an Patient" aus.
+* Kontext: Briefvorlagen, speziell Laborauftragsetiketten etc.
+* Elexis: 2.1ff
+
+bc. /* !BSH! */
+import java.util.List;
+import ch.elexis.data.*;
+List stickers=actPatient.getStickers();
+for(int i=0;i<stickers.size();i++){
+	sticker=stickers.get(i);
+	if(sticker.getLabel().equals("Rechnung an Patient")){
+		return "Bitte Rechnung an Patient";
+	}
+}
+Kontakt k=actFall.getRequiredContact("Kostenträger");
+return k.get("Bezeichnung1")+", Nr. "+actFall.getRequiredString("Versicherungsnummer");
+
+
+
+h3. Stammdatenexport
+
+* Name:  Stammdatenexport
+* Zweck: Exportiert Stammdaten in eine CSV-Datei 
+* Kontext: Direkt
+* Elexis: 1.4ff
+
+ Exportiert Daten aller Patienten, die seit "startDatum" eine Konsultation hatten, oder sämtlicher 
+ Patienten, falls startDatum null ist.
+
+bc. import ch.elexis.scripting.*;
+startDatum="01.01.2002";
+new Stammdatenexport().doExport(startDatum);
+
+h2. Erläuterung Kontexte
+
+Ein Script kann in einem oder mehreren möglichen Kontext(en) sinnvoll asugeführt werden. Das sind z.B:
+
+h3. Kontext Filter
+
+Ein Script kann eine Liste, z.B. die Patientenliste, auf diejenigen Einträge limitieren, die  vom
+Script "durchgelassen" werden. So kann man sich sehr einfach eine Liste anzeigen lassen, die bestimmten
+Kriterien entwpricht. Ausserdem können Filter hintereinandergeschaltet werden, um noch bessere Steuerung der Anzeige zu ermöglichen.
+
+Das Konzept ist "im Elexis Forum":http://www.elexis-forum.ch/viewtopic.php?t=107&highlight=script  genauer erklärt.
+
+h3. Direktausführung
+
+Ein Script kann aus der Script-View direkt gestartet werden. Einfach mit der rechten Maustaste auf
+das gewünschte Script klicken und "Ausführen" wählen.
+Falls im Script Parameter verwendet werden, werden diese Parameter beim Start erfragt.
+
+h3. Briefvorlagen
+
+Ein Script kann von einem Platzhalter einer Briefvorlage aufgerufen werden. Die Ausgabe des Scripts wird dann anstelle des Platzhalters im Brief eingesetzt. Dieses Konzept ist "im Elexis Forum":http://www.elexis-forum.ch/viewtopic.php?t=283 genauer erklärt.
+ 
+h3. Laborblatt
+
+Manche Laborwerte werden aus anderen Laborwerten errechnet. Beispiele sind das LDL-Cholesterin nach der Friedewald-Formel oder die MDRD-Formel zur Errechnung der geschätzten Kreatinin-Clearance.
+ 
+h3. Befunde / Messwerte
+
+Auch hier können manche Resultate sich aus anderen Resulaten ergeben. Beispielsweise der BMI aus Grösse und Gewicht.

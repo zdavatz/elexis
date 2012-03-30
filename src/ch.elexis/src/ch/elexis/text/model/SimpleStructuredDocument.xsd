@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/*******************************************************************************
+ * Copyright (c) 2010, G. Weirich and Elexis
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    G. Weirich - initial implementation
+ * 
+ *  $Id: EnhancedTextField.java 6247 2010-03-21 06:36:34Z rgw_ch $
+ *******************************************************************************/
+ -->
+<schema targetNamespace="http://www.elexis.ch/XSD/SimpleStructuredText"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:SSD="http://www.elexis.ch/XSD/SimpleStructuredText">
+
+    <complexType name="ContainerType">
+    	<sequence>
+    		<element name="displayHint" type="SSD:displayHintType"
+    			maxOccurs="1" minOccurs="0">
+    			<annotation>
+    				<documentation>
+    					A hint how to display this document best.
+    				</documentation>
+    			</annotation>
+    		</element>
+    		<element name="text" type="string" maxOccurs="1"
+    			minOccurs="1">
+    			<annotation>
+    				<documentation>
+    					The textual context of the document
+    				</documentation>
+    			</annotation>
+    		</element>
+
+    		<element name="range" type="SSD:rangeType" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    	<attribute name="created" type="dateTime">
+    		<annotation>
+    			<documentation>Time and date of creation of this document
+</documentation>
+    		</annotation></attribute>
+    	<attribute name="lastEdit" type="dateTime">
+    		<annotation>
+    			<documentation>Time an date of last editing of this document</documentation>
+    		</annotation></attribute>
+    	<attribute name="createdBy" type="string">
+    		<annotation>
+    			<documentation>Name of the person that created  of this document</documentation>
+    		</annotation></attribute>
+    	<attribute name="editedBy" type="string">
+    		<annotation>
+    			<documentation>Name of the person that edited this document last</documentation>
+    		</annotation></attribute>
+    	<attribute name="version" type="SSD:versionType">
+            <annotation>
+            	<documentation>Version of the SimpleStructuredDocument to use</documentation>
+            </annotation>
+    	</attribute>
+    	<attribute name="generator" type="string">
+    		<annotation>
+    			<documentation>Program that generated this document</documentation>
+    		</annotation></attribute>
+    	<attribute name="generatorVersion" type="SSD:versionType">
+    		<annotation>
+    			<documentation>Version of the generating program</documentation>
+    		</annotation></attribute>
+    </complexType>
+
+
+    <complexType name="rangeType">
+        <attribute name="ID" type="ID"></attribute>
+        <attribute name="typename" type="string">
+        	<annotation>
+        		<documentation>name of this kind of range so the provider can identify it</documentation>
+        	</annotation></attribute>
+    	<attribute name="provider" type="string">
+    		<annotation>
+    			<documentation>provider that is able to handle such ranges</documentation>
+    		</annotation></attribute>
+    	<attribute name="startOffset" type="int" use="required">
+    		<annotation>
+    			<documentation>
+    				Start position as characters from the beginning of
+    				the document.
+    			</documentation>
+    		</annotation>
+    	</attribute>
+    	<attribute name="length" type="int" use="required">
+    		<annotation>
+    			<documentation>Length of this range in characters
+</documentation>
+    		</annotation></attribute>
+    	<attribute name="locked" type="boolean" use="optional">
+    		<annotation>
+    			<documentation>true if contents can not be changed</documentation>
+    		</annotation></attribute>
+    	<attribute name="viewport" type="string" use="optional">
+    		<annotation>
+    			<documentation>
+    				A comma separated list of left,top,width,height
+    				where dhis range should be displayed.
+    			</documentation>
+    		</annotation>
+    	</attribute>
+    </complexType>
+
+
+    <element name="container" type="SSD:ContainerType"></element>
+
+
+
+
+
+    <simpleType name="versionType">
+    	<restriction base="string">
+    		<pattern value="\d+\.\d+\.\d+(\.\w+)?"></pattern>
+    	</restriction>
+    </simpleType>
+
+    <complexType name="displayHintType">
+    	<attribute name="paperformat">
+    		<simpleType>
+    			<restriction base="string">
+    				<enumeration value="A4"></enumeration>
+    				<enumeration value="A5"></enumeration>
+    				<enumeration value="A6"></enumeration>
+    				<enumeration value="Letter"></enumeration>
+    				<enumeration value="floating"></enumeration>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    	<attribute name="units">
+    		<simpleType>
+    			<restriction base="string">
+    				<enumeration value="px"></enumeration>
+    				<enumeration value="pt"></enumeration>
+    				<enumeration value="mm"></enumeration>
+    				<enumeration value="in"></enumeration>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    </complexType>
+</schema>

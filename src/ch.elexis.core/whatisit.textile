@@ -1,0 +1,19 @@
+h1. ch.elexis.core
+
+
+*NOTE while in transition from earlier versions, business logic and representation, this document lists design goals rather than effectively active patterns. Not all code will match this paper, but new code should do so.*
+
+This plugin contains only system independent code (No dependencies to eclipse or to any UI system.
+It defines basic functionality for elexis and other storage-dependent applications
+
+
+h2. ch.elexis.core.data
+
+Basic functionality for a data storage. The goal is not to make any assumptions on the type of storage here. It should be possible to use relational database engines as well as NoSQL storage systems or Webservices transparently.
+
+To achieve this, any persistable object must implement IPersistentObject ore descendands of IPersistentObject. Business logic should only use the interfaces, not the implementations of the persistence classes.
+
+
+
+
+
