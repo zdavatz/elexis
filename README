@@ -13,6 +13,15 @@ Dieses Repository beinhaltet die Daten von ch.oddb.org und die OpenSource Praxis
 
 Siehe auch: http://www.ywesee.com/Ywesee/IGM11
 
+## Installation
+
+Zur Intallation von 
+
+ elexis-windows-2.1.6.dev-qualifier.20120329-install.jar
+
+achten Sie bitte darauf, dass Java installiert ist auf Ihrem PC. Danach können Sie auf die obige Datei doppelklicken.
+Während der Installation ist es empfohlen, dass Sie die Demo-Datebank installieren, damit Sie Med-Elexis ohne Verbindlichkeiten einfach testen können.
+
 ## Kommerziellen Support zu Med-Elexis finden Sie hier
 
 * http://www.medelexis.ch/
@@ -26,4 +35,4 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
 
 ## Windows-Installer
 
-* Der Windows-Installer wurde vom Ruby-Liebhaber Niklaus Giger erstellt.
+* Der Windows-Build wurde vom Ruby-Liebhaber Niklaus Giger erstellt.
