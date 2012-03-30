@@ -1,5 +1,21 @@
-Das Ziel von diesem Projekt ist die Kostensenkung im Schweizer Gesundheitswesen zusammen mit den Daten von ch.oddb.org und OpenSource Praxis-Software wie med-elexis.
+Das Ziel von diesem Projekt ist die Kostensenkung im Schweizer Gesundheitswesen.
 
-* oddb.dat enthält alle MiGel Produkte und Medikamente mit Preis. Das oddb.dat File ist im IGM-11 Format.
+Dieses Repository beinhaltet die Daten von ch.oddb.org und die OpenSource Praxis-Software med-elexis.
+
+* oddb.dat enthält alle MiGel Produkte und Medikamente mit Preis. 
+  Das oddb.dat File ist im IGM-11 Format.
+
 * oddb.csv enthält alle ATC-Codes, Preise, Medi-Namen, etc
+  oddb.csv.txt enthält den Datenbeschrieb zum oddb.csv File
+
 * oddb.yaml enthält alle ATC-Codes, Preise, Medi-Namen, Wirkstoffe
+  oddb.yaml.txt enthält den Datenbeschrieb zum oddb.yaml file.
+
+## Kommerziellen Support zu Med-Elexis finden Sie hier
+
+* http://www.medelexis.ch/
+* http://www.medshare.net/
+
+## Hintergrund
+
+* Med-Elexis basiert auf der Initiative von zwei Schweizer Ärzten Gerry Weirich und Peter Schönbucher und vielen weiteren wichtigen Personen.
