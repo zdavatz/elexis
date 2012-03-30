@@ -36,3 +36,7 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
 ## Windows-Installer
 
 * Der Windows-Build wurde vom Ruby-Liebhaber Niklaus Giger erstellt.
+
+## Boot-Strap-Install
+
+* Siehe ngiger_build File
