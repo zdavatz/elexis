@@ -56,4 +56,5 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
     /usr/sbin
     /sbin
     /usr/local/bin
-  ~                   
+
+* localhost:5432 ist Pflicht für Postgres. 5432 genügt nicht.
