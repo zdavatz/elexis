@@ -58,3 +58,8 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
     /usr/local/bin
 
 * localhost:5432 ist Pflicht für Postgres. 5432 genügt nicht.
+
+* ODBC Tarmed Datenbank Import auf Windows funktioniert einwandfrei. ICD-10 Import von Dimdi.de ebenso.
+  http://www.dimdi.de/dynamic/de/klassi/downloadcenter/icd-10-who/version2006/systematik/ 
+
+
