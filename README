@@ -40,3 +40,20 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
 ## Boot-Strap-Install
 
 * Siehe ngiger_build File
+
+## Random
+
+* Datenbankverbindung für Postgres auf OS X testen
+  psql --username elexis --password --host=localhost --port=5432 elexis
+
+* Postgres ist ab OS X Lion per default installiert, wenn man Postgres also nochmals installiert muss man darauf achten, dass der Pfad von Postgres in /etc/paths zuerst kommt.
+  
+  vim /etc/paths
+
+    /Library/PostgreSQL/8.4/bin
+    /usr/bin
+    /bin
+    /usr/sbin
+    /sbin
+    /usr/local/bin
+  ~                   
