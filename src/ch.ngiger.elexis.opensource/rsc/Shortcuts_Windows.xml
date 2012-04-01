@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<shortcuts>
+	<skipIfNotSupported />
+	<programGroup defaultName="Elexis ${appversion}"
+		location="applications" />
+	<shortcut name="Elexis" target="$INSTALL_PATH\elexis.exe"
+		commandLine="-data &quot;%USERPROFILE%\elexis&quot;" workingDirectory="$INSTALL_PATH"
+		description="Elexis starten" iconFile="$INSTALL_PATH\elexis.exe"
+		iconIndex="0" initialState="normal" programGroup="yes" desktop="yes"
+		applications="yes" startMenu="no" startup="no">
+	</shortcut>
+</shortcuts>

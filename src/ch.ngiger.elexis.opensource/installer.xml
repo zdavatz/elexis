@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- Copyright (c) 2010, Medelexis AG, Baden -->
+<!-- Copyright 2012 by Niklaus Giger <niklaus.giger@member.fsf.org -->
+<!-- -->
+<!-- Contributors: * G. Weirich - initial implementation -->
+<!-- * Niklaus Giger - 2012. Mayor rework for demoDB, multiple languages, 
+	workspace, JPA -->
+<!-- All rights reserved. This program and the accompanying materials -->
+<!-- are made available under the terms of the Eclipse Public License v1.0 -->
+<!-- which accompanies this distribution, and is available at -->
+<!-- http://www.eclipse.org/legal/epl-v10.html -->
+
+<!-- This creates the izPack installer package -->
+<installation version="1.0">
+	<info>
+		<appname>Elexis</appname>
+		<appversion>@{version}</appversion>
+		<authors>
+			<author name="www.elexis.ch" email="info@elexis.ch" />
+		</authors>
+		<url>http://www.elexis.ch</url>
+	</info>
+
+	<guiprefs width="700" height="520" resizable="yes" />
+
+	<locale>
+		<langpack iso3="deu" />
+		<langpack iso3="eng" />
+		<langpack iso3="fra" />
+	</locale>
+	<variables>
+		<variable name="appversion" value="@{version}" />
+	</variables>
+	<native type="izpack" name="ShellLink.dll" />
+
+	<resources>
+		<res id="BSFActionsSpec.xml" src="rsc/BSFActionsSpec.xml" />
+		<res id="copyConfiguration.bsh" src="rsc/copyConfiguration.bsh" />
+		<res id="unzipDemoDB.bsh" src="rsc/unzipDemoDB.bsh" />
+		<res id="TargetPanel.dir" src="rsc/TargetPanel.txt" />
+		<res id="packsLang.xml_eng" src="rsc/i18n/packsLang.xml_eng" />
+		<res id="packsLang.xml_fra" src="rsc/i18n/packsLang.xml_fra" />
+		<res id="HTMLLicencePanel.licence" src="rsc/license.html" parse="yes" />
+		<res id="HTMLInfoPanel.info" src="rsc/info.html" parse="yes" />
+		<res id="HTMLInfoPanel.info_fra" src="rsc/info_fra.html" parse="yes" />
+		<res id="HTMLInfoPanel.info_eng" src="rsc/info_eng.html" parse="yes" />
+		<res id="medelexis-logo.png" src="rsc/elexis-logo.png" />
+		<res id="Win_shortcutSpec.xml" src="rsc/Shortcuts_Windows.xml" />
+		<res id="Unix_shortcutSpec.xml" src="rsc/Shortcuts_Linux.xml" />
+	</resources>
+
+	<panels>
+		<panel classname="HTMLInfoPanel" />
+		<panel classname="HTMLLicencePanel" />
+		<panel classname="TargetPanel" />
+		<panel classname="PacksPanel" />
+		<panel classname="InstallPanel" />
+		<panel classname="ShortcutPanel" />
+		<panel classname="FinishPanel" />
+	</panels>
+
+	<packs>
+		<pack name="Elexis-Kern" required="yes">
+			<description>Elexis-Hauptprogramm</description>
+			<fileset dir="./plugins2" targetdir="$INSTALL_PATH/plugins">
+				<include name="**/*" />
+			</fileset>
+
+			<fileset dir="@{osPath}/linux.x86" targetdir="$INSTALL_PATH">
+				<os name="Linux" arch="x86"/>
+				<include name="*.so" />
+			</fileset>
+			
+			<fileset dir="@{osPath}/linux.x86" targetdir="$INSTALL_PATH">
+				<include name="**/*.so" />
+			</fileset>
+			
+			<executable targetfile="$INSTALL_PATH/elexis" stage="never">
+				<os name="linux" arch="x86_64"/>
+			</executable>
+
+			<singlefile src="@{osPath}/linux.x86_64/launcher/linux.x86_64/x86_64/launcher" target="$INSTALL_PATH/elexis">
+				<os name="linux" arch="x86_64"/>
+			</singlefile>
+
+			  <fileset dir="@{osPath}/win32.x86" targetdir="$INSTALL_PATH">
+				<os family="windows" arch="x86"/>
+				<include name="**/*" />
+			</fileset>
+
+			  <fileset dir="@{osPath}/macosx.x86_64" targetdir="$INSTALL_PATH">
+				<os family="mac" arch="x86_64"/>
+				<include name="**/*" />
+			</fileset>
+
+			<fileset dir="@{osgi}" targetdir="$INSTALL_PATH">
+				<include name="plugins/com.ibm.icu_*" />
+				<include name="plugins/javax.activation_*" />
+				<include name="plugins/javax.mail_*" />
+				<include name="plugins/javax.persistence_*" />
+				<include name="plugins/javax.transaction_*" />
+				<include name="plugins/javax.xml_*" />
+				<include name="plugins/javax.xml.stream_*" />
+				<include name="plugins/org.apache.ant_*" />
+				<include name="plugins/org.apache.commons.lang_*" />
+				<include name="plugins/org.apache.commons.logging_*" />
+				<include name="plugins/org.eclipse.ant.core_*" />
+				<include name="plugins/org.eclipse.core.commands_*" />
+				<include name="plugins/org.eclipse.core.contenttype_*" />
+				<include name="plugins/org.eclipse.core.databinding_*" />
+				<include name="plugins/org.eclipse.core.databinding.beans_*" />
+				<include name="plugins/org.eclipse.core.databinding.observable_*" />
+				<include name="plugins/org.eclipse.core.databinding.property_*" />
+				<include name="plugins/org.eclipse.core.expressions_*" />
+				<include name="plugins/org.eclipse.core.filesystem_*" />
+				<include name="plugins/org.eclipse.core.filesystem.linux.x86_*" />
+				<include name="plugins/org.eclipse.core.jobs_*" />
+				<include name="plugins/org.eclipse.core.resources_*" />
+				<include name="plugins/org.eclipse.core.runtime_*" />
+				<include name="plugins/org.eclipse.core.runtime.compatibility.auth_*" />
+				<include name="plugins/org.eclipse.core.runtime.compatibility.registry_*" />
+				<include name="plugins/org.eclipse.core.variables_*" />
+				<include name="plugins/org.eclipse.equinox.app_*" />
+				<include name="plugins/org.eclipse.equinox.common_*" />
+				<include name="plugins/org.eclipse.equinox.launcher_*" />
+				<include name="plugins/org.eclipse.equinox.launcher.gtk.linux.x86_*" />
+				<include name="plugins/org.eclipse.equinox.p2.core_*" />
+				<include name="plugins/org.eclipse.equinox.p2.engine_*" />
+				<include name="plugins/org.eclipse.equinox.p2.metadata_*" />
+				<include name="plugins/org.eclipse.equinox.p2.metadata.repository_*" />
+				<include name="plugins/org.eclipse.equinox.p2.repository_*" />
+				<include name="plugins/org.eclipse.equinox.preferences_*" />
+				<include name="plugins/org.eclipse.equinox.registry_*" />
+				<include name="plugins/org.eclipse.equinox.security_*" />
+				<include name="plugins/org.eclipse.help_*" />
+				<include name="plugins/org.eclipse.jface_*" />
+				<include name="plugins/org.eclipse.jface.databinding_*" />
+				<include name="plugins/org.eclipse.jface.text_*" />
+				<include name="plugins/org.eclipse.osgi_*" />
+				<include name="plugins/org.eclipse.osgi.services_*" />
+				<include name="plugins/org.eclipse.swt_*" />
+				<include name="plugins/org.eclipse.swt.gtk.linux.x86_*" />
+				<include name="plugins/org.eclipse.team.core_*" />
+				<include name="plugins/org.eclipse.text_*" />
+				<include name="plugins/org.eclipse.ui_*" />
+				<include name="plugins/org.eclipse.ui.forms_*" />
+				<include name="plugins/org.eclipse.ui.ide_*" />
+				<include name="plugins/org.eclipse.ui.views_*" />
+				<include name="plugins/org.eclipse.ui.views.properties.tabbed_*" />
+				<include name="plugins/org.eclipse.ui.workbench_*" />
+				<include name="plugins/org.eclipse.update.configurator_*" />
+				<include name="plugins/org.hamcrest.core_*" />
+				<include name="plugins/org.junit_*" />
+			</fileset>
+
+			<fileset dir="rsc" targetdir="$INSTALL_PATH">
+				<include name="configuration/**" />
+				<include name="*.html" />
+				<include name="*.rtf" />
+				<include name="*.ico" />
+				<include name="*.png" />
+				<include name="*.xpm" />
+			</fileset>
+
+			<fileset dir="." targetdir="$INSTALL_PATH">
+				<include name="plugins/ch.elexis.core_*.jar" />
+				<include name="plugins/ch.elexis.eigenartikel_*.jar" />
+				<include name="plugins/ch.elexis.h2.connector_*.jar" />
+				<include name="plugins/ch.elexis.importer.div_*.jar" />
+				<include name="plugins/ch.elexis_*.jar" />
+				<include name="plugins/ch.elexis.mysql.connector_*.jar" />
+				<include name="plugins/ch.elexis.postgresql.connector_*.jar" />
+				<include name="plugins/ch.elexis.scripting.beanshell_*.jar" />
+				<include name="plugins/ch.rgw.utility_*.jar" />
+				<executable os="linux" targetfile="$INSTALL_PATH/elexis"
+					keep="true" />
+			</fileset>
+		</pack>
+		<pack name="Schweiz (deutsch)" required="no">
+			<description>Abrechnungs- und Diagnosesysteme Schweiz</description>
+			<fileset dir="." targetdir="$INSTALL_PATH">
+				<include name="plugins/ch.elexis.arzttarife_ch_*.jar" />
+				<include name="plugins/ch.elexis.ebanking_ch_*.jar" />
+				<include name="plugins/ch.elexis.diagnosecodes_ch_*.jar" />
+				<include name="plugins/ch.elexis.labortarif.ch2009_*.jar" />
+				<include name="plugins/ch.elexis.artikel_ch_*.jar" />
+			</fileset>
+		</pack>
+		<pack name="OpenOffice-2.0-Anbindung" required="no">
+			<description>Anbindung von OpenOffice.org 2.0 (nur Windows und
+				KDE/XFCE)
+			</description>
+			<fileset dir="." targetdir="$INSTALL_PATH">
+				<include name="plugins/ch.elexis.noatext_*.jar" />
+			</fileset>
+		</pack>
+		<pack name="Medelexis Text-Templator" required="no">
+			<description>Flexible Ausgabe für LibreOffice und andere
+				Textprogramme
+			</description>
+			<fileset dir="." targetdir="$INSTALL_PATH">
+				<include name="plugins/ch.medelexis.text.templator_*.jar" />
+			</fileset>
+		</pack>
+		<pack name="DemoDB" id="DemoDB" required="no" preselected="no">
+			<description>DemoDB. Nützlich, um Elexis kennen zu lernen.
+			</description>
+			<singlefile src="rsc/demoDB_elexis_2.1.5.4.zip" target="$INSTALL_PATH/demoDB.zip" />
+		</pack>
+	</packs>
+
+	<jar src="rsc/deps/apache/commons-logging/1.1.1/commons-logging-1.1.1.jar"
+		stage="both" />
+	<jar src="rsc/deps/bsh/bsh/2.0b4/bsh-2.0b4.jar" stage="both" />
+	<jar src="rsc/deps/apache/bsf/2.4.0/bsf-2.4.0.jar" stage="both" />
+	<jar src="rsc/deps/apache/commons-io/1.4/commons-io-1.4.jar" stage="both" />
+
+	<listeners>
+		<listener installer="BSFInstallerListener" uninstaller="BSFUninstallerListener" />
+	</listeners>
+
+	<summarylogfilepath>
+		$INSTALL_PATH/Uninstaller/MySummary.htm
+	</summarylogfilepath>
+
+</installation>

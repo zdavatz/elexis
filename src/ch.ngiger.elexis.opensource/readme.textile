@@ -1,0 +1,14 @@
+h1. Purpose
+
+This project contains a few helpers for releasing/running the Elexis Opensource variant for Switzerland.
+
+* desktop.dev.target A target platform definition (includes EclipseLink, Mylyn WikText) which contains all needed elements to build an Elexis release. A headlesss build is realised in the "Elexis Bootstrap":https://bitbucket.org/ngiger/elexis-bootstrap project. The output of the continuos integration builds can be checked at our "Jenkins CI":http://ngiger.dyndns.org/jenkins/
+
+* ch.elexis.branding.product.launch A configuration to launch Elexis. 
+
+* branding.product An Eclipse product definition. Can be used to create an Elexis installation with all needed executables, configuration, etc. To use it. Select Export.. Plug-in Development.. Eclipse product.
+
+h2. Problems and solutions
+
+* Problem: The splash screen with the selection of the dabase source is not shown.
+** Solution: You may not activate the setting "Synchronize before exporting". As this would silently remove the hidden extension point @splashHandlerProductBinding@ in the file @ch.ngiger.elexis.branding/plugin.xml@.

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="Branding2" uid="Branding2" id="ch.ngiger.elexis.branding.Branding2" application="ch.elexis.ElexisApp" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
+
+   <aboutInfo>
+      <text>
+         %branding.about
+      </text>
+   </aboutInfo>
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-consoleLog -debug -console</programArgs>
+      <vmArgs>-Xms40m -Xmx512m -XX:MaxPermSize=256m</vmArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+   </launcherArgs>
+
+   <windowImages i16="/ch.elexis/rsc/elexis2_16.gif" i32="/ch.elexis/rsc/elexis32_2.gif" i48="/ch.elexis/rsc/elexis48.gif"/>
+
+   <splash
+      location="ch.ngiger.elexis.branding"
+      startupProgressRect="5,275,445,15" />
+   <launcher name="elexis">
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+      <plugin id="ch.elexis"/>
+      <plugin id="ch.elexis.artikel_ch"/>
+      <plugin id="ch.elexis.arzttarife_ch"/>
+      <plugin id="ch.elexis.core"/>
+      <plugin id="ch.elexis.diagnosecodes_ch"/>
+      <plugin id="ch.elexis.ebanking_ch"/>
+      <plugin id="ch.elexis.eigenartikel"/>
+      <plugin id="ch.elexis.h2.connector"/>
+      <plugin id="ch.elexis.importer.div"/>
+      <plugin id="ch.elexis.labortarif.ch2009"/>
+      <plugin id="ch.elexis.mysql.connector"/>
+      <plugin id="ch.elexis.noatext"/>
+      <plugin id="ch.elexis.postgresql.connector"/>
+      <plugin id="ch.elexis.scripting.beanshell"/>
+      <plugin id="ch.medelexis.text.templator"/>
+      <plugin id="ch.ngiger.elexis.branding"/>
+      <plugin id="ch.rgw.utility"/>
+      <plugin id="com.ibm.icu"/>
+      <plugin id="org.apache.commons.lang"/>
+      <plugin id="org.apache.commons.logging"/>
+      <plugin id="org.eclipse.core.commands"/>
+      <plugin id="org.eclipse.core.contenttype"/>
+      <plugin id="org.eclipse.core.databinding"/>
+      <plugin id="org.eclipse.core.databinding.observable"/>
+      <plugin id="org.eclipse.core.databinding.property"/>
+      <plugin id="org.eclipse.core.expressions"/>
+      <plugin id="org.eclipse.core.jobs"/>
+      <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
+      <plugin id="org.eclipse.equinox.app"/>
+      <plugin id="org.eclipse.equinox.common"/>
+      <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.help"/>
+      <plugin id="org.eclipse.jface"/>
+      <plugin id="org.eclipse.jface.databinding"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.persistence.jpa.equinox.weaving" fragment="true"/>
+      <plugin id="org.eclipse.swt"/>
+      <plugin id="org.eclipse.swt.carbon.macosx" fragment="true"/>
+      <plugin id="org.eclipse.swt.cocoa.macosx" fragment="true"/>
+      <plugin id="org.eclipse.swt.cocoa.macosx.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.swt.gtk.aix.ppc" fragment="true"/>
+      <plugin id="org.eclipse.swt.gtk.aix.ppc64" fragment="true"/>
+      <plugin id="org.eclipse.swt.gtk.hpux.ia64_32" fragment="true"/>
+      <plugin id="org.eclipse.swt.gtk.linux.ppc64" fragment="true"/>
+      <plugin id="org.eclipse.swt.gtk.linux.s390" fragment="true"/>
+      <plugin id="org.eclipse.swt.gtk.linux.s390x" fragment="true"/>
+      <plugin id="org.eclipse.swt.gtk.linux.x86" fragment="true"/>
+      <plugin id="org.eclipse.swt.gtk.linux.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.swt.gtk.solaris.sparc" fragment="true"/>
+      <plugin id="org.eclipse.swt.gtk.solaris.x86" fragment="true"/>
+      <plugin id="org.eclipse.swt.win32.win32.x86" fragment="true"/>
+      <plugin id="org.eclipse.swt.win32.win32.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.ui"/>
+      <plugin id="org.eclipse.ui.carbon" fragment="true"/>
+      <plugin id="org.eclipse.ui.cocoa" fragment="true"/>
+      <plugin id="org.eclipse.ui.forms"/>
+      <plugin id="org.eclipse.ui.workbench"/>
+   </plugins>
+
+
+</product>

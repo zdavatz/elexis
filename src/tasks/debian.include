@@ -1,0 +1,155 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+# Copyright 2012 by Niklaus Giger <niklaus.giger@member.fsf.org
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v1.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v10.html
+#
+# Here we define howto create the debian packages for elexis
+#
+#-----------------------------------------------------------------------------
+require 'buildrdeb'
+
+module Debian
+def Debian::postInst
+  %)
+#!/bin/sh
+set -e
+# Automatically added by dh_makeshlibs
+if [ "$1" = "configure" ]; then
+  echo configuring $1 elexis
+  cp -p /usr/lib/eclipse/eclipse /usr/lib/elexis/elexis
+  ln -s /usr/lib/elexis/elexis /usr/bin/elexis
+  exit 0
+fi
+exit 0
+)
+end
+
+def Debian::control
+  %(Source: elexis
+Section: java
+Priority: extra
+Maintainer: Niklaus Giger <niklaus.giger@member.fsf.org>
+Build-Depends: sun-java6-jdk || openjdk-6-jdk, eclipse-platform
+Depends: sun-java6-jdk | openjdk-6-jdk, eclipse-platform
+Standards-Version: 3.9.1
+Package: elexis
+Architecture: all
+Version: 2.1.7
+Homepage: http://www.elexis.ch
+Description: Elexis
+ An Eclipse RCP program for all aspects of a medical practice: electronic medical record (EMR), laboratory findings etc., as well as accounting, billing (swiss TARMED-System, other systems to be developped) and other daily work
+)
+end
+
+def Debian::control_docs 
+  %(Source: elexis-docs
+Section: java
+Priority: extra
+Maintainer: Niklaus Giger <niklaus.giger@member.fsf.org>
+Build-Depends: sun-java6-jdk | openjdk-6-jdk, eclipse-platform
+Standards-Version: 3.9.1
+Package: elexis-docs
+Architecture: all
+Depends: pdf-viewer
+Version: 2.1.7
+Homepage: http://www.elexis.ch
+Description: Elexis documentation
+ An Eclipse RCP program for all aspects of a medical practice: electronic medical record (EMR), laboratory findings etc., as well as accounting, billing (swiss TARMED-System, other systems to be developped) and other daily work
+ This package provides only the documentation
+)
+end
+
+
+def Debian::config_ini
+  %(#Product Runtime Configuration File
+#created by #{__FILE__}
+eclipse.application=ch.elexis.ElexisApp
+osgi.bundles.defaultStartLevel=4
+eclipse.product=ch.elexis.ElexisProduct
+osgi.splashPath=platform:/base/plugins/ch.elexis
+osgi.bundles=org.eclipse.equinox.common@2:start,org.eclipse.update.configurator@3:start,org.eclipse.core.runtime@start
+)
+  end
+end
+
+  define 'debian-elexis-docs' do
+    controlName = _('debian/control')
+    Buildr::write(controlName, Debian::control_docs)
+    task package(:deb) => project.group + ':elexisDoc' if project.group
+    # task package(:deb) => project('dokumentation')
+    package(:deb).enhance do |debDocs|
+      docDest = '/usr/share/doc/elexis-docs'
+      debDocs.control = controlName
+      debDocs.include('target/doc/*', :as => docDest)
+    end
+  end
+  
+  define 'debian-elexis' do
+    Buildr::write(_("target/debian/control"), Debian::control)
+    Buildr::write(_("target/debian/postinst"), Debian::postInst)
+    projectsToPack.each { |pack| dependencies << project(pack) }
+    package(:deb).enhance do |deb|
+      controlName = _("target/debian/control")
+      Buildr::write(controlName, Debian::control)
+      deb.control = controlName
+      postName = _("target/debian/postinst")
+      Buildr::write(postName, Debian::postInst)
+      deb.postinst = postName
+      configName = _('target/config.ini')
+      Buildr::write(configName, Debian::config_ini)
+      jarDest = '/usr/lib/elexis'
+      docDest = '/usr/share/doc/elexis'
+      deb.include(configName, :path => jarDest+"/configuration")
+      rsc = File.join(project('ch.elexis')._, '..','BuildElexis','rsc')
+      deb.include(File.join(rsc, '{lizenz,LICENSE}*.*'), :path => docDest)      
+      projectsToPack.each do |fullName|
+	  p = project(fullName)
+	  pName = p.name.split(':')[1]
+	  puts "Adding projectsToPack #{pName} group #{project.group}" if $VERBOSE
+	  artifacts(p).each do 
+	  |x|
+	    begin
+	      next if /#{project.group}-/.match(x.id)
+	      puts "Debian: Adding #{x.type} #{x} exists? #{File.exists?(x)}"
+	      next if !File.exists?(x)
+	      if x.type == :jar
+		  next if x.id.include?(project.group) or x.id.include?('-sources.jar')
+		  deb.include x, :path => "#{jarDest}/plugins" 
+		  # project.dependencies << x
+	      elsif x.type == :zip
+		  deb.include x,  :path =>  "#{jarDest}/features" 
+		  # project.dependencies << x
+		  # compile with project.dependencies
+		next
+	      end
+	      rescue Exception=>e
+	    end
+	  end
+      end
+    end
+  end
+  if false # not yet working!
+    FileUtils.makedirs('debian-elexis-demoDB')
+    define 'debian-elexis-demoDB' do
+      # download demoDB
+	debDocs.control = _("target/debian/control_demoDB")
+#	debDocs.include(project('dokumentation'), :path => docDest) 
+    end
+    FileUtils.makedirs('debian-elexis-postgresql')
+    define 'debian-elexis-postgresql' do
+	debDocs.control = _("target/debian/control")
+	# Needs script to install postgresql database
+    end
+  end
+
+desc 'create Debian packages for Elexis, docs'
+task 'debian'
+['debian-elexis', # 'debian-elexis-docs'
+ ].each { |x| task 'debian' => project(x).package(:deb) }
+projectsToPack.each { |x| task 'debian' => project(x).package(:jar) }
+  
+ 

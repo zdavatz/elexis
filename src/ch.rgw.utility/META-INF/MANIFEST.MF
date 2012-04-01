@@ -157,5 +157,6 @@ Export-Package: .,
  org.slf4j.impl;uses:="org.slf4j.spi,org.slf4j.helpers,org.slf4j"
 Require-Bundle: ch.elexis.postgresql.connector;bundle-version="1.0.0";resolution:=optional,
  ch.elexis.mysql.connector;resolution:=optional,
- ch.elexis.h2.connector;bundle-version="1.2.0";resolution:=optional
+ ch.elexis.h2.connector;bundle-version="1.2.0";resolution:=optional,
+ com.ibm.icu;bundle-version="4.4.2"
 

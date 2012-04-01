@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="Branding2"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="ch.elexis.ElexisApp"
+            name="ch.ngiger.elexis.branding.Branding2">
+         <property
+               name="windowImages"
+               value="platform:/plugin/ch.elexis/rsc/elexis2_16.gif,platform:/plugin/ch.elexis/rsc/elexis32_2.gif,platform:/plugin/ch.elexis/rsc/elexis48.gif">
+         </property>
+         <property
+               name="aboutText"
+               value="%branding.about">
+         </property>
+         <property
+               name="startupProgressRect"
+               value="5,275,445,15">
+         </property>
+         <property
+               name="appName"
+               value="Branding2">
+         </property>
+         <property
+               name="preferenceCustomization"
+               value="plugin_customization.ini">
+         </property>
+      </product>
+   </extension>
+
+</plugin>

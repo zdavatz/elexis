@@ -1,0 +1,12 @@
+p=. !medelexis-logo.png!
+ 
+h1. Bienvenu chez Elexis
+
+Ce programme va installer la version 2.1 d'Elexis dans votre ordinateur.
+
+p. Attention! La première installation et configuration d'Elexis pour la gestion d'un cabinet médical n'est pas du tout trivial. Si vous commettez un erreur, vous risquer de perdre beaucoup de temps plus tard. S'il s'agit simplement d'installer un client supplémentaire pour une base de données Elexis existante, continuer tranquillement. Il n'y a pas de risque. S'il s'agit de la première installation, nous vous suggérons *expressément* de le faire par un supporter d'Elexis certifié. 
+ 
+p. Ce programme d'installation n'utilise déliberement pas les droits d'administrateur. Il vous permet uniquemen l'installations dans un classeur où vous posséder les droits d'écriture.
+
+p. En option, le programme va vous permettre d'installer une base de données d'example. Ceci vous permettra de travailler avec des cas existants et de faire mieux connaissance avec les multiples possibilités qu'offre Elexis. Le nom d'utilisateur pour accéder est "test" et le nom de passe "test".
+ 

@@ -1,0 +1,387 @@
+#!/usr/bin/ruby 
+# encoding: utf-8
+# Copyright 2012 by Niklaus Giger <niklaus.giger@member.fsf.org
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v1.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v10.html
+#
+# Delta pack from http://mirror.switch.ch/eclipse/eclipse/downloads/drops/R-3.7.2-201202080800/eclipse-3.7.2-delta-pack.zip
+# See also http://aniefer.blogspot.com/2009/06/using-deltapack-in-eclipse-35.html
+# The director is only able to install for one platform so it can't really handle the delta pack. You should instead look at using a combination of the p2.mirror and p2.repo2runnable ant tasks which don't care about the platform. 
+# ./eclipse -nosplash -consolelog -application org.eclipse.equinox.p2.repository.repo2runnable \
+#   -source jar:file:/home/nboldt/eclipse/35clean/GEF-Update-3.5.0RC2.zip\!/ \
+#   -source GEF-Update-N200905281802/
+#   -source emf-sdo-xsd-Update-2.4.2.zip
+#   -source http://download.eclipse.org/tools/ve/updates/1.4
+#   -destination /tmp/unpacked
+
+# we should parse Eclipse-PlatformFilter: (& (osgi.ws=win32) (osgi.os=win32) (osgi.arch= x86_64))
+Java.load # needed to load class path for apache logger
+LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
+
+  # here we define the project which generates IzPack installers for all supported operations systems
+  # using only plug-ins under a free (as in freedom) license
+    jars = []
+    baseProjects = [
+      'ch.elexis.core',
+      'ch.elexis.eigenartikel',
+      'ch.elexis.h2.connector',
+      'ch.elexis.importer.div',
+      'ch.elexis',
+      'ch.elexis.mysql.connector',
+      'ch.elexis.postgresql.connector',
+      'ch.elexis.scripting.beanshell',
+      'ch.ngiger.elexis.branding',
+      'ch.rgw.utility',
+      ]
+    chProjects = [
+      'ch.elexis.arzttarife_ch',
+      'ch.elexis.ebanking_ch',
+      'ch.elexis.diagnosecodes_ch',
+      'ch.elexis.labortarif.ch2009',
+      'ch.elexis.artikel_ch',
+    ]
+    oo2Projects = [ 'ch.elexis.noatext' ]
+    txtTemplProjects = [ 'ch.medelexis.text.templator' ]
+    
+    DeployElexis = File.join(Dir.pwd, 'deploy_ng')
+    
+    (baseProjects + chProjects + oo2Projects + txtTemplProjects).each {
+      |proj|
+	dependencies << project(proj)
+	jars << project(proj).package(:plugin) if project(proj).package(:plugin)
+	project(proj).dependencies.each {|aDep| 
+                                         jars << aDep if /.jar/.match(aDep.to_s) 
+                                        }
+    }
+  
+    file project._('target/rsc') do FileUtils.makedirs project._('target/rsc') end
+
+    DemoDB = '2.1.5.4'
+    demoZipFile = File.join(project._, 'rsc', "demoDB_elexis_#{DemoDB}.zip")
+    download(demoZipFile => "http://ftp.medelexis.ch/downloads_opensource/elexis/demoDB/demoDB_elexis_#{DemoDB}.zip")
+    file File.join(DeployElexis,'demoDB') => demoZipFile do
+      cmd = "unzip -o -d #{DeployElexis} #{demoZipFile}"
+      system(cmd) if !File.directory?(File.join(DeployElexis,'demoDB'))
+    end
+    task 'deploy' => [ demoZipFile, File.join(DeployElexis,'demoDB')] do
+      FileUtils.makedirs(DeployElexis)
+    end
+    
+    def getDefaultPlatform()
+      values = { 'osgi.os' =>java.lang.System.get_property('os.name').downcase, 
+		    'osgi.ws' => 'cocoa', 
+		    'osgi.arch' => java.lang.System.get_property('os.arch')}
+      case values['osgi.os']
+	when /linux/i then
+	  values['osgi.ws'] = 'gtk'
+	when /win/i then
+	  values['osgi.ws'] = 'win32'
+      end
+      values['osgi.arch'] = 'x86_64' if /amd64/.match(values['osgi.arch'])
+      info "getDefaultPlatform returns #{values.inspect}"
+      values
+    end
+    myPlatform = getDefaultPlatform
+
+    def unpackPluginFromJar(jar, dest)   
+      factName = jar
+      destName = nil
+      if File.exists?(jar)
+	destName = File.join(dest, File.basename(jar).sub('.jar',''))
+      else
+	baseName = File.basename(artifact(jar).to_s).sub(/-(\d)/,'_\1')
+	factName = File.join(ENV['OSGi'], 'plugins', baseName)
+	destName = File.join(dest, baseName.sub('.jar',''))
+      end
+      puts "factName #{factName} #{File.exists?(factName)} => #{destName}"
+      cmd = "unzip -o -d #{destName} #{factName}"
+      p cmd
+      system(cmd)
+    end
+    
+    # Installs a plugin.
+    # a) as a file copy if it is not a fragments
+    # b) unpacks into a sub-directory if it is a fragment (or eclipse patch fragment)
+    def installPlugin(jar, destDir, defPlatform)
+      jarname = jar.to_s
+      if File.exists?(jarname)
+	destName = File.join(destDir, File.basename(jarname))
+	destName.sub(/-(\d)/,'_\1') if !jarname.index(ENV['OSGi']) # Match elexis-ant convention
+	return if FileUtils.uptodate?(destName, jarname)
+	return if !EclipseExtension::jarMatchesPlatformFilter(jarname, defPlatform) 
+	if  EclipseExtension::isFragment(jarname) && !jarname.index('swt.gtk')
+	  unpackPluginFromJar(jarname, destDir)  
+	else
+	  FileUtils.cp(jarname, destName, :verbose => true, :preserve=>true)
+	end
+      else
+	jarDest =  File.join(destDir, File.basename(jarname))
+	if not jar.class == OSGi::BundleTask then # it's an artifact 
+	  jarName  = artifact(jar).to_s
+	  return if !EclipseExtension::jarMatchesPlatformFilter(jarName, defPlatform) 
+	  baseName = File.basename(jarName).sub(/-(\d)/,'_\1')
+	  factName = File.join(ENV['OSGi'], 'plugins', baseName)
+	  if  EclipseExtension::isFragment(jarName)
+	    unpackPluginFromJar(Dir.glob(factName)[0], destDir)  
+	  else
+	    destName =File.join(destDir, baseName)
+	    if EclipseExtension::jarMatchesPlatformFilter(factName, defPlatform) && !FileUtils.uptodate?(destName, factName)
+	      FileUtils.cp(factName, destName, :verbose => true, :preserve=>true)
+	    end
+	  end
+	else
+	  exit 77
+	  destBase = File.basename(jarname).sub(/-(\d)/,'_\1')
+	  FileUtils.cp(jarname, File.join(destDir, destBase), :verbose => true, :preserve=>true)
+	end
+      end
+    end
+    # Find an artifact given by its name
+    #   return jar if founc in the array of jars given (e.g. jar produced by project)
+    #	return jar found as artifact (e.g. org.eclipse.ui)
+    #	return jar found in OSGI (e.g. com.ibm.icu)
+    # else raise an error
+    #
+    def getArtefactOrOsgiJar(jarname, jars = nil)
+      if jars
+	indexInJars = jars.index{|x| x.id.eql?(jarname) }
+	if indexInJars
+	  trace "getArtefactOrOsgiJar found #{jarname} in jars #{jars[indexInJars].inspect}"
+	  return jars[indexInJars]
+	end
+      end
+      
+      begin
+	otherArtifact = artifact(jarname)
+	trace "getArtefactOrOsgiJar found otherArtifact #{otherArtifact.to_s}  for #{jarname}"
+	return otherArtifact
+      rescue
+      end
+
+      fileName = File.join(ENV['OSGi'], 'plugins', "#{jarname}_*")
+      files = Dir.glob(fileName)
+      if files.size > 0
+	trace "getArtefactOrOsgiJar found file(s) #{files.inspect} for #{jarname}"
+	return files[0] 
+      end
+      trace "getArtefactOrOsgiJar nothing found for #{jarname}"
+      raise "getArtefactOrOsgiJar:Check your buildfile. Could not find dependency #{jarname} specified in #{project.name}!"
+    end
+    
+    def generateProduct(destRoot, productInfoFile, jars, defPlatform=getDefaultPlatform)
+      info "Generating eclipse PDE application under #{destRoot}. Using #{productInfoFile}"
+      product = EclipseExtension::readProductInfo(productInfoFile)
+      if !product['configIni'].eql?('default')
+	raise "Don't know howto handle non default configIni section in #{productInfoFile}"
+      end
+      destDir = File.join(destRoot, 'plugins')
+      tConf   = File.join(destRoot, 'configuration')
+      [destDir,tConf].each{ |d| FileUtils.makedirs(d) }
+      Buildr::write(File.join(tConf, 'config.ini'),  %(#Product Runtime Configuration File 
+# created by buildr.apache.org at #{Time.now}"
+eclipse.application=#{product['application']}
+osgi.bundles.defaultStartLevel=4
+eclipse.product=#{product['id']}
+osgi.splashPath=platform:/base/plugins/#{product['splash']}
+) )
+      Buildr::write(File.join(destRoot, '.eclipseproduct'),  %(#Eclipse Product File
+# created by buildr.apache.org at #{Time.now}"
+version=#{product['version'].sub('qualifier', EclipseExtension::Qualifier)}
+name=#{product['uid']}
+id=#{product['id']}
+))
+      initArgs  = ''
+      initArgs << product['programArgs'] if product['programArgs']
+      initArgs << "\n-vmargs\n" + product['vmArgs']      if product['vmArgs']
+      initArgs << product['vmArgsMac']   if (defPlatform['osgi.os'] && /macosx/.match(defPlatform['osgi.os']) != nil && product['vmArgsMac'])
+      initArgs << "\n"
+      Buildr::write(File.join(destRoot, 'elexis.ini'), initArgs.split(' ').join("\n"))
+      system("cat #{File.join(destRoot, 'elexis.ini')}")
+      
+      unpackPluginFromJar(Dir.glob(File.join(ENV['OSGi'], 'plugins', 
+                               "org.eclipse.equinox.launcher*#{defPlatform['osgi.ws']}.#{defPlatform['osgi.os']}.#{defPlatform['osgi.arch']}*.jar"))[0], destDir)
+      FileUtils.cp_r(Dir.glob(File.join(ENV['OSGi'], 'plugins', "org.eclipse.equinox.launcher_*.jar"))[0], 
+                     destDir, :verbose=>true, :preserve => true)
+      Dir.glob(File.join(ENV['OSGi'], 'features', 'org.eclipse.equinox.executable_*', '**', 
+                         defPlatform['osgi.ws'],  defPlatform['osgi.os'], defPlatform['osgi.arch'], '*'
+                        )).each{
+	|x|
+			p x
+	  if File.basename(x).eql?('launcher')
+	    tgt = File.join(destRoot, product['launcher'])
+	    FileUtils.cp_r(x, tgt, :verbose=>true, :preserve => true)
+	    FileUtils.chmod(0755, tgt)
+	  else
+	    FileUtils.cp_r(x, destRoot, :verbose=>true, :preserve => true)
+	  end
+      }
+      jars2copy = []
+      (product['plugins'] + product['fragments']).each{ |aRef| jars2copy << getArtefactOrOsgiJar(aRef.to_s, jars) } 
+      jars2copy.uniq.each{ |jar| installPlugin(jar.to_s, destDir, defPlatform) }      
+    end
+
+    task 'product' do
+      generateProduct('deploy-product',  'ch.ngiger.elexis.opensource/branding.product', jars)
+    end
+    
+    task 'deploy' do
+      destDir = File.join(DeployElexis, 'plugins')
+      FileUtils.makedirs(destDir)
+      tConf   = File.join(DeployElexis, 'configuration')
+      FileUtils.makedirs(tConf)
+      Buildr::write(File.join(tConf, 'config.ini'),  %(#Product Runtime Configuration File
+eclipse.application=ch.elexis.ElexisApp
+osgi.bundles.defaultStartLevel=4
+eclipse.product=ch.ngiger.elexis.branding.Branding2
+osgi.splashPath=platform:/base/plugins/ch.ngiger.elexis.branding
+) )
+
+      Buildr::write(File.join(DeployElexis, '.eclipseproduct'),  %(#Eclipse Product File
+# #{Time.now} created by Builder #{__FILE__}
+version=#{THIS_VERSION}
+name=Branding2
+id=ch.ngiger.elexis.branding.Branding2
+))
+      
+      Buildr::write(File.join(DeployElexis, 'elexis.ini'),  %(-consoleLog
+-debug
+-console
+-vmargs
+-Xms40m
+-Xmx512m
+-XX:MaxPermSize=256m
+))
+
+      unpackPluginFromJar(Dir.glob(File.join(ENV['OSGi'], 'plugins', 
+                               "org.eclipse.equinox.launcher*#{myPlatform['osgi.ws']}.#{myPlatform['osgi.os']}.#{myPlatform['osgi.arch']}*.jar"))[0], destDir)
+
+      FileUtils.cp_r(Dir.glob(File.join(ENV['OSGi'], 'plugins', 
+                               "org.eclipse.equinox.launcher_*.jar"))[0], 
+                     destDir, :verbose=>true, :preserve => true)
+
+      Dir.glob(File.join(ENV['OSGi'], 'features', 'org.eclipse.equinox.executable_*', '**', 
+                         myPlatform['osgi.ws'],  myPlatform['osgi.os'], myPlatform['osgi.arch'], '*'
+                        )).each{
+	|x|
+	  if File.basename(x).eql?('launcher')
+	    tgt = File.join(DeployElexis, 'elexis')
+	    FileUtils.cp_r(x, tgt, :verbose=>true, :preserve => true)
+	    FileUtils.chmod(0755, tgt)
+	  else
+	    FileUtils.cp_r(x, DeployElexis, :verbose=>true, :preserve => true)
+	  end
+      }
+
+      jars.uniq.each{ |jar|
+	jarDest =  File.join(destDir, File.basename(jar.to_s))
+	if not jar.class == OSGi::BundleTask then # it's an artifact 
+	  jarName  = artifact(jar).to_s
+	  baseName = File.basename(jarName).sub(/-(\d)/,'_\1')
+	  factName = File.join(ENV['OSGi'], 'plugins', baseName)
+	  if  EclipseExtension::isFragment(jarName)
+	    unpackPluginFromJar(Dir.glob(factName)[0], destDir)  if EclipseExtension::jarMatchesPlatformFilter(jarName, myPlatform) 
+	  else
+	    destName =File.join(destDir, baseName)
+	    if EclipseExtension::jarMatchesPlatformFilter(factName, myPlatform) && !FileUtils.uptodate?(destName, factName)
+	      FileUtils.cp(factName, destName, :verbose => true, :preserve=>true)
+	    end
+	  end
+	else
+	    destBase = File.basename(jar.to_s).sub(/-(\d)/,'_\1')
+	    FileUtils.cp(jar.to_s, File.join(destDir, destBase), :verbose => true, :preserve=>true)
+	end
+      }      
+    end
+
+
+    # target platform see also http://eclipse.dzone.com/articles/simplifying-p2-process-part-2
+    # Übersicht Build-Systeme für Eclipse http://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0CCoQFjAA&url=http%3A%2F%2Fwww.nilshartmann.net%2Ffiles%2FBuild_my_bundle.pdf&ei=7us8T8H5H4S0-QaZwNDJBQ&usg=AFQjCNHMXqO66-oZ7pwuj4h_JEOI673_Ow
+    # oRsc  = File.expand_path(File.join(project._, '..', '..', 'elexis-base', 'BuildElexis', 'rsc'))
+    pRsc  = File.expand_path(File.join(project._, 'rsc'))
+    files = Dir.glob(File.join(pRsc, '*.textile'))
+    htmlFiles = []
+    files.each do |src|
+      htmlFile = File.join(pRsc, "#{File.basename(src, '.textile')}.html")
+      desc 'Create opensource installers'
+      task 'izpack' => htmlFile
+      htmlFiles << htmlFile
+      file htmlFile => src do  Wikitext::HtmlFromTextile(htmlFile, src) end
+    end if files.size > 0
+    
+    # What we want:
+    # Copy all common stuff from ../elexis-base/BuildElexis/rsc into _+'rsc'  e.g. *.html, i18n
+    # Copy specific elexis.<os> from ../elexis-base/BuildElexis/rsc/os into _+'target/{os}/rsc'
+    # the copy also all _+'rsc' into  _+'target/{os}' , eg. demoDB, deps/*.jar
+    # We use the following variables
+    # pRsc   ch.ngiger.elexis.opensource/rsc
+    # izRsc   ch.ngiger.elexis.opensource/target/rsc
+    # tRsc   ch.ngiger.elexis.opensource/target/rsc/#{os}
+    if false # niklaus does not always want the package to be redone each time!
+      allProjects.each { |proj| task 'izpack' => project(proj).package(:plugin) {} }
+    else
+      puts "Generating the installer might fail, was we do not depend on all projects being packaged (is a lot faster)"
+    end
+    osPath = File.join(project.path_to(:target), 'os')
+    izRsc = File.join(project.path_to(:target), 'rsc')
+    dest = project.path_to(:target, "elexis-#{version}-installer.jar")
+    task izRsc => [ pRsc, demoZipFile] do
+      FileUtils.makedirs(izRsc, :verbose => true)
+      FileUtils.cp(demoZipFile, izRsc, :verbose=>true, :preserve => true) 
+      FileUtils.cp_r(Dir.glob(File.join(pRsc, '*')), izRsc, :verbose => true,   :preserve=>true)
+      Buildr::write(File.join(izRsc, 'TargetPanel.txt'), "$SYSTEM_user_home/Elexis/bin/Elexis-#{project.version}")
+      system("echo '#{izRsc}' && ls -l #{File.join(izRsc, 'TargetPanel.txt')} ")
+    end
+    htmlFiles.each{ |x| 
+		    file File.join(izRsc, File.basename(x)) => x do
+		      FileUtils.makedirs(izRsc)
+		      FileUtils.cp(x,    izRsc, :verbose => true)
+		    end if File.expand_path(File.dirname(x)) != izRsc
+		    task dest => [x, File.join(izRsc, File.basename(x))] 
+		  }
+	  
+    
+    platforms = [
+      { 'osgi.os' => 'macosx', 'osgi.ws' => 'cocoa', 'osgi.arch' => 'x86_64'},
+      { 'osgi.os' => 'linux', 'osgi.ws' => 'gtk', 'osgi.arch' => 'x86'},
+      { 'osgi.os' => 'linux', 'osgi.ws' => 'gtk', 'osgi.arch' => 'x86_64'},
+      { 'osgi.os' => 'win32', 'osgi.ws' => 'win32', 'osgi.arch' => 'x86'},
+    ]
+    platforms.each do 
+      |targetOS|          
+	tRsc    = File.join(osPath,           targetOS['osgi.os'] + '.' + targetOS['osgi.arch'])
+	tOs     = File.join(tRsc, 'launcher', targetOS['osgi.os'] + '.' + targetOS['osgi.arch'])
+	tConf   = File.join(tRsc, 'configuration')
+	#package.enhance do 
+	xxx = File.join(ENV['OSGi'], 'features', 'org.eclipse.equinox.executable_*', '**', targetOS['osgi.ws'],  targetOS['osgi.os'], targetOS['osgi.arch'])
+	task tOs do
+	  FileUtils.makedirs(tOs)
+	  FileUtils.cp_r(Dir.glob(xxx), tOs, :verbose=>true, :preserve => true)
+	end
+	task tRsc do
+	  FileUtils.makedirs(tRsc)
+	end
+	task tConf do
+	  FileUtils.makedirs(tConf)
+	  Buildr::write(File.join(tConf, 'config.ini'),  %(#Product Runtime Configuration File
+eclipse.application=ch.elexis.ElexisApp
+osgi.bundles.defaultStartLevel=4
+eclipse.product=ch.ngiger.elexis.branding.Branding2
+osgi.splashPath=platform:/base/plugins/ch.elexis
+osgi.bundles=org.eclipse.core.runtime@start,org.eclipse.equinox.common@2:start,org.eclipse.update.configurator@3:start
+osgi.nl=de_CH
+osgi.instance.area=@user.home/.elexis.workspace
+osgi.configuration.area=@user.home/.elexis.configuration
+eclipse.vmargs=-XX:PermSize=126M -XX:MaxPermSize=257M 
+) )
+	end
+	task dest => [tOs, tConf, tRsc]
+    end
+    task dest => [osPath, izRsc] do
+      izpackProperties = Hash.new
+      izpackProperties['osPath'] = osPath
+      genIzPack(dest, _('installer.xml'), jars,  File.dirname(dest), izpackProperties, platforms)
+    end
+    task 'izpack' => dest

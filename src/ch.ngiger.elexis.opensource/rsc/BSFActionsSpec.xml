@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bsfactions>
+  <pack name="Elexis-Kern">
+    <script language="beanshell" src="copyConfiguration.bsh" />
+  </pack>
+  <pack name="DemoDB">
+    <script language="beanshell" src="unzipDemoDB.bsh" />
+  </pack>
+</bsfactions>

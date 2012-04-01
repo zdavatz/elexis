@@ -1,0 +1,12 @@
+p=. !medelexis-logo.png!
+ 
+h1. Welcome with Elexis
+
+This installer will install version 2.1 of Elexis on your computer.
+
+p. Please note: The first installation and configuration of an Elexis program for a medical practice is not trivial at all.
+If you make a mistake, it may lead to a lot of additional work later on. If you just want to install an additional client for an existing Elexis database, go ahead. Nothing will go wrong. If you are installing however Elexis the first time, we *urgently*  recommend you to call an certified Elexis supporter for this task.
+
+p. This installer does by purpose not use any administrator right. It will only allow you to install it into a folder where you have write permission. Installing it into a write-protected folder would complicate later updates.
+
+p. Optionally this installer will allow you to install a demo database. This will allow you to make your first experiences with Elexis using existing cases. You can you use it to explore the many possibilities offered by Elexis. The demo database can be accessed using the name "test" and password "test".

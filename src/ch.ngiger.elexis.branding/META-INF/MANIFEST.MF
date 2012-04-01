@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Branding2
+Bundle-Localization: plugin
+Bundle-SymbolicName: ch.ngiger.elexis.branding;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: ch.ngiger.elexis.branding.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.swt,
+ org.eclipse.ui.workbench
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: elexis.ch

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.6"?>
+
+<target name="desktop.dev" sequenceNumber="73">
+<locations>
+<location includeAllPlatforms="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+<unit id="org.eclipse.emf.sdk.feature.group" version="2.7.0.v20110606-0949"/>
+<unit id="org.eclipse.mylyn.wikitext_feature.feature.group" version="1.5.2.v20110908-0706"/>
+<repository location="http://download.eclipse.org/releases/indigo"/>
+</location>
+<location includeAllPlatforms="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+<unit id="org.eclipse.persistence.sdk.feature.group" version="2.3.0.v20110604-r9504"/>
+<repository location="http://download.eclipse.org/rt/eclipselink/updates/"/>
+</location>
+<location includeAllPlatforms="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+<unit id="org.apache.commons.logging" version="1.1.1.v201101211721"/>
+<unit id="org.apache.commons.logging.source" version="1.1.1.v201101211721"/>
+<unit id="org.apache.commons.lang" version="2.4.0.v201005080502"/>
+<unit id="org.apache.commons.lang.source" version="2.4.0.v201005080502"/>
+<unit id="org.apache.log4j" version="1.2.15.v201012070815"/>
+<unit id="org.apache.log4j.source" version="1.2.15.v201012070815"/>
+<unit id="ch.qos.logback.classic" version="0.9.27.v20110224-1110"/>
+<unit id="ch.qos.logback.classic.source" version="0.9.27.v20110224-1110"/>
+<unit id="ch.qos.logback.core" version="0.9.27.v20110224-1110"/>
+<unit id="ch.qos.logback.core.source" version="0.9.27.v20110224-1110"/>
+<unit id="ch.qos.logback.slf4j" version="0.9.27.v20110224-1110"/>
+<unit id="ch.qos.logback.slf4j.source" version="0.9.27.v20110224-1110"/>
+<unit id="org.slf4j.api" version="1.6.1.v20100831-0715"/>
+<unit id="org.slf4j.ext" version="1.6.1.v20100831-0715"/>
+<unit id="org.slf4j.ext.source" version="1.6.1.v20100831-0715"/>
+<unit id="org.slf4j.api.source" version="1.6.1.v20100831-0715"/>
+<unit id="org.slf4j.jul" version="1.6.1.v20100831-0715"/>
+<unit id="org.slf4j.jul.source" version="1.6.1.v20100831-0715"/>
+<unit id="org.slf4j.jcl" version="1.6.1.v20100831-0715"/>
+<unit id="org.slf4j.jcl.source" version="1.6.1.v20100831-0715"/>
+<unit id="org.slf4j.log4j" version="1.6.1.v20100831-0715"/>
+<unit id="org.slf4j.log4j.source" version="1.6.1.v20100831-0715"/>
+<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository/"/>
+</location>
+<location includeAllPlatforms="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+<unit id="org.eclipse.platform.ide" version="3.7.1.M20110909-1335"/>
+<unit id="org.eclipse.equinox.executable.feature.group" version="3.5.0.v20110530-7P7NFUFFLWUl76mart"/>
+<unit id="org.eclipse.platform.source.feature.group" version="3.7.1.r37x_v20110729-9gF7UHOxFtniV7mI3T556iZN9AU8bEZ1lHMcVK"/>
+<unit id="org.eclipse.platform.sdk" version="3.7.1.M20110909-1335"/>
+<unit id="org.eclipse.pde.junit.runtime.standalone.feature.group" version="1.0.100.v20110331-7a7xFB_F9juKSw7cQtELoIX78B7J"/>
+<repository location="http://download.eclipse.org/eclipse/updates/3.7"/>
+</location>
+<location path="/srv/jenkins/userContent/delta-3.7.1" type="Directory"/>
+</locations>
+</target>

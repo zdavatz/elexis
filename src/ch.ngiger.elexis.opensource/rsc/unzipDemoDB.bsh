@@ -1,0 +1,63 @@
+// Copyright 2011 (c) Niklaus Giger niklaus.giger@member.fsf.org
+// License: Eclips Public Licens EPL 1.0
+//
+// Beanshell script for the izPack installer of Elexis. 
+// unpacks the demoDB
+print(getSourceFileInfo ( ) + " started in " + bsh.cwd);
+
+import java.io.*;
+import java.util.zip.*;
+
+void unzipDemoDb (String filename, String where) {
+  BufferedOutputStream dest = null;
+  FileInputStream fis = new FileInputStream(filename);
+  CheckedInputStream checksum = new CheckedInputStream(fis, new Adler32());
+  ZipInputStream zis = new ZipInputStream(new BufferedInputStream(checksum));
+  ZipEntry entry;
+  while((entry = zis.getNextEntry()) != null) {
+    if (entry.isDirectory())
+    {
+      dirName = new File(where+"/"+entry.toString());
+      dirName.mkdir();
+    }
+    else
+    {
+      int count;
+      data = new byte[2048];
+      String name = where+"/"+entry.getName();
+      // write the files to the disk
+      FileOutputStream fos = new 
+	FileOutputStream(name);
+      print("extract to  "+name);
+      dest = new BufferedOutputStream(fos, 2048);
+      while ((count = zis.read(data, 0, 2048)) != -1) {
+	  dest.write(data, 0, count);
+      }
+      dest.flush();
+      dest.close();
+    }
+  }
+  zis.close();
+  print("Checksum: "+checksum.getChecksum().getValue());
+}
+
+void unpackDemoDB(String where) {
+    FilenameFilter selectDemoDB = new FilenameFilter() {
+	public boolean accept(File dir, String name) {
+	    return name.endsWith(".zip") && name.startsWith("demoDB");
+	}
+    };
+    
+   File dirName = new File(where);
+   demoDB = dirName.listFiles(selectDemoDB);
+   unzipDemoDb(demoDB[0].toString(), where);
+}
+
+void afterPack() {
+  print("(beanshell)  "+ getSourceFileInfo() + " after pack " + pack.name + " inst " +  idata.getVariable("INSTALL_PATH") );
+  unpackDemoDB(idata.getVariable("INSTALL_PATH"));
+}
+
+if (false && idata == void) // idata is not defined, we want to test 
+  unpackDemoDB(bsh.cwd);
+

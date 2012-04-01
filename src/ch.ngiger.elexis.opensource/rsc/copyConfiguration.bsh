@@ -1,0 +1,125 @@
+// Copyright 2011 (c) Niklaus Giger niklaus.giger@member.fsf.org
+// License: Eclips Public Licens EPL 1.0
+//
+// Beanshell script for the izPack installer of Elexis. 
+// If we are running the installer in a previous Elexis folder, the user gets
+// prompted if he/she wants to copy the configurations and/or workspace from
+// the current to the new installation
+//
+print(getSourceFileInfo ( ) + " started in " + bsh.cwd);
+import org.apache.commons.io.FileUtils;
+import java.awt.GridBagConstraints;
+
+boolean curDirIsAnElexisInstallation()
+{
+ 	old = new File("elexis");
+ 	exe = new File("elexis.exe");
+	isExecutable = old.canExecute() || exe.canExecute();
+	if (!isExecutable)
+	{
+	  print("Neither elexis.exe or elexis is not executable");
+	  return false;
+	}
+	  
+	oldIni = new File("configuration/config.ini");
+	hasIni = oldIni.isFile();
+	if (!hasIni)
+	{
+	  print("no config.ini found");
+	  return false;
+	}
+	cfg = new File("configuration");
+	if (cfg.listFiles() == null)
+	{
+	  print("No configuration files found");
+	  return false;
+	}
+	return (cfg.listFiles().length >= 4);
+}
+
+void copyDirIfPresent(String src, String dest)
+{
+  srcDir = new File(src);
+  if (srcDir.isDirectory())
+  {
+     destDir = new File(dest+"/"+src);
+     FileUtils.copyDirectory(srcDir, destDir, true);
+  }
+}
+
+void beforePacks() {
+  print("(beanshell)  "+ getSourceFileInfo() + " before packs. inst " +  idata.getVariable("INSTALL_PATH") );
+  print("Is " + bsh.cwd + "  an Elexis installation? Answer " + curDirIsAnElexisInstallation());
+}
+
+void copyConfigurationIfAccepted(String dest)
+{
+  // Frame erzeugen
+  JFrame frame = new JFrame();
+  frame.setTitle("Einstellungen kopieren?");
+
+  info = new JLabel( "<html> Konfiguration (configuration/workspace) aus<p>"+bsh.cwd +
+  " nach<p>"+dest+"<p>kopieren?</html>" );
+
+  JButton noCopyButton = new JButton( "Einstellungen nicht kopieren" );
+  ActionListener noAction = new ActionListener() {
+    public void actionPerformed( ActionEvent e ) {
+    print("Einstellungen werden nicht kopiert");
+    frame.setVisible(false);
+    }
+  };
+  noCopyButton.addActionListener(noAction);
+  
+  button = new JButton("Kopiere Einstellungen" );
+  ActionListener copyAction = new ActionListener() {
+    public void actionPerformed( ActionEvent e ) {
+    print("Einstellungen werden kopiert");
+    copyDirIfPresent("configuration", dest);
+    copyDirIfPresent("workspace", dest);
+    frame.setVisible(false);
+    print("Einstellungen wurden kopiert nach "+dest);
+    }
+  };
+  button.addActionListener( copyAction );
+
+  frame.setLocationRelativeTo(null); // Dialog zentrieren
+  frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+  gridbag = new java.awt.GridBagLayout() ;
+  frame.setLayout( gridbag);
+  JFrame.setDefaultLookAndFeelDecorated(true);
+  c = new java.awt.GridBagConstraints();
+  c.fill = GridBagConstraints.BOTH;
+  c.insets.bottom = 10;
+  c.insets.top = 20;
+  c.insets.left = 20;
+  c.insets.right = 20;
+
+  frame.add(info);
+  frame.add(button);
+  frame.add( noCopyButton );
+  c.weightx = 1.0;
+  gridbag.setConstraints(info, c);    
+  c.gridwidth = GridBagConstraints.REMAINDER;
+  c.ipadx = 10;
+  c.ipady = 10;
+  gridbag.setConstraints(button, c);    
+  gridbag.setConstraints(noCopyButton, c);    
+  
+  frame.pack();
+  frame.setVisible( true );
+}
+
+void afterPack() {
+  print("(beanshell)  "+ getSourceFileInfo() + " after pack " + pack.name + " inst " +  idata.getVariable("INSTALL_PATH") );
+  if (curDirIsAnElexisInstallation())
+    copyConfigurationIfAccepted(idata.getVariable("INSTALL_PATH") );
+  else
+    print("Did not find an Elexis configuration in " + bsh.cwd);
+}
+
+// next lines for debugging
+if (false && idata == void) // idata is not defined, we want to test 
+{
+  addClassPath("/opt/ch.elexis/ngiger-utilities-comm/lib/commons-io-1.4.jar");
+  copyConfigurationIfAccepted("Wohin");
+}

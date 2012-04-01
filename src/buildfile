@@ -1,0 +1,249 @@
+#!/usr/bin/ruby 
+# encoding: utf-8
+# Please do not edit manually this file. Instead update
+# /opt/src/elexis-windows/src/lib/gen_buildfile.rb
+# to fix the problem!
+
+require File.expand_path(File.join(File.dirname(__FILE__),'lib','/buildr-helpers'))
+# require 'buildr/java/cobertura'
+# require 'buildr/java/emma'
+# require 'buildr/jdepend'
+require 'fileutils'
+
+# require 'buildr/java/cobertura'
+
+defaults = {
+  'DELTA'      => 'http://mirror.switch.ch/eclipse/eclipse/downloads/drops/R-3.7.1-201109091335/eclipse-3.7.1-delta-pack.zip',
+  'P2_EXE'     => '/opt/indigo/eclipse.x86_64',
+  'OSGi'       => File.expand_path(File.join(File.dirname(__FILE__),'..', 'OSGi')),
+  'DELTA_DEST' => File.expand_path(File.join(File.dirname(__FILE__),'..', 'delta')),
+  }
+defaults.each{ |name, value|
+               next if name.eql?('OSGi')
+               (ENV[name] != nil) ? eval("#{name}='#{ENV[name]}'") : eval("#{name}='#{value}'")
+		# ENV[name]= eval(name)
+             }
+ENV['OSGi'] = defaults['OSGi'] if !ENV['OSGi']
+puts "We are using OSGi #{ENV['OSGi']}"
+
+task File.basename(DELTA) do
+  URI.download(DELTA, File.basename(DELTA))
+end
+
+desc "Install delta package (in #{DELTA_DEST})"
+task 'delta' => File.basename(DELTA) do
+ if !File.directory?(DELTA_DEST)
+  system("unzip #{File.basename(DELTA)}")
+  FileUtils.move('eclipse', DELTA_DEST, :verbose => true)
+ end
+end
+
+require File.expand_path(File.join(File.dirname(__FILE__),'lib','/eclipseplatform'))
+
+desc "Create eclipse target platform OSGi (in #{ENV['OSGi']})"
+task 'OSGi' do
+  ElipsePlatform::generate(OSGi, 'ch.ngiger.elexis.opensource/desktop.dev.target', P2_EXE)
+end
+
+MANIFEST_MF = 'META-INF/MANIFEST.MF'
+
+# Group identifier for your projects
+GROUP = "elexis"
+COPYRIGHT = "Copyright 2006-2011 by Gerry Weirich"
+
+THIS_VERSION = '2.23'
+desc "The elexisproject"
+define "elexis" do
+  # Needed for annotiantions like @Override
+  compile.options.target = "1.6"
+  compile.options.lint = 'unchecked'
+  # package_with_javadoc # takes quite some time. Therefore disabled at the moment
+  test.using :fail_on_failure=>false # we don't want to get stuck when getting an error while testing
+  test.using :java_args => [ '-Xmx1g' ] # Increase stack for tests
+  test.using :fork => :once
+  project.version = THIS_VERSION
+  project.group = GROUP
+  manifest["Implementation-Vendor"] = COPYRIGHT
+
+
+  define 'ch.elexis.artikel_ch', :version=> '2.0.5' do
+    dependencies << projects('ch.elexis', 'ch.elexis.importer.div', 'ch.rgw.utility', 'ch.elexis.core')
+  end if !$skipPlugins.index('ch.elexis.artikel_ch')
+
+  define 'ch.elexis.arzttarife_ch', :version=> '2.0.10' do
+    dependencies << projects('ch.elexis', 'ch.elexis.artikel_ch', 'ch.elexis.ebanking_ch', 'ch.rgw.utility', 'ch.elexis.importer.div', 'ch.elexis.labortarif.ch2009', 'ch.elexis.core')
+  end if !$skipPlugins.index('ch.elexis.arzttarife_ch')
+
+  define 'ch.elexis.core', :version=> '0.0.2' do
+    dependencies << projects('ch.rgw.utility')
+  end if !$skipPlugins.index('ch.elexis.core')
+
+  define 'ch.elexis.diagnosecodes_ch', :version=> '2.0.2' do
+    dependencies << projects('ch.elexis', 'ch.rgw.utility', 'ch.elexis.core')
+  end if !$skipPlugins.index('ch.elexis.diagnosecodes_ch')
+
+  define 'ch.elexis.ebanking_ch', :version=> '2.0.2' do
+    dependencies << projects('ch.elexis', 'ch.rgw.utility', 'ch.elexis.core')
+  end if !$skipPlugins.index('ch.elexis.ebanking_ch')
+
+  define 'ch.elexis.eigenartikel', :version=> '1.0.7' do
+    dependencies << projects('ch.elexis', 'ch.rgw.utility', 'ch.elexis.core')
+  end if !$skipPlugins.index('ch.elexis.eigenartikel')
+
+  define 'ch.elexis.h2.connector', :version=> '1.2.1' do
+  end if !$skipPlugins.index('ch.elexis.h2.connector')
+
+  define 'ch.elexis.importer.div', :version=> '1.4.3' do
+    dependencies << projects('ch.elexis', 'ch.rgw.utility', 'ch.elexis.core')
+  end if !$skipPlugins.index('ch.elexis.importer.div')
+
+  define 'ch.elexis.labortarif.ch2009', :version=> '1.0.5' do
+    dependencies << projects('ch.elexis', 'ch.rgw.utility', 'ch.elexis.importer.div', 'ch.elexis.core')
+  end if !$skipPlugins.index('ch.elexis.labortarif.ch2009')
+
+  define 'ch.elexis.mysql.connector', :version=> '1.0.1' do
+  end if !$skipPlugins.index('ch.elexis.mysql.connector')
+
+  define 'ch.elexis.noatext', :version=> '1.4.1' do
+    dependencies << projects('ch.elexis', 'ch.rgw.utility')
+  end if !$skipPlugins.index('ch.elexis.noatext')
+
+  define 'ch.elexis.postgresql.connector', :version=> '1.0.2' do
+  end if !$skipPlugins.index('ch.elexis.postgresql.connector')
+
+  define 'ch.elexis.scripting.beanshell', :version=> '1.0.1' do
+    dependencies << projects('ch.elexis', 'ch.rgw.utility')
+  end if !$skipPlugins.index('ch.elexis.scripting.beanshell')
+
+  define 'ch.elexis', :version=> '2.1.6.dev-qualifier' do
+    check package(:plugin), 'plugin should contain plugin_de.properties' do
+      it.should contain('plugin_de.properties')
+    end
+    check package(:plugin), 'plugin should contain contexts.xml' do
+      it.should contain('contexts.xml')
+    end
+    check package(:plugin), 'plugin should contain medelexis.xml' do
+      it.should contain('medelexis.xml')
+    end
+    check package(:plugin), 'plugin should contain plugin.xml' do
+      it.should contain('plugin.xml')
+    end
+    check package(:plugin), 'plugin should contain rsc' do
+      it.should contain('rsc/elexis16.png')
+    end
+    check package(:plugin), 'plugin should_not contain elexis16.png' do
+      it.should_not contain('elexis16.png')
+    end
+    check package(:plugin), 'plugin should contain rsc/platzhalter/Platzhalter.txt' do
+      it.should contain('rsc/platzhalter/Platzhalter.txt')
+    end
+    check package(:plugin), 'plugin should contain Fall.class' do
+      it.should contain('ch/elexis/data/Fall.class')
+    end
+    
+    dependencies << projects('ch.rgw.utility', 'ch.elexis.core')
+  end if !$skipPlugins.index('ch.elexis')
+
+  define 'ch.medelexis.text.templator', :version=> '1.1' do
+    dependencies << projects('ch.elexis', 'ch.rgw.utility')
+  end if !$skipPlugins.index('ch.medelexis.text.templator')
+
+  define 'ch.ngiger.elexis.branding', :version=> '1.0.0.qualifier' do
+  end if !$skipPlugins.index('ch.ngiger.elexis.branding')
+# ignoring ch.ngiger.elexis.opensource because no infoFiles found
+
+  define 'ch.rgw.utility', :version=> '2.0.5' do
+    # checks to be run after package
+    # elexis-base/ch.rgw.utility/target/classes/ch/rgw/tools/Money.class
+    check                  file('target/classes/ch/rgw/tools/Money.class'), 'should exist' do
+      it.should exist
+    end
+    check package(:jar), 'should contain a manifest' do
+      it.should contain(MANIFEST_MF)
+    end
+    check package(:plugin), 'should contain a manifest' do
+      it.should contain(MANIFEST_MF)
+    end
+    check package(:jar), 'jar should not contain a readme.pdf' do
+      it.should_not contain('doc/readme.pdf')
+    end
+    check package(:zip), 'zip should contain a readme.pdf' do
+      it.should contain('doc/readme.pdf')
+    end
+    check package(:plugin), 'plugin should not contain a readme.pdf' do
+      it.should_not contain('doc/readme.pdf')
+    end 
+    check package(:plugin), 'should contain the medelexis.xml' do
+      it.should contain('medelexis.xml')
+    end
+    check package(:plugin), 'plugin should contain bin/ch/rgw/compress/CompEx.class' do
+      it.should contain('bin/ch/rgw/compress/CompEx.class')
+    end  if false
+    check package(:plugin), 'org/apache/commons/compress/bzip2/CBZip2InputStream.class' do 
+      it.should contain('org/apache/commons/compress/bzip2/CBZip2InputStream.class')
+    end if false
+    check package(:plugin), 'checking for lib/log4j*.jar' do
+      it.should contain('lib/log4j*.jar')
+    end
+    check package(:plugin), 'checking for lib/jdom.jar' do
+      it.should contain('lib/jdom.jar')
+    end
+    check package(:plugin), 'checking for absence log4j*.jar' do
+      it.should_not contain('log4j*.jar')
+    end
+    check package(:plugin), 'checking for ch/rgw/tools/messages_fr.properties' do
+      it.should contain('ch/rgw/tools/messages_fr.properties')
+    end
+    dependencies << projects('ch.elexis.postgresql.connector', 'ch.elexis.mysql.connector', 'ch.elexis.h2.connector')
+  end if !$skipPlugins.index('ch.rgw.utility')
+
+  allProjects = ["ch.elexis.artikel_ch", "ch.elexis.arzttarife_ch", "ch.elexis.core", "ch.elexis.diagnosecodes_ch", "ch.elexis.ebanking_ch", "ch.elexis.eigenartikel", "ch.elexis.h2.connector", "ch.elexis.importer.div", "ch.elexis.labortarif.ch2009", "ch.elexis.mysql.connector", "ch.elexis.noatext", "ch.elexis.postgresql.connector", "ch.elexis.scripting.beanshell", "ch.elexis", "ch.medelexis.text.templator", "ch.ngiger.elexis.branding", "ch.rgw.utility"]
+  
+ define 'ch.ngiger.elexis.opensource', :base_dir => 'ch.ngiger.elexis.opensource' do
+   inhalt = File.read('ch.ngiger.elexis.opensource/buildfile.project')
+   eval(inhalt)
+   # load 'ch.ngiger.elexis.opensource/buildfile.project' # does not work because it generates a new context
+ end
+
+  define 'p2' do
+    category = Buildr4OSGi::Category.new
+    category.name = "elexis" # type= medelexis.xml
+    category.label = "Elexis: die umfassende Anwendung in Schweizer Arztpraxen"
+    category.description = "Elexis-Basis module" # <service:description>Elexis Basismodul</service:description> in medelexis.xml
+    (allProjects & P2SiteExtension::getFeatures).each { |aProj| siteName = addFeatureToSite(aProj); category.features<< project(siteName); p siteName; p project(siteName) }
+    package(:site).categories << category
+    package(:p2_from_site)
+    
+    desc 'create a P2 update site for Elexis'
+    task 'p2site' => package(:p2_from_site) 
+    
+    check package(:p2_from_site), 'The p2site should have a site.xml' do
+      File.should exist(_('target/p2repository/site.xml'))
+    end
+    check package(:p2_from_site), 'The p2site should have an artifacts.jar' do
+      File.should exist(_('target/p2repository/artifacts.jar'))
+    end
+    check package(:p2_from_site), 'The p2site should have content.jar' do
+      File.should exist(_('target/p2repository/content.jar'))
+    end
+    check package(:p2_from_site), 'The p2site should have a plugins directory' do
+      File.should exist(_('target/p2repository/plugins'))
+    end
+    check package(:p2_from_site), 'The p2site should have a features directory' do
+      File.should exist(_('target/p2repository/features'))
+    end
+    check package(:p2_from_site), 'The p2site should contain a de.fhdo.elexis.perspective jar' do
+      File.should exist(_("target/p2repository/plugins/de.fhdo.elexis.perspective_#{project('de.fhdo.elexis.perspective').version}.jar"))
+    end if false
+  end if false
+
+  desc 'create Debian packages for Elexis, docs'
+  projectsToPack = (allProjects - @@skipPlugins)
+  inhalt = File.read(File.join(File.dirname(__FILE__), 'tasks', 'debian.include'))
+  eval(inhalt)
+
+# defined 17 projects
+# will ignore 6 directories (as defined IgnoreSubDirs)
+# ignored 1 directories"
+
+end

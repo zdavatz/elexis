@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<langpack>
+    <str id="Elexis-Kern" txt="Elexis kernel"/>
+    <str id="Elexis-Kern.description" txt="Main application of Elexis"/>
+    <str id="Schweiz (deutsch)" txt="Switzerland specifics"/>
+    <str id="Schweiz (deutsch).description" txt="Invoice and diagnostic system for Switzerland (Tarmed)"/>
+    <str id="OpenOffice-2.0-Anbindung" txt="OpenOffice 2.x integration"/>
+    <str id="OpenOffice-2.0-Anbindung.description" txt="Integration with OpenOffice 2.x (only Windows and KDE/XFCE)"/>
+    <str id="Medelexis Text-Templator" txt="Medelexis text templator"/>
+    <str id="Medelexis Text-Templator.description" txt="Tool to attach to LibreOffice or other word processors"/>
+    <str id="DemoDB" txt="Demo database" />
+    <str id="DemoDB.description" txt="Nice to have, if you want to learn to use Elexis"/>
+</langpack>

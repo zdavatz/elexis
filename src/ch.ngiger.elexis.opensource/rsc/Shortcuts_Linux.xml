@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<shortcuts>
+	<programGroup defaultName="Elexis ${appversion}"
+		location="applications" />
+
+	<shortcut name="Elexis" programGroup="yes" desktop="yes"
+		applications="no" startMenu="yes" startup="no" target="$INSTALL_PATH/elexis"
+		commandLine="-data ~/elexis" workingDirectory="$INSTALL_PATH"
+		description="Elexis starten" iconFile="$INSTALL_PATH/icon.xpm"
+		iconIndex="0" type="Application" encoding="UTF-8" terminal="false"
+		KdeSubstUID="false" initialState="normal">
+	</shortcut>
+
+
+</shortcuts>
