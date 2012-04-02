@@ -44,7 +44,9 @@ Versions of used software
 # buildr (1.4.6 java) with some patches by Niklaus Giger, use fork at https://github.com/ngiger/buildr4osgi
 # buildr4osgi (0.9.6)
 # eclipse-3.6.2
-# 
+# fop
+# texi2pdf
+
 
 h2. bootstrapping buildr
 
@@ -71,6 +73,12 @@ clone the repository (read-only)
 @cd elexis-buildr@
 
 h2. using elexis-windows
+
+
+Install rvm, buildr, buildr4osgi using
+@lib/init_buildr4osgi.rb@
+
+Be aware that rvm patches your .bashrc script. If you don't like, adapt the scripts below to your liking. 
 
 Show all the possible tasks
 @jruby -S buildr -T@
