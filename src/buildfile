@@ -27,7 +27,7 @@ ENV['OSGi'] = defaults['OSGi'] if !ENV['OSGi']
 puts "We are using OSGi #{ENV['OSGi']}"
 
 task File.basename(DELTA) do
-  URI.download(DELTA, File.basename(DELTA))
+  URI.download(DELTA, File.basename(DELTA)) if !File.exists?(File.basename(DELTA))
 end
 
 desc "Install delta package (in #{DELTA_DEST})"
@@ -42,7 +42,7 @@ require File.expand_path(File.join(File.dirname(__FILE__),'lib','/eclipseplatfor
 
 desc "Create eclipse target platform OSGi (in #{ENV['OSGi']})"
 task 'OSGi' do
-  ElipsePlatform::generate(OSGi, 'ch.ngiger.elexis.opensource/desktop.dev.target', P2_EXE)
+  ElipsePlatform::generate(ENV['OSGi'], 'ch.ngiger.elexis.opensource/desktop.dev.target', P2_EXE)
 end
 
 MANIFEST_MF = 'META-INF/MANIFEST.MF'

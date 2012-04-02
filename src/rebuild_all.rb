@@ -17,6 +17,7 @@ File.join('el*','*','bin'),
 'deploy-product',
  ].each{ |aDir| FileUtils.rm_rf(aDir, :verbose=> true) }
 [ 
+'lib/init_buildr4osgi.rb 2>&1 | tee lib/init_buildr4osgi.log',
 # 'rvm system do ruby ./gen_buildfile.rb 2>&1 | tee gen.log',
 'rm -f dependencies.yml ; time rvm jruby do buildr osgi:clean:dependencies osgi:resolve:dependencies osgi:install:dependencies 2>&1 | tee scan.log',
 'rvm jruby do buildr clean package test=no elexis:ch.ngiger.elexis.opensource:izpack  elexis:ch.ngiger.elexis.opensource:product 2>&1 | tee run.log',
