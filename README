@@ -74,9 +74,15 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
 
   Niklaus Giger arbeitet zur Zeit an einem zweiten Bootstrap via ruby und dem buildr gem, sodass man am Ende nur einen Intaller haben sollte.
 
-## Builden mit Buildr
+## Builden mit Buildr auf Linux
 
+* git clone git@github.com:zdavatz/elexis-windows.git
+* cd src
 * buildr delta OSGi
+
+Alternativ versuchen:
+
+* ruby src/rebuild_all.rb
 
 ## Buildfile neu erstellen wenn der Pfad für Java nict korrekt ist auf OS X und Linux
 
