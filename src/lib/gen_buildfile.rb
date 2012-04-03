@@ -159,7 +159,7 @@ COPYRIGHT = "Copyright 2006-2011 by Gerry Weirich"
 EOF
 
 ProjectHeader =<<EOF
-THIS_VERSION = '2.23'
+THIS_VERSION = '2.1.6.99'
 desc "The elexisproject"
 define "elexis" do
   # Needed for annotiantions like @Override

@@ -69,8 +69,15 @@ buildr4osgiPath = "#{ENV['HOME']}/buildr4osgi"
 
 if needsRebuild || Dir.glob(buildr4osgiPath).size == 0
   puts "Adding buildr4osgi (special from niklaus)"
-  system("git clone git://github.com/ngiger/buildr4osgi.git #{buildr4osgiPath}")
+  system("git clone git://github.com/ngiger/buildr4osgi.git #{buildr4osgiPath}") if !File.directory?(buildr4osgiPath)
+  saved = Dir.pwd
   Dir.chdir(buildr4osgiPath)
+  system("git pull")
   system('rvm jruby do gem build *.gemspec')
   system('rvm jruby do gem install *.gem')
+  Dir.chdir(saved)
+  puts Dir.pwd
+else
+  puts("no rebuild of buildr4osgi needed")
 end
+system('rvm jruby do gem list buildr')

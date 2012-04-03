@@ -27,15 +27,12 @@ def genIzPack(dest, instXml, jars, baseDir, properties=nil, platforms = nil)
 		  factName = artifact(jar).to_s
 		  destBase = File.basename(factName).sub(/-(\d)/,'_\1')
 		  destName = File.join(baseDir, 'plugins2', destBase)
-                  platforms.each {
-		    |platform|
-		      if EclipseExtension::jarMatchesPlatformFilter(factName, platform) && !FileUtils.uptodate?(destName, factName)
+                  if  !EclipseExtension::getPlatformFilter(factName) && !FileUtils.uptodate?(destName, factName)
 			FileUtils.cp(factName, destName, :verbose => false, :preserve=>true)
-		      end
-                  } if platforms
+		  end
 		else
-		    destBase = File.basename(jar.to_s).sub(/-(\d)/,'_\1')
-		    FileUtils.cp(jar.to_s, File.join(baseDir, 'plugins', destBase), :verbose => false, :preserve=>true)
+		  destBase = File.basename(jar.to_s).sub(/-(\d)/,'_\1')
+		  FileUtils.cp(jar.to_s, File.join(baseDir, 'plugins', destBase), :verbose => false, :preserve=>true)
 		end
 	      }
     Buildr.ant('izpack-ant') do |x|

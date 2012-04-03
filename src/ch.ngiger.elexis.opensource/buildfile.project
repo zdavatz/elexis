@@ -84,7 +84,7 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
       info "getDefaultPlatform returns #{values.inspect}"
       values
     end
-    myPlatform = getDefaultPlatform
+    platformWeRunOn = getDefaultPlatform
 
     def unpackPluginFromJar(jar, dest)   
       factName = jar
@@ -202,23 +202,7 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
       File.open(File.join(elexisApp, 'Contents', 'MacOS', launcherName+'.ini'), 'w') {|f| f.write(initArgs) }                           
     end
     
-    def generateProduct(destRoot, productInfoFile, jars, defPlatform=getDefaultPlatform)
-      info "Generating eclipse PDE application under #{destRoot}. Using #{productInfoFile}"
-      product = EclipseExtension::readProductInfo(productInfoFile)
-      if !product['configIni'].eql?('default')
-	raise "Don't know howto handle non default configIni section in #{productInfoFile}"
-      end
-      jars2copy = []
-      (product['plugins'] + product['fragments']).each{ |aRef|
-                                                        arte = getArtefactOrOsgiJar(aRef.to_s, defPlatform, jars)
-                                                        if arte == nil
-							  puts "No arte for #{aRef.to_s}"
-							  next
-							end
-                                                        jars2copy << arte
-                                                      } 
-      p jars2copy
-      p (product['plugins'] + product['fragments'])
+    def installLauncherAndConfiguration(destRoot, product, defPlatform, configIni=nil)
       destDir = File.join(destRoot, 'plugins')
       tConf   = File.join(destRoot, 'configuration')
       [destDir,tConf].each{ |d| FileUtils.makedirs(d) }
@@ -229,7 +213,7 @@ osgi.bundles.defaultStartLevel=4
 eclipse.product=#{product['id']}
 osgi.splashPath=platform:/base/plugins/#{product['splash']}
 osgi.bundles=org.eclipse.equinox.common@2:start,org.eclipse.update.configurator@3:start,org.eclipse.core.runtime@start
-)
+) if configIni == nil
       Buildr::write(File.join(tConf, 'config.ini'), configIni)
       
       Buildr::write(File.join(destRoot, '.eclipseproduct'),  %(#Eclipse Product File
@@ -268,34 +252,54 @@ id=#{product['id']}
 	handleMacApp(destRoot,  product['launcher'], initArgs)
       else
 	Buildr::write(File.join(destRoot, product['launcher']+'.ini'), initArgs)      
+      end      
+    end
+    
+    def generateProduct(destRoot, productInfoFile, jars, defPlatform=getDefaultPlatform)
+      info "Generating eclipse PDE application under #{destRoot}. Using #{productInfoFile}"
+      product = EclipseExtension::readProductInfo(productInfoFile)
+      if !product['configIni'].eql?('default')
+	raise "Don't know howto handle non default configIni section in #{productInfoFile}"
       end
-      jars2copy.uniq.each{ |jar| installPlugin(jar.to_s, destDir, defPlatform) }      
+      installLauncherAndConfiguration(destRoot, product, defPlatform)
+      
+      jars2copy = []
+      (product['plugins'] + product['fragments']).each{ |aRef|
+                                                        arte = getArtefactOrOsgiJar(aRef.to_s, defPlatform, jars)
+                                                        if arte == nil
+							  trace "No arte for #{aRef.to_s}"
+							  next
+							end
+                                                        jars2copy << arte
+                                                      } 
+      jars2copy.uniq.each{ |jar| installPlugin(jar.to_s, File.join(destRoot, 'plugins'), defPlatform) }      
     end
 
-    task 'product' do
-      generateProduct('deploy-product',  'ch.ngiger.elexis.opensource/branding.product', jars)
-    end
-
+    ProductInfoFile = _('branding.product')
     Macosx       =  { 'osgi.os' => 'macosx', 'osgi.ws' => 'cocoa', 'osgi.arch' => 'x86_64'}
     Linux_x86    =  { 'osgi.os' => 'linux', 'osgi.ws' => 'gtk', 'osgi.arch' => 'x86'}
     Linux_x86_64 =  { 'osgi.os' => 'linux', 'osgi.ws' => 'gtk', 'osgi.arch' => 'x86_64'}
     Windows      =  { 'osgi.os' => 'win32', 'osgi.ws' => 'win32', 'osgi.arch' => 'x86'}
     platforms = [ Macosx, Linux_x86, Linux_x86_64, Windows ]
 
+    task 'product' do
+      generateProduct('deploy/product',  ProductInfoFile, jars)
+    end
+
     task 'macosx.cocoa.x86_64' do
-      generateProduct('deploy/macosx.cocoa.x86_64',  'ch.ngiger.elexis.opensource/branding.product', jars, Macosx)
+      generateProduct('deploy/macosx.cocoa.x86_64',  ProductInfoFile, jars, Macosx)
     end
 
     task 'linux.gtk.x86' do
-      generateProduct('deploy/linux.gtk.x86',  'ch.ngiger.elexis.opensource/branding.product', jars, Linux_x86)
+      generateProduct('deploy/linux.gtk.x86',  ProductInfoFile, jars, Linux_x86)
     end
 
     task 'linux.gtk.x86_64' do
-      generateProduct('deploy/linux.gtk.x86_64',  'ch.ngiger.elexis.opensource/branding.product', jars, Linux_x86_64)
+      generateProduct('deploy/linux.gtk.x86_64',  ProductInfoFile, jars, Linux_x86_64)
     end
 
     task 'win32.win32.x86' do
-      generateProduct('deploy/win32.win32.x86',  'ch.ngiger.elexis.opensource/branding.product', jars, Windows)
+      generateProduct('deploy/win32.win32.x86',  ProductInfoFile, jars, Windows)
     end
     
     # target platform see also http://eclipse.dzone.com/articles/simplifying-p2-process-part-2
@@ -347,36 +351,28 @@ id=#{product['id']}
     platforms.each do 
       |targetOS|          
 	tRsc    = File.join(osPath,           targetOS['osgi.os'] + '.' + targetOS['osgi.arch'])
-	tOs     = File.join(tRsc, 'launcher', targetOS['osgi.os'] + '.' + targetOS['osgi.arch'])
-	tConf   = File.join(tRsc, 'configuration')
-	#package.enhance do 
-	xxx = File.join(ENV['OSGi'], 'features', 'org.eclipse.equinox.executable_*', '**', targetOS['osgi.ws'],  targetOS['osgi.os'], targetOS['osgi.arch'])
-	task tOs do
-	  FileUtils.makedirs(tOs)
-	  FileUtils.cp_r(Dir.glob(xxx), tOs, :verbose=>true, :preserve => true)
-	end
-	task tRsc do
-	  FileUtils.makedirs(tRsc)
-	end
-	task tConf do
-	  FileUtils.makedirs(tConf)
-	  Buildr::write(File.join(tConf, 'config.ini'),  %(#Product Runtime Configuration File
-eclipse.application=ch.elexis.ElexisApp
+	product = EclipseExtension::readProductInfo(ProductInfoFile)
+	installerConfigIni = %(#Product Runtime Configuration File
+# created by buildr.apache.org at #{Time.now}"
+eclipse.application=#{product['application']}
 osgi.bundles.defaultStartLevel=4
-eclipse.product=ch.ngiger.elexis.branding.Branding2
-osgi.splashPath=platform:/base/plugins/ch.elexis
+eclipse.product=#{product['id']}
+osgi.splashPath=platform:/base/plugins/#{product['splash']}
 osgi.bundles=org.eclipse.core.runtime@start,org.eclipse.equinox.common@2:start,org.eclipse.update.configurator@3:start
 osgi.nl=de_CH
 osgi.instance.area=@user.home/.elexis.workspace
 osgi.configuration.area=@user.home/.elexis.configuration
 eclipse.vmargs=-XX:PermSize=126M -XX:MaxPermSize=257M 
-) )
-	end
-	task dest => [tOs, tConf, tRsc]
+)
+      task tRsc do
+	# FileUtils.makedirs(tRsc)
+	installLauncherAndConfiguration(tRsc, product, platformWeRunOn, installerConfigIni)
+      end
+      task dest => tRsc
     end
     task dest => [osPath, izRsc] do
       izpackProperties = Hash.new
       izpackProperties['osPath'] = osPath
-      genIzPack(dest, _('installer.xml'), jars,  File.dirname(dest), izpackProperties, platforms)
+      genIzPack(dest, _('installer.xml'), jars,  File.dirname(dest), izpackProperties)
     end
     task 'izpack' => dest

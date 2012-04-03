@@ -49,6 +49,18 @@
 		<res id="Unix_shortcutSpec.xml" src="rsc/Shortcuts_Linux.xml" />
 	</resources>
 
+	<conditions>
+		<condition type="variable" id="is32bit">
+			<name>SYSTEM_sun_arch_data_model</name>
+			<value>32</value>
+		</condition>
+
+		<condition type="variable" id="is64bit">
+			<name>SYSTEM_sun_arch_data_model</name>
+			<value>64</value>
+		</condition>
+	</conditions>
+
 	<panels>
 		<panel classname="HTMLInfoPanel" />
 		<panel classname="HTMLLicencePanel" />
@@ -62,95 +74,70 @@
 	<packs>
 		<pack name="Elexis-Kern" required="yes">
 			<description>Elexis-Hauptprogramm</description>
+
+			<executable targetfile="$INSTALL_PATH/elexis" keep="true"
+				os="linux" />
+			<executable targetfile="$INSTALL_PATH/elexis.exe" keep="true"
+				os="windows" />
+			<executable targetfile="$INSTALL_PATH/elexis.app/Contents/MacOS/elexis" keep="true"
+				condition="izpack.macinstall" />
+
 			<fileset dir="./plugins2" targetdir="$INSTALL_PATH/plugins">
+				<exclude name="org.eclipse.swt.*" />
+				<exclude name="org.eclipse.ui.cocoa.*" />
 				<include name="**/*" />
-			</fileset>
-
-			<fileset dir="@{osPath}/linux.x86" targetdir="$INSTALL_PATH">
-				<os name="Linux" arch="x86"/>
-				<include name="*.so" />
 			</fileset>
 			
-			<fileset dir="@{osPath}/linux.x86" targetdir="$INSTALL_PATH">
-				<include name="**/*.so" />
-			</fileset>
-			
-			<executable targetfile="$INSTALL_PATH/elexis" stage="never">
-				<os name="linux" arch="x86_64"/>
-			</executable>
+			<singlefile src="/home/niklaus/.bashrc" target="$INSTALL_PATH/condition.linux_64_bit"
+				condition="is64bit" os="linux" />
+			<singlefile src="/home/niklaus/.bashrc" target="$INSTALL_PATH/condition.linux_32_bit"
+				condition="is32bitl" os="linux" />
+			<singlefile src="/home/niklaus/.bashrc" target="$INSTALL_PATH/condition.macinstall"
+				condition="izpack.macinstall" />
 
-			<singlefile src="@{osPath}/linux.x86_64/launcher/linux.x86_64/x86_64/launcher" target="$INSTALL_PATH/elexis">
-				<os name="linux" arch="x86_64"/>
-			</singlefile>
-
-			  <fileset dir="@{osPath}/win32.x86" targetdir="$INSTALL_PATH">
-				<os family="windows" arch="x86"/>
-				<include name="**/*" />
+			<fileset dir="./plugins2/" targetdir="$INSTALL_PATH/plugins"
+				condition="is64bit" os="linux">
+				<include name="org.eclipse.swt.gtk.linux.x86_64_*" />				
 			</fileset>
 
-			  <fileset dir="@{osPath}/macosx.x86_64" targetdir="$INSTALL_PATH">
-				<os family="mac" arch="x86_64"/>
-				<include name="**/*" />
+			<fileset dir="./plugins2" targetdir="$INSTALL_PATH/plugins"
+				condition="is32it" os="linux">
+				<include name="org.eclipse.swt.gtk.linux.x86_3*" />
+			</fileset>
+
+			<fileset dir="./plugins2" targetdir="$INSTALL_PATH/plugins"
+				condition="is64bit" os="macosx">
+				<include name="org.eclipse.swt.cocoa.macosx.x86_64_*" />
+				<include name="org.eclipse.ui.cocoa_*" />
+			</fileset>
+
+			<fileset dir="./plugins2" targetdir="$INSTALL_PATH/plugins"
+				condition="is32it" os="windows">
+				<include name="org.eclipse.swt.win32.win32.x86_3.*" />
+			</fileset>
+
+			<fileset dir="@{osPath}/macosx.x86_64" targetdir="$INSTALL_PATH"
+				condition="is64bit" os="macosx">
+				<include name="**" />
+			</fileset>
+
+			<fileset dir="@{osPath}/win32.x86" targetdir="$INSTALL_PATH"
+				condition="is32it" os="windows">
+				<include name="**" />
+			</fileset>
+
+			<fileset dir="@{osPath}/linux.x86_64" targetdir="$INSTALL_PATH"
+				condition="is64bit" os="linux">
+				<include name="**" />
+			</fileset>
+
+			<fileset dir="@{osPath}/macosx.x86_64" targetdir="$INSTALL_PATH">
+				<os family="mac" arch="x86_64" />
+				<include name="**" />
 			</fileset>
 
 			<fileset dir="@{osgi}" targetdir="$INSTALL_PATH">
-				<include name="plugins/com.ibm.icu_*" />
-				<include name="plugins/javax.activation_*" />
-				<include name="plugins/javax.mail_*" />
-				<include name="plugins/javax.persistence_*" />
-				<include name="plugins/javax.transaction_*" />
-				<include name="plugins/javax.xml_*" />
-				<include name="plugins/javax.xml.stream_*" />
-				<include name="plugins/org.apache.ant_*" />
-				<include name="plugins/org.apache.commons.lang_*" />
-				<include name="plugins/org.apache.commons.logging_*" />
-				<include name="plugins/org.eclipse.ant.core_*" />
-				<include name="plugins/org.eclipse.core.commands_*" />
-				<include name="plugins/org.eclipse.core.contenttype_*" />
-				<include name="plugins/org.eclipse.core.databinding_*" />
-				<include name="plugins/org.eclipse.core.databinding.beans_*" />
-				<include name="plugins/org.eclipse.core.databinding.observable_*" />
-				<include name="plugins/org.eclipse.core.databinding.property_*" />
-				<include name="plugins/org.eclipse.core.expressions_*" />
-				<include name="plugins/org.eclipse.core.filesystem_*" />
-				<include name="plugins/org.eclipse.core.filesystem.linux.x86_*" />
-				<include name="plugins/org.eclipse.core.jobs_*" />
-				<include name="plugins/org.eclipse.core.resources_*" />
-				<include name="plugins/org.eclipse.core.runtime_*" />
-				<include name="plugins/org.eclipse.core.runtime.compatibility.auth_*" />
-				<include name="plugins/org.eclipse.core.runtime.compatibility.registry_*" />
-				<include name="plugins/org.eclipse.core.variables_*" />
-				<include name="plugins/org.eclipse.equinox.app_*" />
-				<include name="plugins/org.eclipse.equinox.common_*" />
-				<include name="plugins/org.eclipse.equinox.launcher_*" />
-				<include name="plugins/org.eclipse.equinox.launcher.gtk.linux.x86_*" />
-				<include name="plugins/org.eclipse.equinox.p2.core_*" />
-				<include name="plugins/org.eclipse.equinox.p2.engine_*" />
-				<include name="plugins/org.eclipse.equinox.p2.metadata_*" />
-				<include name="plugins/org.eclipse.equinox.p2.metadata.repository_*" />
-				<include name="plugins/org.eclipse.equinox.p2.repository_*" />
-				<include name="plugins/org.eclipse.equinox.preferences_*" />
-				<include name="plugins/org.eclipse.equinox.registry_*" />
-				<include name="plugins/org.eclipse.equinox.security_*" />
-				<include name="plugins/org.eclipse.help_*" />
-				<include name="plugins/org.eclipse.jface_*" />
-				<include name="plugins/org.eclipse.jface.databinding_*" />
-				<include name="plugins/org.eclipse.jface.text_*" />
-				<include name="plugins/org.eclipse.osgi_*" />
-				<include name="plugins/org.eclipse.osgi.services_*" />
-				<include name="plugins/org.eclipse.swt_*" />
-				<include name="plugins/org.eclipse.swt.gtk.linux.x86_*" />
-				<include name="plugins/org.eclipse.team.core_*" />
-				<include name="plugins/org.eclipse.text_*" />
-				<include name="plugins/org.eclipse.ui_*" />
-				<include name="plugins/org.eclipse.ui.forms_*" />
-				<include name="plugins/org.eclipse.ui.ide_*" />
-				<include name="plugins/org.eclipse.ui.views_*" />
-				<include name="plugins/org.eclipse.ui.views.properties.tabbed_*" />
-				<include name="plugins/org.eclipse.ui.workbench_*" />
 				<include name="plugins/org.eclipse.update.configurator_*" />
-				<include name="plugins/org.hamcrest.core_*" />
-				<include name="plugins/org.junit_*" />
 			</fileset>
 
 			<fileset dir="rsc" targetdir="$INSTALL_PATH">
@@ -164,6 +151,7 @@
 
 			<fileset dir="." targetdir="$INSTALL_PATH">
 				<include name="plugins/ch.elexis.core_*.jar" />
+				<include name="plugins/ch.elexis.core_*.jar" />
 				<include name="plugins/ch.elexis.eigenartikel_*.jar" />
 				<include name="plugins/ch.elexis.h2.connector_*.jar" />
 				<include name="plugins/ch.elexis.importer.div_*.jar" />
@@ -171,9 +159,8 @@
 				<include name="plugins/ch.elexis.mysql.connector_*.jar" />
 				<include name="plugins/ch.elexis.postgresql.connector_*.jar" />
 				<include name="plugins/ch.elexis.scripting.beanshell_*.jar" />
+				<include name="plugins/ch.ngiger.elexis.branding_*.jar" />
 				<include name="plugins/ch.rgw.utility_*.jar" />
-				<executable os="linux" targetfile="$INSTALL_PATH/elexis"
-					keep="true" />
 			</fileset>
 		</pack>
 		<pack name="Schweiz (deutsch)" required="no">
