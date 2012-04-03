@@ -1,4 +1,4 @@
-Das Ziel von diesem Projekt ist die Kostensenkung im Schweizer Gesundheitswesen und die Zufriedenheit vom Med-Elexis User.
+Das Ziel von diesem Projekt ist die Kostensenkung im Schweizer Gesundheitswesen und die Zufriedenheit vom Elexis User.
 
 Dieses Repository beinhaltet die Daten von ch.oddb.org und die OpenSource Praxis-Software med-elexis.
 
@@ -39,7 +39,8 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
 
 ## Boot-Strap-Install
 
-* Siehe ngiger_build File
+* Siehe ngiger_build File und
+* https://bitbucket.org/ngiger/elexis-bootstrap
 
 ## Random
 
@@ -67,20 +68,20 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
 * Auf OS X ist es zu empfehlen vorgängig Homebrew zu installieren
   https://github.com/mxcl/homebrew/wiki/installation
 
-## Initiale Bootstrap
+## Initialer Bootstrap
 
 * Der initiale Bootstrap von Niklaus Giger findet man hier
   https://bitbucket.org/ngiger/elexis-bootstrap
 
   Niklaus Giger arbeitet zur Zeit an einem zweiten Bootstrap via ruby und dem buildr gem, sodass man am Ende nur einen Intaller haben sollte.
 
-## Builden mit Buildr auf Linux
+## Builden mit Buildr auf Linux. Muss nicht jeden Tag gemacht werden.
 
 * git clone git@github.com:zdavatz/elexis-windows.git
 * cd src
-* buildr delta OSGi
+* buildr delta OSGi (dauert beim ersten Mal ca. 30 Minuten)
 
-Alternativ versuchen:
+Für den täglichen Gebrauch und nach dem ersten Build bei täglichen commits:
 
 * ruby src/rebuild_all.rb
 
@@ -88,3 +89,7 @@ Alternativ versuchen:
 
 * vim src/lib/gen_buildfile.rb
 * ruby src/lib/gen_buildfile.rb
+
+## Github
+
+* http://help.github.com/mac-set-up-git/
