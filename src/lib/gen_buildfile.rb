@@ -105,6 +105,10 @@ require 'fileutils'
 defaults = {
   'DELTA'      => 'http://mirror.switch.ch/eclipse/eclipse/downloads/drops/R-3.7.1-201109091335/eclipse-3.7.1-delta-pack.zip',
   'P2_EXE'     => '/opt/indigo/eclipse.x86_64',
+
+# for OS X
+# 'P2_EXE'     => '/Applications/eclipse/plugins',	
+
   'OSGi'       => File.expand_path(File.join(File.dirname(__FILE__),'..', 'OSGi')),
   'DELTA_DEST' => File.expand_path(File.join(File.dirname(__FILE__),'..', 'delta')),
   }
