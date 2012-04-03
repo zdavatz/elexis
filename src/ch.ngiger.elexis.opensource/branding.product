@@ -22,7 +22,7 @@
 
    <splash
       location="ch.ngiger.elexis.branding"
-      startupProgressRect="5,275,445,15" />
+      startupProgressRect="5,775,445,15" />
    <launcher name="elexis">
       <solaris/>
       <win useIco="false">
@@ -30,8 +30,10 @@
       </win>
    </launcher>
 
+
    <vm>
    </vm>
+
 
    <plugins>
       <plugin id="ch.elexis"/>
@@ -71,7 +73,6 @@
       <plugin id="org.eclipse.jface"/>
       <plugin id="org.eclipse.jface.databinding"/>
       <plugin id="org.eclipse.osgi"/>
-      <plugin id="org.eclipse.persistence.jpa.equinox.weaving" fragment="true"/>
       <plugin id="org.eclipse.swt"/>
       <plugin id="org.eclipse.swt.carbon.macosx" fragment="true"/>
       <plugin id="org.eclipse.swt.cocoa.macosx" fragment="true"/>
@@ -93,7 +94,11 @@
       <plugin id="org.eclipse.ui.cocoa" fragment="true"/>
       <plugin id="org.eclipse.ui.forms"/>
       <plugin id="org.eclipse.ui.workbench"/>
+      <plugin id="org.eclipse.update.configurator"/>
    </plugins>
 
+   <configurations>
+      <property name="osgi.bundles" value="org.eclipse.equinox.common@2:start,org.eclipse.update.configurator@3:start,org.eclipse.core.runtime@start" />
+   </configurations>
 
 </product>

@@ -74,7 +74,7 @@ module ElipsePlatform
 	    @@slicingOptions.each { |x, y | slicing.attributes[x]=y }
 	    p2mirror.add_element(slicing)
 	    if /delta/i.match(srcLocation.attributes['path']) && /directory/i.match(srcLocation.attributes['type'])
-	      info "Patching DELTA-path from #{srcLocation.attributes['path']} => #{DELTA_DEST}"
+	      info "Setup: Patching DELTA-path from #{srcLocation.attributes['path']} => #{DELTA_DEST}"
 	      srcLocation.attributes['path'] = DELTA_DEST
 	    end
 	    case srcLocation.attributes['type']

@@ -21,11 +21,11 @@ TimeStamp = Time.now.strftime('%Y%m%d') # Cannot use '-' because of p2site conve
 @@skipName = File.expand_path('skipPlugins.lst')
 if !defined?(@@skipPlugins) 
   if !File.exists?(@@skipName)
-    puts "No plugins to skip defined. As there is no file #{@@skipName}"
+    puts "Setup: No plugins to skip defined. (No file #{@@skipName})"
     @@skipPlugins = []
   else
     @@skipPlugins = File.read(@@skipName).chomp.split(/\n|,|;/)
-    puts "Skipping plugins found in #{@@skipName} are #{@@skipPlugins.inspect}"
+    puts "Setup: Skipping plugins found in #{@@skipName} are #{@@skipPlugins.inspect}"
   end
   $skipPlugins = @@skipPlugins
 end

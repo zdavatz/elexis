@@ -73,7 +73,7 @@ module Wikitext
       puts "fop must be installed"
       exit 1
     end
-    Project.local_task('elexisDoc')
+    Project.local_task('doc')
   end
 
   before_define do |project|
@@ -83,7 +83,7 @@ module Wikitext
       @@rootProject = project
     end
     # Define the docx task for this particular project.
-    Project.local_task('elexisDoc')
+    Project.local_task('doc')
   end
   
   after_define do |project|
@@ -97,17 +97,17 @@ module Wikitext
 	Wikitext::foFromTextile(foFile, src)
 	Wikitext::pdfFromFo(dest, foFile)
       end
-      project.package(:zip).include(dest, :path => 'doc')
+      task 'doc' => [ dest ]
       if project.parent
 	copyInTopName = File.join(@@rootPath, 'target', 'doc', project.name.sub(project.parent.name+':', ''), File.basename(dest))
 	file  copyInTopName => dest do
 	  FileUtils.makedirs(File.dirname(copyInTopName))
 	  FileUtils.cp(dest, copyInTopName, :preserve => true,:verbose => true)
 	end
-	project.task('elexisDoc' => copyInTopName)
+	project.task('doc' => copyInTopName)
 	@@rootProject.task('doc' => copyInTopName)
       end
-	Rake::Task.define_task 'elexisDoc'
+	Rake::Task.define_task 'doc'
       end
     end
   end
@@ -146,8 +146,8 @@ def genDoku(restrictTo = '*.tex')
 	FileUtils.makedirs(File.dirname(dest))
 	FileUtils.cp(pdf, dest, :preserve => true,:verbose => true)
       end
-      package(:zip).include(dest)
-      Wikitext::getRootProject.task('elexisDoc' => dest)
+      task 'doc' => [ dest ]
+      Wikitext::getRootProject.task('doc' => dest)
   }
 end
 

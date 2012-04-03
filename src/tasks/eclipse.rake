@@ -141,13 +141,15 @@ tp2 = { 'osgi.ws' => 'carbon'}
   }
 EOF
   
+  Timestamp = 'timestamp'
   # Allow local override
   if File.exists?('timestamp')
     Qualifier = IO.readlines('timestamp')[0].chomp 
-    puts "Setting Qualifier to #{Qualifier} as read in file timestamp"
+    puts "Setup: Qualifier is #{Qualifier} (read from file #{File.expand_path(Timestamp)})"
   else
     Qualifier = Time.now.strftime('%Y%m%d%H%M') 
-    puts "Setting Qualifier to current time #{Qualifier}"
+    puts "Setup: Qualifier is current time #{Qualifier} (no file '#{Timestamp}' found)"
+    File.open(Timestamp, 'w') {|f| f.puts(Qualifier) }
   end if !defined?(Qualifier)
 
   Layout.default[:source, :main, :java]      = 'src'
@@ -191,9 +193,9 @@ EOF
 	end
 	if !/#{Qualifier}/.match(project.version)
 	  puts "Adding timestamp #{Qualifier} to #{short} #{project.version}" if $VERBOSE
-	  project.version += '.'+Qualifier
-	  mf.main['Bundle-Version'] += '.'+Qualifier if mf and mf.main
-	end
+	  project.version += '-' + Qualifier
+	  mf.main['Bundle-Version'] = project.version if mf and mf.main
+	end if false # only creates problem with eclipse
       if binDef
 	    binDef.split(',').each do
 	      |x|

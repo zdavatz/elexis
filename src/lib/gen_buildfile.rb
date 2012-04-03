@@ -94,21 +94,11 @@ Header = <<EOF
 # #{File.expand_path(__FILE__)}
 # to fix the problem!
 
-require File.expand_path(File.join(File.dirname(__FILE__),'lib','/buildr-helpers'))
-# require 'buildr/java/cobertura'
-# require 'buildr/java/emma'
-# require 'buildr/jdepend'
 require 'fileutils'
 
-# require 'buildr/java/cobertura'
 
 defaults = {
   'DELTA'      => 'http://mirror.switch.ch/eclipse/eclipse/downloads/drops/R-3.7.1-201109091335/eclipse-3.7.1-delta-pack.zip',
-#  'P2_EXE'     => '/opt/indigo/eclipse.x86_64',
-
-# for OS X
- 'P2_EXE'     => '/Applications/eclipse',	
-
   'OSGi'       => File.expand_path(File.join(File.dirname(__FILE__),'..', 'OSGi')),
   'DELTA_DEST' => File.expand_path(File.join(File.dirname(__FILE__),'..', 'delta')),
   }
@@ -117,8 +107,29 @@ defaults.each{ |name, value|
                (ENV[name] != nil) ? eval("\#{name}='\#{ENV[name]}'") : eval("\#{name}='\#{value}'")
 		\# ENV[name]= eval(name)
              }
+
+ss = [ ENV['P2_EXE'],
+  '/Applications/eclipse',
+  '/usr/local/bin',
+  '/usr/bin',
+]
+ss.each{ |x|
+  if x != nil && Dir.glob(File.join(x, 'eclipse*')).size > 0 then
+    P2_EXE = x
+    break
+  end
+  }
+  
+if !defined?(P2_EXE)
+  puts "Wrong setup! Please specify the dirctory of a working eclipse installation in the enviornment variable P2_EXE."
+  puts "(Tried \#{ss.inspect})"
+  exit 2
+end
+puts "Setup: P2_EXE is at \#{P2_EXE}"
+
 ENV['OSGi'] = defaults['OSGi'] if !ENV['OSGi']
-puts "We are using OSGi \#{ENV['OSGi']}"
+puts "Setup: We are using OSGi \#{ENV['OSGi']}"
+require File.expand_path(File.join(File.dirname(__FILE__),'lib','/buildr-helpers'))
 
 task File.basename(DELTA) do
   URI.download(DELTA, File.basename(DELTA)) if !File.exists?(File.basename(DELTA))
@@ -257,7 +268,7 @@ AddedCommands['ch.rgw.utility'] = <<EOF
     end
     check package(:zip), 'zip should contain a readme.pdf' do
       it.should contain('doc/readme.pdf')
-    end
+    end if false
     check package(:plugin), 'plugin should not contain a readme.pdf' do
       it.should_not contain('doc/readme.pdf')
     end 

@@ -77,18 +77,22 @@ osgi.bundles=org.eclipse.equinox.common@2:start,org.eclipse.update.configurator@
 end
 
   define 'debian-elexis-docs' do
+    project.version.gsub!(/[-_]/,'.')
     controlName = _('debian/control')
     Buildr::write(controlName, Debian::control_docs)
-    task package(:deb) => project.group + ':elexisDoc' if project.group
-    # task package(:deb) => project('dokumentation')
+    if false
+ # TODO:   task package(:deb) => project.group + ':elexisDoc' if project.group
+    # TODO: task package(:deb) => project('dokumentation')
     package(:deb).enhance do |debDocs|
       docDest = '/usr/share/doc/elexis-docs'
       debDocs.control = controlName
       debDocs.include('target/doc/*', :as => docDest)
     end
+    end
   end
   
   define 'debian-elexis' do
+    project.version.gsub!(/[-_]/,'.')
     Buildr::write(_("target/debian/control"), Debian::control)
     Buildr::write(_("target/debian/postinst"), Debian::postInst)
     projectsToPack.each { |pack| dependencies << project(pack) }

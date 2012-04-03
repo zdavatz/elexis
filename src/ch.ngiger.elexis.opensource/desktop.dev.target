@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.6"?>
 
-<target name="desktop.dev" sequenceNumber="73">
+<target name="desktop.dev" sequenceNumber="74">
 <locations>
 <location includeAllPlatforms="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="org.eclipse.emf.sdk.feature.group" version="2.7.0.v20110606-0949"/>
@@ -45,6 +45,6 @@
 <unit id="org.eclipse.pde.junit.runtime.standalone.feature.group" version="1.0.100.v20110331-7a7xFB_F9juKSw7cQtELoIX78B7J"/>
 <repository location="http://download.eclipse.org/eclipse/updates/3.7"/>
 </location>
-<location path="/srv/jenkins/userContent/delta-3.7.1" type="Directory"/>
+<location path="/opt/src/elexis-windows/delta" type="Directory"/>
 </locations>
 </target>

@@ -92,7 +92,7 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
       if File.exists?(jar)
 	destName = File.join(dest, File.basename(jar).sub('.jar',''))
       else
-	baseName = File.basename(artifact(jar).to_s).sub(/-(\d)/,'_\1')
+	baseName = File.basename(artifact(jar).to_s)
 	factName = File.join(ENV['OSGi'], 'plugins', baseName)
 	destName = File.join(dest, baseName.sub('.jar',''))
       end
@@ -102,14 +102,15 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
       system(cmd)
     end
     
+    
     # Installs a plugin.
     # a) as a file copy if it is not a fragments
     # b) unpacks into a sub-directory if it is a fragment (or eclipse patch fragment)
     def installPlugin(jar, destDir, defPlatform)
       jarname = jar.to_s
-      if File.exists?(jarname)
+      if File.exists?(jarname) or File.exists?(jarname)
 	destName = File.join(destDir, File.basename(jarname))
-	destName.sub(/-(\d)/,'_\1') if !jarname.index(ENV['OSGi']) # Match elexis-ant convention
+	destName.sub!(/-(\d)/,'_\1') if !jarname.index(ENV['OSGi']) # Match elexis-ant convention
 	return if FileUtils.uptodate?(destName, jarname)
 	return if !EclipseExtension::jarMatchesPlatformFilter(jarname, defPlatform) 
 	if  EclipseExtension::isFragment(jarname) && !jarname.index('swt.gtk')
@@ -122,7 +123,7 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
 	if not jar.class == OSGi::BundleTask then # it's an artifact 
 	  jarName  = artifact(jar).to_s
 	  return if !EclipseExtension::jarMatchesPlatformFilter(jarName, defPlatform) 
-	  baseName = File.basename(jarName).sub(/-(\d)/,'_\1')
+	  baseName = File.basename(jarName)
 	  factName = File.join(ENV['OSGi'], 'plugins', baseName)
 	  if  EclipseExtension::isFragment(jarName)
 	    unpackPluginFromJar(Dir.glob(factName)[0], destDir)  
@@ -133,8 +134,8 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
 	    end
 	  end
 	else
-	  exit 77
-	  destBase = File.basename(jarname).sub(/-(\d)/,'_\1')
+	  exit 2
+	  destBase = File.basename(jarname)
 	  FileUtils.cp(jarname, File.join(destDir, destBase), :verbose => true, :preserve=>true)
 	end
       end
@@ -145,7 +146,7 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
     #	return jar found in OSGI (e.g. com.ibm.icu)
     # else raise an error
     #
-    def getArtefactOrOsgiJar(jarname, jars = nil)
+    def getArtefactOrOsgiJar(jarname, defPlatform, jars = nil)
       if jars
 	indexInJars = jars.index{|x| x.id.eql?(jarname) }
 	if indexInJars
@@ -156,6 +157,7 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
       
       begin
 	otherArtifact = artifact(jarname)
+	return nil if ! EclipseExtension::jarMatchesPlatformFilter(otherArtifact, defPlatform)
 	trace "getArtefactOrOsgiJar found otherArtifact #{otherArtifact.to_s}  for #{jarname}"
 	return otherArtifact
       rescue
@@ -164,6 +166,7 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
       fileName = File.join(ENV['OSGi'], 'plugins', "#{jarname}_*")
       files = Dir.glob(fileName)
       if files.size > 0
+	return nil if ! EclipseExtension::jarMatchesPlatformFilter(files[0], defPlatform)
 	trace "getArtefactOrOsgiJar found file(s) #{files.inspect} for #{jarname}"
 	return files[0] 
       end
@@ -177,16 +180,25 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
       if !product['configIni'].eql?('default')
 	raise "Don't know howto handle non default configIni section in #{productInfoFile}"
       end
+      jars2copy = []
+      (product['plugins'] + product['fragments']).each{ |aRef|
+                                                        arte = getArtefactOrOsgiJar(aRef.to_s, defPlatform, jars)
+                                                        next if arte == nil
+                                                        jars2copy << arte
+                                                      } 
       destDir = File.join(destRoot, 'plugins')
       tConf   = File.join(destRoot, 'configuration')
       [destDir,tConf].each{ |d| FileUtils.makedirs(d) }
-      Buildr::write(File.join(tConf, 'config.ini'),  %(#Product Runtime Configuration File 
+      configIni = %(#Product Runtime Configuration File 
 # created by buildr.apache.org at #{Time.now}"
 eclipse.application=#{product['application']}
 osgi.bundles.defaultStartLevel=4
 eclipse.product=#{product['id']}
 osgi.splashPath=platform:/base/plugins/#{product['splash']}
-) )
+osgi.bundles=org.eclipse.equinox.common@2:start,org.eclipse.update.configurator@3:start,org.eclipse.core.runtime@start
+)
+      Buildr::write(File.join(tConf, 'config.ini'), configIni)
+      
       Buildr::write(File.join(destRoot, '.eclipseproduct'),  %(#Eclipse Product File
 # created by buildr.apache.org at #{Time.now}"
 version=#{product['version'].sub('qualifier', EclipseExtension::Qualifier)}
@@ -218,8 +230,6 @@ id=#{product['id']}
 	    FileUtils.cp_r(x, destRoot, :verbose=>true, :preserve => true)
 	  end
       }
-      jars2copy = []
-      (product['plugins'] + product['fragments']).each{ |aRef| jars2copy << getArtefactOrOsgiJar(aRef.to_s, jars) } 
       jars2copy.uniq.each{ |jar| installPlugin(jar.to_s, destDir, defPlatform) }      
     end
 
@@ -227,76 +237,6 @@ id=#{product['id']}
       generateProduct('deploy-product',  'ch.ngiger.elexis.opensource/branding.product', jars)
     end
     
-    task 'deploy' do
-      destDir = File.join(DeployElexis, 'plugins')
-      FileUtils.makedirs(destDir)
-      tConf   = File.join(DeployElexis, 'configuration')
-      FileUtils.makedirs(tConf)
-      Buildr::write(File.join(tConf, 'config.ini'),  %(#Product Runtime Configuration File
-eclipse.application=ch.elexis.ElexisApp
-osgi.bundles.defaultStartLevel=4
-eclipse.product=ch.ngiger.elexis.branding.Branding2
-osgi.splashPath=platform:/base/plugins/ch.ngiger.elexis.branding
-) )
-
-      Buildr::write(File.join(DeployElexis, '.eclipseproduct'),  %(#Eclipse Product File
-# #{Time.now} created by Builder #{__FILE__}
-version=#{THIS_VERSION}
-name=Branding2
-id=ch.ngiger.elexis.branding.Branding2
-))
-      
-      Buildr::write(File.join(DeployElexis, 'elexis.ini'),  %(-consoleLog
--debug
--console
--vmargs
--Xms40m
--Xmx512m
--XX:MaxPermSize=256m
-))
-
-      unpackPluginFromJar(Dir.glob(File.join(ENV['OSGi'], 'plugins', 
-                               "org.eclipse.equinox.launcher*#{myPlatform['osgi.ws']}.#{myPlatform['osgi.os']}.#{myPlatform['osgi.arch']}*.jar"))[0], destDir)
-
-      FileUtils.cp_r(Dir.glob(File.join(ENV['OSGi'], 'plugins', 
-                               "org.eclipse.equinox.launcher_*.jar"))[0], 
-                     destDir, :verbose=>true, :preserve => true)
-
-      Dir.glob(File.join(ENV['OSGi'], 'features', 'org.eclipse.equinox.executable_*', '**', 
-                         myPlatform['osgi.ws'],  myPlatform['osgi.os'], myPlatform['osgi.arch'], '*'
-                        )).each{
-	|x|
-	  if File.basename(x).eql?('launcher')
-	    tgt = File.join(DeployElexis, 'elexis')
-	    FileUtils.cp_r(x, tgt, :verbose=>true, :preserve => true)
-	    FileUtils.chmod(0755, tgt)
-	  else
-	    FileUtils.cp_r(x, DeployElexis, :verbose=>true, :preserve => true)
-	  end
-      }
-
-      jars.uniq.each{ |jar|
-	jarDest =  File.join(destDir, File.basename(jar.to_s))
-	if not jar.class == OSGi::BundleTask then # it's an artifact 
-	  jarName  = artifact(jar).to_s
-	  baseName = File.basename(jarName).sub(/-(\d)/,'_\1')
-	  factName = File.join(ENV['OSGi'], 'plugins', baseName)
-	  if  EclipseExtension::isFragment(jarName)
-	    unpackPluginFromJar(Dir.glob(factName)[0], destDir)  if EclipseExtension::jarMatchesPlatformFilter(jarName, myPlatform) 
-	  else
-	    destName =File.join(destDir, baseName)
-	    if EclipseExtension::jarMatchesPlatformFilter(factName, myPlatform) && !FileUtils.uptodate?(destName, factName)
-	      FileUtils.cp(factName, destName, :verbose => true, :preserve=>true)
-	    end
-	  end
-	else
-	    destBase = File.basename(jar.to_s).sub(/-(\d)/,'_\1')
-	    FileUtils.cp(jar.to_s, File.join(destDir, destBase), :verbose => true, :preserve=>true)
-	end
-      }      
-    end
-
-
     # target platform see also http://eclipse.dzone.com/articles/simplifying-p2-process-part-2
     # Übersicht Build-Systeme für Eclipse http://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0CCoQFjAA&url=http%3A%2F%2Fwww.nilshartmann.net%2Ffiles%2FBuild_my_bundle.pdf&ei=7us8T8H5H4S0-QaZwNDJBQ&usg=AFQjCNHMXqO66-oZ7pwuj4h_JEOI673_Ow
     # oRsc  = File.expand_path(File.join(project._, '..', '..', 'elexis-base', 'BuildElexis', 'rsc'))
