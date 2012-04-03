@@ -62,4 +62,7 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
 * ODBC Tarmed Datenbank Import auf Windows funktioniert einwandfrei. ICD-10 Import von Dimdi.de ebenso.
   http://www.dimdi.de/dynamic/de/klassi/downloadcenter/icd-10-who/version2006/systematik/ 
 
+## Homebrew
 
+* Auf OS X ist es zu empfehlen vorgängig Homerew zu installieren
+  https://github.com/mxcl/homebrew/wiki/installation
