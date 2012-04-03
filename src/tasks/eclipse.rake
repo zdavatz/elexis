@@ -60,7 +60,7 @@ module EclipseExtension
     mf = Buildr::Packaging::Java::Manifest.parse(tmp)
     if mf.main['Fragment-Host'] or (mf.main['Eclipse-PatchFragment'] and mf.main['Eclipse-PatchFragment'].downcase.eql?('true'))
       @@allFragments << File.basename(jar) 
-      puts "Added fragment #{File.basename(jar)}"
+      puts "Added fragment #{File.basename(jar)} with PlatformFilter #{mf.main['Eclipse-PlatformFilter']}"
     end
     @@cachedMf[File.basename(jar)] = mf.main['Eclipse-PlatformFilter']
   end
@@ -108,7 +108,7 @@ module EclipseExtension
     filter.each{ |x| filterArray << x.to_a.join('=') }
     puts "filterArray #{filterArray.inspect} filterArray.size #{filterArray.size}" if $VERBOSE
     jarArray = filterInJar[1..-1].split(/\) \(|\)|\(/)
-    trace "jarMatchesPlatformFilter #{jar}=> #{filterInJar} using #{filter}"
+    res = false
     case jarArray[0]
       when /\&/ then 
 	    found = false
@@ -119,26 +119,34 @@ module EclipseExtension
 			      end
 	                    }
 	    puts "Matched all filters!!" if $VERBOSE
-	    return true
+	    res = true
       when /osgi\./ then
 	    res = filterArray.index(jarArray[0]) != nil
 	    puts "found osgi in #{jarArray.inspect} res for #{filter.inspect} result is #{res}" if $VERBOSE
-	    return res
       else
 	raise "Don't now to parse Eclipse-PlatformFilter '#{filter.inspect}' for #{jar}"
     end
+    trace "jarMatchesPlatformFilter <#{res.inspect}> for #{jar}=> #{filterInJar.inspect} using #{filter.inspect}"
+    res
   end
 
   testedWith = <<EOF
 tp1 = { 'osgi.os' => 'macosx', 'osgi.ws' => 'cocoa', 'osgi.arch' => 'x86_64'}
 tp2 = { 'osgi.ws' => 'carbon'}
+tp3 = { 'osgi.os' => 'win32', 'osgi.ws' => 'win32', 'osgi.arch' => 'x86'}
 [ 
-  '/home/niklaus/.m2/repository/org/eclipse/org.eclipse.ui.carbon/4.0.100.I20101109-0800/org.eclipse.ui.carbon-4.0.100.I20101109-0800.jar',
-  '/home/niklaus/.m2/repository/org/eclipse/org.eclipse.swt.gtk.aix.ppc64/3.7.1.v3738a/org.eclipse.swt.gtk.aix.ppc64-3.7.1.v3738a.jar',
-  '/home/niklaus/.m2/repository/org/eclipse/org.eclipse.swt.cocoa.macosx.x86_64/3.7.1.v3738a/org.eclipse.swt.cocoa.macosx.x86_64-3.7.1.v3738a.jar',
+#  '/home/niklaus/.m2/repository/org/eclipse/org.eclipse.ui.carbon/4.0.100.I20101109-0800/org.eclipse.ui.carbon-4.0.100.I20101109-0800.jar',
+#  '/home/niklaus/.m2/repository/org/eclipse/org.eclipse.swt.gtk.aix.ppc64/3.7.1.v3738a/org.eclipse.swt.gtk.aix.ppc64-3.7.1.v3738a.jar',
+#  '/home/niklaus/.m2/repository/org/eclipse/org.eclipse.swt.cocoa.macosx.x86_64/3.7.1.v3738a/org.eclipse.swt.cocoa.macosx.x86_64-3.7.1.v3738a.jar',
+  '/home/niklaus/.m2/repository/org/eclipse/org.eclipse.swt.win32.win32.x86/3.7.1.v3738a/org.eclipse.swt.win32.win32.x86-3.7.1.v3738a.jar',
   ].each{
-    |x|
+    |jar|
+    res = EclipseExtension::jarMatchesPlatformFilter(jar, tp1)
+  puts res.to_s+tp1.inspect+jar.to_s
+    res = EclipseExtension::jarMatchesPlatformFilter(jar, tp3)
+  puts res.to_s+tp3.inspect+jar.to_s
   }
+exit
 EOF
   
   Timestamp = 'timestamp'

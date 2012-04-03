@@ -113,30 +113,24 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
 	destName.sub!(/-(\d)/,'_\1') if !jarname.index(ENV['OSGi']) # Match elexis-ant convention
 	return if FileUtils.uptodate?(destName, jarname)
 	return if !EclipseExtension::jarMatchesPlatformFilter(jarname, defPlatform) 
-	if  EclipseExtension::isFragment(jarname) && !jarname.index('swt.gtk')
+	if  EclipseExtension::isFragment(jarname) && !jarname.index('eclipse.swt') && !jarname.index('ui.cocoa')
 	  unpackPluginFromJar(jarname, destDir)  
 	else
 	  FileUtils.cp(jarname, destName, :verbose => true, :preserve=>true)
 	end
       else
 	jarDest =  File.join(destDir, File.basename(jarname))
-	if not jar.class == OSGi::BundleTask then # it's an artifact 
-	  jarName  = artifact(jar).to_s
-	  return if !EclipseExtension::jarMatchesPlatformFilter(jarName, defPlatform) 
-	  baseName = File.basename(jarName)
-	  factName = File.join(ENV['OSGi'], 'plugins', baseName)
-	  if  EclipseExtension::isFragment(jarName)
-	    unpackPluginFromJar(Dir.glob(factName)[0], destDir)  
-	  else
-	    destName =File.join(destDir, baseName)
-	    if EclipseExtension::jarMatchesPlatformFilter(factName, defPlatform) && !FileUtils.uptodate?(destName, factName)
-	      FileUtils.cp(factName, destName, :verbose => true, :preserve=>true)
-	    end
-	  end
+	jarName  = artifact(jar).to_s
+	return if !EclipseExtension::jarMatchesPlatformFilter(jarName, defPlatform) 
+	baseName = File.basename(jarName)
+	factName = File.join(ENV['OSGi'], 'plugins', baseName)
+	if  EclipseExtension::isFragment(jarName)
+	  unpackPluginFromJar(Dir.glob(factName)[0], destDir)  
 	else
-	  exit 2
-	  destBase = File.basename(jarname)
-	  FileUtils.cp(jarname, File.join(destDir, destBase), :verbose => true, :preserve=>true)
+	  destName =File.join(destDir, baseName)
+	  if EclipseExtension::jarMatchesPlatformFilter(factName, defPlatform)
+	    FileUtils.cp(factName, destName, :verbose => true, :preserve=>true) if !FileUtils.uptodate?(destName, factName)
+	  end
 	end
       end
     end
@@ -157,7 +151,10 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
       
       begin
 	otherArtifact = artifact(jarname)
-	return nil if ! EclipseExtension::jarMatchesPlatformFilter(otherArtifact, defPlatform)
+	if ! EclipseExtension::jarMatchesPlatformFilter(otherArtifact, defPlatform)
+	  trace "getArtefactOrOsgiJar skipping 1 #{otherArtifact.to_s} #{defPlatform.inspect} for #{jarname}"
+	  return nil 
+	end
 	trace "getArtefactOrOsgiJar found otherArtifact #{otherArtifact.to_s}  for #{jarname}"
 	return otherArtifact
       rescue
@@ -165,13 +162,44 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
 
       fileName = File.join(ENV['OSGi'], 'plugins', "#{jarname}_*")
       files = Dir.glob(fileName)
-      if files.size > 0
-	return nil if ! EclipseExtension::jarMatchesPlatformFilter(files[0], defPlatform)
-	trace "getArtefactOrOsgiJar found file(s) #{files.inspect} for #{jarname}"
-	return files[0] 
-      end
+      files.each{ |aFile|
+                  puts "getArtefactOrOsgiJar #{aFile} of #{files.size}"
+	if EclipseExtension::jarMatchesPlatformFilter(aFile, defPlatform)
+	  trace "getArtefactOrOsgiJar found file #{aFile.inspect} for #{jarname}"
+	  return aFile
+	end
+      }
       trace "getArtefactOrOsgiJar nothing found for #{jarname}"
-      raise "getArtefactOrOsgiJar:Check your buildfile. Could not find dependency #{jarname} specified in #{project.name}!"
+      trace "getArtefactOrOsgiJar:Check your buildfile. Could not find dependency #{jarname} specified in #{project.name}!"
+    end
+    
+    # MacOSX need some special treatement!!
+    def handleMacApp(destRoot, launcherName, initArgs)
+      macApp    = File.join(destRoot, 'Eclipse.app')
+      elexisApp = File.join(destRoot, launcherName +'.app')
+      puts "Macos #{macApp} -> #{elexisApp}"
+      if File.exists?(macApp) then
+	FileUtils.mv(macApp, elexisApp, :verbose => true)
+	p Dir.glob("#{elexisApp}/**")
+	p Dir.glob("#{elexisApp}/**/*")
+	Dir.glob(File.join(elexisApp, '**/*')).each {
+	  |x| 
+	      dest = x.sub(/launcher/i,  launcherName)
+	      dest.sub!(   /eclipse/i,  launcherName)
+	      puts "macos found #{x} => #{dest} #{x.eql?(dest)}"
+	      FileUtils.mv(x, dest, :verbose => true) if !x.eql?(dest)
+	      }
+      end
+      infoPlist = File.join(elexisApp, 'Contents', 'Info.plist')
+      inhalt = IO.readlines(infoPlist)
+      toReplace = { '<string>eclipse</string>', '<string>'+ launcherName+'</string>',
+                    '<string>Eclipse.icns</string>', '<string></string>',
+                    '<string>Eclipse</string>', '<string>'+ launcherName+'</string>',
+                    }
+      p toReplace
+      inhalt.each { |x| toReplace.each { |from, to| x.sub!(from, to) } }
+      File.open(infoPlist, 'w') {|f| f.write(inhalt) }                           
+      File.open(File.join(elexisApp, 'Contents', 'MacOS', launcherName+'.ini'), 'w') {|f| f.write(initArgs) }                           
     end
     
     def generateProduct(destRoot, productInfoFile, jars, defPlatform=getDefaultPlatform)
@@ -183,9 +211,14 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
       jars2copy = []
       (product['plugins'] + product['fragments']).each{ |aRef|
                                                         arte = getArtefactOrOsgiJar(aRef.to_s, defPlatform, jars)
-                                                        next if arte == nil
+                                                        if arte == nil
+							  puts "No arte for #{aRef.to_s}"
+							  next
+							end
                                                         jars2copy << arte
                                                       } 
+      p jars2copy
+      p (product['plugins'] + product['fragments'])
       destDir = File.join(destRoot, 'plugins')
       tConf   = File.join(destRoot, 'configuration')
       [destDir,tConf].each{ |d| FileUtils.makedirs(d) }
@@ -205,14 +238,6 @@ version=#{product['version'].sub('qualifier', EclipseExtension::Qualifier)}
 name=#{product['uid']}
 id=#{product['id']}
 ))
-      initArgs  = ''
-      initArgs << product['programArgs'] if product['programArgs']
-      initArgs << "\n-vmargs\n" + product['vmArgs']      if product['vmArgs']
-      initArgs << product['vmArgsMac']   if (defPlatform['osgi.os'] && /macosx/.match(defPlatform['osgi.os']) != nil && product['vmArgsMac'])
-      initArgs << "\n"
-      Buildr::write(File.join(destRoot, 'elexis.ini'), initArgs.split(' ').join("\n"))
-      system("cat #{File.join(destRoot, 'elexis.ini')}")
-      
       unpackPluginFromJar(Dir.glob(File.join(ENV['OSGi'], 'plugins', 
                                "org.eclipse.equinox.launcher*#{defPlatform['osgi.ws']}.#{defPlatform['osgi.os']}.#{defPlatform['osgi.arch']}*.jar"))[0], destDir)
       FileUtils.cp_r(Dir.glob(File.join(ENV['OSGi'], 'plugins', "org.eclipse.equinox.launcher_*.jar"))[0], 
@@ -222,19 +247,55 @@ id=#{product['id']}
                         )).each{
 	|x|
 			p x
-	  if File.basename(x).eql?('launcher')
-	    tgt = File.join(destRoot, product['launcher'])
+	  next if File.basename(x).eql?('eclipsec.exe')
+	  if File.basename(x).eql?('launcher') || File.basename(x).eql?('launcher.exe')
+	    tgt = File.join(destRoot, File.basename(x))
+	    tgt.gsub!('launcher', product['launcher'])
 	    FileUtils.cp_r(x, tgt, :verbose=>true, :preserve => true)
 	    FileUtils.chmod(0755, tgt)
 	  else
 	    FileUtils.cp_r(x, destRoot, :verbose=>true, :preserve => true)
 	  end
       }
+
+      initArgs  = ''
+      initArgs << product['programArgs'] if product['programArgs']
+      initArgs << ' -vmargs ' + product['vmArgs'] if product['vmArgs']
+      initArgs << ' ' + product['vmArgsMac']   if (defPlatform['osgi.os'] && /macosx/.match(defPlatform['osgi.os']) != nil && product['vmArgsMac'])
+      initArgs = initArgs.split(' ').join("\n")
+      initArgs << "\n"
+      if /macosx/.match(defPlatform['osgi.os'])
+	handleMacApp(destRoot,  product['launcher'], initArgs)
+      else
+	Buildr::write(File.join(destRoot, product['launcher']+'.ini'), initArgs)      
+      end
       jars2copy.uniq.each{ |jar| installPlugin(jar.to_s, destDir, defPlatform) }      
     end
 
     task 'product' do
       generateProduct('deploy-product',  'ch.ngiger.elexis.opensource/branding.product', jars)
+    end
+
+    Macosx       =  { 'osgi.os' => 'macosx', 'osgi.ws' => 'cocoa', 'osgi.arch' => 'x86_64'}
+    Linux_x86    =  { 'osgi.os' => 'linux', 'osgi.ws' => 'gtk', 'osgi.arch' => 'x86'}
+    Linux_x86_64 =  { 'osgi.os' => 'linux', 'osgi.ws' => 'gtk', 'osgi.arch' => 'x86_64'}
+    Windows      =  { 'osgi.os' => 'win32', 'osgi.ws' => 'win32', 'osgi.arch' => 'x86'}
+    platforms = [ Macosx, Linux_x86, Linux_x86_64, Windows ]
+
+    task 'macosx.cocoa.x86_64' do
+      generateProduct('deploy/macosx.cocoa.x86_64',  'ch.ngiger.elexis.opensource/branding.product', jars, Macosx)
+    end
+
+    task 'linux.gtk.x86' do
+      generateProduct('deploy/linux.gtk.x86',  'ch.ngiger.elexis.opensource/branding.product', jars, Linux_x86)
+    end
+
+    task 'linux.gtk.x86_64' do
+      generateProduct('deploy/linux.gtk.x86_64',  'ch.ngiger.elexis.opensource/branding.product', jars, Linux_x86_64)
+    end
+
+    task 'win32.win32.x86' do
+      generateProduct('deploy/win32.win32.x86',  'ch.ngiger.elexis.opensource/branding.product', jars, Windows)
     end
     
     # target platform see also http://eclipse.dzone.com/articles/simplifying-p2-process-part-2
@@ -283,12 +344,6 @@ id=#{product['id']}
 		  }
 	  
     
-    platforms = [
-      { 'osgi.os' => 'macosx', 'osgi.ws' => 'cocoa', 'osgi.arch' => 'x86_64'},
-      { 'osgi.os' => 'linux', 'osgi.ws' => 'gtk', 'osgi.arch' => 'x86'},
-      { 'osgi.os' => 'linux', 'osgi.ws' => 'gtk', 'osgi.arch' => 'x86_64'},
-      { 'osgi.os' => 'win32', 'osgi.ws' => 'win32', 'osgi.arch' => 'x86'},
-    ]
     platforms.each do 
       |targetOS|          
 	tRsc    = File.join(osPath,           targetOS['osgi.os'] + '.' + targetOS['osgi.arch'])
