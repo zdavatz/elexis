@@ -84,7 +84,7 @@ Alternativ versuchen:
 
 * ruby src/rebuild_all.rb
 
-## Buildfile neu erstellen wenn der Pfad für Javanicht korrekt ist auf OS X und Linux
+## Buildfile neu erstellen wenn der Pfad für Jaa nicht korrekt ist auf OS X und Linux
 
 * vim src/lib/gen_buildfile.rb
 * ruby src/lib/gen_buildfile.rb
