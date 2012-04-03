@@ -67,4 +67,9 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
 * Auf OS X ist es zu empfehlen vorgängig Homebrew zu installieren
   https://github.com/mxcl/homebrew/wiki/installation
 
-Das ist ein Test.
+## Initiale Bootstrap
+
+* Der initiale Bootstrap von Niklaus Giger findet man hier
+  https://bitbucket.org/ngiger/elexis-bootstrap
+
+  Niklaus Giger arbeitet zur Zeit an einem zweiten Bootstrap via ruby und dem buildr gem, sodass man am Ende nur einen Intaller haben sollte.
