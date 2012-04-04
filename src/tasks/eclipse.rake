@@ -22,12 +22,12 @@ def addDependencies(project)
   project.dependencies.each{
     |x|
       next if x.class != Buildr::Project
-      # puts  "project #{project} with target  #{x.compile.target.inspect} "
+    #  puts  "project #{project} x #{x} needed #{Dir.glob(project._('src')).size} with target  #{x.compile.target.inspect} "
       if x.compile.target
 	localJars = Dir.glob(File.join(x._,'*.jar')) + Dir.glob(File.join(x._, 'lib', '*.jar')) 
 	project.compile.with project.dependencies, x, x.compile.target, localJars
       else
-	project.compile.with x if Dir.glob(project._('src')).size > 0 # for other jars like swt
+		project.compile.with x if Dir.glob(project._('src')).size > 0 # for other jars like swt
       end
   }
 end
@@ -207,7 +207,8 @@ EOF
       if binDef
 	    binDef.split(',').each do
 	      |x|
-		  x += '*' if /\/$/.match(x) 
+		  next if x.eql?('.')
+		  x += '*' if /\/$/.match(x)
 		  project.package(:plugin).include(Dir.glob(File.join(project._, x)), :path => File.dirname(x))
 	    end
 	end

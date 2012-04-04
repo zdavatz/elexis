@@ -1,7 +1,7 @@
 #!/usr/bin/ruby 
 # encoding: utf-8
 # Please do not edit manually this file. Instead update
-# /opt/src/elexis-windows/src/lib/gen_buildfile.rb
+# E:/ws/elexis-windows/src/lib/gen_buildfile.rb
 # to fix the problem!
 
 require 'fileutils'
@@ -66,7 +66,7 @@ MANIFEST_MF = 'META-INF/MANIFEST.MF'
 GROUP = "elexis"
 COPYRIGHT = "Copyright 2006-2011 by Gerry Weirich"
 
-THIS_VERSION = '2.23'
+THIS_VERSION = '2.1.6.99'
 desc "The elexisproject"
 define "elexis" do
   # Needed for annotiantions like @Override
@@ -165,7 +165,6 @@ define "elexis" do
 
   define 'ch.ngiger.elexis.branding', :version=> '1.0.0.qualifier' do
   end if !$skipPlugins.index('ch.ngiger.elexis.branding')
-# ignoring ch.ngiger.elexis.libraries because no infoFiles found
 # ignoring ch.ngiger.elexis.opensource because no infoFiles found
 
   define 'ch.rgw.utility', :version=> '2.0.5' do
@@ -260,6 +259,6 @@ define "elexis" do
 
 # defined 17 projects
 # will ignore 6 directories (as defined IgnoreSubDirs)
-# ignored 2 directories"
+# ignored 1 directories"
 
 end

@@ -11,7 +11,7 @@
 
 IZPACK = 'org.codehaus.izpack:izpack-standalone-compiler:jar:4.3.4'
 
-def genIzPack(dest, instXml, jars, baseDir, properties=nil, platforms = nil)
+def genIzPack(dest, instXml, jars, baseDir, properties=nil)
   raise "File #{instXml} must exist " if !File.exists?(instXml)
   Java.load # needed to load class path for apache logger
   desc "Generate Elexis installer"
@@ -36,7 +36,7 @@ def genIzPack(dest, instXml, jars, baseDir, properties=nil, platforms = nil)
 		end
 	      }
     Buildr.ant('izpack-ant') do |x|
-      msg = "Generating izpack aus #{instXml} #{File.exists?(instXml)} dest ist #{dest}\n   for platforms #{platforms.inspect}"
+      msg = "Generating izpack aus #{instXml} #{File.exists?(instXml)} dest ist #{dest}"
       info msg
       x.property(:name => "version", :value => '2.2.jpa') 
       x.property(:name => "jars",    :value => jars.join(',')) 

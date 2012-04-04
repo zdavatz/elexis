@@ -112,6 +112,7 @@ module ElipsePlatform
       cmd = "java -jar #{p2_exe}/plugins/org.eclipse.equinox.launcher_*.jar " +
       "-application org.eclipse.ant.core.antRunner "+
       "#{$VERBOSE ? '-verbose' : ''} " +
+	  " -verbose -compare -ignoreErrors " +
       "-f #{NameOfAntFile}"
       info "Create targetPlatform in #{targetRoot} as defined by #{targetDefinition}. Using ant file #{NameOfAntFile}"
       info cmd

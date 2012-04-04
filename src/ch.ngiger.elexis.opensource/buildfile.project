@@ -79,14 +79,15 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
 	  values['osgi.ws'] = 'gtk'
 	when /win/i then
 	  values['osgi.ws'] = 'win32'
+	  values['osgi.os'] = 'win32'
       end
       values['osgi.arch'] = 'x86_64' if /amd64/.match(values['osgi.arch'])
       info "getDefaultPlatform returns #{values.inspect}"
       values
     end
-    platformWeRunOn = getDefaultPlatform
 
-    def unpackPluginFromJar(jar, dest)   
+    def unpackPluginFromJar(jar, dest)
+	  return if jar == nil # e.g. no macosx plugins when running under windows
       factName = jar
       destName = nil
       if File.exists?(jar)
@@ -202,7 +203,9 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
       File.open(File.join(elexisApp, 'Contents', 'MacOS', launcherName+'.ini'), 'w') {|f| f.write(initArgs) }                           
     end
     
-    def installLauncherAndConfiguration(destRoot, product, defPlatform, configIni=nil)
+	# Install the launcher exe, configuration, ini-files etc for the desired platform
+	#
+    def installLauncherAndConfiguration(destRoot, product, tgtPlatform, configIni=nil)
       destDir = File.join(destRoot, 'plugins')
       tConf   = File.join(destRoot, 'configuration')
       [destDir,tConf].each{ |d| FileUtils.makedirs(d) }
@@ -223,14 +226,13 @@ name=#{product['uid']}
 id=#{product['id']}
 ))
       unpackPluginFromJar(Dir.glob(File.join(ENV['OSGi'], 'plugins', 
-                               "org.eclipse.equinox.launcher*#{defPlatform['osgi.ws']}.#{defPlatform['osgi.os']}.#{defPlatform['osgi.arch']}*.jar"))[0], destDir)
+                               "org.eclipse.equinox.launcher*#{tgtPlatform['osgi.ws']}.#{tgtPlatform['osgi.os']}.#{tgtPlatform['osgi.arch']}*.jar"))[0], destDir)
       FileUtils.cp_r(Dir.glob(File.join(ENV['OSGi'], 'plugins', "org.eclipse.equinox.launcher_*.jar"))[0], 
                      destDir, :verbose=>true, :preserve => true)
-      Dir.glob(File.join(ENV['OSGi'], 'features', 'org.eclipse.equinox.executable_*', '**', 
-                         defPlatform['osgi.ws'],  defPlatform['osgi.os'], defPlatform['osgi.arch'], '*'
-                        )).each{
+      pathName = File.join(DELTA_DEST, 'features', 'org.eclipse.equinox.executable_*', '**', 
+		      tgtPlatform['osgi.ws'],  tgtPlatform['osgi.os'], tgtPlatform['osgi.arch'], '*')
+      Dir.glob(pathName).each{
 	|x|
-			p x
 	  next if File.basename(x).eql?('eclipsec.exe')
 	  if File.basename(x).eql?('launcher') || File.basename(x).eql?('launcher.exe')
 	    tgt = File.join(destRoot, File.basename(x))
@@ -245,10 +247,10 @@ id=#{product['id']}
       initArgs  = ''
       initArgs << product['programArgs'] if product['programArgs']
       initArgs << ' -vmargs ' + product['vmArgs'] if product['vmArgs']
-      initArgs << ' ' + product['vmArgsMac']   if (defPlatform['osgi.os'] && /macosx/.match(defPlatform['osgi.os']) != nil && product['vmArgsMac'])
+      initArgs << ' ' + product['vmArgsMac']   if (tgtPlatform['osgi.os'] && /macosx/.match(tgtPlatform['osgi.os']) != nil && product['vmArgsMac'])
       initArgs = initArgs.split(' ').join("\n")
       initArgs << "\n"
-      if /macosx/.match(defPlatform['osgi.os'])
+      if /macosx/.match(tgtPlatform['osgi.os'])
 	handleMacApp(destRoot,  product['launcher'], initArgs)
       else
 	Buildr::write(File.join(destRoot, product['launcher']+'.ini'), initArgs)      
@@ -283,7 +285,7 @@ id=#{product['id']}
     platforms = [ Macosx, Linux_x86, Linux_x86_64, Windows ]
 
     task 'product' do
-      generateProduct('deploy/product',  ProductInfoFile, jars)
+      generateProduct('deploy/product',  ProductInfoFile, jars, getDefaultPlatform)
     end
 
     task 'macosx.cocoa.x86_64' do
@@ -366,7 +368,7 @@ eclipse.vmargs=-XX:PermSize=126M -XX:MaxPermSize=257M
 )
       task tRsc do
 	# FileUtils.makedirs(tRsc)
-	installLauncherAndConfiguration(tRsc, product, platformWeRunOn, installerConfigIni)
+	installLauncherAndConfiguration(tRsc, product, targetOS, installerConfigIni)
       end
       task dest => tRsc
     end

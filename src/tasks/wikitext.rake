@@ -60,7 +60,7 @@ module Wikitext
 
   def Wikitext::pdfFromFo(dest, src)
     cmd = "fop #{src} #{dest}"
-    res= system(cmd)
+    res= system(cmd) if !@@skipDoc
   end
 
   first_time do
@@ -70,10 +70,12 @@ module Wikitext
     include RbConfig
     /linux/i.match( CONFIG['host_os']) ? cmd = 'which fop' : cmd = 'fop -version'
     if !system(cmd) # an easy way to check whether fop works or not
-      puts "fop must be installed"
-      exit 1
+      puts "fop is not installed. Skip generating PDF from HTML"
+      @@skipDoc = true
+	else
+      @@skipDoc = false
+	  Project.local_task('doc')
     end
-    Project.local_task('doc')
   end
 
   before_define do |project|
@@ -87,29 +89,31 @@ module Wikitext
   end
   
   after_define do |project|
-    project.extend Wikitext
-    files = (Dir.glob(File.join(project._, '*.textile')) + Dir.glob(File.join(project._, 'doc', '*.textile')))
-    if files.size > 0
-      files.each do |src|
-      dest = File.join(project.path_to(:target), 'doc', "#{File.basename(src, '.textile')}.pdf")
-      foFile = dest.sub('.pdf','.fo')
-      file dest => src do
-	Wikitext::foFromTextile(foFile, src)
-	Wikitext::pdfFromFo(dest, foFile)
-      end
-      task 'doc' => [ dest ]
-      if project.parent
-	copyInTopName = File.join(@@rootPath, 'target', 'doc', project.name.sub(project.parent.name+':', ''), File.basename(dest))
-	file  copyInTopName => dest do
-	  FileUtils.makedirs(File.dirname(copyInTopName))
-	  FileUtils.cp(dest, copyInTopName, :preserve => true,:verbose => true)
+    if !@@skipDoc 
+		project.extend Wikitext
+		files = (Dir.glob(File.join(project._, '*.textile')) + Dir.glob(File.join(project._, 'doc', '*.textile')))
+		if files.size > 0
+		  files.each do |src|
+		  dest = File.join(project.path_to(:target), 'doc', "#{File.basename(src, '.textile')}.pdf")
+		  foFile = dest.sub('.pdf','.fo')
+		  file dest => src do
+		Wikitext::foFromTextile(foFile, src)
+		Wikitext::pdfFromFo(dest, foFile)
+		  end
+		  task 'doc' => [ dest ]
+		  if project.parent
+		copyInTopName = File.join(@@rootPath, 'target', 'doc', project.name.sub(project.parent.name+':', ''), File.basename(dest))
+		file  copyInTopName => dest do
+		  FileUtils.makedirs(File.dirname(copyInTopName))
+		  FileUtils.cp(dest, copyInTopName, :preserve => true,:verbose => true)
+		end
+		project.task('doc' => copyInTopName)
+		@@rootProject.task('doc' => copyInTopName)
+		  end
+		Rake::Task.define_task 'doc'
+		  end
+		end
 	end
-	project.task('doc' => copyInTopName)
-	@@rootProject.task('doc' => copyInTopName)
-      end
-	Rake::Task.define_task 'doc'
-      end
-    end
   end
 end
 
@@ -133,6 +137,8 @@ ensure
 end
 
 def genDoku(restrictTo = '*.tex')
+  return if @@skipDoc 
+
   texFiles = Dir.glob(_(restrictTo))
   texFiles.each{ 
     |f| 
