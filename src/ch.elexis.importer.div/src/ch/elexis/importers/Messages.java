@@ -78,7 +78,6 @@ public class Messages extends NLS {
 	public static String Presets_Unfall;
 	public static String Presets_Unfallnummer;
 	public static String Presets_UVGAbkuerzung;
-	public static String Presets_UVGAbkürzung;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
