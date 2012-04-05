@@ -4,6 +4,8 @@
 # We assume also MSys and or MSysGit, with curl, patch, git installed
 # If you want to build the documentation you need also fop and texi2pdf installed
 
+require 'fileutils'
+
 ENV['P2_EXE'] ||='E:/Programme/eclipse'
 
 def runOneCommand(cmd)
