@@ -299,18 +299,22 @@ id=#{product['id']}
       generateProduct('deploy/product',  ProductInfoFile, jars, getDefaultPlatform)
     end
 
+    desc 'Eclipse application for macOSX 64-bit'
     task 'macosx.cocoa.x86_64' do
       generateProduct('deploy/macosx.cocoa.x86_64',  ProductInfoFile, jars, Macosx)
     end
 
+    desc 'Eclipse application for linux.x86 32-bit'
     task 'linux.gtk.x86' do
       generateProduct('deploy/linux.gtk.x86',  ProductInfoFile, jars, Linux_x86)
     end
 
+    desc 'Eclipse application for linux.x86 64-bit'
     task 'linux.gtk.x86_64' do
       generateProduct('deploy/linux.gtk.x86_64',  ProductInfoFile, jars, Linux_x86_64)
     end
 
+    desc 'Eclipse application for windows 32-bit'
     task 'win32.win32.x86' do
       generateProduct('deploy/win32.win32.x86',  ProductInfoFile, jars, Windows)
     end
