@@ -96,17 +96,12 @@ Header = <<EOF
 
 require 'fileutils'
 
-
-defaults = {
-  'DELTA'      => 'http://mirror.switch.ch/eclipse/eclipse/downloads/drops/R-3.7.1-201109091335/eclipse-3.7.1-delta-pack.zip',
-  'OSGi'       => File.expand_path(File.join(File.dirname(__FILE__),'..', 'OSGi')),
-  'DELTA_DEST' => File.expand_path(File.join(File.dirname(__FILE__),'..', 'delta')),
-  }
-defaults.each{ |name, value|
-               next if name.eql?('OSGi')
-               (ENV[name] != nil) ? eval("\#{name}='\#{ENV[name]}'") : eval("\#{name}='\#{value}'")
-		\# ENV[name]= eval(name)
-             }
+ENV['DELTA']      ||= 'http://mirror.switch.ch/eclipse/eclipse/downloads/drops/R-3.7.2-201202080800/eclipse-3.7.2-delta-pack.zip'
+# ENV['DELTA']    ||= 'http://mirror.switch.ch/eclipse/eclipse/downloads/drops/R-3.7.1-201109091335/eclipse-3.7.1-delta-pack.zip'
+ENV['DELTA_DEST'] ||= File.expand_path(File.join(File.dirname(__FILE__),'..', 'delta'))
+ENV['OSGi']       ||= File.expand_path(File.join(File.dirname(__FILE__),'..', 'OSGi'))
+DELTA      = ENV['DELTA']
+DELTA_DEST = ENV['DELTA_DEST']
 
 ss = [ ENV['P2_EXE'],
   '/Applications/eclipse',
@@ -126,8 +121,6 @@ if !defined?(P2_EXE)
   exit 2
 end
 puts "Setup: P2_EXE is at \#{P2_EXE}"
-
-ENV['OSGi'] = defaults['OSGi'] if !ENV['OSGi']
 puts "Setup: We are using OSGi \#{ENV['OSGi']}"
 require File.expand_path(File.join(File.dirname(__FILE__),'lib','/buildr-helpers'))
 
@@ -531,17 +524,17 @@ $buildfile.puts %(
     end
     check package(:p2_from_site), 'The p2site should have content.jar' do
       File.should exist(_('target/p2repository/content.jar'))
-    end
+    end if false # TODO:
     check package(:p2_from_site), 'The p2site should have a plugins directory' do
       File.should exist(_('target/p2repository/plugins'))
-    end
+    end if false # TODO:
     check package(:p2_from_site), 'The p2site should have a features directory' do
       File.should exist(_('target/p2repository/features'))
-    end
+    end 
     check package(:p2_from_site), 'The p2site should contain a de.fhdo.elexis.perspective jar' do
       File.should exist(_("target/p2repository/plugins/de.fhdo.elexis.perspective_\#{project('de.fhdo.elexis.perspective').version}.jar"))
     end if false
-  end if false
+  end
 
   desc 'create Debian packages for Elexis, docs'
   projectsToPack = (allProjects - @@skipPlugins)

@@ -75,20 +75,12 @@ osgi.bundles=org.eclipse.equinox.common@2:start,org.eclipse.update.configurator@
 )
   end
 end
-$onWindows = false
-$onWindows = true if /mingw/.match(RUBY_PLATFORM)
-if /java/i.match(RUBY_PLATFORM) 
-	require 'java'
-	if /windows/i.match(java.lang.System.getProperty 'os.name')
-		puts "jruby on Windows"
-		$onWindows = true
-	end
-end
 
   define 'debian-elexis-docs' do
     project.version.gsub!(/[-_]/,'.')
     controlName = _('debian/control')
     Buildr::write(controlName, Debian::control_docs)
+    if false
  # TODO:   task package(:deb) => project.group + ':elexisDoc' if project.group
     # TODO: task package(:deb) => project('dokumentation')
     package(:deb).enhance do |debDocs|
@@ -96,7 +88,8 @@ end
       debDocs.control = controlName
       debDocs.include('target/doc/*', :as => docDest)
     end
-  end  if !$onWindows
+    end
+  end
   
   define 'debian-elexis' do
     project.version.gsub!(/[-_]/,'.')
@@ -118,14 +111,15 @@ end
       rsc = File.join(project('ch.elexis')._, '..','BuildElexis','rsc')
       deb.include(File.join(rsc, '{lizenz,LICENSE}*.*'), :path => docDest)      
       projectsToPack.each do |fullName|
-	  p = project(fullName)
-	  pName = p.name.split(':')[1]
-	  puts "Adding projectsToPack #{pName} group #{project.group}" if $VERBOSE
-	  artifacts(p).each do 
+	  proj2pack = project(fullName)
+	  pName = proj2pack.name.split(':')[1]
+	  trace "debian-elexis: Checking projectsToPack #{pName} group #{project.group} #{proj2pack} has #{artifacts(proj2pack).size} artifacts"
+	  p artifacts(proj2pack)
+	  artifacts(proj2pack).each do 
 	  |x|
 	    begin
-	      next if /#{project.group}-/.match(x.id)
-	      puts "Debian: Adding #{x.type} #{x} exists? #{File.exists?(x)}"
+	      trace "debian-elexis: Adding #{x.type} id #{x.id} #{x} exists? #{File.exists?(x)}"
+	      next if "#{project.group}-".index(x.id)
 	      next if !File.exists?(x)
 	      if x.type == :jar
 		  next if x.id.include?(project.group) or x.id.include?('-sources.jar')
@@ -141,9 +135,8 @@ end
 	    end
 	  end
       end
-    end    
-  end  if !$onWindows
-
+    end
+  end
   if false # not yet working!
     FileUtils.makedirs('debian-elexis-demoDB')
     define 'debian-elexis-demoDB' do
@@ -155,14 +148,13 @@ end
     define 'debian-elexis-postgresql' do
 	debDocs.control = _("target/debian/control")
 	# Needs script to install postgresql database
-	end
-  end if !$onWindows
+    end
+  end
 
-if !$onWindows  
-	desc 'create Debian packages for Elexis, docs'
-	task 'debian'
-	['debian-elexis', # 'debian-elexis-docs'
-	 ].each { |x| task 'debian' => project(x).package(:deb) }  
-	projectsToPack.each { |x| task 'debian' => project(x).package(:jar) }
-end
+desc 'create Debian packages for Elexis, docs'
+task 'debian'
+['debian-elexis', # 'debian-elexis-docs'
+ ].each { |x| task 'debian' => project(x).package(:deb) }
+projectsToPack.each { |x| task 'debian' => project(x).package(:jar) }
+  
  

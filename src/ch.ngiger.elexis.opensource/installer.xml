@@ -103,27 +103,6 @@
 			<singlefile src="rsc/TargetPanel.txt" target="$INSTALL_PATH/condition.windowsinstall.64"
 				condition="izpack.windowsinstall+is64bit" />
 
-			<fileset dir="./plugins2/" targetdir="$INSTALL_PATH/plugins"
-				condition="izpack.linuxinstall+is64bit" >
-				<include name="org.eclipse.swt.gtk.linux.x86_64_*" />				
-			</fileset>
-
-			<fileset dir="./plugins2" targetdir="$INSTALL_PATH/plugins"
-				condition="izpack.linuxinstall+is32bit" >
-				<include name="org.eclipse.swt.gtk.linux.x86_3*" />
-			</fileset>
-
-			<fileset dir="./plugins2" targetdir="$INSTALL_PATH/plugins"
-				condition="izpack.macinstall+is64bit" >
-				<include name="org.eclipse.swt.cocoa.macosx.x86_64_*" />
-				<include name="org.eclipse.ui.cocoa_*" />
-			</fileset>
-
-			<fileset dir="./plugins2" targetdir="$INSTALL_PATH/plugins"
-				condition="izpack.windowsinstall" >
-				<include name="org.eclipse.swt.win32.win32.x86_3.*" />
-			</fileset>
-
 			<fileset dir="@{osPath}/macosx.x86_64" targetdir="$INSTALL_PATH"
 				condition="izpack.macinstall+is64bit" >
 				<include name="**" />
@@ -139,8 +118,8 @@
 				<include name="**" />
 			</fileset>
 
-			<fileset dir="@{osPath}/macosx.x86_64" targetdir="$INSTALL_PATH"
-				condition="izpack.macinstall+is64bit" >
+			<fileset dir="@{osPath}/linux.x86" targetdir="$INSTALL_PATH"
+				condition="izpack.linuxinstall+is32bit" >
 				<include name="**" />
 			</fileset>
 

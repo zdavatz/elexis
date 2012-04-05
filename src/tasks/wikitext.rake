@@ -68,14 +68,16 @@ module Wikitext
     # Under Debian squeeze fop 0.95 is installed, which will not respond correctly to fop -version
     require 'rbconfig'
     include RbConfig
-    /linux/i.match( CONFIG['host_os']) ? cmd = 'which fop' : cmd = 'fop -version'
-    if !system(cmd) # an easy way to check whether fop works or not
-      puts "fop is not installed. Skip generating PDF from HTML"
-      @@skipDoc = true
-	else
-      @@skipDoc = false
-	  Project.local_task('doc')
-    end
+    @@skipDoc = false
+    /linux/i.match( CONFIG['host_os']) ? fopCmd = 'which fop' : fopCmd = 'fop -version'
+    [ fopCmd, 'texi2pdf --version'].each {
+      |cmd|
+      if !system(cmd) # an easy way to check whether fop works or not
+	puts "Setup: #{cmd.split(' ')[0]} is not installed. Skip generating documentation"
+	@@skipDoc = true
+      end
+    }
+    Project.local_task('doc') if !@@skipDoc
   end
 
   before_define do |project|

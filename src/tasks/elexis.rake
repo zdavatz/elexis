@@ -42,7 +42,7 @@ else
   require "buildr/bnd"
   repositories.remote << Buildr::Bnd.remote_repository
   repositories.release_to = 'file:///opt/elexis-release'
-  p repositories.remote 
+  puts "Setup: added some repositories to repositories.remote" 
 end
 
 #-----------------------------------------------------------------------------

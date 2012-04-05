@@ -1,22 +1,16 @@
 #!/usr/bin/ruby 
 # encoding: utf-8
 # Please do not edit manually this file. Instead update
-# E:/ws/elexis-windows/src/lib/gen_buildfile.rb
+# /opt/src/elexis-windows/src/lib/gen_buildfile.rb
 # to fix the problem!
 
 require 'fileutils'
 
-
-defaults = {
-  'DELTA'      => 'http://mirror.switch.ch/eclipse/eclipse/downloads/drops/R-3.7.1-201109091335/eclipse-3.7.1-delta-pack.zip',
-  'OSGi'       => File.expand_path(File.join(File.dirname(__FILE__),'..', 'OSGi')),
-  'DELTA_DEST' => File.expand_path(File.join(File.dirname(__FILE__),'..', 'delta')),
-  }
-defaults.each{ |name, value|
-               next if name.eql?('OSGi')
-               (ENV[name] != nil) ? eval("#{name}='#{ENV[name]}'") : eval("#{name}='#{value}'")
-		# ENV[name]= eval(name)
-             }
+ENV['DELTA']      ||= 'http://mirror.switch.ch/eclipse/eclipse/downloads/drops/R-3.7.1-201109091335/eclipse-3.7.1-delta-pack.zip'
+ENV['DELTA_DEST'] ||= File.expand_path(File.join(File.dirname(__FILE__),'..', 'delta'))
+ENV['OSGi']       ||= File.expand_path(File.join(File.dirname(__FILE__),'..', 'OSGi'))
+DELTA      = ENV['DELTA']
+DELTA_DEST = ENV['DELTA_DEST']
 
 ss = [ ENV['P2_EXE'],
   '/Applications/eclipse',
@@ -36,8 +30,6 @@ if !defined?(P2_EXE)
   exit 2
 end
 puts "Setup: P2_EXE is at #{P2_EXE}"
-
-ENV['OSGi'] = defaults['OSGi'] if !ENV['OSGi']
 puts "Setup: We are using OSGi #{ENV['OSGi']}"
 require File.expand_path(File.join(File.dirname(__FILE__),'lib','/buildr-helpers'))
 
@@ -165,6 +157,7 @@ define "elexis" do
 
   define 'ch.ngiger.elexis.branding', :version=> '1.0.0.qualifier' do
   end if !$skipPlugins.index('ch.ngiger.elexis.branding')
+# ignoring ch.ngiger.elexis.libraries because no infoFiles found
 # ignoring ch.ngiger.elexis.opensource because no infoFiles found
 
   define 'ch.rgw.utility', :version=> '2.0.5' do
@@ -225,13 +218,18 @@ define "elexis" do
     category.name = "elexis" # type= medelexis.xml
     category.label = "Elexis: die umfassende Anwendung in Schweizer Arztpraxen"
     category.description = "Elexis-Basis module" # <service:description>Elexis Basismodul</service:description> in medelexis.xml
-    (allProjects & P2SiteExtension::getFeatures).each { |aProj| siteName = addFeatureToSite(aProj); category.features<< project(siteName); p siteName; p project(siteName) }
+    (allProjects & P2SiteExtension::getFeatures).each { 
+      |aProj| 
+      siteName = addFeatureToSite(aProj); 
+      category.features<< project(siteName); 
+    }
     package(:site).categories << category
     package(:p2_from_site)
     
     desc 'create a P2 update site for Elexis'
     task 'p2site' => package(:p2_from_site) 
-    
+
+    if false # TODO:
     check package(:p2_from_site), 'The p2site should have a site.xml' do
       File.should exist(_('target/p2repository/site.xml'))
     end
@@ -240,17 +238,18 @@ define "elexis" do
     end
     check package(:p2_from_site), 'The p2site should have content.jar' do
       File.should exist(_('target/p2repository/content.jar'))
-    end
+    end 
     check package(:p2_from_site), 'The p2site should have a plugins directory' do
       File.should exist(_('target/p2repository/plugins'))
-    end
+    end 
     check package(:p2_from_site), 'The p2site should have a features directory' do
       File.should exist(_('target/p2repository/features'))
-    end
+    end 
     check package(:p2_from_site), 'The p2site should contain a de.fhdo.elexis.perspective jar' do
       File.should exist(_("target/p2repository/plugins/de.fhdo.elexis.perspective_#{project('de.fhdo.elexis.perspective').version}.jar"))
     end if false
-  end if false
+    end
+  end
 
   desc 'create Debian packages for Elexis, docs'
   projectsToPack = (allProjects - @@skipPlugins)
@@ -259,6 +258,6 @@ define "elexis" do
 
 # defined 17 projects
 # will ignore 6 directories (as defined IgnoreSubDirs)
-# ignored 1 directories"
+# ignored 2 directories"
 
 end

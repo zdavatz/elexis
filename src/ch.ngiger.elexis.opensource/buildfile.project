@@ -44,9 +44,11 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
       'ch.elexis.artikel_ch',
     ]
     oo2Projects = [ 'ch.elexis.noatext' ]
-    txtTemplProjects = [ 'ch.medelexis.text.templator' ]
-    
-    DeployElexis = File.join(Dir.pwd, 'deploy_ng')
+    txtTemplProjects = [ 'ch.medelexis.text.templator' ]    
+#    layout[:target, :main] = File.expand_path(File.join(_, '..', 'deploy', 'installer'))
+
+    DeployElexis = File.join(Dir.pwd, '..', 'deploy')
+    p DeployElexis
     
     (baseProjects + chProjects + oo2Projects + txtTemplProjects).each {
       |proj|
@@ -178,7 +180,7 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
     def handleMacApp(destRoot, launcherName, initArgs)
       macApp    = File.join(destRoot, 'Eclipse.app')
       elexisApp = File.join(destRoot, launcherName +'.app')
-      puts "Macos #{macApp} -> #{elexisApp}"
+      trace "Macos #{macApp} -> #{elexisApp}"
       if File.exists?(macApp) then
 	FileUtils.mv(macApp, elexisApp, :verbose => true)
 	p Dir.glob("#{elexisApp}/**")
@@ -187,7 +189,7 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
 	  |x| 
 	      dest = x.sub(/launcher/i,  launcherName)
 	      dest.sub!(   /eclipse/i,  launcherName)
-	      puts "macos found #{x} => #{dest} #{x.eql?(dest)}"
+	      trace "macos found #{x} => #{dest} #{x.eql?(dest)}"
 	      FileUtils.mv(x, dest, :verbose => true) if !x.eql?(dest)
 	      }
       end
@@ -197,7 +199,6 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
                     '<string>Eclipse.icns</string>', '<string></string>',
                     '<string>Eclipse</string>', '<string>'+ launcherName+'</string>',
                     }
-      p toReplace
       inhalt.each { |x| toReplace.each { |from, to| x.sub!(from, to) } }
       File.open(infoPlist, 'w') {|f| f.write(inhalt) }                           
       File.open(File.join(elexisApp, 'Contents', 'MacOS', launcherName+'.ini'), 'w') {|f| f.write(initArgs) }                           
@@ -206,9 +207,9 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
 	# Install the launcher exe, configuration, ini-files etc for the desired platform
 	#
     def installLauncherAndConfiguration(destRoot, product, tgtPlatform, configIni=nil)
-      destDir = File.join(destRoot, 'plugins')
-      tConf   = File.join(destRoot, 'configuration')
-      [destDir,tConf].each{ |d| FileUtils.makedirs(d) }
+      tPlugins = File.join(destRoot, 'plugins')
+      tConf    = File.join(destRoot, 'configuration')
+      [tPlugins,tConf].each{ |d| FileUtils.makedirs(d) }
       configIni = %(#Product Runtime Configuration File 
 # created by buildr.apache.org at #{Time.now}"
 eclipse.application=#{product['application']}
@@ -226,9 +227,9 @@ name=#{product['uid']}
 id=#{product['id']}
 ))
       unpackPluginFromJar(Dir.glob(File.join(ENV['OSGi'], 'plugins', 
-                               "org.eclipse.equinox.launcher*#{tgtPlatform['osgi.ws']}.#{tgtPlatform['osgi.os']}.#{tgtPlatform['osgi.arch']}*.jar"))[0], destDir)
+                               "org.eclipse.equinox.launcher*#{tgtPlatform['osgi.ws']}.#{tgtPlatform['osgi.os']}.#{tgtPlatform['osgi.arch']}*.jar"))[0], tPlugins)
       FileUtils.cp_r(Dir.glob(File.join(ENV['OSGi'], 'plugins', "org.eclipse.equinox.launcher_*.jar"))[0], 
-                     destDir, :verbose=>true, :preserve => true)
+                     tPlugins, :verbose=>true, :preserve => true)
       pathName = File.join(DELTA_DEST, 'features', 'org.eclipse.equinox.executable_*', '**', 
 		      tgtPlatform['osgi.ws'],  tgtPlatform['osgi.os'], tgtPlatform['osgi.arch'], '*')
       Dir.glob(pathName).each{
@@ -242,6 +243,16 @@ id=#{product['id']}
 	  else
 	    FileUtils.cp_r(x, destRoot, :verbose=>true, :preserve => true)
 	  end
+      }
+      FileUtils.cp_r(Dir.glob(File.join(ENV['OSGi'], 'plugins', "org.eclipse.equinox.launcher_*.jar"))[0], 
+                     tPlugins, :verbose=>true, :preserve => true)
+      pathName = File.join(DELTA_DEST, 'plugins', 
+                           "org.eclipse.swt.*#{tgtPlatform['osgi.ws']}*.#{tgtPlatform['osgi.os']}.#{tgtPlatform['osgi.arch']}*.jar")
+      p pathName
+      Dir.glob(pathName).each{ 
+	|x| 
+	  next if /source_/.match(File.basename(x))
+	  FileUtils.cp(x, tPlugins, :verbose=>true, :preserve => true)
       }
 
       initArgs  = ''
@@ -329,7 +340,7 @@ id=#{product['id']}
     if false # niklaus does not always want the package to be redone each time!
       allProjects.each { |proj| task 'izpack' => project(proj).package(:plugin) {} }
     else
-      puts "Generating the installer might fail, was we do not depend on all projects being packaged (is a lot faster)"
+      info "Generating the installer might fail, was we do not depend on all projects being packaged (is a lot faster)"
     end
     osPath = File.join(project.path_to(:target), 'os')
     izRsc = File.join(project.path_to(:target), 'rsc')
