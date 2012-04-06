@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.6"?>
 
-<target name="desktop.dev" sequenceNumber="74">
+<target name="desktop.dev" sequenceNumber="69">
 <locations>
 <location includeAllPlatforms="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="org.eclipse.emf.sdk.feature.group" version="2.7.0.v20110606-0949"/>
 <unit id="org.eclipse.mylyn.wikitext_feature.feature.group" version="1.5.2.v20110908-0706"/>
 <repository location="http://download.eclipse.org/releases/indigo"/>
+</location>
+<location includeAllPlatforms="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+<unit id="org.eclipse.platform.ide" version="3.7.2.M20120208-0800"/>
+<unit id="org.eclipse.equinox.executable.feature.group" version="3.5.1.v20111216-1653-7P7NFUIFIbaUcU77s0KQWHw5HZTZ"/>
+<unit id="org.eclipse.equinox.executable" version="3.5.1.v20111216-1653-7P7NFUIFIbaUcU77s0KQWHw5HZTZ"/>
+<unit id="org.eclipse.platform.sdk" version="3.7.2.M20120208-0800"/>
+<unit id="org.eclipse.pde.junit.runtime.standalone.feature.group" version="1.0.101.r37x_v20111215-7a7xFBcFAhs4csLgXwCVrYe6585B"/>
+<repository location="http://download.eclipse.org/eclipse/updates/3.7"/>
 </location>
 <location includeAllPlatforms="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="org.eclipse.persistence.sdk.feature.group" version="2.3.0.v20110604-r9504"/>
@@ -37,14 +45,6 @@
 <unit id="org.slf4j.log4j.source" version="1.6.1.v20100831-0715"/>
 <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository/"/>
 </location>
-<location includeAllPlatforms="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-<unit id="org.eclipse.platform.ide" version="3.7.1.M20110909-1335"/>
-<unit id="org.eclipse.equinox.executable.feature.group" version="3.5.0.v20110530-7P7NFUFFLWUl76mart"/>
-<unit id="org.eclipse.platform.source.feature.group" version="3.7.1.r37x_v20110729-9gF7UHOxFtniV7mI3T556iZN9AU8bEZ1lHMcVK"/>
-<unit id="org.eclipse.platform.sdk" version="3.7.1.M20110909-1335"/>
-<unit id="org.eclipse.pde.junit.runtime.standalone.feature.group" version="1.0.100.v20110331-7a7xFB_F9juKSw7cQtELoIX78B7J"/>
-<repository location="http://download.eclipse.org/eclipse/updates/3.7"/>
-</location>
-<location path="/opt/src/elexis-windows/delta" type="Directory"/>
+<location path="${env_var:WORKSPACE}/delta-3.7.2" type="Directory"/>
 </locations>
 </target>

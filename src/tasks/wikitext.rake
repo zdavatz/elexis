@@ -13,6 +13,10 @@
 module Wikitext
   include Extension
   
+  def Wikitext::skipDoc
+    return @@skipDoc
+  end
+  
   def Wikitext::getRootDoku
     File.join(@@rootPath, 'target', 'doc')
   end
@@ -20,6 +24,7 @@ module Wikitext
     @@rootProject
   end
   def Wikitext::HtmlFromTextile(dest, src)
+    raise " Wikitext::HtmlFromTextile expects a texile file as input. given #{src}" if !File.basename(src).index('.textile')
     Java.load # needed to load class path for apache logger
     Buildr.ant('wikitext_to_html ') do |wikitext|
 	wikitext.echo(:message => "wikitext_to_html #{dest}")
@@ -42,6 +47,7 @@ module Wikitext
   end
 
   def Wikitext::foFromTextile(dest, src)
+    raise " Wikitext::foFromTextile expects a texile file as input. given #{src}" if !File.basename(src).index('.textile')
     Java.load # needed to load class path for apache logger
     Buildr.ant('wikitext_to_xslfo') do |wikitext|
 	wikitext.echo(:message => "wikitext_to_xslfo #{dest}")
@@ -59,8 +65,18 @@ module Wikitext
   end
 
   def Wikitext::pdfFromFo(dest, src)
+    raise " Wikitext::pdfFromFo expects a fo file as input. given #{src}" if !File.basename(src).index('.fo')
     cmd = "fop #{src} #{dest}"
     res= system(cmd) if !@@skipDoc
+  end
+
+  def Wikitext::pdfFromTextile(dest, src)
+    raise " Wikitext::pdfFromTextile expects a texile file as input. given #{src}" if !File.basename(src).index('.textile')
+    foFile = dest.sub('.pdf','.fo')
+    file dest => src do
+      Wikitext::foFromTextile(foFile, src)
+      Wikitext::pdfFromFo(dest, foFile)
+    end
   end
 
   first_time do
@@ -77,6 +93,7 @@ module Wikitext
 	@@skipDoc = true
       end
     }
+    puts "Setup: texi2pdf and fop are installed. Will generate documentation" if !@@skipDoc 
     Project.local_task('doc') if !@@skipDoc
   end
 
@@ -92,30 +109,26 @@ module Wikitext
   
   after_define do |project|
     if !@@skipDoc 
-		project.extend Wikitext
-		files = (Dir.glob(File.join(project._, '*.textile')) + Dir.glob(File.join(project._, 'doc', '*.textile')))
-		if files.size > 0
-		  files.each do |src|
-		  dest = File.join(project.path_to(:target), 'doc', "#{File.basename(src, '.textile')}.pdf")
-		  foFile = dest.sub('.pdf','.fo')
-		  file dest => src do
-		Wikitext::foFromTextile(foFile, src)
-		Wikitext::pdfFromFo(dest, foFile)
-		  end
-		  task 'doc' => [ dest ]
-		  if project.parent
-		copyInTopName = File.join(@@rootPath, 'target', 'doc', project.name.sub(project.parent.name+':', ''), File.basename(dest))
-		file  copyInTopName => dest do
-		  FileUtils.makedirs(File.dirname(copyInTopName))
-		  FileUtils.cp(dest, copyInTopName, :preserve => true,:verbose => true)
-		end
-		project.task('doc' => copyInTopName)
-		@@rootProject.task('doc' => copyInTopName)
-		  end
-		Rake::Task.define_task 'doc'
-		  end
-		end
+      project.extend Wikitext
+      files = (Dir.glob(File.join(project._, '*.textile')) + Dir.glob(File.join(project._, 'doc', '*.textile')))
+      if files.size > 0
+	files.each do |src|
+	  dest = File.join(project.path_to(:target), 'doc', "#{File.basename(src, '.textile')}.pdf")
+	  Wikitext::pdfFromTextile(dest, src)
+	task 'doc' => [ dest ]
+	if project.parent
+	  copyInTopName = File.join(@@rootPath, 'target', 'doc', project.name.sub(project.parent.name+':', ''), File.basename(dest))
+	  file  copyInTopName => dest do
+	    FileUtils.makedirs(File.dirname(copyInTopName))
+	    FileUtils.cp(dest, copyInTopName, :preserve => true,:verbose => true)
+	  end
+	project.task('doc' => copyInTopName)
+	@@rootProject.task('doc' => copyInTopName)
+	  end
+	Rake::Task.define_task 'doc'
 	end
+      end
+    end
   end
 end
 
@@ -139,7 +152,7 @@ ensure
 end
 
 def genDoku(restrictTo = '*.tex')
-  return if @@skipDoc 
+  return if Wikitext::skipDoc
 
   texFiles = Dir.glob(_(restrictTo))
   texFiles.each{ 

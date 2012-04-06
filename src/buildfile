@@ -6,7 +6,8 @@
 
 require 'fileutils'
 
-ENV['DELTA']      ||= 'http://mirror.switch.ch/eclipse/eclipse/downloads/drops/R-3.7.1-201109091335/eclipse-3.7.1-delta-pack.zip'
+ENV['DELTA']      ||= 'http://mirror.switch.ch/eclipse/eclipse/downloads/drops/R-3.7.2-201202080800/eclipse-3.7.2-delta-pack.zip'
+# ENV['DELTA']    ||= 'http://mirror.switch.ch/eclipse/eclipse/downloads/drops/R-3.7.1-201109091335/eclipse-3.7.1-delta-pack.zip'
 ENV['DELTA_DEST'] ||= File.expand_path(File.join(File.dirname(__FILE__),'..', 'delta'))
 ENV['OSGi']       ||= File.expand_path(File.join(File.dirname(__FILE__),'..', 'OSGi'))
 DELTA      = ENV['DELTA']
@@ -72,6 +73,14 @@ define "elexis" do
   project.group = GROUP
   manifest["Implementation-Vendor"] = COPYRIGHT
 
+  desc "Generate readme PDF"
+  Dir.glob(_('*.textile')).each  {
+    |textileFile|
+      src = textileFile.to_s
+      dest =  src.to_s.sub('.textile', '.pdf')
+	Wikitext::pdfFromTextile(dest, src) 
+    task 'readme' => dest
+  } if !Wikitext::skipDoc
 
   define 'ch.elexis.artikel_ch', :version=> '2.0.5' do
     dependencies << projects('ch.elexis', 'ch.elexis.importer.div', 'ch.rgw.utility', 'ch.elexis.core')
@@ -218,18 +227,13 @@ define "elexis" do
     category.name = "elexis" # type= medelexis.xml
     category.label = "Elexis: die umfassende Anwendung in Schweizer Arztpraxen"
     category.description = "Elexis-Basis module" # <service:description>Elexis Basismodul</service:description> in medelexis.xml
-    (allProjects & P2SiteExtension::getFeatures).each { 
-      |aProj| 
-      siteName = addFeatureToSite(aProj); 
-      category.features<< project(siteName); 
-    }
+    (allProjects & P2SiteExtension::getFeatures).each { |aProj| siteName = addFeatureToSite(aProj); category.features<< project(siteName); p siteName; p project(siteName) }
     package(:site).categories << category
     package(:p2_from_site)
     
     desc 'create a P2 update site for Elexis'
     task 'p2site' => package(:p2_from_site) 
-
-    if false # TODO:
+    
     check package(:p2_from_site), 'The p2site should have a site.xml' do
       File.should exist(_('target/p2repository/site.xml'))
     end
@@ -238,17 +242,16 @@ define "elexis" do
     end
     check package(:p2_from_site), 'The p2site should have content.jar' do
       File.should exist(_('target/p2repository/content.jar'))
-    end 
+    end if false # TODO:
     check package(:p2_from_site), 'The p2site should have a plugins directory' do
       File.should exist(_('target/p2repository/plugins'))
-    end 
+    end if false # TODO:
     check package(:p2_from_site), 'The p2site should have a features directory' do
       File.should exist(_('target/p2repository/features'))
     end 
     check package(:p2_from_site), 'The p2site should contain a de.fhdo.elexis.perspective jar' do
       File.should exist(_("target/p2repository/plugins/de.fhdo.elexis.perspective_#{project('de.fhdo.elexis.perspective').version}.jar"))
     end if false
-    end
   end
 
   desc 'create Debian packages for Elexis, docs'

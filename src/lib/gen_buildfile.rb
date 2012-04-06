@@ -166,6 +166,14 @@ define "elexis" do
   project.group = GROUP
   manifest["Implementation-Vendor"] = COPYRIGHT
 
+  desc "Generate readme PDF"
+  Dir.glob(_('*.textile')).each  {
+    |textileFile|
+      src = textileFile.to_s
+      dest =  src.to_s.sub('.textile', '.pdf')
+	Wikitext::pdfFromTextile(dest, src) 
+    task 'readme' => dest
+  } if !Wikitext::skipDoc
 EOF
 
 buildfile = "#{top}/buildfile"

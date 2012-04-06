@@ -1,0 +1,189 @@
+{toc}
+
+h1. Overview
+
+For the following we assume that you use rvm and/or installed jruby >= 1.6. If you are using a different default ruby implementation, please prefix in each example buildr by @rvm jruby do@
+
+To show all the possible tasks, run:
+
+@buildr -T@
+
+Have a look at the buildfile. If you feel, it could be simpler, please tell me.
+
+buildr uses Maven artifacts and caches them in the default Maven repository (usually  $HOME/.m2). Therefore the first time you start buildr it will download a lot of maven artifacts for the repositories. The default configuration can be changed using $HOME/.buildr/settings.yaml.
+
+If you want to start really from scratch then you should manuall remove the following directories
+
+# $HOME/.m2
+# OSGi
+# delta
+
+
+h2.  First we need to download and unzip a Delta package
+
+A Delta package contains all the platform specific jars, libraries, etc for all 22 platforms,
+which Eclipse supports. If you want to use another Delta-version modify buildfile or lib/gen_buildfile.rb and change the variable DELTA. Alternatively you can specify for tests the environment variable DELTA before calling rebuild_all.rb. Don't forget to manually remove the delta directory, as the dependencies are not yet correctly checked. The output goes (by default) into ./delta.
+
+@buildr delta@
+
+Since March 2012 we don't have to add OSGi=/opt/helios/eclipse. Instead the target platform is installed into ./OSGi (or whatever is specified by the environment variable OSGi) from the eclipse target platform definition file  in elexis-adddons/ch.ngiger.elexis.opensource/desktop.dev.target (as defined in the buildfile). To create the target platform run:
+
+@buildr OSGi@
+
+The next step takes some time, but is only needed if you changed the dependencies of one or more plugins. 
+
+@buildr osgi:clean:dependencies osgi:resolve:dependencie osgi:install:dependencies@
+
+h2.  To compile all java/scala classes
+
+@buildr clean compile@
+
+h2.  run all JUnit4 tests and to generate a JUnit HTML
+
+@buildr clean test junit:report@
+
+h2.  Build jars/zip
+
+@buildr package --trace@
+
+h2. Maven repository from Eclipse installation
+
+Variant used before march 2012 to create a local maven repository based on an eclipse installation. 
+The default maven repository is your $HOME/.m2. This step takes about 3 minutes
+
+@mvn eclipse:make-artifacts -DeclipseDir=/opt/helios/eclipse@
+
+Add the following if you want to push the generated maven artifacts to a shared repository
+
+@-DdeployTo=repository_name::default::file:///opt/my-maven-rep@
+
+h2. Eclipse P2 Update site
+
+To generate an Eclipse p2-update site under p2/target/p2repository. At the moment only working for http://github.org/zdavatz/elexis
+
+@buildr test=no elexis:p2:p2site@
+
+h2. Elexis installer
+
+To generate the Elexis installer under elexis-addons/ch.ngiger.elexis.opensource/target.
+The installer can be used to install Elexis and a demo database on all supported platform
+
+@buildr test=no elexis:ch.ngiger.elexis.opensource:izpack@
+
+h2. Elexis as Eclipse product for the current platform
+
+To produce a runnable elexis application under deploy/product
+
+@buildr test=no elexis:ch.ngiger.elexis.opensource:product@
+
+h2. Debian package
+
+To produce a Debian package under debian/target. The generate *.deb is at the moment just a proof of concept and does not contain a working elexis. There are number of open questions on how to install an RCP application under Debian.
+
+@buildr test=no elexis:debian@
+
+h2. Readme & this docu as PDF
+
+To produce the readme.pdf and buildr_howto.pdf
+
+@buildr readme@
+
+h1. Some random remarks about the quirks encountered
+
+h2. Changes compared to elexis-buckminster
+
+* elexis-utilities/META-INF/MANIFEST.MF: "Bundle-ClassPath:" starts with "./,"
+* tests: all java files copied from elexis_test/src -> elexis/test
+
+h2. design decisions
+
+h3. requirements
+
+* The release tool should adapte to the existing elexis directory layout. Cleanups can be done later. Therefore we used the Bundle-SymbolicName as name for the project, else buildr4osgi would not found the plugins.
+* Tool should support elexis-base, archie, elexis-addons and various (proprietary) repositories
+* Support for svn, mercurial (and possible git)
+* Suport for handling sub-repositories
+* Final product should include complete information about all used versions, including (possible) local, not yet commited changes
+* Final product should include a changelog
+
+h3. to be decided
+
+he. handling of included *.jars
+
+These jars are currently not correctly propagated by buildr4osgi to other project (incluing _test).
+
+* Create ad hoc artifacts for each one
+* Enhance buildr4osgi to handle this case
+
+h4. How to handle suprepositories
+
+* Some ad-hoc code for package/release?
+* Augment buildr with support for mercurial and subrepos?
+
+h4. howto create a changelog
+
+* Use hg log?
+* Hand-crafted changelog? (for each plugin? for each repository? overall?)
+
+h2. tips & tricks
+
+* All the logic for a complete elexis installation (elexis-base, archie, elexis-addons) is in the *buildfile*, which for testing purposes was create via a ruby script *gen_buildfile.rb* (about 350 lines long). I am quite confident that it can be even smaller (or more feature rich) in the future.
+
+* Via the gen_buildfile.rb I add projects by their Bundle-SymbolicName and pass the directory as :base_dir to to buildr4osgi.
+
+* There is a bug in buildr4osgi that a minimal version is always treated as a mandatory version. Therefore I switched all minimal version to ranges from minimum to @'999.0.0'@. This can be done automatically using the Ruby script @change_bundle_version.rb@. (Took me quite a few hours to discover this.)
+
+* As buildr expects the Bundle-ClassPath to begin with '.', we enforce this also via Ruby script @change_bundle_version.rb@. (Took me quite a few hours to discover this.)
+
+* For jdom and bcprov I bypass the "elexis"-way and use a buildr artifact whith the same version to (test.)compile.with
+
+h2. How to run PDE unit test
+
+Antoine Toulme:
+By default, we don't support PDE-like unit tests. They are very particular
+tests, they will only work with an Eclipse launcher indeed.
+You could look at the tycho integration test plugin to see how they run it
+with PDE.
+It's probably quite some work, but would be a very nice achievement.
+
+org.eclipse.pde.junit.runtime.addon 
+May be in http://wiki.eclipse.org/Jetty/Tutorial/Jetty-OSGi_SDK#Configure_a_Target_Platform_and_run_a_simple_Test_Unit_with_PDE
+
+http://software.2206966.n2.nabble.com/Headless-integration-tests-Tycho-JUnit-Eclipse-plugins-td6011165.html
+You need to tell Tycho to use UI test harness, see [1] for example. 
+https://github.com/sonatype/sonatype-tycho/blob/master/tycho-demo/itp01/tycho.demo.itp01.tests/pom.xml
+
+http://stackoverflow.com/questions/1494921/running-eclipse-plug-in-tests-in-non-ui-thread
+
+h2. TODO
+
+* Why do so many tests fail?
+* Add tests for deployment
+* Create executable target for current and more os/ws/arch combination
+* Handle *.jar files in lib sub-directories
+* Add GUI tests via Jubula
+* Support Win/64-bit and MacOSX/32-bit
+* Add multilingual setup (e.g. swiss-german/swiss-french/austrian)
+* Try to push changes back to buildr
+* Try to get rid of elexis-addons/patch_dep.rb, which is needed to reorder the class path to compile at.medevit.elexis.jpapoadapter
+* Activate PDE/Junit-Tests
+* Improve the Debian packages
+* Fix Windows/MacOSX-builds
+* Create Javadoc for all included packages
+
+
+h2. references
+
+See "Problems with dependent projects" on http://buildr.markmail.org/search/list:users on August 1,2011. Here they say
+
+http://buildr.markmail.org/search/list:users
+
+OK, I found a sort-of solution for both problems:
+
+define 'problematic' do define 'foo' do package :war end
+
+define 'bar' do foo_src = project('foo').compile.target foo_test = project('foo').test.compile.target compile.with project('foo'), foo_src, foo_test eclipse.exclude_libs += [foo_src, foo_test] end end
+
+The first entry in compile.with is used by the eclipse task, to set up the correct dependency on 'foo'. The other two are used by the compile task. The eclipse.exclude_libs fixes the incorrect entries in .classpath.
+
+I think that's the right way to do things... except for the eclipse exclusions -- those should be properly handled by the eclipse task. Please file a bug. 

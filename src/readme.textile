@@ -1,10 +1,10 @@
-h1. elexis-buildr
+h1. Howto build Elexis 
 
-Here we explore how to use "buildr4osgi":http://oss.intalio.com/buildr4osgi/ to build and test quickly "Elexis":http://www.elexis.ch
+The special "Elexis repository":https://github.com/zdavatz/elexis is used as demo implementation (spike) for the conference "http://www.ywesee.com/pmwiki.php/Oddb/OpenSourceSoftwareUndDatenImSchweizerGesundheitswesen":http://www.ywesee.com/pmwiki.php/Oddb/OpenSourceSoftwareUndDatenImSchweizerGesundheitswesen
+
+Based on "buildr4osgi":http://oss.intalio.com/buildr4osgi/ "Buildr for Apache":http://buildr.apache.org to build and test quickly "Elexis":http://www.elexis.ch
 
 (c) 2011/12 by Niklaus.giger@member.fsf.org
-
-*Index*
 
 h2. features
 
@@ -38,174 +38,36 @@ h2. needed software
 
 Versions of used software
 
-# Debian squeeze
+# Debian squeeze/wheezy
 # Ruby Version Manager (RVM) from https://rvm.beginrescueend.com/
-# jruby 1.6.2
-# buildr (1.4.6 java) with some patches by Niklaus Giger, use fork at https://github.com/ngiger/buildr4osgi
-# buildr4osgi (0.9.6)
-# eclipse-3.6.2
+# jruby 1.6.7
+# buildr (1.4.6 java) with some patches by Niklaus Giger, use fork at https://github.com/ngiger/buildr4osgi. Will be fetched and installed by the script rebuild_all.rb
+# buildr4osgi (0.9.6)  Will be fetched and installed by the script rebuild_all.rb
+# eclipse-3.6 (or higher)
 # fop
 # texi2pdf
 
-
 h2. bootstrapping buildr
 
-Last time tested February, 10 on Debian Squeeze x86 using: 
+Last time tested February, 10 on Debian Squeeze x86 using:
+
 @sudo debootstrap squeeze /opt/squeeze-chroot http://172.25.1.60:9999/debian@ 
 @sudo chroot  /opt/squeeze-chroot@
+@sudo aptitude install ruby maven2 git sun-java6-jdk|openjdk-6-jdk@
 
-bc.. 
-sudo aptitude install jruby maven2 git sun-java6-jdk|openjdk-6-jdk
-sudo jruby -S gem install jruby-openssl buildr buildr4osgi
-mkdir -p /opt/indigo
-cd /opt/indigo
-# Download and uncompress manually from http://www.eclipse.org/downloads/ or use the Swiss
-# mirror like this: 
-wget http://mirror.switch.ch/mirror/eclipse/technology/epp/downloads/release/indigo/SR2/eclipse-rcp-indigo-SR2-linux-gtk.tar.gz
-tar -zxf eclipse-rcp-indigo-SR2-linux-gtk.tar.gz 
-
-h2. installation of elexis-buildr
+h2. building Elexis
 
 clone the repository (read-only)
 
 @cd /opt@
-@git clone http://github.com/ngiger/elexis-buildr.git@
+@git clone git://github.com/zdavatz/elexis.git@
 @cd elexis-buildr@
 
-h2. using elexis-windows
+Now you are ready to build.
 
-
-Install rvm, buildr, buildr4osgi using
-@lib/init_buildr4osgi.rb@
-
-Be aware that rvm patches your .bashrc script. If you don't like, adapt the scripts below to your liking. 
-
-Show all the possible tasks
-@jruby -S buildr -T@
-
-Have a look at the buildfile. If you feel, it could be simpler, please tell me.
-To experiment I create it using lib/gen_buildfile.rb.
-
-The following steps should suffice:
 @export P2_EXE=/path/to/existing/eclipse/installation@
-@rvm jruby do buildr OSGi delta@
-@rm -f dependencies.yml ; rvm jruby do buildr osgi:clean:dependencies osgi:resolve:dependencies osgi:install:dependencies@
-@rvm jruby do buildr clean package test=no elexis:ch.ngiger.elexis.opensource:izpack  elexis:ch.ngiger.elexis.opensource:product@
+@ruby rebuild_all.rb@
 
-h3. another maven/buildr approach (not tested under elexis-windows)
+h2. More information
 
-First we create a local maven repository with all needed dependencies. It will usually
-be in $HOME/.m2. Takes a few minutes
-@mvn eclipse:make-artifacts -DeclipseDir=/opt/indigo/eclipse@
-
-First buildr4osgi needs to figure out all dependencies. Took less than 30 seconds in my case.
-@jruby -S buildr osgi:resolve:dependencies OSGi=/opt/indigo/eclipse@
-
-Then buildr4osgi installs all needed components from your Eclipse workspace into the local maven repository. Took about 15 seconds.
-@jruby -S buildr osgi:install:dependencies OSGi=/opt/indigo/eclipse@
-
-Now buildr4osgi is able to compile all java classes
-@jruby -S buildr clean compile test=no@
-
-Then its time to run all JUnit tests
-@jruby -S buildr clean test junit:report@
-
-buildr4osgi has no problem to package a zip file for our installation
-@jruby -S buildr package@
-
-Running only tests in project ch.elexis
-@jruby -S buildr test=only elexis:ch.elexis:test@
-
-Running all tests and inspecting results with firefox
-@jruby -S buildr junit:report test@
-@firefox reports/junit/html/index.html@
-
-h2. Changes compared to elexis-buckminster
-
-* elexis-utilities/META-INF/MANIFEST.MF: "Bundle-ClassPath:" starts with "./,"
-* tests: all java files copied from elexis_test/src -> elexis/test
-
-h1. design decisions
-
-h2. requirements
-
-* The release tool should adapte to the existing elexis directory layout. Cleanups can be done later. Therefore we used the Bundle-SymbolicName as name for the project, else buildr4osgi would not found the plugins.
-* Tool should support elexis-base, archie, elexis-addons and various (proprietary) repositories
-* Support for svn, mercurial (and possible git)
-* Suport for handling sub-repositories
-* Final product should include complete information about all used versions, including (possible) local, not yet commited changes
-* Final product should include a changelog
-
-h2. to be decided
-
-h3. handling of included *.jars
-
-These jars are currently not correctly propagated by buildr4osgi to other project (incluing _test).
-
-* Create ad hoc artifacts for each one
-* Enhance buildr4osgi to handle this case
-
-h3. How to handle suprepositories
-
-* Some ad-hoc code for package/release?
-* Augment buildr with support for mercurial and subrepos?
-
-h3. howto create a changelog
-
-* Use hg log?
-* Hand-crafted changelog? (for each plugin? for each repository? overall?)
-
-h1. tips & tricks
-
-* All the logic for a complete elexis installation (elexis-base, archie, elexis-addons) is in the *buildfile*, which for testing purposes was create via a ruby script *gen_buildfile.rb* (about 350 lines long). I am quite confident that it can be even smaller (or more feature rich) in the future.
-
-* Via the gen_buildfile.rb I add projects by their Bundle-SymbolicName and pass the directory as :base_dir to to buildr4osgi.
-
-* There is a bug in buildr4osgi that a minimal version is always treated as a mandatory version. Therefore I switched all minimal version to ranges from minimum to @'999.0.0'@. This can be done automatically using the Ruby script @change_bundle_version.rb@. (Took me quite a few hours to discover this.)
-
-* As buildr expects the Bundle-ClassPath to begin with '.', we enforce this also via Ruby script @change_bundle_version.rb@. (Took me quite a few hours to discover this.)
-
-* For jdom and bcprov I bypass the "elexis"-way and use a buildr artifact whith the same version to (test.)compile.with
-
-h1. How to run PDE unit test
-Antoine Toulme:
-By default, we don't support PDE-like unit tests. They are very particular
-tests, they will only work with an Eclipse launcher indeed.
-You could look at the tycho integration test plugin to see how they run it
-with PDE.
-It's probably quite some work, but would be a very nice achievement.
-
-org.eclipse.pde.junit.runtime.addon 
-May be in http://wiki.eclipse.org/Jetty/Tutorial/Jetty-OSGi_SDK#Configure_a_Target_Platform_and_run_a_simple_Test_Unit_with_PDE
-
-http://software.2206966.n2.nabble.com/Headless-integration-tests-Tycho-JUnit-Eclipse-plugins-td6011165.html
-You need to tell Tycho to use UI test harness, see [1] for example. 
-https://github.com/sonatype/sonatype-tycho/blob/master/tycho-demo/itp01/tycho.demo.itp01.tests/pom.xml
-
-http://stackoverflow.com/questions/1494921/running-eclipse-plug-in-tests-in-non-ui-thread
-
-h1. TODO
-
-* Why do so many tests fail?
-* Add tests for deployment
-* Create executable target for current and more os/ws/arch combination
-* Handle *.jar files in lib sub-directories
-* Add GUI tests (e.g. WindowTester or SWTbot)
-** Create executable targets for all os/ws/arch supported combinations by eclipse
-** Add multilingual setup & GUI tests
-
-h2. Howtos
-
-See "Problems with dependent projects" on http://buildr.markmail.org/search/list:users on August 1,2011. Here they say
-
-http://buildr.markmail.org/search/list:users
-
-OK, I found a sort-of solution for both problems:
-
-define 'problematic' do define 'foo' do package :war end
-
-define 'bar' do foo_src = project('foo').compile.target foo_test = project('foo').test.compile.target compile.with project('foo'), foo_src, foo_test eclipse.exclude_libs += [foo_src, foo_test] end end
-
-The first entry in compile.with is used by the eclipse task, to set up the correct dependency on 'foo'. The other two are used by the compile task. The eclipse.exclude_libs fixes the incorrect entries in .classpath.
-
-I think that's the right way to do things... except for the eclipse exclusions -- those should be properly handled by the eclipse task. Please file a bug. 
+Have a look at the textile files under https://github.com/zdavatz/elexis/tree/master/src
