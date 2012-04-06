@@ -63,7 +63,7 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
 * Auf OS X ist es zu empfehlen vorgängig Homebrew zu installieren
   https://github.com/mxcl/homebrew/wiki/installation
 
-## Builden mit Buildr auf Linux. Muss nicht jeden Tag gemacht werden.
+## Builden mit Buildr auf Linux oder OS X. Muss nicht jeden Tag gemacht werden.
 
 * git clone git@github.com:zdavatz/elexis-windows.git
 * cd src
