@@ -93,3 +93,28 @@ Für den täglichen Gebrauch und nach dem ersten Build bei täglichen commits:
 ## Github
 
 * http://help.github.com/mac-set-up-git/
+
+## Jenkins Builds from Niklaus Giger
+
+* http://ngiger.dyndns.org/jenkins/view/2.1.6/job/elexis-2.1.6-ant/lastSuccessfulBuild/artifact/deploy/
+* Get the Jar file from here or build it yourself with 
+    
+    cd src
+    ruby rebuild_all.rb
+
+## Bootstrap HowTo with Ant (old version before Niklaus done the Buildr Version)
+
+* https://bitbucket.org/ngiger/elexis-bootstrap
+
+* Notes from Zeno
+
+  #!/bin/sh
+  export ChooseBranch=2.1.6
+  ./gen_repo.rb --branch $ChooseBranch .
+  ./prepareJenkins.rb --branch $ChooseBranch
+  cd elexis-base/BuildElexis
+  ant -Dos=linux.x86_64 linux.x86_64 -Dskip_texify=false
+  #ant -Dos=macosx clean macosx
+  #ant -Dos=linux linux doc doc-plugins javadoc
+  #ant -Dos=windows windows
+  #ant -Dos=macosx macosx
