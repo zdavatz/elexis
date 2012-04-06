@@ -33,16 +33,11 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
 
 * Elexis basiert auf der Initiative von zwei Schweizer Ärzten Gerry Weirich und Peter Schönbucher und vielen weiteren wichtigen Personen.
 
-## Windows-Installer
+## Release Manager
 
-* Der Windows-Build wurde vom Ruby-Liebhaber Niklaus Giger erstellt.
+* Der Ruby-Liebhaber Niklaus Giger ist Release Manager von Elexis.
 
-## Boot-Strap-Install
-
-* Siehe ngiger_build File und
-* https://bitbucket.org/ngiger/elexis-bootstrap
-
-## Random
+## Gut zu wissen
 
 * Datenbankverbindung für Postgres auf OS X testen
   psql --username elexis --password --host=localhost --port=5432 elexis
@@ -67,13 +62,6 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
 
 * Auf OS X ist es zu empfehlen vorgängig Homebrew zu installieren
   https://github.com/mxcl/homebrew/wiki/installation
-
-## Initialer Bootstrap
-
-* Der initiale Bootstrap von Niklaus Giger findet man hier
-  https://bitbucket.org/ngiger/elexis-bootstrap
-
-  Niklaus Giger arbeitet zur Zeit an einem zweiten Bootstrap via ruby und dem buildr gem, sodass man am Ende nur einen Intaller haben sollte.
 
 ## Builden mit Buildr auf Linux. Muss nicht jeden Tag gemacht werden.
 
