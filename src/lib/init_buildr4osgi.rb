@@ -20,10 +20,10 @@ if /java/i.match(RUBY_PLATFORM)
 	end
 end
 
-prerequisites = ['patch', 'git', 'curl']
+prerequisites = ['java', 'patch', 'git', 'curl']
 prerequisites.each {
  |x|
-  if ! system("#{x} --version")
+  if ! system("#{x} --version".sub('java --version', 'java -version'))
     puts "#{x} must be installed!"
     exit 2
   end
@@ -67,7 +67,7 @@ else
 	system('rvm --version', MayFail)
 	system('type rvm | /usr/bin/head -1', MayFail)
 	jrubyDir = "#{ENV['HOME']}/.rvm/rubies/jruby*"
-	if !system('jruby --version', MayFail) or Dir.glob(jrubyDir).size == 0
+	if !system("#{$usePrefix}jruby --version", MayFail) or Dir.glob(jrubyDir).size == 0
 	  system('rvm install jruby')
 	else
 	  puts "jruby already installed"
@@ -75,23 +75,38 @@ else
 end
 
 needsRebuild = false
-if !system("#{$usePrefix}buildr --version", MayFail)
-  puts "adding buildr"
-  needsRebuild = true
-  system("#{$usePrefix}gem install buildr")
-  system("#{$usePrefix}gem install buildrdeb")
-else
-  puts "buildr  already installed"
+
+def checkGem(gemName, version=nil)
+  puts "checkGem #{gemName} #{version}"
+#  rvm jruby do gem list --local buildr | tee tmp.tmp && grep buildr tmp.tmp
+  if !system("#{$usePrefix} gem list --local #{gemName} | tee tmp.tmp && grep #{gemName} tmp.tmp", MayFail)
+    puts "checkGem: Gem #{gemName} not found."
+    needsRebuild = true
+    return false
+  else
+    puts "checkGem: Gem #{gemName} already installed"
+    return true
+  end
+  return false
+end
+
+['net-ldap', 'buildr', 'buildrdeb'].each do 
+  |name|
+    if !checkGem(name)
+      system("#{$usePrefix} gem install #{name}")
+    end
 end
 
 buildr4osgiPath = "#{ENV['HOME']}/buildr4osgi"
-
-if needsRebuild || Dir.glob(buildr4osgiPath).size == 0
+buildr4osgiInstalled = checkGem('buildr4osgi')
+            
+if needsRebuild || Dir.glob(buildr4osgiPath).size == 0 || !buildr4osgiInstalled
   puts "Adding buildr4osgi (special from niklaus)"
   system("git clone git://github.com/ngiger/buildr4osgi.git #{buildr4osgiPath}") if !File.directory?(buildr4osgiPath)
   saved = Dir.pwd
   Dir.chdir(buildr4osgiPath)
-  p buildr4osgiPath
+  puts Dir.pwd
+  FileUtils.rm(Dir.glob('*.gem')) if Dir.glob('*.gem').size > 0
   system("git pull")
   system("#{$usePrefix}gem build #{Dir.glob('*.gemspec')[0]}")
   system("#{$usePrefix}gem install *.gem")

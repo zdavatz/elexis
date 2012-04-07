@@ -63,6 +63,7 @@ commands = [
 "#{prefix} buildr test=no clean package",
 "#{prefix} buildr test=no elexis:ch.ngiger.elexis.opensource:izpack",
 "#{prefix} buildr test=no elexis:ch.ngiger.elexis.opensource:product",
-# "#{prefix} buildr test=no elexis:p2:p2site", # not yet working at this moment. Generates a p2site
+"#{prefix} buildr test=no elexis:p2:p2site", # not yet working at this moment. Generates a p2site
 "#{prefix} buildr test=no elexis:debian",
+"#{prefix} buildr test", # integration tests (aka PDE test not work yet)
  ].each{ |cmd| runOneCommand(cmd) }

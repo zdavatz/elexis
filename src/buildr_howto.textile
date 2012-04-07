@@ -174,15 +174,26 @@ h2. TODO
 
 h2. references
 
-See "Problems with dependent projects" on http://buildr.markmail.org/search/list:users on August 1,2011. Here they say
+* "p2 tasks":http://help.eclipse.org/indigo/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fp2_repositorytasks.ht
+* "good introduction to p2":http://css.desy.de/content/e198/e2694/e2699/p2-introduction.ppt
+* "Add update page (on startup?)":http://wiki.eclipse.org/Equinox/p2/Adding_Self-Update_to_an_RCP_Application#Headless_Updating_on_Startup
+
+See "Problems with dependent projects":http://buildr.markmail.org/search/list:users on August 1,2011. Here they say
 
 http://buildr.markmail.org/search/list:users
 
 OK, I found a sort-of solution for both problems:
 
-define 'problematic' do define 'foo' do package :war end
-
-define 'bar' do foo_src = project('foo').compile.target foo_test = project('foo').test.compile.target compile.with project('foo'), foo_src, foo_test eclipse.exclude_libs += [foo_src, foo_test] end end
+bc. define 'problematic' do 
+	define 'foo' do 
+		package :war 
+	end
+	define 'bar' do
+		foo_src = project('foo').compile.target 
+		foo_test = project('foo').test.compile.target
+		compile.with project('foo'), foo_src, foo_test eclipse.exclude_libs += [foo_src, foo_test]
+		end 
+	end
 
 The first entry in compile.with is used by the eclipse task, to set up the correct dependency on 'foo'. The other two are used by the compile task. The eclipse.exclude_libs fixes the incorrect entries in .classpath.
 

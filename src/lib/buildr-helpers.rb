@@ -14,6 +14,7 @@ WithP2Site     = true # whether to generate a p2site for elexis updates
 DefaultEclipse = "http://ftp.medelexis.ch/downloads_opensource/eclipse/eclipse-rcp-indigo-SR1-"
 ENV['JAVA_OPTS'] = '-Xmx512m'
 require 'rexml/document'
+require 'net/ldap'
 include REXML
 
 TimeStamp = Time.now.strftime('%Y%m%d') # Cannot use '-' because of p2site conventions
@@ -224,12 +225,41 @@ def shouldIgnoreProject(aProjDir)
   return false; # wenn alles kompiliert werden soll
 end
 
-# will substitute the well-known values for
-# version 
-# dist
-# rsc
-# mrsc
 
+
+# converts a hash into an LDAP entry which we can use to compare the filter    
+def genEntryFromHash(aHash)
+  entry = Net::LDAP::Entry.new
+  aHash.each{ |name, value| entry["#{name}"] = value}
+  entry
+end
+
+# filter is the Eclipse platform string as seen in a MANIFEST.MF e.g '(& (osgi.os=macosx) (|(osgi.arch=x86)(osgi.arch=x86_64)))')
+# DesiredPlatform is the Hash for the current platform: e.g. {"osgi.os"=>"macosx", "osgi.ws"=>"cocoa", "osgi.arch"=>"x86"}
+def platformFilterMatches(filter, desiredPlatform)
+  f = Net::LDAP::Filter.construct(filter)
+  entry =genEntryFromHash(desiredPlatform)
+  stack = []
+  f.execute{ |op, left, right|
+             stringOp = case op.to_s
+           when 'and' then
+	      a = stack.pop
+	      b = stack.pop
+	      stack.push(a && b)
+           when 'or' then
+	      a = stack.pop
+	      b = stack.pop
+	      stack.push(a || b)
+           when 'equalityMatch' then
+	      stack.push(Net::LDAP::Filter.equals(left, right).match(entry) != nil)
+           else
+             raise "Unsupported compare operation #{op.to_s} #{stringOp}"
+           end
+           }
+#  puts "platformFilterMatches returns #{stack[0]}. stack #{stack.inspect}"
+#  puts "platformFilterMatches returns #{stack[0]}. filter #{filter} for  #{desiredPlatform.inspect}"
+  stack[0]
+end
 
 if $0  == __FILE__
   require 'test/unit'

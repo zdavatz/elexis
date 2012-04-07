@@ -57,7 +57,10 @@ To run PDE integration tests:
     HELP
 end
 
-module PDE_test
+# This module allows you to run Eclipse PDE tests, if you have defined
+# launch configurations in your project (they must have the suffix '.launch' !!).
+# If you specify wrong parameters the PDE test might hang! I did not yet have time to catch this error
+module PDE_Test
   include Extension
 
   first_time do
@@ -68,8 +71,8 @@ module PDE_test
   
   before_define do |project|
     if project.parent == nil
-      puts "Add PDE_test integration stuff for root project"
-      PDE_test::stuffForRootProject 
+      puts "Add PDE_Test integration stuff for root project"
+      PDE_Test::stuffForRootProject 
     else
       short = project.name.sub(project.parent.name+':','')
       project.test.using :integration      if !(short.eql?('ch.rgw.utility') or short.eql?('ch.elexis.core.databinding'))
@@ -81,12 +84,7 @@ module PDE_test
 	project.layout[:source, :test, :java] = testBase
 	project.layout[:source, :test] = testBase
 	libs = Dir.glob(File.join(testBase, '*.jar')) + Dir.glob(File.join(testBase, 'lib','*.jar'))
-	if libs.size > 0
-	    puts "PDE_test: Patching #{short} with #{libs.size} libraries: #{testBase} "
-	    project.test.with libs
-	else
-	  puts "PDE_test: Patching #{short}: #{testBase}"
-	end
+	project.test.with libs if libs.size > 0
       end
     end
   end
@@ -94,13 +92,15 @@ module PDE_test
   after_define do |project|
     if project.parent
       short = project.name.sub(project.parent.name+':','')
-      if !(short.eql?('ch.rgw.utility') or short.eql?('ch.elexis.core.databinding'))
-	tstPlugin = 'ch.elexis'
-	tstPlugin = 'ch.elexis.importer.div'
-	tstPlugin = 'ch.elexis.externe_dokumente'
-      # if short.eql?(tstPlugin)
-	PDE_test::run_pde_test(project)
-      end 
+      launchConfigs = Dir.glob(project._('*.launch')) + Dir.glob(File.join(project.layout[:source, :test],'*.launch'))
+      launchConfigs.each{ 
+	|cfgFileName|
+      cfg = Launch_Util.new(cfgFileName)
+      if cfg.isPdeTest
+	trace "#{short} runs #{cfgFileName}" 
+	PDE_Test::run_pde_test(project, cfg)
+      end
+      }
     end
   end
   
@@ -113,10 +113,10 @@ private
     'org.eclipse.jdt:junit:jar:3.3.0-v20070606-0010'
   ]
 
-  def PDE_test::stuffForRootProject
-    @@pluginPath  = File.join(ENV['OSGi'], 'plugins') if ENV['OSGi']
+  def PDE_Test::stuffForRootProject
+    @@pluginPath  = File.join(ENV['P2_EXE'], 'plugins')
     @@pdeTestUtilsJar = File.join('target', 'pde.test.utils','pde.test.utils.jar')
-    puts "define pdtest jar #{@@pdeTestUtilsJar}"
+    trace "PDE_Test::define #{@@pdeTestUtilsJar}"
     pdeTestSources  = Dir.glob(File.join('pde.test.utils', '*.java'))
     file @@pdeTestUtilsJar => pdeTestSources do
       Buildr.ant('create_eclipse_plugin') do |x|
@@ -135,7 +135,7 @@ private
   end
 
   # return all needed Eclipse plug-ins for the pdeTestLocator
-  def PDE_test::getPdeTestClasspath
+  def PDE_Test::getPdeTestClasspath
     pdeTestPath = []
     pdeTestPath << @@pdeTestUtilsJar if @@pdeTestUtilsJar
     pdeTestPath << Dir.glob(File.join(@@pluginPath, 'org.eclipse.core.runtime_*.jar')).join(File::PATH_SEPARATOR)
@@ -164,12 +164,12 @@ private
 	      :classpath=>Buildr.artifacts(JUnit.ant_taskdef).each(&:invoke).map(&:to_s).join(File::PATH_SEPARATOR)
       ant.junitreport(:todir => 'reports') do
 	  ant.fileset(:dir=>Dir.pwd) { ant.include :name=>'TEST-*.xml' }
-	  ant.report(:format => 'frames',  :todir => File.join('reports', 'PDE_test'))
+	  ant.report(:format => 'frames',  :todir => File.join('reports', 'PDE_Test'))
       end
     end
   end
   
-  def PDE_test::addTestJar(shortName, project)
+  def PDE_Test::addTestJar(shortName, project)
     # we need a test fragment for the test
     testClassesDir = project.path_to(:target,:test,:classes)
     testMetaMf = [testClassesDir,'META-INF','MANIFEST.MF'].join(File::SEPARATOR) 
@@ -201,58 +201,36 @@ EOF
   end
 
 public
-  # you must call run_pde_test from your project. I have no clue
-  # where you want junit or pde-tests
-  # opts are optional paramaters to be passed to the PDE test
-  def PDE_test::run_pde_test(project, classnames = nil, opts = nil)
-    # Define the loc task for this particular project.
+  def PDE_Test::run_pde_test(project, cfg)
+    return if !cfg.isPdeTest # just to be sure
     tstPath = project.path_to(:source, :test, :java)
     shortName = project.name.to_s.sub(project.parent.to_s+':','')
-    return if shortName.eql?('ch.elexis')
     return if ENV['pdeTest'].eql?('no')
     java_args = []
     opts = [ '-consoleLog', '-debug', # only used for debugging the PDE test startup
-        ] if !opts
-
-    # Check possible launch configuration
-    launchConfigs = Dir.glob(project._('*.launch')) + Dir.glob(File.join(project.layout[:source, :test],'*.launch'))
-    if launchConfigs.size > 0
-      puts launchConfigs.inspect
-      cfg = Launch_Util.new(launchConfigs[0])
-      return if !cfg.isPdeTest
-      java_args = cfg.java_args.split(' ')
-      if cfg.product
-	opts << '-product'
-	opts << cfg.product
-      end
-      classnames = cfg.classnames if cfg.classnames
-      if cfg.testApplication
-	opts << '-application'
-	opts << cfg.testApplication
-      end
-    else
-      puts "PDE_Test: no defaults defined for #{shortName}"
+        ]
+    puts "PDE_Test::run_pde_test #{cfg.launchConfigName} is #{cfg.inspect}"
+    puts "PDE_Test classnames are #{cfg.classnames}"
+    java_args = cfg.java_args.split(' ')
+    if cfg.product
+      opts << '-product'
+      opts << cfg.product
     end
-   
-    found = Dir.glob(File.join(tstPath, '**', 'AllTests.java'))
-    if !classnames and found.size > 0
-      # Set java classname 
-      project.PDETestClassName = found[0].sub(tstPath,'').gsub(File::SEPARATOR,'.').sub('.src.','').sub(/^\./,'').sub(/\.java$/,'')
-      puts "#{project.id} has PDE_test #{project.PDETestClassName}"
-    else
-      return if !classnames
-      project.PDETestClassName = classnames 
-      puts "#{project.id} has PDE_test #{project.PDETestClassName}"
+    raise "Don't know how to run PDE tests if you didn't specify classname in #{cfg.launchConfigName}" if !cfg.classnames
+    if cfg.testApplication
+      opts << '-testApplication'
+      opts << cfg.testApplication
     end
-    project.test.exclude '*' # Tell junit to ignore all JUnit-test, as it would interfere with the PDE test																											
+    project.test.exclude '*' # Tell junit to ignore all JUnit-test, as it would interfere with the PDE test
+    return if !/importer/i.match(cfg.launchConfigName)
     project.integration.teardown(:createPDEtestHtml) 
     project.integration.prerequisites << @@pdeTestUtilsJar
     project.test.compile.with project.dependencies + project.compile.dependencies
     project.test.with project.compile.target if project.compile.target
     project.test.compile.with ANT_ARTIFACTS
-    testFragmentJar = PDE_test::addTestJar(shortName, project)
+    testFragmentJar = PDE_Test::addTestJar(shortName, project)
     project.test.using :integration
-    project.PDETestResultXML = "TEST-#{shortName}.xml"
+    project.PDETestResultXML = File.join('reports', "TEST-#{shortName}.xml")
 
     pdeJars = [@@pdeTestUtilsJar, project.package(:plugin), testFragmentJar] 
     deps = []
@@ -294,14 +272,22 @@ public
 	puts "#{shortName}: Finished PDE-integration test at #{Time.now} (ResultsCollector)"
       end
       puts "#{shortName}: Started PDETestResultsCollector. Wait 1 second"; sleep(1)   
-      ENV['dbPw'] = 'topsecret'
+      # applicatione für PhoneBookExample was
+      # '-application',    'org.eclipse.pde.junit.runtime.uitestapplication',
+      # für non-interactive PDE von ch.elexis
+      # -application org.eclipse.pde.junit.runtime.nonuithreadtestapplication 
+
+			
       Java::Commands.java('org.eclipse.equinox.launcher.Main', 
 			  '-data',           output,
 			  '-dev',            'bin',
+#                          '-application',    'org.eclipse.pde.junit.runtime.nonuithreadtestapplication',
+                          '-application',    'org.eclipse.pde.junit.runtime.uitestapplication',
+#                          '-loaderpluginname','org.eclipse.jdt.junit4.runtime',
 			  '-clean',
 			  '-port',           myTestPort,
 			  '-testpluginname', shortName,
-			  '-classnames',     project.PDETestClassName,
+			  '-classnames',     cfg.classnames,
                           opts,
                           {:classpath =>     [
                                               Dir.glob(File.join(@@pluginPath,'org.eclipse.equinox.launcher_*.jar')),
@@ -323,10 +309,35 @@ public
     # TODO: mv all Text*.xml into a separate directory
     # FileUtils.mv('TEST*.xml', 'reports', :verbose => false)
   end
+x = <<EOF
+niklaus  21277 21401 42 00:07 pts/2    00:00:11 /usr/lib/jvm/java-6-sun-1.6.0.26/bin/java 
+-agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:49605 
+-Delexis-run-mode=RunFromScratch -Dch.elexis.username=007 -Dch.elexis.password=topsecret 
+-Dfile.encoding=UTF-8 
+-classpath /opt/indigo/eclipse.x86_64/plugins/org.eclipse.equinox.launcher_1.2.0.v20110502.jar org.eclipse.equinox.launcher.Main 
+-os linux -ws gtk -arch x86_64 -nl de_CH -consoleLog 
+-version 3 
+-port 57095 
+-testLoaderClass org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader 
+-loaderpluginname org.eclipse.jdt.junit4.runtime 
+-classNames ch.elexis.AllPluginTests 
+-application org.eclipse.pde.junit.runtime.nonuithreadtestapplication 
+-testApplication ch.elexis.ElexisApp 
+-data /opt/elexis-2.1.7-rm/workspace/../junit-workspace -configuration file:/opt/elexis-2.1.7-rm/workspace/.metadata/.plugins/org.eclipse.pde.core/pde-junit/ 
+-dev file:/opt/elexis-2.1.7-rm/workspace/.metadata/.plugins/org.eclipse.pde.core/pde-junit/dev.properties 
+-os linux -ws gtk -arch x86_64 -nl de_CH 
+-consoleLog 
+-testpluginname ch.elexis
 
+um 0:30
+ -application org.eclipse.pde.junit.runtime.uitestapplication -port 39891 -testpluginname ch.elexis -classnames ch.elexis.AllPluginTests -application ch.elexis.ElexisApp
+Command-line arguments:  -data /opt/src/elexis/src/reports -dev bin -application org.eclipse.pde.junit.runtime.uitestapplication -clean -port 39891 -testpluginname ch.elexis -classnames ch.elexis.AllPluginTests -consoleLog -debug -application ch.elexis.ElexisApp
+
+
+EOF
 end
 
 class Buildr::Project
-  include PDE_test
+  include PDE_Test
   attr_accessor :PDETestClassName,:PDETestResultXML
 end
