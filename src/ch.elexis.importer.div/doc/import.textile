@@ -4,6 +4,10 @@ Dieses Dokument wurde anfangs Juli 2010 von Niklaus Giger (niklaus.giger@member.
 
 Im Plug-In "Elexis-Importer" sind mehrere Möglichkeiten definiert, um schon vorhandene Daten einzubinden. Diese Funktionen werden vor allem beim Umstieg auf Elexis gebraucht. Falls Sie als Arzt hier nur Chinesisch verstehen, aber Ihre vorhandnen Daten gerne übernehmen möchten, wenden Sie sich am besten an einen der zahlreichen "Dienstleister":http://www.medelexis.ch/elexis-supporter.html.
 
+Gerry hat unter ch.elexis.importers einen nicht benutzten AccessWrapper programmiert, damit man leicht ACCESS-Dateien einlesen kann (z.B. für TARMED). 
+
+Deswegen ich auch die gesamte Jackcess Bibliothek drin. Diese wird auch von den Keycab und ICPC-Importer verwendet.
+
 Es gibt keine echte Unterstützung für mehrsprachigkeit. Für Französisch ist es okay, da "masculin" und "männlich" mit dem gleichen Buchstaben beginnen.
 
 Für folgende Datenformate wählen Sie besser das entsprechende Plugin:

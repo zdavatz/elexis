@@ -100,6 +100,8 @@ public class Messages extends NLS {
 	public static String TarmedDetailDisplay_TPTec;
 	
 	public static String TarmedImporter_couldntConnect;
+	public static String TarmedImporter_ImporterCaption;
+	public static String TarmedImporter_convertTable;
 	public static String TarmedImporter_importLstg;
 	public static String TarmedImporter_connecting;
 	public static String TarmedOptifier_perSession;
@@ -114,8 +116,6 @@ public class Messages extends NLS {
 	
 	public static String TarmedImporter_singleLst;
 	public static String TarmedImporter_enterSource;
-	public static String TarmedImporter_setupSource;
-	public static String TarmedImporter_setupSource2;
 	public static String LaborleistungImporter_AnalyseImport;
 	public static String LaborleistungImporter_AnalyzeTariff;
 	public static String LaborleistungImporter_pleseEnterFilename;

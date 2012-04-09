@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Import für verschiedene Dateien
 Bundle-SymbolicName: ch.elexis.importer.div;singleton:=true
-Bundle-Version: 1.4.3
+Bundle-Version: 1.5.0
 Bundle-Vendor: elexis.ch
 Bundle-Localization: plugin
 Bundle-ClassPath: .,
