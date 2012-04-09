@@ -14,6 +14,7 @@ WithP2Site     = true # whether to generate a p2site for elexis updates
 DefaultEclipse = "http://ftp.medelexis.ch/downloads_opensource/eclipse/eclipse-rcp-indigo-SR1-"
 ENV['JAVA_OPTS'] = '-Xmx512m'
 require 'rexml/document'
+require 'rubygems'
 require 'net/ldap'
 include REXML
 

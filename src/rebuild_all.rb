@@ -57,7 +57,7 @@ prefix= 'jruby -S' if /mingw|bccwin|wince|cygwin|mswin32/i.match(RbConfig::CONFI
 # https://github.com/zdavatz/elexis/src/buildr_howto.textile
 commands = [
 "lib/init_buildr4osgi.rb",
-"rvm system do ruby lib/gen_buildfile.rb", 
+"#{prefix} ruby lib/gen_buildfile.rb", 
 "#{prefix} buildr delta OSGi elexis:readme", 
 "#{prefix} buildr osgi:clean:dependencies osgi:resolve:dependencies osgi:install:dependencies", 
 "#{prefix} buildr test=no clean package",
