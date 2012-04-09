@@ -23,38 +23,46 @@ Health Market Science
 2700 Horizon Drive
 Suite 200
 King of Prussia, PA 19406
- */
+*/
 
 package com.healthmarketscience.jackcess;
 
 import java.io.IOException;
 
 /**
- * Simple implementation of an ErrorHandler which always returns the configured object.
+ * Simple implementation of an ErrorHandler which always returns the
+ * configured object.
  * 
  * @author James Ahlborn
  */
-public class ReplacementErrorHandler implements ErrorHandler {
-	
-	private final Object _replacement;
-	
-	/**
-	 * Constructs a ReplacementErrorHandler which replaces all errored values with {@code null}.
-	 */
-	public ReplacementErrorHandler(){
-		this(null);
-	}
-	
-	/**
-	 * Constructs a ReplacementErrorHandler which replaces all errored values with the given Object.
-	 */
-	public ReplacementErrorHandler(Object replacement){
-		_replacement = replacement;
-	}
-	
-	public Object handleRowError(Column column, byte[] columnData, Table.RowState rowState,
-		Exception error) throws IOException{
-		return _replacement;
-	}
-	
+public class ReplacementErrorHandler implements ErrorHandler
+{
+
+  private final Object _replacement;
+
+  /**
+   * Constructs a ReplacementErrorHandler which replaces all errored values
+   * with {@code null}.
+   */
+  public ReplacementErrorHandler() {
+    this(null);
+  }
+
+  /**
+   * Constructs a ReplacementErrorHandler which replaces all errored values
+   * with the given Object.
+   */
+  public ReplacementErrorHandler(Object replacement) {
+    _replacement = replacement;
+  }
+
+  public Object handleRowError(Column column,
+                               byte[] columnData,
+                               Table.RowState rowState,
+                               Exception error)
+    throws IOException
+  {
+    return _replacement;
+  }
+
 }

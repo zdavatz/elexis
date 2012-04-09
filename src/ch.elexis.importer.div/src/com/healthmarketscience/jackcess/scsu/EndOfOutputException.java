@@ -31,17 +31,18 @@ package com.healthmarketscience.jackcess.scsu;
 /**
  * The input string or input byte array ended prematurely
  */
-public class EndOfOutputException extends java.lang.Exception
+public class EndOfOutputException
+    extends java.lang.Exception
 
 {
-	
-	private static final long serialVersionUID = 1L;
-	
-	public EndOfOutputException(){
-		super("The input string or input byte array ended prematurely");
-	}
-	
-	public EndOfOutputException(String s){
-		super(s);
-	}
+
+   private static final long serialVersionUID = 1L;
+  
+   public EndOfOutputException(){
+    super("The input string or input byte array ended prematurely");
+    }
+
+    public EndOfOutputException(String s) {
+	super(s);
+    }
 }

@@ -23,27 +23,30 @@ Health Market Science
 2700 Horizon Drive
 Suite 200
 King of Prussia, PA 19406
- */
+*/
 
 package com.healthmarketscience.jackcess.query;
 
 import java.util.List;
 
+
 /**
- * Concrete Query subclass which represents a select query, e.g.: {@code SELECT <columns> FROM
- * <tables> WHERE <expression>}
+ * Concrete Query subclass which represents a select query, e.g.:
+ * {@code SELECT <columns> FROM <tables> WHERE <expression>}
  * 
  * @author James Ahlborn
  */
-public class SelectQuery extends BaseSelectQuery {
-	
-	public SelectQuery(String name, List<Row> rows, int objectId){
-		super(name, rows, objectId, Type.SELECT);
-	}
-	
-	@Override
-	protected void toSQLString(StringBuilder builder){
-		toSQLSelectString(builder, true);
-	}
-	
+public class SelectQuery extends BaseSelectQuery 
+{
+
+  public SelectQuery(String name, List<Row> rows, int objectId) {
+    super(name, rows, objectId, Type.SELECT);
+  }
+
+  @Override
+  protected void toSQLString(StringBuilder builder)
+  {
+    toSQLSelectString(builder, true);
+  }  
+
 }

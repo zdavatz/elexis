@@ -31,22 +31,24 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Simple concrete implementation of ImportFilter which just returns the given values.
+ * Simple concrete implementation of ImportFilter which just returns the given
+ * values.
  * 
  * @author James Ahlborn
  */
 public class SimpleExportFilter implements ExportFilter {
-	
-	public static final SimpleExportFilter INSTANCE = new SimpleExportFilter();
-	
-	public SimpleExportFilter(){}
-	
-	public List<Column> filterColumns(List<Column> columns) throws IOException{
-		return columns;
-	}
-	
-	public Object[] filterRow(Object[] row) throws IOException{
-		return row;
-	}
-	
+
+  public static final SimpleExportFilter INSTANCE = new SimpleExportFilter();
+
+  public SimpleExportFilter() {
+  }
+
+  public List<Column> filterColumns(List<Column> columns) throws IOException {
+    return columns;
+  }
+
+  public Object[] filterRow(Object[] row) throws IOException {
+    return row;
+  }
+
 }

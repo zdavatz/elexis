@@ -23,42 +23,46 @@ Health Market Science
 2700 Horizon Drive
 Suite 200
 King of Prussia, PA 19406
- */
+*/
 
 package com.healthmarketscience.jackcess.query;
 
 import java.util.List;
 
+
 /**
- * Concrete Query subclass which represents a query which will be executed via ODBC.
+ * Concrete Query subclass which represents a query which will be executed via
+ * ODBC.
  * 
  * @author James Ahlborn
  */
-public class PassthroughQuery extends Query {
-	
-	public PassthroughQuery(String name, List<Row> rows, int objectId){
-		super(name, rows, objectId, Type.PASSTHROUGH);
-	}
-	
-	public String getConnectionString(){
-		return getTypeRow().name1;
-	}
-	
-	public String getPassthroughString(){
-		return getTypeRow().expression;
-	}
-	
-	@Override
-	protected boolean supportsStandardClauses(){
-		return false;
-	}
-	
-	@Override
-	protected void toSQLString(StringBuilder builder){
-		String pt = getPassthroughString();
-		if (pt != null) {
-			builder.append(pt);
-		}
-	}
-	
+public class PassthroughQuery extends Query 
+{
+
+  public PassthroughQuery(String name, List<Row> rows, int objectId) {
+    super(name, rows, objectId, Type.PASSTHROUGH);
+  }
+
+  public String getConnectionString() {
+    return getTypeRow().name1;
+  }
+
+  public String getPassthroughString() {
+    return getTypeRow().expression;
+  }
+
+  @Override
+  protected boolean supportsStandardClauses() {
+    return false;
+  }
+
+  @Override
+  protected void toSQLString(StringBuilder builder)
+  {
+    String pt = getPassthroughString();
+    if(pt != null) {
+      builder.append(pt);
+    }
+  }
+
 }

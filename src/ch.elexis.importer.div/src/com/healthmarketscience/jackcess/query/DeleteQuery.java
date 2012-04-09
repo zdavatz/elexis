@@ -23,29 +23,31 @@ Health Market Science
 2700 Horizon Drive
 Suite 200
 King of Prussia, PA 19406
- */
+*/
 
 package com.healthmarketscience.jackcess.query;
 
 import java.util.List;
 
+
 /**
- * Concrete Query subclass which represents a delete query, e.g.: {@code DELETE * FROM
- * <table>
- * WHERE <expression>}
- * 
+ * Concrete Query subclass which represents a delete query, e.g.:
+ * {@code DELETE * FROM <table> WHERE <expression>}
+ *
  * @author James Ahlborn
  */
-public class DeleteQuery extends BaseSelectQuery {
-	
-	public DeleteQuery(String name, List<Row> rows, int objectId){
-		super(name, rows, objectId, Type.DELETE);
-	}
-	
-	@Override
-	protected void toSQLString(StringBuilder builder){
-		builder.append("DELETE ");
-		toSQLSelectString(builder, false);
-	}
-	
+public class DeleteQuery extends BaseSelectQuery 
+{
+
+  public DeleteQuery(String name, List<Row> rows, int objectId) {
+    super(name, rows, objectId, Type.DELETE);
+  }
+
+  @Override
+  protected void toSQLString(StringBuilder builder)
+  {
+    builder.append("DELETE ");
+    toSQLSelectString(builder, false);
+  }
+
 }

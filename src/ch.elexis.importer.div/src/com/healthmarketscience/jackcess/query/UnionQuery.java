@@ -23,7 +23,7 @@ Health Market Science
 2700 Horizon Drive
 Suite 200
 King of Prussia, PA 19406
- */
+*/
 
 package com.healthmarketscience.jackcess.query;
 
@@ -31,59 +31,65 @@ import java.util.List;
 
 import static com.healthmarketscience.jackcess.query.QueryFormat.*;
 
+
 /**
- * Concrete Query subclass which represents a UNION query, e.g.: {@code SELECT <query1> UNION SELECT
- * <query2>}
+ * Concrete Query subclass which represents a UNION query, e.g.:
+ * {@code SELECT <query1> UNION SELECT <query2>}
  * 
  * @author James Ahlborn
  */
-public class UnionQuery extends Query {
-	public UnionQuery(String name, List<Row> rows, int objectId){
-		super(name, rows, objectId, Type.UNION);
-	}
-	
-	public String getUnionType(){
-		return (hasFlag(UNION_FLAG) ? DEFAULT_TYPE : "ALL");
-	}
-	
-	public String getUnionString1(){
-		return getUnionString(UNION_PART1);
-	}
-	
-	public String getUnionString2(){
-		return getUnionString(UNION_PART2);
-	}
-	
-	@Override
-	public List<String> getOrderings(){
-		return super.getOrderings();
-	}
-	
-	private String getUnionString(String id){
-		for (Row row : getTableRows()) {
-			if (id.equals(row.name2)) {
-				return cleanUnionString(row.expression);
-			}
-		}
-		throw new IllegalStateException("Could not find union query with id " + id);
-	}
-	
-	@Override
-	protected void toSQLString(StringBuilder builder){
-		builder.append(getUnionString1()).append(NEWLINE).append("UNION ");
-		String unionType = getUnionType();
-		if (!DEFAULT_TYPE.equals(unionType)) {
-			builder.append(unionType).append(' ');
-		}
-		builder.append(getUnionString2());
-		List<String> orderings = getOrderings();
-		if (!orderings.isEmpty()) {
-			builder.append(NEWLINE).append("ORDER BY ").append(orderings);
-		}
-	}
-	
-	private static String cleanUnionString(String str){
-		return str.trim().replaceAll("[\r\n]+", NEWLINE);
-	}
-	
+public class UnionQuery extends Query 
+{
+  public UnionQuery(String name, List<Row> rows, int objectId) {
+    super(name, rows, objectId, Type.UNION);
+  }
+
+  public String getUnionType() {
+    return(hasFlag(UNION_FLAG) ? DEFAULT_TYPE : "ALL");
+  }
+
+  public String getUnionString1() {
+    return getUnionString(UNION_PART1);
+  }
+
+  public String getUnionString2() {
+    return getUnionString(UNION_PART2);
+  }
+
+  @Override
+  public List<String> getOrderings() {
+    return super.getOrderings();
+  }
+
+  private String getUnionString(String id) {
+    for(Row row : getTableRows()) {
+      if(id.equals(row.name2)) {
+        return cleanUnionString(row.expression);
+      }
+    }
+    throw new IllegalStateException(
+        "Could not find union query with id " + id);
+  }
+
+  @Override
+  protected void toSQLString(StringBuilder builder)
+  {
+    builder.append(getUnionString1()).append(NEWLINE)
+      .append("UNION ");
+    String unionType = getUnionType();
+    if(!DEFAULT_TYPE.equals(unionType)) {
+      builder.append(unionType).append(' ');
+    }
+    builder.append(getUnionString2());
+    List<String> orderings = getOrderings();
+    if(!orderings.isEmpty()) {
+      builder.append(NEWLINE).append("ORDER BY ").append(orderings);
+    }
+  }
+
+  private static String cleanUnionString(String str)
+  {
+    return str.trim().replaceAll("[\r\n]+", NEWLINE);
+  }
+
 }

@@ -34,115 +34,118 @@ import org.apache.commons.logging.LogFactory;
  **/
 
 /**
- * A number of helpful output routines for debugging. Output can be centrally enabled or disabled by
- * calling Debug.set(true/false); All methods are statics;
+ * A number of helpful output routines for debugging. Output can be
+ * centrally enabled or disabled by calling Debug.set(true/false);
+ * All methods are statics;
  */
 
-public class Debug {
-	
-	private static final Log LOG = LogFactory.getLog(Debug.class);
-	
-	// debugging helper
-	public static void out(char[] chars){
-		out(chars, 0);
-	}
-	
-	public static void out(char[] chars, int iStart){
-		if (!LOG.isDebugEnabled())
-			return;
-		StringBuilder msg = new StringBuilder();
-		
-		for (int i = iStart; i < chars.length; i++) {
-			if (chars[i] >= 0 && chars[i] <= 26) {
-				msg.append("^" + (char) (chars[i] + 0x40));
-			} else if (chars[i] <= 255) {
-				msg.append(chars[i]);
-			} else {
-				msg.append("\\u" + Integer.toString(chars[i], 16));
-			}
-		}
-		LOG.debug(msg.toString());
-	}
-	
-	public static void out(byte[] bytes){
-		out(bytes, 0);
-	}
-	
-	public static void out(byte[] bytes, int iStart){
-		if (!LOG.isDebugEnabled())
-			return;
-		StringBuilder msg = new StringBuilder();
-		
-		for (int i = iStart; i < bytes.length; i++) {
-			msg.append(bytes[i] + ",");
-		}
-		LOG.debug(msg.toString());
-	}
-	
-	public static void out(String str){
-		if (!LOG.isDebugEnabled())
-			return;
-		
-		LOG.debug(str);
-	}
-	
-	public static void out(String msg, int iData){
-		if (!LOG.isDebugEnabled())
-			return;
-		
-		LOG.debug(msg + iData);
-	}
-	
-	public static void out(String msg, char ch){
-		if (!LOG.isDebugEnabled())
-			return;
-		
-		LOG.debug(msg + "[U+" + Integer.toString(ch, 16) + "]" + ch);
-	}
-	
-	public static void out(String msg, byte bData){
-		if (!LOG.isDebugEnabled())
-			return;
-		
-		LOG.debug(msg + bData);
-	}
-	
-	public static void out(String msg, String str){
-		if (!LOG.isDebugEnabled())
-			return;
-		
-		LOG.debug(msg + str);
-	}
-	
-	public static void out(String msg, char[] data){
-		if (!LOG.isDebugEnabled())
-			return;
-		
-		LOG.debug(msg);
-		out(data);
-	}
-	
-	public static void out(String msg, byte[] data){
-		if (!LOG.isDebugEnabled())
-			return;
-		
-		LOG.debug(msg);
-		out(data);
-	}
-	
-	public static void out(String msg, char[] data, int iStart){
-		if (!LOG.isDebugEnabled())
-			return;
-		
-		LOG.debug(msg + "(" + iStart + "): ");
-		out(data, iStart);
-	}
-	
-	public static void out(String msg, byte[] data, int iStart){
-		if (!LOG.isDebugEnabled())
-			return;
-		
-		LOG.debug(msg + "(" + iStart + "): ");
-		out(data, iStart);
-	}
+public class Debug
+{
+  
+    private static final Log LOG = LogFactory.getLog(Debug.class); 
+  
+    // debugging helper
+    public static void out(char [] chars)
+    {
+         out(chars, 0);
+    }
+
+    public static void out(char [] chars, int iStart)
+    {
+        if (!LOG.isDebugEnabled()) return;
+        StringBuilder msg = new StringBuilder();
+
+        for (int i = iStart; i < chars.length; i++)
+        {
+            if (chars[i] >= 0 && chars[i] <= 26)
+            {
+                msg.append("^"+(char)(chars[i]+0x40));
+            }
+            else if (chars[i] <= 255)
+            {
+                msg.append(chars[i]);
+            }
+            else
+            {
+                msg.append("\\u"+Integer.toString(chars[i],16));
+            }
+        }
+        LOG.debug(msg.toString());
+    }
+
+    public static void out(byte [] bytes)
+    {
+        out(bytes, 0);
+    }
+    public static void out(byte [] bytes, int iStart)
+    {
+        if (!LOG.isDebugEnabled()) return;
+        StringBuilder msg = new StringBuilder();
+
+        for (int i = iStart; i < bytes.length; i++)
+        {
+            msg.append(bytes[i]+",");
+        }
+        LOG.debug(msg.toString());
+    }
+
+    public static void out(String str)
+    {
+        if (!LOG.isDebugEnabled()) return;
+
+        LOG.debug(str);
+    }
+
+    public static void out(String msg, int iData)
+    {
+        if (!LOG.isDebugEnabled()) return;
+
+        LOG.debug(msg + iData);
+    }
+    public static void out(String msg, char ch)
+    {
+        if (!LOG.isDebugEnabled()) return;
+
+        LOG.debug(msg + "[U+"+Integer.toString(ch,16)+"]" + ch);
+    }
+    public static void out(String msg, byte bData)
+    {
+        if (!LOG.isDebugEnabled()) return;
+
+        LOG.debug(msg + bData);
+    }
+    public static void out(String msg, String str)
+    {
+        if (!LOG.isDebugEnabled()) return;
+
+        LOG.debug(msg + str);
+    }
+    public static void out(String msg, char [] data)
+    {
+        if (!LOG.isDebugEnabled()) return;
+
+        LOG.debug(msg);
+        out(data);
+    }
+    public static void out(String msg, byte [] data)
+    {
+        if (!LOG.isDebugEnabled()) return;
+
+        LOG.debug(msg);
+        out(data);
+    }
+    public static void out(String msg, char [] data, int iStart)
+    {
+        if (!LOG.isDebugEnabled()) return;
+
+        LOG.debug(msg +"("+iStart+"): ");
+        out(data, iStart);
+    }
+    public static void out(String msg, byte [] data, int iStart)
+    {
+        if (!LOG.isDebugEnabled()) return;
+
+        LOG.debug(msg+"("+iStart+"): ");
+        out(data, iStart);
+    }
 }

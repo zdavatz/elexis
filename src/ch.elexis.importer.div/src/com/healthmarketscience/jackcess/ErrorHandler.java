@@ -23,41 +23,43 @@ Health Market Science
 2700 Horizon Drive
 Suite 200
 King of Prussia, PA 19406
- */
+*/
 
 package com.healthmarketscience.jackcess;
 
 import java.io.IOException;
 
 /**
- * Handler for errors encountered while reading a column of row data from a Table. An instance of
- * this class may be configured at the Database, Table, or Cursor level to customize error handling
- * as desired. The default instance used is {@link Database#DEFAULT_ERROR_HANDLER}, which just
+ * Handler for errors encountered while reading a column of row data from a
+ * Table.  An instance of this class may be configured at the Database, Table,
+ * or Cursor level to customize error handling as desired.  The default
+ * instance used is {@link Database#DEFAULT_ERROR_HANDLER}, which just
  * rethrows any exceptions encountered.
  * 
  * @author James Ahlborn
  */
-public interface ErrorHandler {
-	
-	/**
-	 * Handles an error encountered while reading a column of data from a Table row. Handler may
-	 * either throw an exception (which will be propagated back to the caller) or return a
-	 * replacement for this row's column value (in which case the row will continue to be read
-	 * normally).
-	 * 
-	 * @param column
-	 *            the info for the column being read
-	 * @param columnData
-	 *            the actual column data for the column being read (which may be {@code null}
-	 *            depending on when the exception was thrown during the reading process)
-	 * @param rowState
-	 *            the current row state for the caller
-	 * @param error
-	 *            the error that was encountered
-	 * 
-	 * @return replacement for this row's column
-	 */
-	public Object handleRowError(Column column, byte[] columnData, Table.RowState rowState,
-		Exception error) throws IOException;
-	
+public interface ErrorHandler 
+{
+
+  /**
+   * Handles an error encountered while reading a column of data from a Table
+   * row.  Handler may either throw an exception (which will be propagated
+   * back to the caller) or return a replacement for this row's column value
+   * (in which case the row will continue to be read normally).
+   *
+   * @param column the info for the column being read
+   * @param columnData the actual column data for the column being read (which
+   *                   may be {@code null} depending on when the exception
+   *                   was thrown during the reading process)
+   * @param rowState the current row state for the caller
+   * @param error the error that was encountered
+   *
+   * @return replacement for this row's column
+   */
+  public Object handleRowError(Column column,
+                               byte[] columnData,
+                               Table.RowState rowState,
+                               Exception error)
+    throws IOException;
+
 }

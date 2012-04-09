@@ -23,7 +23,7 @@ Health Market Science
 2700 Horizon Drive
 Suite 200
 King of Prussia, PA 19406
- */
+*/
 
 package com.healthmarketscience.jackcess.query;
 
@@ -31,56 +31,63 @@ import java.util.List;
 
 import static com.healthmarketscience.jackcess.query.QueryFormat.*;
 
+
 /**
- * Concrete Query subclass which represents a row update query, e.g.: {@code UPDATE
- * <table>
- * SET <newValues>}
+ * Concrete Query subclass which represents a row update query, e.g.:
+ * {@code UPDATE <table> SET <newValues>}
  * 
  * @author James Ahlborn
  */
-public class UpdateQuery extends Query {
-	
-	public UpdateQuery(String name, List<Row> rows, int objectId){
-		super(name, rows, objectId, Type.UPDATE);
-	}
-	
-	public List<String> getTargetTables(){
-		return super.getFromTables();
-	}
-	
-	public String getRemoteDbPath(){
-		return super.getFromRemoteDbPath();
-	}
-	
-	public String getRemoteDbType(){
-		return super.getFromRemoteDbType();
-	}
-	
-	public List<String> getNewValues(){
-		return (new RowFormatter(getColumnRows()) {
-			@Override
-			protected void format(StringBuilder builder, Row row){
-				toOptionalQuotedExpr(builder, row.name2, true).append(" = ").append(row.expression);
-			}
-		}).format();
-	}
-	
-	@Override
-	public String getWhereExpression(){
-		return super.getWhereExpression();
-	}
-	
-	@Override
-	protected void toSQLString(StringBuilder builder){
-		builder.append("UPDATE ").append(getTargetTables());
-		toRemoteDb(builder, getRemoteDbPath(), getRemoteDbType());
-		
-		builder.append(NEWLINE).append("SET ").append(getNewValues());
-		
-		String whereExpr = getWhereExpression();
-		if (whereExpr != null) {
-			builder.append(NEWLINE).append("WHERE ").append(whereExpr);
-		}
-	}
-	
+public class UpdateQuery extends Query 
+{
+
+  public UpdateQuery(String name, List<Row> rows, int objectId) {
+    super(name, rows, objectId, Type.UPDATE);
+  }
+
+  public List<String> getTargetTables() 
+  {
+    return super.getFromTables();
+  }
+
+  public String getRemoteDbPath() 
+  {
+    return super.getFromRemoteDbPath();
+  }
+
+  public String getRemoteDbType() 
+  {
+    return super.getFromRemoteDbType();
+  }
+
+  public List<String> getNewValues()
+  {
+    return (new RowFormatter(getColumnRows()) {
+        @Override protected void format(StringBuilder builder, Row row) {
+          toOptionalQuotedExpr(builder, row.name2, true)
+            .append(" = ").append(row.expression);
+        }
+      }).format();
+  }
+
+  @Override
+  public String getWhereExpression()
+  {
+    return super.getWhereExpression();
+  }
+
+  @Override
+  protected void toSQLString(StringBuilder builder)
+  {
+    builder.append("UPDATE ").append(getTargetTables());
+    toRemoteDb(builder, getRemoteDbPath(), getRemoteDbType());
+
+    builder.append(NEWLINE).append("SET ").append(getNewValues());
+
+    String whereExpr = getWhereExpression();
+    if(whereExpr != null) {
+      builder.append(NEWLINE).append("WHERE ").append(whereExpr);
+    }
+  }  
+
 }

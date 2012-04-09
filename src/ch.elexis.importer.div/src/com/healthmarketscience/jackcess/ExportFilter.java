@@ -31,29 +31,32 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Interface which allows customization of the behavior of the <code>Database</code> export methods.
+ * Interface which allows customization of the behavior of the
+ * <code>Database</code> export methods.
  * 
  * @author James Ahlborn
  */
 public interface ExportFilter {
-	
-	/**
-	 * The columns that should be used to create the exported file.
-	 * 
-	 * @param columns
-	 *            the columns as determined by the export code, may be directly modified and
-	 *            returned
-	 * @return the columns to use when creating the export file
-	 */
-	public List<Column> filterColumns(List<Column> columns) throws IOException;
-	
-	/**
-	 * The desired values for the row.
-	 * 
-	 * @param row
-	 *            the row data as determined by the import code, may be directly modified
-	 * @return the row data as it should be written to the import table
-	 */
-	public Object[] filterRow(Object[] row) throws IOException;
-	
+
+  /**
+   * The columns that should be used to create the exported file.
+   * 
+   * @param columns
+   *          the columns as determined by the export code, may be directly
+   *          modified and returned
+   * @return the columns to use when creating the export file
+   */
+  public List<Column> filterColumns(List<Column> columns) throws IOException;
+
+  /**
+   * The desired values for the row.
+   * 
+   * @param row
+   *          the row data as determined by the import code, may be directly
+   *          modified
+   * @return the row data as it should be written to the import table.  if
+   *         {@code null}, the row will be skipped
+   */
+  public Object[] filterRow(Object[] row) throws IOException;
+
 }

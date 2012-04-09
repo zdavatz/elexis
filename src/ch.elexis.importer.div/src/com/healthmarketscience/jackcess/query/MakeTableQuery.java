@@ -23,45 +23,49 @@ Health Market Science
 2700 Horizon Drive
 Suite 200
 King of Prussia, PA 19406
- */
+*/
 
 package com.healthmarketscience.jackcess.query;
 
 import java.util.List;
 
+
 /**
- * Concrete Query subclass which represents an table creation query, e.g.: {@code SELECT <query>
- * INTO <newTable>}
+ * Concrete Query subclass which represents an table creation query, e.g.:
+ * {@code SELECT <query> INTO <newTable>}
  * 
  * @author James Ahlborn
  */
-public class MakeTableQuery extends BaseSelectQuery {
-	
-	public MakeTableQuery(String name, List<Row> rows, int objectId){
-		super(name, rows, objectId, Type.MAKE_TABLE);
-	}
-	
-	public String getTargetTable(){
-		return getTypeRow().name1;
-	}
-	
-	public String getRemoteDbPath(){
-		return getTypeRow().name2;
-	}
-	
-	public String getRemoteDbType(){
-		return getTypeRow().expression;
-	}
-	
-	@Override
-	protected void toSelectInto(StringBuilder builder){
-		builder.append(" INTO ").append(getTargetTable());
-		toRemoteDb(builder, getRemoteDbPath(), getRemoteDbType());
-	}
-	
-	@Override
-	protected void toSQLString(StringBuilder builder){
-		toSQLSelectString(builder, true);
-	}
-	
+public class MakeTableQuery extends BaseSelectQuery 
+{
+
+  public MakeTableQuery(String name, List<Row> rows, int objectId) {
+    super(name, rows, objectId, Type.MAKE_TABLE);
+  }
+
+  public String getTargetTable() {
+    return getTypeRow().name1;
+  }
+
+  public String getRemoteDbPath() {
+    return getTypeRow().name2;
+  }
+
+  public String getRemoteDbType() {
+    return getTypeRow().expression;
+  }
+
+  @Override
+  protected void toSelectInto(StringBuilder builder) 
+  {
+    builder.append(" INTO ").append(getTargetTable());
+    toRemoteDb(builder, getRemoteDbPath(), getRemoteDbType());
+  }
+
+  @Override
+  protected void toSQLString(StringBuilder builder)
+  {
+    toSQLSelectString(builder, true);
+  }  
+
 }

@@ -23,38 +23,41 @@ Health Market Science
 2700 Horizon Drive
 Suite 200
 King of Prussia, PA 19406
- */
+*/
 
 package com.healthmarketscience.jackcess.query;
 
 import java.util.List;
+
 
 /**
  * Concrete Query subclass which represents a DDL query.
  * 
  * @author James Ahlborn
  */
-public class DataDefinitionQuery extends Query {
-	
-	public DataDefinitionQuery(String name, List<Row> rows, int objectId){
-		super(name, rows, objectId, Type.DATA_DEFINITION);
-	}
-	
-	public String getDDLString(){
-		return getTypeRow().expression;
-	}
-	
-	@Override
-	protected boolean supportsStandardClauses(){
-		return false;
-	}
-	
-	@Override
-	protected void toSQLString(StringBuilder builder){
-		String ddl = getDDLString();
-		if (ddl != null) {
-			builder.append(ddl);
-		}
-	}
-	
+public class DataDefinitionQuery extends Query 
+{
+
+  public DataDefinitionQuery(String name, List<Row> rows, int objectId) {
+    super(name, rows, objectId, Type.DATA_DEFINITION);
+  }
+
+  public String getDDLString() {
+    return getTypeRow().expression;
+  }
+
+  @Override
+  protected boolean supportsStandardClauses() {
+    return false;
+  }
+
+  @Override
+  protected void toSQLString(StringBuilder builder)
+  {
+    String ddl = getDDLString();
+    if(ddl != null) {
+      builder.append(ddl);
+    }
+  }
+
 }
