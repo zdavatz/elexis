@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service:service category="feature" id="org.iatrix.help.wiki" name="Iatrix Help Wiki für Elexis" provider="support@iatrix.org" type="Basis-System" version="1.0.0" xmlns:service="http://www.medelexis.ch/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.medelexis.ch/services ../medelexis-commons/rsc/service.xsd ">
+  <service:conditions>
+  	<service:roles>
+  		<service:role priceClass="fixed-low">
+  			<service:pricePerDB amount="3.50"></service:pricePerDB>
+  		</service:role>
+  	</service:roles>
+  </service:conditions>
+  <service:docURL>http://www.iatrix.org/pmwiki/pmwiki.php/Elexishilfe/Uebersicht</service:docURL>
+  <service:description>Anbindung des Iatrix-Wikis an die F1 Taste in jeder View</service:description>
+  <service:depends>ch.medelexis.nucleus</service:depends>
+</service:service>
