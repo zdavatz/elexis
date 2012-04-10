@@ -96,8 +96,8 @@ define "elexis" do
     dependencies << projects('ch.elexis', 'ch.elexis.importer.div', 'ch.rgw.utility', 'ch.elexis.core')
   end if !$skipPlugins.index('ch.elexis.artikel_ch')
 
-  define 'ch.elexis.arzttarife_ch', :version=> '2.0.10' do
-    dependencies << projects('ch.elexis', 'ch.elexis.artikel_ch', 'ch.elexis.ebanking_ch', 'ch.rgw.utility', 'ch.elexis.importer.div', 'ch.elexis.labortarif.ch2009', 'ch.elexis.core')
+  define 'ch.elexis.arzttarife_ch', :version=> '2.1.0' do
+    dependencies << projects('ch.elexis', 'ch.elexis.artikel_ch', 'ch.elexis.ebanking_ch', 'ch.rgw.utility', 'ch.elexis.labortarif.ch2009', 'ch.elexis.core', 'ch.elexis.importer.div')
   end if !$skipPlugins.index('ch.elexis.arzttarife_ch')
 
   define 'ch.elexis.core', :version=> '0.0.2' do
@@ -119,7 +119,7 @@ define "elexis" do
   define 'ch.elexis.h2.connector', :version=> '1.2.1' do
   end if !$skipPlugins.index('ch.elexis.h2.connector')
 
-  define 'ch.elexis.importer.div', :version=> '1.4.3' do
+  define 'ch.elexis.importer.div', :version=> '1.5.0' do
     dependencies << projects('ch.elexis', 'ch.rgw.utility', 'ch.elexis.core')
   end if !$skipPlugins.index('ch.elexis.importer.div')
 # ignoring ch.elexis.importer.div_test because isTestProject
@@ -175,6 +175,7 @@ define "elexis" do
   define 'ch.medelexis.text.templator', :version=> '1.1' do
     dependencies << projects('ch.elexis', 'ch.rgw.utility')
   end if !$skipPlugins.index('ch.medelexis.text.templator')
+# ignoring ch.ngiger.ch.tarmed because no infoFiles found
 
   define 'ch.ngiger.elexis.branding', :version=> '1.0.0.qualifier' do
   end if !$skipPlugins.index('ch.ngiger.elexis.branding')
@@ -229,9 +230,13 @@ define "elexis" do
 
   define 'de.fhdo.elexis.perspective', :version=> '1.0.0' do
   end if !$skipPlugins.index('de.fhdo.elexis.perspective')
+
+  define 'org.iatrix.help.wiki', :version=> '1.4.1' do
+    dependencies << projects('ch.elexis', 'ch.rgw.utility')
+  end if !$skipPlugins.index('org.iatrix.help.wiki')
 # ignoring pde.test.utils because isTestProject
 
-  allProjects = ["ch.elexis.artikel_ch", "ch.elexis.arzttarife_ch", "ch.elexis.core", "ch.elexis.diagnosecodes_ch", "ch.elexis.ebanking_ch", "ch.elexis.eigenartikel", "ch.elexis.h2.connector", "ch.elexis.importer.div", "ch.elexis.labortarif.ch2009", "ch.elexis.mysql.connector", "ch.elexis.noatext", "ch.elexis.postgresql.connector", "ch.elexis.scripting.beanshell", "ch.elexis", "ch.medelexis.text.templator", "ch.ngiger.elexis.branding", "ch.rgw.utility", "de.fhdo.elexis.perspective"]
+  allProjects = ["ch.elexis.artikel_ch", "ch.elexis.arzttarife_ch", "ch.elexis.core", "ch.elexis.diagnosecodes_ch", "ch.elexis.ebanking_ch", "ch.elexis.eigenartikel", "ch.elexis.h2.connector", "ch.elexis.importer.div", "ch.elexis.labortarif.ch2009", "ch.elexis.mysql.connector", "ch.elexis.noatext", "ch.elexis.postgresql.connector", "ch.elexis.scripting.beanshell", "ch.elexis", "ch.medelexis.text.templator", "ch.ngiger.elexis.branding", "ch.rgw.utility", "de.fhdo.elexis.perspective", "org.iatrix.help.wiki"]
   
  define 'ch.ngiger.elexis.opensource', :base_dir => 'ch.ngiger.elexis.opensource' do
    inhalt = File.read('ch.ngiger.elexis.opensource/buildfile.project')
@@ -240,6 +245,7 @@ define "elexis" do
  end
 
   define 'p2' do
+    layout[:target] = File.expand_path(File.join(_,'..','deploy'))
     category = Buildr4OSGi::Category.new
     category.name = "elexis" # type= medelexis.xml
     category.label = "Elexis: eine umfassende Lösung für die Arztpraxis"
@@ -280,8 +286,9 @@ define "elexis" do
   inhalt = File.read(File.join(File.dirname(__FILE__), 'tasks', 'debian.include'))
   eval(inhalt)
 
-# defined 18 projects
+# defined 19 projects
 # will ignore 6 directories (as defined IgnoreSubDirs)
-# ignored 6 directories"
+# ignored 7 directories"
 
 end
+

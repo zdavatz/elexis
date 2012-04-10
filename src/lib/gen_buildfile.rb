@@ -524,6 +524,7 @@ Dir.glob("**/buildfile.project").sort.each{ |buildFragment|
 
 $buildfile.puts %(
   define 'p2' do
+    layout[:target] = File.expand_path(File.join(_,'..','deploy'))
     category = Buildr4OSGi::Category.new
     category.name = "elexis" # type= medelexis.xml
     category.label = "Elexis: eine umfassende Lösung für die Arztpraxis"
@@ -569,6 +570,7 @@ $buildfile.puts %(
 # ignored #{$nrIgnores} directories"
 
 end
+
 )
 
 puts "This run should have generated a #{buildfile}"

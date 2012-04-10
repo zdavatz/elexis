@@ -20,7 +20,8 @@
 # we should parse Eclipse-PlatformFilter: (& (osgi.ws=win32) (osgi.os=win32) (osgi.arch= x86_64))
 Java.load # needed to load class path for apache logger
 LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
-
+  layout[:target] = File.expand_path(File.join(_,'..','deploy'))
+                                                     
   # here we define the project which generates IzPack installers for all supported operations systems
   # using only plug-ins under a free (as in freedom) license
     jars = []
@@ -35,6 +36,8 @@ LAUNCHER = 'org.eclipse.equinox.launcher:org.eclipse.equinox.launcher:jar:1.2.0'
       'ch.elexis.scripting.beanshell',
       'ch.ngiger.elexis.branding',
       'ch.rgw.utility',
+      'de.fhdo.elexis.perspective',
+      'org.iatrix.help.wiki',
       ]
     chProjects = [
       'ch.elexis.arzttarife_ch',
