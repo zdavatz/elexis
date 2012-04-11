@@ -78,6 +78,10 @@ Für den täglichen Gebrauch und nach dem ersten Build bei täglichen commits:
 * vim src/lib/gen_buildfile.rb
 * ruby src/lib/gen_buildfile.rb
 
+oder z.B. für Mac OS X
+
+* export P2_EXE=/Applications/eclipse
+
 ## Github
 
 * http://help.github.com/mac-set-up-git/
