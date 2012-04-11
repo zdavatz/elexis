@@ -65,7 +65,7 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
 
 ## Builden mit Buildr auf Linux oder OS X. Muss nicht jeden Tag gemacht werden.
 
-* git clone git@github.com:zdavatz/elexis-windows.git
+* git clone git@github.com:zdavatz/elexis.git
 * cd src
 * buildr delta OSGi (dauert beim ersten Mal ca. 30 Minuten)
 
