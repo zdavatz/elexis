@@ -134,6 +134,7 @@ Java.load # needed to load class path for apache logger
       if EclipseExtension::isFragment(jarname) && !jarname.index('eclipse.swt') && !jarname.index('ui.cocoa')
 	unpackPluginFromJar(jarname, destDir)  
       else
+	FileUtils.makedirs(destName)
 	FileUtils.cp(jarname, destName, :verbose => Buildr.application.options.trace, :preserve=>true)
       end
     end
