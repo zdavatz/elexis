@@ -114,7 +114,6 @@ Java.load # needed to load class path for apache logger
 	factName = File.join(ENV['OSGi'], 'plugins', baseName)
 	destName = File.join(dest, baseName.sub('.jar',''))
       end
-      destName.sub('connector-','connector_')
       puts "factName #{factName} #{File.exists?(factName)} => #{destName}"
       cmd = "unzip -o -d #{destName} #{factName}"
       p cmd
@@ -132,8 +131,7 @@ Java.load # needed to load class path for apache logger
       return if File.basename(jarname).index('.source_')
       return if FileUtils.uptodate?(destName, jarname)
       return if !EclipseExtension::jarMatchesPlatformFilter(jarname, defPlatform) 
-      if (/(h2|mysql|postgresql)\.connector/.match(jarname) or 
-          (EclipseExtension::isFragment(jarname) && !jarname.index('eclipse.swt') && !jarname.index('ui.cocoa')))
+      if EclipseExtension::isFragment(jarname) && !jarname.index('eclipse.swt') && !jarname.index('ui.cocoa')
 	unpackPluginFromJar(jarname, destDir)  
       else
 	FileUtils.cp(jarname, destName, :verbose => Buildr.application.options.trace, :preserve=>true)
@@ -210,7 +208,6 @@ Java.load # needed to load class path for apache logger
     #
     def installLauncherAndConfiguration(destRoot, product, tgtPlatform, configIni=nil)
       tPlugins = File.join(destRoot, 'plugins')
-      puts "xxx #{tPlugins}"
       tConf    = File.join(destRoot, 'configuration')
       if !product['configIni'].eql?('default')
 	raise "Don't know how to handle non default configIni section in product definition"
@@ -230,7 +227,6 @@ id=#{product['id']}
 	  next if File.basename(jarFile).index('.source_')
 	  next if !EclipseExtension::jarMatchesPlatformFilter(jarFile, tgtPlatform) 
 	  subDir = File.join(tPlugins, File.basename(jarFile, '.jar'))
-	  puts "88:launcher copy for #{tgtPlatform.inspect} into #{subDir} is #{jarFile}"
 	  FileUtils.cp(jarFile, tPlugins, :verbose => Buildr.application.options.trace, :preserve => true) 
       }
       # unpack correct os specific launcher jar
@@ -239,7 +235,6 @@ id=#{product['id']}
 	  next if File.basename(jarFile).index('.source_')
 	  next if !EclipseExtension::jarMatchesPlatformFilter(jarFile, tgtPlatform) 
 	  subDir = File.join(tPlugins, File.basename(jarFile, '.jar'))
-	  puts "88:launcher to unzip for #{tgtPlatform.inspect} into #{subDir} is #{jarFile}"
 	  unzipper =  Buildr::Unzip.new(subDir=>jarFile)
 	  unzipper.extract
       }
@@ -270,11 +265,9 @@ id=#{product['id']}
 	  if File.basename(x).eql?('launcher') || File.basename(x).eql?('launcher.exe')
 	    tgt = File.join(destRoot, File.basename(x))
 	    tgt.gsub!('launcher', product['launcher'])
-	    puts "8888: Launcher ist #{x} -> #{tgt}"
 	    FileUtils.cp_r(x, tgt, :verbose => Buildr.application.options.trace, :preserve => true)
 	    FileUtils.chmod(0755, tgt)
 	  else
-	    puts "8888: other file is #{x} -> #{tgt}"
 	    FileUtils.cp_r(x, destRoot, :verbose => Buildr.application.options.trace, :preserve => true)
 	  end
       }

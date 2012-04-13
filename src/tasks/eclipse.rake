@@ -46,18 +46,7 @@ module EclipseExtension
   def EclipseExtension::getPlatformFilter(jar)
     mf = nil
     return  @@cachedMf[File.basename(jar)] if @@cachedMf[File.basename(jar)] 
-    tmp = nil
-    Zip::ZipFile.open(jar, 0) {
-      |zipfile|
-      begin
-	tmp = zipfile.read('META-INF/MANIFEST.MF')
-      rescue
-	raise "Could not read MANIFEST in #{jar}"
-	@@cachedMf[File.basename(jar)] = false
-	return
-      end
-    }
-    mf = Buildr::Packaging::Java::Manifest.parse(tmp)
+    mf = Buildr::Packaging::Java::Manifest.from_zip(jar)
     if mf.main['Fragment-Host'] or (mf.main['Eclipse-PatchFragment'] and mf.main['Eclipse-PatchFragment'].downcase.eql?('true'))
       @@allFragments << File.basename(jar) 
       trace "Added fragment #{File.basename(jar)} with PlatformFilter #{mf.main['Eclipse-PlatformFilter']}"
@@ -103,51 +92,11 @@ module EclipseExtension
     filterInJar = getPlatformFilter(jar)
     return true if !filter
     return true if !filterInJar
-    puts "jar #{jar} #{File.exists?(jar)} filterInJar #{filterInJar.inspect} filter.size #{filter.size}" if $VERBOSE
-    filterArray = []
-    filter.each{ |x| filterArray << x.to_a.join('=') }
-    puts "filterArray #{filterArray.inspect} filterArray.size #{filterArray.size}" if $VERBOSE
-    jarArray = filterInJar[1..-1].split(/\) \(|\)|\(/)
-    res = false
-    case jarArray[0]
-      when /\&/ then 
-	    found = false
-	    filterArray.each{ |x| 
-	                      if !jarArray.index(x) then
-				  puts "Did not find #{x} in jarArry #{jarArray.inspect}" if $VERBOSE
-				  return false
-			      end
-	                    }
-	    puts "Matched all filters!!" if $VERBOSE
-	    res = true
-      when /osgi\./ then
-	    res = filterArray.index(jarArray[0]) != nil
-	    puts "found osgi in #{jarArray.inspect} res for #{filter.inspect} result is #{res}" if $VERBOSE
-      else
-	raise "Don't now to parse Eclipse-PlatformFilter '#{filter.inspect}' for #{jar}"
-    end
-    trace "jarMatchesPlatformFilter <#{res.inspect}> for #{jar}=> #{filterInJar.inspect} using #{filter.inspect}"
-    res
+    result = platformFilterMatches(filterInJar, filter)
+    # For test see ../spec/platform_filter_spec.rb
+    trace "jarMatchesPlatformFilter: #{jar} #{File.exists?(jar)} filterInJar #{filterInJar.inspect} filter #{filter.inspect} returns #{result}" 
+    result
   end
-
-  testedWith = <<EOF
-tp1 = { 'osgi.os' => 'macosx', 'osgi.ws' => 'cocoa', 'osgi.arch' => 'x86_64'}
-tp2 = { 'osgi.ws' => 'carbon'}
-tp3 = { 'osgi.os' => 'win32', 'osgi.ws' => 'win32', 'osgi.arch' => 'x86'}
-[ 
-#  '/home/niklaus/.m2/repository/org/eclipse/org.eclipse.ui.carbon/4.0.100.I20101109-0800/org.eclipse.ui.carbon-4.0.100.I20101109-0800.jar',
-#  '/home/niklaus/.m2/repository/org/eclipse/org.eclipse.swt.gtk.aix.ppc64/3.7.1.v3738a/org.eclipse.swt.gtk.aix.ppc64-3.7.1.v3738a.jar',
-#  '/home/niklaus/.m2/repository/org/eclipse/org.eclipse.swt.cocoa.macosx.x86_64/3.7.1.v3738a/org.eclipse.swt.cocoa.macosx.x86_64-3.7.1.v3738a.jar',
-  '/home/niklaus/.m2/repository/org/eclipse/org.eclipse.swt.win32.win32.x86/3.7.1.v3738a/org.eclipse.swt.win32.win32.x86-3.7.1.v3738a.jar',
-  ].each{
-    |jar|
-    res = EclipseExtension::jarMatchesPlatformFilter(jar, tp1)
-  puts res.to_s+tp1.inspect+jar.to_s
-    res = EclipseExtension::jarMatchesPlatformFilter(jar, tp3)
-  puts res.to_s+tp3.inspect+jar.to_s
-  }
-exit
-EOF
   
   Timestamp = 'timestamp'
   # Allow local override
@@ -214,13 +163,12 @@ EOF
 	end
 	if localJars.size > 0
 	  project.compile.dependencies << localJars
-          project.package(:bundle).tap do |bnd| 
-            bnd['Include-Resource'] = "@#{localJars.join(',@')}"
-          end
-	  project.package(:zip).include(Dir.glob(File.join(project._,'*.jar')))
-	  project.package(:zip).include(Dir.glob(File.join(project._,'lib', '*.jar')), :path=> 'lib')
-	  project.package(:plugin).include(Dir.glob(File.join(project._,'*.jar')))
-	  project.package(:plugin).include(Dir.glob(File.join(project._,'lib', '*.jar')), :path=> 'lib')
+#	  project.package(:zip).include(localJars)
+#	  project.package(:zip).include(project._("META-INF"))
+	  project.package(:jar).include(localJars)
+	  project.package(:jar).include(project._("META-INF"))
+	  project.package(:plugin)
+	  project.package(:plugin)
 	end
 
 	if project.compile.sources.size == 0
