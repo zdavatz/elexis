@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.6"?>
 
-<target name="desktop.dev" sequenceNumber="69">
+<target name="desktop.dev" sequenceNumber="70">
 <locations>
 <location includeAllPlatforms="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="org.eclipse.emf.sdk.feature.group" version="2.7.0.v20110606-0949"/>
@@ -45,6 +45,6 @@
 <unit id="org.slf4j.log4j.source" version="1.6.1.v20100831-0715"/>
 <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository/"/>
 </location>
-<location path="${env_var:WORKSPACE}/delta-3.7.2" type="Directory"/>
+<location path="/opt/downloads/delta-3.7.2/" type="Directory"/>
 </locations>
 </target>

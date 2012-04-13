@@ -2,61 +2,6 @@
 
 require 'launch_util'
 
-module Buildr
-  class Options
-
-    # Runs pdeTests after the build when true (default). This forces pdeTests to execute
-    # after the build, including when running build related tasks like install, upload and release.
-    #
-    # Set to false to not run any pdeTests. Set to :all to run all pdeTests, ignoring failures.
-    #
-    # This option is set from the environment variable 'pdeTest', so you can also do:
-
-    # Returns the pdeTest option (environment variable TEST). Possible values are:
-    # * :false -- Do not run any pdeTests (also accepts 'no' and 'skip').
-    # * :true -- Run all pdeTests, stop on failure (default if not set).
-    # * :all -- Run all pdeTests, ignore failures.
-    def pdeTest
-      case value =ENV['pdeTest']
-      when /^(no|off|false|skip)$/i
-        false
-      when /^all$/i
-        :all
-      when /^only$/i
-        :only
-      when /^(yes|on|true)$/i, nil
-        true
-      else
-        warn "Expecting the environment variable pdeTest to be 'no' or 'all', not sure what to do with #{value}, so I'm just going to run all the pdeTests and stop at failure."
-        true
-      end
-    end
-
-    # Sets the pdeTest option (environment variable TEST). Possible values are true, false or :all.
-    #
-    # You can also set this from the environment variable, e.g.:
-    #
-    #   buildr          # With pdeTests
-    #   buildr pdeTest=no  # Without pdeTests
-    #   buildr pdeTest=all # Ignore failures
-    #   set TEST=no
-    #   buildr          # Without pdeTests
-    def pdeTest=(flag)
-      ENV['pdeTest'] = nil
-    end
-
-  end
-
-  Buildr.help << <<-HELP
-To run a full build without running any PDE tests:
-  buildr pdeTest=no
-To run specific test: ??
-  buildr pdeTest:MyTest ??
-To run PDE integration tests:
-  buildr integration
-    HELP
-end
-
 # This module allows you to run Eclipse PDE tests, if you have defined
 # launch configurations in your project (they must have the suffix '.launch' !!).
 # If you specify wrong parameters the PDE test might hang! I did not yet have time to catch this error
@@ -70,24 +15,28 @@ module PDE_Test
   end
   
   before_define do |project|
+#    project.test.using :integration
     if project.parent == nil
       puts "Add PDE_Test integration stuff for root project"
       PDE_Test::stuffForRootProject 
     else
       short = project.name.sub(project.parent.name+':','')
-      project.test.using :integration      if !(short.eql?('ch.rgw.utility') or short.eql?('ch.elexis.core.databinding'))
-      dirs = Dir.glob(File.join(project._, '..', short+'_test')) + # e.g. ch.rgw.utility_test
-	     Dir.glob(File.join(project._, '..', short+'test')) + # e.g. at.medevit.elexis.barcode.test/
-	     Dir.glob(File.join(project._, 'tests')) # e.g archie
-      if (dirs.size == 1) then
-	testBase = File.expand_path(dirs[0])
-	project.layout[:source, :test, :java] = testBase
-	project.layout[:source, :test] = testBase
-	libs = Dir.glob(File.join(testBase, '*.jar')) + Dir.glob(File.join(testBase, 'lib','*.jar'))
-	project.test.with libs if libs.size > 0
+      if project.compile.sources.size > 0 && project.test.sources.size > 0 
+	puts "#{short}: might define PDE-Test sources #{project.compile.sources.size} #{project.test.sources.size}"
+	project.test.using :integration      if !(short.eql?('ch.rgw.utility') or short.eql?('ch.elexis.core.databinding'))
+	dirs = Dir.glob(File.join(project._, '..', short+'_test')) + # e.g. ch.rgw.utility_test
+	      Dir.glob(File.join(project._, '..', short+'test')) + # e.g. at.medevit.elexis.barcode.test/
+	      Dir.glob(File.join(project._, 'tests')) # e.g archie
+	if (dirs.size == 1) then
+	  testBase = File.expand_path(dirs[0])
+	  project.layout[:source, :test, :java] = testBase
+	  project.layout[:source, :test] = testBase
+	  libs = Dir.glob(File.join(testBase, '*.jar')) + Dir.glob(File.join(testBase, 'lib','*.jar'))
+	  project.test.with libs if libs.size > 0
+	end
       end
-    end
-  end
+    end if Buildr.options.test
+  end 
 
   after_define do |project|
     if project.parent
@@ -98,10 +47,10 @@ module PDE_Test
       cfg = Launch_Util.new(cfgFileName)
       if cfg.isPdeTest
 	trace "#{short} runs #{cfgFileName}" 
-	PDE_Test::run_pde_test(project, cfg)
+	PDE_Test::run_pde_test(project, cfg) 
       end
       }
-    end
+    end if Buildr.options.test
   end
   
 private 
@@ -131,7 +80,7 @@ private
 	      :basedir  => File.dirname(@@pdeTestUtilsJar),
 	      :includes => '**/*.class')
       end
-    end
+    end if false
   end
 
   # return all needed Eclipse plug-ins for the pdeTestLocator
@@ -340,4 +289,4 @@ end
 class Buildr::Project
   include PDE_Test
   attr_accessor :PDETestClassName,:PDETestResultXML
-end
+end 

@@ -49,6 +49,16 @@
 		<res id="Unix_shortcutSpec.xml" src="rsc/Shortcuts_Linux.xml" />
 	</resources>
 
+	<panels>
+		<panel classname="HTMLInfoPanel" />
+		<panel classname="HTMLLicencePanel" />
+		<panel classname="TargetPanel" />
+		<panel classname="PacksPanel" />
+		<panel classname="InstallPanel" />
+		<panel classname="ShortcutPanel" />
+		<panel classname="FinishPanel" />
+	</panels>
+
 	<conditions>
 		<condition type="variable" id="is32bit">
 			<name>SYSTEM_sun_arch_data_model</name>
@@ -61,103 +71,20 @@
 		</condition>
 	</conditions>
 
-	<panels>
-		<panel classname="HTMLInfoPanel" />
-		<panel classname="HTMLLicencePanel" />
-		<panel classname="TargetPanel" />
-		<panel classname="PacksPanel" />
-		<panel classname="InstallPanel" />
-		<panel classname="ShortcutPanel" />
-		<panel classname="FinishPanel" />
-	</panels>
-
 	<packs>
-		<pack name="Elexis-Kern" required="yes">
-			<description>Elexis-Hauptprogramm</description>
-
-			<executable targetfile="$INSTALL_PATH/elexis" keep="true"
-				condition="izpack.linuxinstall" />
-			<executable targetfile="$INSTALL_PATH/elexis.exe" keep="true"
-				condition="izpack.windowsinstall" />
-			<executable targetfile="$INSTALL_PATH/elexis.app/Contents/MacOS/elexis" keep="true"
-				condition="izpack.macinstall" />
-
-			<fileset dir="./plugins2" targetdir="$INSTALL_PATH/plugins">
-				<exclude name="org.eclipse.swt.*" />
-				<exclude name="org.eclipse.ui.cocoa.*" />
-				<include name="**/*" />
-			</fileset>
-			
-			<singlefile src="rsc/TargetPanel.txt" target="$INSTALL_PATH/condition.linux_64_bit"
-				condition="izpack.linuxinstall+is64bit" />
-			<singlefile src="rsc/TargetPanel.txt" target="$INSTALL_PATH/condition.linux_32_bit"
-				condition="izpack.linuxinstall+is32bit" />
-			<singlefile src="rsc/TargetPanel.txt" target="$INSTALL_PATH/condition.macinstall_64_bit"
-				condition="izpack.macinstall+is64bit" />
-			<singlefile src="rsc/TargetPanel.txt" target="$INSTALL_PATH/condition.macinstall_32_bit"
-				condition="izpack.macinstall+is32bit" />
-			<singlefile src="rsc/TargetPanel.txt" target="$INSTALL_PATH/condition.windowsinstall"
-				condition="izpack.windowsinstall" />
-			<singlefile src="rsc/TargetPanel.txt" target="$INSTALL_PATH/condition.windowsinstall.32"
-				condition="izpack.windowsinstall+is32bit" />
-			<singlefile src="rsc/TargetPanel.txt" target="$INSTALL_PATH/condition.windowsinstall.64"
-				condition="izpack.windowsinstall+is64bit" />
-
-			<fileset dir="@{osPath}/macosx.x86_64" targetdir="$INSTALL_PATH"
-				condition="izpack.macinstall+is64bit" >
-				<include name="**" />
-			</fileset>
-
-			<fileset dir="@{osPath}/win32.x86" targetdir="$INSTALL_PATH"
-				condition="izpack.windowsinstall" >
-				<include name="**" />
-			</fileset>
-
-			<fileset dir="@{osPath}/linux.x86_64" targetdir="$INSTALL_PATH"
-				condition="izpack.linuxinstall+is64bit" >
-				<include name="**" />
-			</fileset>
-
-			<fileset dir="@{osPath}/linux.x86" targetdir="$INSTALL_PATH"
-				condition="izpack.linuxinstall+is32bit" >
-				<include name="**" />
-			</fileset>
-
-			<fileset dir="@{osgi}" targetdir="$INSTALL_PATH">
-				<include name="plugins/org.eclipse.update.configurator_*" />
-			</fileset>
-
-			<fileset dir="rsc" targetdir="$INSTALL_PATH">
-				<include name="configuration/**" />
-				<include name="*.html" />
-				<include name="*.rtf" />
-				<include name="*.ico" />
-				<include name="*.png" />
-				<include name="*.xpm" />
-			</fileset>
-
-			<fileset dir="." targetdir="$INSTALL_PATH">
-				<include name="plugins/ch.elexis.core_*.jar" />
-				<include name="plugins/ch.elexis.core_*.jar" />
-				<include name="plugins/ch.elexis.eigenartikel_*.jar" />
-				<include name="plugins/ch.elexis.h2.connector_*.jar" />
-				<include name="plugins/ch.elexis.importer.div_*.jar" />
-				<include name="plugins/ch.elexis_*.jar" />
-				<include name="plugins/ch.elexis.mysql.connector_*.jar" />
-				<include name="plugins/ch.elexis.postgresql.connector_*.jar" />
-				<include name="plugins/ch.elexis.scripting.beanshell_*.jar" />
-				<include name="plugins/ch.ngiger.elexis.branding_*.jar" />
-				<include name="plugins/ch.rgw.utility_*.jar" />
-			</fileset>
+		<pack name="DemoDB" id="DemoDB" required="no" preselected="no">
+			<description>DemoDB. Nützlich, um Elexis kennen zu lernen.
+			</description>
+			<singlefile src="rsc/demoDB_elexis_2.1.5.4.zip" target="$INSTALL_PATH/demoDB.zip" />
 		</pack>
 		<pack name="Schweiz (deutsch)" required="no">
 			<description>Abrechnungs- und Diagnosesysteme Schweiz</description>
 			<fileset dir="." targetdir="$INSTALL_PATH">
-				<include name="plugins/ch.elexis.arzttarife_ch_*.jar" />
-				<include name="plugins/ch.elexis.ebanking_ch_*.jar" />
-				<include name="plugins/ch.elexis.diagnosecodes_ch_*.jar" />
-				<include name="plugins/ch.elexis.labortarif.ch2009_*.jar" />
 				<include name="plugins/ch.elexis.artikel_ch_*.jar" />
+				<include name="plugins/ch.elexis.arzttarife_ch_*.jar" />
+				<include name="plugins/ch.elexis.diagnosecodes_ch_*.jar" />
+				<include name="plugins/ch.elexis.ebanking_ch_*.jar" />
+				<include name="plugins/ch.elexis.labortarif.ch2009_*.jar" />
 			</fileset>
 		</pack>
 		<pack name="OpenOffice-2.0-Anbindung" required="no">
@@ -176,10 +103,119 @@
 				<include name="plugins/ch.medelexis.text.templator_*.jar" />
 			</fileset>
 		</pack>
-		<pack name="DemoDB" id="DemoDB" required="no" preselected="no">
-			<description>DemoDB. Nützlich, um Elexis kennen zu lernen.
-			</description>
-			<singlefile src="rsc/demoDB_elexis_2.1.5.4.zip" target="$INSTALL_PATH/demoDB.zip" />
+		<pack name="Elexis-Kern" required="yes">
+			<description>Elexis-Hauptprogramm</description>
+
+			<fileset dir="rsc" targetdir="$INSTALL_PATH">
+				<include name="configuration/**" />
+				<include name="*.html" />
+				<include name="*.rtf" />
+				<include name="*.ico" />
+				<include name="*.png" />
+				<include name="*.xpm" />
+			</fileset>
+
+			<fileset dir="." targetdir="$INSTALL_PATH">
+				<include name="plugins/ch.elexis.h2.connector_**" />
+				<include name="plugins/ch.elexis.mysql.connector_**" />
+				<include name="plugins/ch.elexis.postgresql.connector_**" />
+				<include name="plugins/ch.elexis.core_*.jar" />
+				<include name="plugins/ch.elexis.core_*.jar" />
+				<include name="plugins/ch.elexis.eigenartikel_*.jar" />
+				<include name="plugins/ch.elexis.importer.div_*.jar" />
+				<include name="plugins/ch.elexis_*.jar" />
+				<include name="plugins/ch.elexis.scripting.beanshell_*.jar" />
+				<include name="plugins/ch.ngiger.elexis.branding_*.jar" />
+				<include name="plugins/ch.rgw.utility_*.jar" />
+				<include name="plugins/de.fhdo.elexis.perspective_*.jar" />
+				<include name="plugins/org.iatrix.help.wiki_*.jar" />
+			</fileset>
+		</pack>
+
+		<pack name="Eclipse librarires" required="yes">
+			<description>Eclipse and other needed libraries</description>
+			<fileset dir="./plugins2" targetdir="$INSTALL_PATH/plugins">
+				<include name="**/*" />
+				<exclude name="org.eclipse.swt.*" />
+				<exclude name="org.eclipse.ui.cocoa.*" />
+				<exclude name="org.eclipse.ui.workbench.compatibility_*" />
+			</fileset>
+			
+			<fileset dir="@{osgi}" targetdir="$INSTALL_PATH">
+				<include name="plugins/org.eclipse.update.configurator_*" />
+			</fileset>
+		</pack>
+
+		<pack name="Linux x86-64-bit" required="yes" condition="izpack.linuxinstall+is64bit" >
+			<description>Betriebsystem abhängige Komponenten</description>
+			<executable targetfile="$INSTALL_PATH/elexis" keep="true"/>
+			<singlefile src="rsc/TargetPanel.txt" target="$INSTALL_PATH/Condition.linux_64_bit" />
+			<fileset dir="linux.gtk.x86_64" targetdir="$INSTALL_PATH" >
+				<include name="plugins/*linux*.jar" />
+			</fileset>
+			<fileset dir="@{osPath}/linux.gtk.x86_64" targetdir="$INSTALL_PATH" >
+				<include name="**" />
+			</fileset>
+		</pack>
+
+		<pack name="Linux x86-32-bit" required="yes" condition="izpack.linuxinstall+is32bit" >
+			<description>Betriebsystem abhängige Komponenten</description>
+			<executable targetfile="$INSTALL_PATH/elexis" keep="true"/>
+			<singlefile src="rsc/TargetPanel.txt" target="$INSTALL_PATH/Condition.linux_32_bit" />
+			<fileset dir="linux.gtk.x86_64" targetdir="$INSTALL_PATH" >
+				<include name="plugins/*linux*.jar" />
+			</fileset>
+			<fileset dir="@{osPath}/linux.gtk.x86" targetdir="$INSTALL_PATH" >
+				<include name="**" />
+			</fileset>
+		</pack>
+
+		<pack name="MacOSX x86-64-bit" required="yes" condition="izpack.macinstall+is64bit" >
+			<description>Betriebsystem abhängige Komponenten</description>
+			<executable targetfile="$INSTALL_PATH/elexis.app/Contents/MacOS/elexis" keep="true" />
+			<singlefile src="rsc/TargetPanel.txt" target="$INSTALL_PATH/Condition.linux_64_bit" />
+			<fileset dir="macosx.cocoa.x86_64" targetdir="$INSTALL_PATH" >
+				<include name="plugins/*macosx*.jar" />
+			</fileset>
+			<fileset dir="@{osPath}/macosx.cocoa.x86_64" targetdir="$INSTALL_PATH" >
+				<include name="**" />
+			</fileset>
+		</pack>
+
+		<pack name="MacOSX x86-32-bit" required="yes" condition="izpack.macinstall+is32bit" >
+			<description>Betriebsystem abhängige Komponenten</description>
+			<executable targetfile="$INSTALL_PATH/elexis.app/Contents/MacOS/elexis" keep="true" />
+			<singlefile src="rsc/TargetPanel.txt" target="$INSTALL_PATH/Condition.linux_32_bit" />
+			<fileset dir="macosx.cocoa.x86" targetdir="$INSTALL_PATH" >
+				<include name="plugins/*macosx*.jar" />
+			</fileset>
+			<fileset dir="@{osPath}/macosx.cocoa.x86" targetdir="$INSTALL_PATH" >
+				<include name="**" />
+			</fileset>
+		</pack>
+
+		<pack name="Windows x86-64-bit" required="yes" condition="izpack.windowsinstall+is64bit" >
+			<description>Betriebsystem abhängige Komponenten</description>
+			<executable targetfile="$INSTALL_PATH/elexis.exe" keep="true"/>
+			<singlefile src="rsc/TargetPanel.txt" target="$INSTALL_PATH/Condition.windowsinstall.64" />
+			<fileset dir="win32.win32.x86_64" targetdir="$INSTALL_PATH" >
+				<include name="plugins/*win32*.jar" />
+			</fileset>
+			<fileset dir="@{osPath}/win32.win32.x86_64" targetdir="$INSTALL_PATH" >
+				<include name="**" />
+			</fileset>
+		</pack>
+
+		<pack name="Windows x86-32-bit" required="yes" condition="izpack.windowsinstall+is32bit" >
+			<description>Betriebsystem abhängige Komponenten</description>
+			<executable targetfile="$INSTALL_PATH/elexis.exe" keep="true"/>
+			<singlefile src="rsc/TargetPanel.txt" target="$INSTALL_PATH/Condition.windowsinstall.32" />
+			<fileset dir="win32.win32.x86" targetdir="$INSTALL_PATH" >
+				<include name="plugins/*win32*.jar" />
+			</fileset>
+			<fileset dir="@{osPath}/win32.win32.x86" targetdir="$INSTALL_PATH" >
+				<include name="**" />
+			</fileset>
 		</pack>
 	</packs>
 

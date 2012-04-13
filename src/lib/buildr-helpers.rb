@@ -125,18 +125,6 @@ def skipGenBundle(projName)
   false
 end
 
-def elexisBundleRules(projectsWeDependOn, pkgType = :plugin)
-  getManifestFromFile
-#  genDoku
-  handleMessages
-  # Dir.glob(_('medelexis.xml')).each { |x| package(:plugin).include x }
-  compile.with dependencies if defined?(dependencies)
-  addDependenciesFromProject(projectsWeDependOn)  if defined?(dependencies)
-  compile { FileUtils.makedirs _('target/root/resources') 
-            FileUtils.makedirs _('target/resources_src/resources')
-            }  # workaround as buildr would complain about missing dirs
-end
-
 def isPartOfKern(projName)
   projName = File.basename(projName)
   return projName.eql?('ch.elexis')   ||
@@ -258,7 +246,7 @@ def platformFilterMatches(filter, desiredPlatform)
            end
            }
 #  puts "platformFilterMatches returns #{stack[0]}. stack #{stack.inspect}"
-#  puts "platformFilterMatches returns #{stack[0]}. filter #{filter} for  #{desiredPlatform.inspect}"
+#  trace "platformFilterMatches returns #{stack[0]}. filter #{filter} for  #{desiredPlatform.inspect}"
   stack[0]
 end
 

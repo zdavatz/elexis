@@ -541,29 +541,29 @@ $buildfile.puts %(
     task 'p2site' => package(:p2_from_site) 
     
     check package(:p2_from_site), 'The p2site should have a site.xml' do
-      File.should exist(_('target/p2repository/site.xml'))
+      File.should exist(File.join(path_to(:target,'p2repository/site.xml')))
     end
     check package(:p2_from_site), 'The p2site should have an artifacts.jar' do
-      File.should exist(_('target/p2repository/artifacts.jar'))
+      File.should exist(File.join(path_to(:target,'p2repository/artifacts.jar')))
     end
     check package(:p2_from_site), 'The p2site should have content.jar' do
-      File.should exist(_('target/p2repository/content.jar'))
+      File.should exist(File.join(path_to(:target,'p2repository/content.jar')))
     end
     check package(:p2_from_site), 'The p2site should have a plugins directory' do
-      File.should exist(_('target/p2repository/plugins'))
+      File.should exist(File.join(path_to(:target,'p2repository/plugins')))
     end
     check package(:p2_from_site), 'The p2site should have a features directory' do
-      File.should exist(_('target/p2repository/features'))
+      File.should exist(File.join(path_to(:target,'p2repository/features')))
     end 
     check package(:p2_from_site), 'The p2site should contain a de.fhdo.elexis.perspective jar' do
-      File.should exist(_("target/p2repository/plugins/de.fhdo.elexis.perspective_\#{project('de.fhdo.elexis.perspective').version}.jar"))
+      File.should exist(File.join(path_to(:target,"p2repository/plugins/de.fhdo.elexis.perspective_\#{project('de.fhdo.elexis.perspective').version}.jar")))
     end
   end
 
   desc 'create Debian packages for Elexis, docs'
   projectsToPack = (allProjects - @@skipPlugins)
   inhalt = File.read(File.join(File.dirname(__FILE__), 'tasks', 'debian.include'))
-  eval(inhalt)
+  eval(inhalt) if false
 
 # defined #{$nrProjects} projects
 # will ignore #{IgnoreSubDirs.size} directories (as defined IgnoreSubDirs)

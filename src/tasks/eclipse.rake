@@ -52,7 +52,7 @@ module EclipseExtension
       begin
 	tmp = zipfile.read('META-INF/MANIFEST.MF')
       rescue
-	puts "Could not read MANIFEST in #{jar}"
+	raise "Could not read MANIFEST in #{jar}"
 	@@cachedMf[File.basename(jar)] = false
 	return
       end
@@ -60,7 +60,7 @@ module EclipseExtension
     mf = Buildr::Packaging::Java::Manifest.parse(tmp)
     if mf.main['Fragment-Host'] or (mf.main['Eclipse-PatchFragment'] and mf.main['Eclipse-PatchFragment'].downcase.eql?('true'))
       @@allFragments << File.basename(jar) 
-      puts "Added fragment #{File.basename(jar)} with PlatformFilter #{mf.main['Eclipse-PlatformFilter']}"
+      trace "Added fragment #{File.basename(jar)} with PlatformFilter #{mf.main['Eclipse-PlatformFilter']}"
     end
     @@cachedMf[File.basename(jar)] = mf.main['Eclipse-PlatformFilter']
   end
