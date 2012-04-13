@@ -40,6 +40,7 @@ end
 
 [
 File.join('elexis-addons', 'ch.ngiger.elexis.opensource', 'rsc', '*.html'),
+'timestamp',
 File.join('target'),
 Dir.glob(File.join('*','target')),
 Dir.glob(File.join('el*','*','target')),
@@ -62,8 +63,7 @@ commands = [
 "#{prefix} buildr osgi:clean:dependencies osgi:resolve:dependencies osgi:install:dependencies", 
 "#{prefix} buildr test=no clean package",
 "#{prefix} buildr test=no elexis:ch.ngiger.elexis.opensource:izpack",
-"#{prefix} buildr test=no elexis:ch.ngiger.elexis.opensource:product",
 "#{prefix} buildr test=no elexis:p2:p2site", # not yet working at this moment. Generates a p2site
-"#{prefix} buildr test=no elexis:debian",
+#"#{prefix} buildr test=no elexis:debian",
 "#{prefix} buildr test", # integration tests (aka PDE test not work yet)
  ].each{ |cmd| runOneCommand(cmd) }
