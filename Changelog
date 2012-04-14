@@ -1,3 +1,8 @@
+## 13.4.2012
+
+* Niklaus improved the buildr (rebuild only needed plugins) and added support
+for more platforms (Windows 64-Bit/MacOSX 32-Bit)
+
 ## 11.4.2012
 
 * Niklaus added more files to src/deploy/os/ for the different architectures.
