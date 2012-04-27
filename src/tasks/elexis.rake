@@ -30,6 +30,7 @@ if ARGV.join(' ').index('addSvnRepo') or
   require 'buildr'
 else
   require 'buildr/scala'
+  require 'rubygems'
   require 'buildr4osgi'
   require 'buildr4osgi/eclipse/p2'
   require 'antwrap'

@@ -79,8 +79,10 @@ needsRebuild = false
 def checkGem(gemName, version=nil)
   puts "checkGem #{gemName} #{version}"
 #  rvm jruby do gem list --local buildr | tee tmp.tmp && grep buildr tmp.tmp
-  if !system("#{$usePrefix} gem list --local #{gemName} | tee tmp.tmp && grep #{gemName} tmp.tmp", MayFail)
-    puts "checkGem: Gem #{gemName} not found."
+  cmd = "#{$usePrefix} gem list --local #{gemName}  | tee tmp.tmp"
+  cmd += " && grep #{version} tmp.tmp" if version
+  if !system(cmd, MayFail)
+    puts "checkGem: Gem #{gemName} not found. #{version != nil ? 'Should match version '+version : ''}"
     needsRebuild = true
     return false
   else
@@ -90,7 +92,9 @@ def checkGem(gemName, version=nil)
   return false
 end
 
-['net-ldap', 'buildr', 'buildrdeb'].each do 
+exit 3 if !checkGem('buildrizpack', '0.2')
+exit 3 if !checkGem('buildr', '1.4.6')
+['net-ldap', 'buildrdeb'].each do 
   |name|
     if !checkGem(name)
       system("#{$usePrefix} gem install #{name}")
@@ -98,7 +102,7 @@ end
 end
 
 buildr4osgiPath = "#{ENV['HOME']}/buildr4osgi"
-buildr4osgiInstalled = checkGem('buildr4osgi')
+buildr4osgiInstalled = checkGem('buildr4osgi', '0.9.6.93')
             
 if needsRebuild || Dir.glob(buildr4osgiPath).size == 0 || !buildr4osgiInstalled
   puts "Adding buildr4osgi (special from niklaus)"
