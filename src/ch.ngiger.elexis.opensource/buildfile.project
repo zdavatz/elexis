@@ -24,6 +24,9 @@ require 'buildrizpack'
   layout[:target] = DeployElexis
   ProductInfoFile = _('branding.product')
   myInstXml = File.join(path_to(:target), 'installer.xml')
+  package(:izpack, :file=>"deploy/elexis-#{project.parent.version}-installer.jar").input = myInstXml
+  package(:izpack).izpackVersion = '4.3.1'
+  package(:izpack).include(myInstXml)
 
   Macosx_x86_64  =  { 'osgi.os' => 'macosx', 'osgi.ws' => 'cocoa', 'osgi.arch' => 'x86_64',
                       'executable' => '$INSTALL_PATH/elexis.app/Contents/MacOS/elexis',
@@ -96,16 +99,17 @@ class  BuildrIzPack::Pack
       if !pathEntries.index('.')
 	res = pathEntries.find_all{|item| !/.jar/.match(item) }
 	if res.size == 0
-	  tgtDir =  File.join(Dir.tmpdir, 'buildr', adaptName(File.basename(jarname, '.jar')))
-	  FileUtils.rm_rf(tgtDir)   if File.directory?(tgtDir)
-	  FileUtils.makedirs(tgtDir) 
-	  system("unzip -o -d #{tgtDir} #{jarname} ")
+	  tgtDir =  File.join(Dir.tmpdir, 'buildr', File.basename(File.dirname(__FILE__)), adaptName(File.basename(jarname, '.jar')))
+	  if !FileUtils.uptodate?(tgtDir,jarname)
+	    FileUtils.rm_rf(tgtDir, :verbose => true) if File.exists?(tgtDir)  # be sure to remove old things
+	    FileUtils.makedirs(tgtDir) 
+	    system("unzip -q -o -d #{tgtDir} #{jarname} ")
+	  end
 	  files = (Dir.glob(File.join(tgtDir, '**','*')) + Dir.glob(File.join(tgtDir, '**','.*')))
 	  files.each{ |x|
 		      next if File.directory?(x)
 		    adapted = adaptName(File.basename(x))
 		    dest = x.sub(File.join(Dir.tmpdir, 'buildr'), File.join('$INSTALL_PATH','plugins'))
-#		    dest = dest.gsub(File.basename(x), adapted)
 		    addFile(x, dest) 
 		    }
 	  return
@@ -150,17 +154,9 @@ end
     }
   
     file project._('target/rsc') do FileUtils.makedirs project._('target/rsc') end
-
     DemoDB = '2.1.5.4'
     demoZipFile = File.join(project._, 'rsc', "demoDB_elexis_#{DemoDB}.zip")
     download(demoZipFile => "http://ftp.medelexis.ch/downloads_opensource/elexis/demoDB/demoDB_elexis_#{DemoDB}.zip")
-    file File.join(DeployElexis,'demoDB') => demoZipFile do
-      cmd = "unzip -o -d #{DeployElexis} #{demoZipFile}"
-      system(cmd) if !File.directory?(File.join(DeployElexis,'demoDB'))
-    end
-    task 'deploy' => [ demoZipFile, File.join(DeployElexis,'demoDB')] do
-      FileUtils.makedirs(DeployElexis)
-    end
     
     def getDefaultPlatform()
       values = { 'osgi.os' =>java.lang.System.get_property('os.name').downcase, 
@@ -193,7 +189,9 @@ end
 	factName = File.join(ENV['OSGi'], 'plugins', baseName)
 	destName = File.join(dest, baseName.sub('.jar',''))
       end
-      cmd = "unzip -o -d #{destName} #{factName}"
+      trace "unpackPluginFromJar #{jar} ->#{dest} #{destName} already okay? #{File.directory?(destName)}"
+      return true  if File.directory?(destName)
+      cmd = "unzip -q -o -d #{destName} #{factName}"
       system(cmd)
     end
     
@@ -260,8 +258,6 @@ end
       info "Macos #{macApp} -> #{elexisApp}"
       if File.exists?(macApp) then
 	FileUtils.mv(macApp, elexisApp, :verbose => Buildr.application.options.trace)
-	p Dir.glob("#{elexisApp}/**")
-	p Dir.glob("#{elexisApp}/**/*")
 	Dir.glob(File.join(elexisApp, '**/*')).each {
 	  |x| 
 	      dest = x.sub(/launcher/i,  launcherName)
@@ -272,9 +268,9 @@ end
       end
       infoPlist = File.join(elexisApp, 'Contents', 'Info.plist')
       inhalt = IO.readlines(infoPlist)
-      toReplace = { '<string>eclipse</string>', '<string>'+ launcherName+'</string>',
-		    '<string>Eclipse.icns</string>', '<string></string>',
-		    '<string>Eclipse</string>', '<string>'+ launcherName+'</string>',
+      toReplace = { '<string>eclipse</string>' => '<string>'+ launcherName+'</string>',
+		    '<string>Eclipse.icns</string>' => '<string></string>',
+		    '<string>Eclipse</string>' => '<string>'+ launcherName+'</string>',
 		    }
       inhalt.each { |x| toReplace.each { |from, to| x.sub!(from, to) } }
       File.open(infoPlist, 'w') {|f| f.write(inhalt) }                           
@@ -408,8 +404,8 @@ eclipse.product=#{product['id']}
 osgi.splashPath=platform:/base/plugins/#{product['splash']}
 osgi.bundles=org.eclipse.core.runtime@start,org.eclipse.equinox.common@2:start,org.eclipse.update.configurator@3:start
 osgi.nl=de_CH
-osgi.instance.area=@user.home/.elexis.workspace
-osgi.configuration.area=@user.home/.elexis.configuration
+osgi.instance.area=@user.home/elexis/workspace-#{version}
+osgi.configuration.area=@user.home/elexis/configuration-#{version}
 eclipse.vmargs=-XX:PermSize=126M -XX:MaxPermSize=257M 
 )
     
@@ -434,24 +430,29 @@ eclipse.vmargs=-XX:PermSize=126M -XX:MaxPermSize=257M
                                                             allCommonJars << arte 
                                                          end
 							}
-	jars2copy.each{ |jar| task dest => jar }
-	tRsc    = File.join(osPath, platform2path(tgtPlatform,'.'))
+ 	jars2copy.each{ |jar| task dest => jar }
+ 	tRsc    = File.join(osPath, platform2path(tgtPlatform,'.'))
+	tgtPlatform['os_specific'] = tRsc
 	task myInstXml => tRsc
-	task tRsc do
-	  tgtPlatform['os_specific'] = tRsc
-          if !File.directory?(tRsc)
-	    destRoot = File.join(project.path_to(:target), platform2path(tgtPlatform, '.'))
-	    FileUtils.makedirs(tRsc)
+ 	task tRsc do
+           if !File.directory?(tRsc)
+ 	    FileUtils.makedirs(tRsc)
+ 	    product = EclipseExtension::readProductInfo(ProductInfoFile)
+ 	    installLauncherAndConfiguration(tRsc, product, tgtPlatform, installerConfigIni)
+ 	    # OS specific part for the launcher
+	  end
+	end
+	if platform2path(tgtPlatform, '.').eql?(platform2path(getDefaultPlatform, '.'))
+	  destRoot = File.join(project.path_to(:target), platform2path(tgtPlatform, '.'))
+	  task 'app' => destRoot
+	  task destRoot => tRsc do
 	    FileUtils.makedirs(File.join(destRoot, 'plugins'))
-	    product = EclipseExtension::readProductInfo(ProductInfoFile)
-	    installLauncherAndConfiguration(tRsc, product, tgtPlatform, installerConfigIni)
-	    # OS specific part for the launcher
-	    FileUtils.cp_r(tRsc, File.dirname(destRoot), :verbose => true)
-	    jars2copy.uniq.each{ 
+	    FileUtils.cp_r(tRsc, File.dirname(destRoot), :verbose => Buildr.application.options.trace, :preserve=>true)
+	    jars2copy.uniq.each {
 	      |jar|
-		installPlugin(jar.to_s, File.join(destRoot, 'plugins'), tgtPlatform) 
+	      installPlugin(jar.to_s, File.join(destRoot, 'plugins'), tgtPlatform) 
 	    } 
-                                          end
+	  end
 	end
     }
     
@@ -464,14 +465,9 @@ eclipse.vmargs=-XX:PermSize=126M -XX:MaxPermSize=257M
 		    task dest => [x, File.join(izRsc, File.basename(x))] 
 		  }
                                     
-    allProjects.each{ |x| 
-			task :package => project(x).package(:plugin)
-			task package(:izpack) => project(x).package(:plugin)
-			task myInstXml => project(x).package(:plugin)
-                    } if false
     task myInstXml do
       allProjects.each{ |x| project(x).package(:plugin).invoke }
-      FileUtils.makedirs(path_to(:target), :verbose => true) if !File.directory?(path_to(:target))
+      FileUtils.makedirs(path_to(:target), :verbose => Buildr.application.options.trace) if !File.directory?(path_to(:target))      
       baseProjects.each{ |x| kernPack.addEclipseJar(project(x).package(:plugin).to_s) }
       chProjects.each{ |x| chPack.addEclipseJar(project(x).package(:plugin).to_s) }
       allCommonJars.each{ |x| libPack.addEclipseJar(x.to_s) }
@@ -543,15 +539,51 @@ eclipse.vmargs=-XX:PermSize=126M -XX:MaxPermSize=257M
       xm.target!().close
     end
     
-    package.enhance do
+    package(:izpack).enhance do
       allProjects.each{ |x|  project(x).package(:plugin).invoke  }
       FileUtils.makedirs(path_to(:target), :verbose => true) if !File.directory?(path_to(:target))
       baseProjects.each{ |x| kernPack.addEclipseJar(project(x).package(:plugin).to_s) }
       chProjects.each{ |x| chPack.addEclipseJar(project(x).package(:plugin).to_s) }
       allCommonJars.each{ |x| libPack.addEclipseJar(x.to_s) }
+  end 
+  allCommonJars.each{ |x| task(myInstXml => x.to_s) }
+  
+  
+  allProjects.each{ |x| 
+  task 'app' =>  project(x).package(:plugin) do
+      jarname = project(x).package(:plugin).to_s
+      destName = File.join(project.path_to(:target), platform2path(getDefaultPlatform, '.'), 'plugins', File.basename(jarname))
+      FileUtils.cp(jarname, destName, :verbose => Buildr.application.options.trace) if ! FileUtils.uptodate?(destName, jarname)
+  end 
+    }
+  task(:package => 'app')  
+  
+  tgtPath = destRoot = File.join(project.path_to(:target), platform2path(getDefaultPlatform, '.'))
+  check package, "application should exist in #{tgtPath}" do
+    File.should exist(File.join(tgtPath, 'configuration', 'config.ini'))
+    File.should exist(File.join(tgtPath, '.eclipseproduct'))
+    File.should exist(File.join(tgtPath, 'elexis.ini'))
+    File.should exist(File.join(tgtPath, 'about.html'))
+    (Dir.glob(File.join(tgtPath, 'elexis*')).size == 2).should be_true # elexis or elexis.exe and elexis.ini
+    (Dir.glob(File.join(tgtPath, 'plugins', '*')).size > 10).should be_true
+    (Dir.glob(File.join(tgtPath, 'plugins', '*/*')).size >5).should be_true
+    puts "Checks for #{tgtPath} passed"
   end
   
-package(:izpack).input = myInstXml
-package(:izpack).izpackVersion = '4.3.1'
-package(:izpack).include(myInstXml)
-           
+  check package, 'installer.xml should contain the names of the plugins' do
+    File.should exist(myInstXml)
+    content = IO.readlines(myInstXml).join('')
+    content.should match(/installation/)
+    content.should match(/ch.elexis.eigenartikel/)
+    content.should match(/org.eclipse.equinox.launcher.win32.win32.x86_1/)
+    content.should match(/org.eclipse.equinox.launcher.win32.win32.x86_64_1/)
+    content.should match(/org.eclipse.equinox.launcher.gtk.linux.x86_1/)
+    content.should match(/org.eclipse.equinox.launcher.gtk.linux.x86_64_1/)
+    content.should match(/org.eclipse.equinox.launcher.cocoa.macosx_1/)
+    content.should match(/demoDB_elexis_/)
+    content.should match(/Win_shortcutSpec.xml/)
+    content.should match(/ShortcutPanel/)
+    content.should match(/org.eclipse.ui.forms_/)	
+    content.should match(/ch.elexis.mysql.connector/)
+    puts "Checks for #{myInstXml} passed"
+  end
