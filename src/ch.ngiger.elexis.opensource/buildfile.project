@@ -95,7 +95,6 @@ class  BuildrIzPack::Pack
       pathEntries = x.split(',')
       if !pathEntries.index('.')
 	res = pathEntries.find_all{|item| !/.jar/.match(item) }
-	puts "addEclipseJar #{jarname} #{res.size} #{res.inspect}"
 	if res.size == 0
 	  tgtDir =  File.join(Dir.tmpdir, 'buildr', adaptName(File.basename(jarname, '.jar')))
 	  FileUtils.rm_rf(tgtDir)   if File.directory?(tgtDir)
@@ -274,9 +273,9 @@ end
       infoPlist = File.join(elexisApp, 'Contents', 'Info.plist')
       inhalt = IO.readlines(infoPlist)
       toReplace = { '<string>eclipse</string>', '<string>'+ launcherName+'</string>',
-                    '<string>Eclipse.icns</string>', '<string></string>',
-                    '<string>Eclipse</string>', '<string>'+ launcherName+'</string>',
-                    }
+		    '<string>Eclipse.icns</string>', '<string></string>',
+		    '<string>Eclipse</string>', '<string>'+ launcherName+'</string>',
+		    }
       inhalt.each { |x| toReplace.each { |from, to| x.sub!(from, to) } }
       File.open(infoPlist, 'w') {|f| f.write(inhalt) }                           
       File.open(File.join(elexisApp, 'Contents', 'MacOS', launcherName+'.ini'), 'w') {|f| f.write(initArgs) }                           
@@ -436,22 +435,24 @@ eclipse.vmargs=-XX:PermSize=126M -XX:MaxPermSize=257M
                                                          end
 							}
 	jars2copy.each{ |jar| task dest => jar }
-	package.enhance do
-	  tRsc    = File.join(osPath, platform2path(tgtPlatform,'.'))
+	tRsc    = File.join(osPath, platform2path(tgtPlatform,'.'))
+	task myInstXml => tRsc
+	task tRsc do
 	  tgtPlatform['os_specific'] = tRsc
-	  task myInstXml => tRsc
-	  destRoot = File.join(project.path_to(:target), platform2path(tgtPlatform, '.'))
-	  FileUtils.makedirs(tRsc)
-	  FileUtils.makedirs(File.join(destRoot, 'plugins'))
-	  product = EclipseExtension::readProductInfo(ProductInfoFile)
-	  installLauncherAndConfiguration(tRsc, product, tgtPlatform, installerConfigIni)
-	  # OS specific part for the launcher
-	  FileUtils.cp_r(tRsc, File.dirname(destRoot), :verbose => true)
-	  jars2copy.uniq.each{ 
-	    |jar|
-	      installPlugin(jar.to_s, File.join(destRoot, 'plugins'), tgtPlatform) 
-	  } 
-      end
+          if !File.directory?(tRsc)
+	    destRoot = File.join(project.path_to(:target), platform2path(tgtPlatform, '.'))
+	    FileUtils.makedirs(tRsc)
+	    FileUtils.makedirs(File.join(destRoot, 'plugins'))
+	    product = EclipseExtension::readProductInfo(ProductInfoFile)
+	    installLauncherAndConfiguration(tRsc, product, tgtPlatform, installerConfigIni)
+	    # OS specific part for the launcher
+	    FileUtils.cp_r(tRsc, File.dirname(destRoot), :verbose => true)
+	    jars2copy.uniq.each{ 
+	      |jar|
+		installPlugin(jar.to_s, File.join(destRoot, 'plugins'), tgtPlatform) 
+	    } 
+                                          end
+	end
     }
     
     htmlFiles.each{ |x| 
@@ -464,24 +465,18 @@ eclipse.vmargs=-XX:PermSize=126M -XX:MaxPermSize=257M
 		  }
                                     
     allProjects.each{ |x| 
-                        puts "adding dependency 666 #{x} #{project(x).package(:plugin)} -> #{myInstXml}"
 			task :package => project(x).package(:plugin)
 			task package(:izpack) => project(x).package(:plugin)
 			task myInstXml => project(x).package(:plugin)
                     } if false
-    package.enhance do
-      puts "enhance Task package"
-      allProjects.each{ |x| 
-                        puts "invoke 666 #{x} #{project(x).package(:plugin)}"
-			project(x).package(:plugin).invoke
-                      }
+    task myInstXml do
+      allProjects.each{ |x| project(x).package(:plugin).invoke }
       FileUtils.makedirs(path_to(:target), :verbose => true) if !File.directory?(path_to(:target))
-      tgtPanel = File.join(path_to(:target), 'TargetPanel.txt')
-      Buildr::write(tgtPanel, "$SYSTEM_user_home/elexis/bin/elexis-#{project.version}")
       baseProjects.each{ |x| kernPack.addEclipseJar(project(x).package(:plugin).to_s) }
       chProjects.each{ |x| chPack.addEclipseJar(project(x).package(:plugin).to_s) }
       allCommonJars.each{ |x| libPack.addEclipseJar(x.to_s) }
-		    
+      tgtPanel = File.join(path_to(:target), 'TargetPanel.txt')
+      Buildr::write(tgtPanel, "$SYSTEM_user_home/elexis/bin/elexis-#{project.version}")
       xm = Builder::XmlMarkup.new(:target=>File.open(myInstXml, 'w+'), :indent => 2)
       xm.instruct!
       xm.installation('version'=>'1.0') {
@@ -546,7 +541,16 @@ eclipse.vmargs=-XX:PermSize=126M -XX:MaxPermSize=257M
 	  }
 	}
       xm.target!().close
-end
+    end
+    
+    package.enhance do
+      allProjects.each{ |x|  project(x).package(:plugin).invoke  }
+      FileUtils.makedirs(path_to(:target), :verbose => true) if !File.directory?(path_to(:target))
+      baseProjects.each{ |x| kernPack.addEclipseJar(project(x).package(:plugin).to_s) }
+      chProjects.each{ |x| chPack.addEclipseJar(project(x).package(:plugin).to_s) }
+      allCommonJars.each{ |x| libPack.addEclipseJar(x.to_s) }
+  end
+  
 package(:izpack).input = myInstXml
 package(:izpack).izpackVersion = '4.3.1'
 package(:izpack).include(myInstXml)
