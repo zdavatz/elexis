@@ -18,12 +18,12 @@
 #   -destination /tmp/unpacked
 require 'buildrizpack'
 
-# we should parse Eclipse-PlatformFilter: (& (osgi.ws=win32) (osgi.os=win32) (osgi.arch= x86_64))
-Java.load # needed to load class path for apache logger
-#  DeployElexis = File.expand_path(File.join(project(group)._, '..', 'deploy'))
+  Java.load # needed to load class path for apache logger
+
   DeployElexis = File.expand_path(File.join(Dir.pwd, 'deploy'))
   layout[:target] = DeployElexis
   ProductInfoFile = _('branding.product')
+  myInstXml = File.join(path_to(:target), 'installer.xml')
 
   Macosx_x86_64  =  { 'osgi.os' => 'macosx', 'osgi.ws' => 'cocoa', 'osgi.arch' => 'x86_64',
                       'executable' => '$INSTALL_PATH/elexis.app/Contents/MacOS/elexis',
@@ -71,11 +71,6 @@ Java.load # needed to load class path for apache logger
       'de.fhdo.elexis.perspective',
       'org.iatrix.help.wiki',
       ]
-    kernPack = BuildrIzPack::Pack.new('Elexis-Kern', 'Elexis-Hauptprogramm', { 'required' => 'yes' })
-    libPack = BuildrIzPack::Pack.new('Eclipse-Bibliotheken', 'Eclipse Bibliotheken, welche von Elexis Plug-Ins benutzt werden', { 'required' => 'yes' })
-    baseProjects.each{ |x| kernPack.addFile(project(x).package(:plugin).to_s) }
-    allPacks << kernPack
-    allPacks << libPack
     chProjects = [
       'ch.elexis.arzttarife_ch',
       'ch.elexis.ebanking_ch',
@@ -83,14 +78,67 @@ Java.load # needed to load class path for apache logger
       'ch.elexis.labortarif.ch2009',
       'ch.elexis.artikel_ch',
     ]
-    chPack = BuildrIzPack::Pack.new('Schweiz (deutsch)', 'Abrechnungs- und Diagnosesysteme Schweiz' )
-    chProjects.each{ |x| chPack.addFile(project(x).package(:plugin).to_s) }
-    allPacks << chPack
     oo2Projects = [] #  'ch.elexis.noatext' ]
     txtTemplProjects = [ 'ch.medelexis.text.templator' ]    
-#    layout[:target, :main] = File.expand_path(File.join(_, '..', 'deploy', 'installer'))
+    chPack = BuildrIzPack::Pack.new('Schweiz (deutsch)', 'Abrechnungs- und Diagnosesysteme Schweiz' )
+    kernPack = BuildrIzPack::Pack.new('Elexis-Kern', 'Elexis-Hauptprogramm', { 'required' => 'yes' })
+    kernPack.addFile(File.join(project._, 'rsc', 'logback.xml'), '$INSTALL_PATH/logback.xml')
+    libPack = BuildrIzPack::Pack.new('Eclipse-Bibliotheken', 'Eclipse Bibliotheken, welche von Elexis Plug-Ins benutzt werden', { 'required' => 'yes' })
+    chPack = BuildrIzPack::Pack.new('Schweiz (deutsch)', 'Abrechnungs- und Diagnosesysteme Schweiz' )
     templatorPack = BuildrIzPack::Pack.new('Medelexis Text-Templator', 'Flexible Ausgabe für LibreOffice und andere Textprogramme' )
-    txtTemplProjects.each{ |x| templatorPack.addFile(project(x).package(:plugin).to_s) }
+
+class  BuildrIzPack::Pack
+  def addEclipseJar(jarname)
+    mf = Buildr::Packaging::Java::Manifest.from_zip(jarname)
+    x =  mf.main['Bundle-ClassPath']
+    if x then
+      pathEntries = x.split(',')
+      if !pathEntries.index('.')
+	res = pathEntries.find_all{|item| !/.jar/.match(item) }
+	puts "addEclipseJar #{jarname} #{res.size} #{res.inspect}"
+	if res.size == 0
+	  tgtDir =  File.join(Dir.tmpdir, 'buildr', adaptName(File.basename(jarname, '.jar')))
+	  FileUtils.rm_rf(tgtDir)   if File.directory?(tgtDir)
+	  FileUtils.makedirs(tgtDir) 
+	  system("unzip -o -d #{tgtDir} #{jarname} ")
+	  files = (Dir.glob(File.join(tgtDir, '**','*')) + Dir.glob(File.join(tgtDir, '**','.*')))
+	  files.each{ |x|
+		      next if File.directory?(x)
+		    adapted = adaptName(File.basename(x))
+		    dest = x.sub(File.join(Dir.tmpdir, 'buildr'), File.join('$INSTALL_PATH','plugins'))
+#		    dest = dest.gsub(File.basename(x), adapted)
+		    addFile(x, dest) 
+		    }
+	  return
+	end
+      end
+    end
+    
+    base = File.basename(jarname)
+    if !adaptName(base).eql?(base)
+      addFile(jarname, File.join(@defaultPath, adaptName(base)))
+    else
+      addFile(jarname)
+    end
+  end
+  
+private 
+  def adaptName(jarname)
+    # Try org.eclipse.equinox.launcher.gtk.linux.x86_64_1.1.2.R36x_v20101019_1345
+    # ch.elexis.labortarif.ch2009_2.1.6.20120419.jar
+    # ch.elexis.hl7.v26_2.1.6.20120419.jar
+#    ch.elexis.nl_en-2.1.5.999.jar 
+
+#    /^([a-z0-9.]+)[-_](\d.+)/
+    m = /^([a-z0-9._]+)[-_](\d.+)/i.match(File.basename(jarname))
+    m ? m[1]+'_'+m[2] : File.basename(jarname) 
+  end
+
+end
+
+    allPacks << kernPack
+    allPacks << libPack
+    allPacks << chPack
     allPacks << templatorPack
     allProjects = (baseProjects + chProjects + oo2Projects + txtTemplProjects)
     allProjects.each {
@@ -146,9 +194,7 @@ Java.load # needed to load class path for apache logger
 	factName = File.join(ENV['OSGi'], 'plugins', baseName)
 	destName = File.join(dest, baseName.sub('.jar',''))
       end
-      puts "factName #{factName} #{File.exists?(factName)} => #{destName}"
       cmd = "unzip -o -d #{destName} #{factName}"
-      p cmd
       system(cmd)
     end
     
@@ -205,7 +251,6 @@ Java.load # needed to load class path for apache logger
 	  return aFile
 	end
       }
-      trace "getArtefactOrOsgiJar nothing found for #{jarname}"
       trace "getArtefactOrOsgiJar:Check your buildfile. Could not find dependency #{jarname} specified in #{project.name}!"
     end
     
@@ -247,7 +292,6 @@ Java.load # needed to load class path for apache logger
       end
 
       [tPlugins,tConf].each{ |d| FileUtils.makedirs(d) }
-      
       Buildr::write(File.join(destRoot, '.eclipseproduct'),  %(#Eclipse Product File
 # created by buildr.apache.org at #{Time.now}"
 version=#{product['version'].sub('qualifier', EclipseExtension::Qualifier)}
@@ -286,7 +330,6 @@ id=#{product['id']}
       # Unzip os specific stuff
       unzipper =  Buildr::Unzip.new(destRoot =>execJar)
       unzipper.from_path("bin/#{platform2path(tgtPlatform)}").include('*')
-      p unzipper
       unzipper.extract
       
       # Here Eclipse uses ws/os/arch instead of ow/ws/arch in other places (.e.g, destination of install!!)
@@ -358,7 +401,7 @@ osgi.bundles=org.eclipse.equinox.common@2:start,org.eclipse.update.configurator@
     osPath = File.join(project.path_to(:target), 'os')
     izRsc = File.join(project.path_to(:target), 'rsc')
     dest = project.path_to(:target, "elexis-#{version}-installer.jar")
-    installerConfigIni = %(#Product Runtime Configuration File
+    installerConfigIni = %(#Product Runtime Configuration File (installerConfigIni)
 # created by buildr.apache.org at #{Time.now}"
 eclipse.application=#{product['application']}
 osgi.bundles.defaultStartLevel=4
@@ -396,6 +439,7 @@ eclipse.vmargs=-XX:PermSize=126M -XX:MaxPermSize=257M
 	package.enhance do
 	  tRsc    = File.join(osPath, platform2path(tgtPlatform,'.'))
 	  tgtPlatform['os_specific'] = tRsc
+	  task myInstXml => tRsc
 	  destRoot = File.join(project.path_to(:target), platform2path(tgtPlatform, '.'))
 	  FileUtils.makedirs(tRsc)
 	  FileUtils.makedirs(File.join(destRoot, 'plugins'))
@@ -414,24 +458,36 @@ eclipse.vmargs=-XX:PermSize=126M -XX:MaxPermSize=257M
 		    file File.join(izRsc, File.basename(x)) => x do
 		      FileUtils.makedirs(izRsc)
 		      FileUtils.cp(x,    izRsc, :verbose => Buildr.application.options.trace)
-		      # kernPack.addFile(x, File.join('$INSTALLATION_PATH', 'docs', File.basename(x)))
+		      kernPack.addFile(x, File.join('$INSTALLATION_PATH', 'docs', File.basename(x)))
 		    end if File.expand_path(File.dirname(x)) != izRsc
 		    task dest => [x, File.join(izRsc, File.basename(x))] 
 		  }
                                     
+    allProjects.each{ |x| 
+                        puts "adding dependency 666 #{x} #{project(x).package(:plugin)} -> #{myInstXml}"
+			task :package => project(x).package(:plugin)
+			task package(:izpack) => project(x).package(:plugin)
+			task myInstXml => project(x).package(:plugin)
+                    } if false
     package.enhance do
-      puts "defining Task izpack"
+      puts "enhance Task package"
+      allProjects.each{ |x| 
+                        puts "invoke 666 #{x} #{project(x).package(:plugin)}"
+			project(x).package(:plugin).invoke
+                      }
       FileUtils.makedirs(path_to(:target), :verbose => true) if !File.directory?(path_to(:target))
       tgtPanel = File.join(path_to(:target), 'TargetPanel.txt')
-      Buildr::write(tgtPanel, "$SYSTEM_user_home/Elexis/bin/Elexis-#{project.version}")
-      myInstXml = File.join(path_to(:target), 'installer.xml')
-      allCommonJars.each{ |x| p x; libPack.addFile(x.to_s) }
-				    
+      Buildr::write(tgtPanel, "$SYSTEM_user_home/elexis/bin/elexis-#{project.version}")
+      baseProjects.each{ |x| kernPack.addEclipseJar(project(x).package(:plugin).to_s) }
+      chProjects.each{ |x| chPack.addEclipseJar(project(x).package(:plugin).to_s) }
+      allCommonJars.each{ |x| libPack.addEclipseJar(x.to_s) }
+		    
       xm = Builder::XmlMarkup.new(:target=>File.open(myInstXml, 'w+'), :indent => 2)
       xm.instruct!
       xm.installation('version'=>'1.0') {
 	xm.tag!('info') { xm.appversion(project.version); xm.appname(project.name) }
 	xm.guiprefs('width' => '800', 'height' => '600', 'resizable' => 'yes')
+	xm.variables { |x| xm.variable('name' => 'appversion', 'value' => "#{project.parent.version}") }
 	xm.panels { |x| xm.panel('classname' => 'HTMLInfoPanel') 
 			xm.panel('classname' => 'HTMLLicencePanel') 
 			xm.panel('classname' => 'TargetPanel') 
@@ -481,7 +537,7 @@ eclipse.vmargs=-XX:PermSize=126M -XX:MaxPermSize=257M
 		xm.executable('targetfile' => tgtPlatform['executable'], 'keep' => 'true')
 		xm.singlefile('src' => tgtPanel, 'target' => "$INSTALL_PATH/#{tgtPlatform['condition']}")
 		tgtPlatform['os_files'].each { |jar| xm.singlefile('src' => jar, 'target' => jar.sub(File.dirname(jar), '$INSTALL_PATH/plugins')) }
-		Dir.glob(File.join(tRsc, '**', '*')).each { |fileOrDir|
+		(Dir.glob(File.join(tRsc, '.*')) + Dir.glob(File.join(tRsc, '**', '*'))).each { |fileOrDir|
 			next if File.directory?(fileOrDir)
 			xm.singlefile('src' => fileOrDir, 'target' =>  fileOrDir.sub(tRsc, '$INSTALL_PATH'))
 		}
@@ -489,16 +545,9 @@ eclipse.vmargs=-XX:PermSize=126M -XX:MaxPermSize=257M
 	    }
 	  }
 	}
-				  
       xm.target!().close
-      package(:jar)
-      # It is you responsability to specify correctly all dependencies!!
-      package(:izpack).input = myInstXml
-      package(:izpack).izpackVersion = '4.3.1'
 end
-	    
-task 'izpack' =>  package do 
-  package(:izpack).include(allCommonJars)
-  package(:izpack).invoke 
-end
-     
+package(:izpack).input = myInstXml
+package(:izpack).izpackVersion = '4.3.1'
+package(:izpack).include(myInstXml)
+           
