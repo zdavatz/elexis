@@ -21,8 +21,7 @@
    <windowImages i16="/ch.elexis/rsc/elexis2_16.gif" i32="/ch.elexis/rsc/elexis32_2.gif" i48="/ch.elexis/rsc/elexis48.gif"/>
 
    <splash
-      location="ch.ngiger.elexis.branding"
-      startupProgressRect="5,775,445,15" />
+      location="ch.ngiger.elexis.branding" />
    <launcher name="elexis">
       <solaris/>
       <win useIco="false">
@@ -36,6 +35,7 @@
 
 
    <plugins>
+      <plugin id="LogBackend"/>
       <plugin id="ch.elexis"/>
       <plugin id="ch.elexis.artikel_ch"/>
       <plugin id="ch.elexis.arzttarife_ch"/>
@@ -52,8 +52,12 @@
       <plugin id="ch.elexis.scripting.beanshell"/>
       <plugin id="ch.medelexis.text.templator"/>
       <plugin id="ch.ngiger.elexis.branding"/>
+      <plugin id="ch.qos.logback.classic"/>
+      <plugin id="ch.qos.logback.core"/>
+      <plugin id="ch.qos.logback.slf4j" fragment="true"/>
       <plugin id="ch.rgw.utility"/>
       <plugin id="com.ibm.icu"/>
+      <plugin id="javax.transaction" fragment="true"/>
       <plugin id="org.apache.commons.lang"/>
       <plugin id="org.apache.commons.logging"/>
       <plugin id="org.eclipse.core.commands"/>
@@ -73,6 +77,8 @@
       <plugin id="org.eclipse.jface"/>
       <plugin id="org.eclipse.jface.databinding"/>
       <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.osgi.services"/>
+      <plugin id="org.eclipse.persistence.jpa.equinox.weaving" fragment="true"/>
       <plugin id="org.eclipse.swt"/>
       <plugin id="org.eclipse.swt.carbon.macosx" fragment="true"/>
       <plugin id="org.eclipse.swt.cocoa.macosx" fragment="true"/>
@@ -95,10 +101,26 @@
       <plugin id="org.eclipse.ui.forms"/>
       <plugin id="org.eclipse.ui.workbench"/>
       <plugin id="org.eclipse.update.configurator"/>
+      <plugin id="org.ekkescorner.logging.osgi"/>
+      <plugin id="org.hamcrest.core"/>
+      <plugin id="org.jdom"/>
+      <plugin id="org.junit"/>
+      <plugin id="org.slf4j.api"/>
+      <plugin id="org.slf4j.jcl"/>
+      <plugin id="org.slf4j.jul"/>
+      <plugin id="org.slf4j.log4j"/>
    </plugins>
 
    <configurations>
-      <property name="osgi.bundles" value="org.eclipse.equinox.common@2:start,org.eclipse.update.configurator@3:start,org.eclipse.core.runtime@start" />
+      <plugin id="LogBackend" autoStart="true" startLevel="1" />
+      <plugin id="ch.qos.logback.classic" autoStart="false" startLevel="1" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.update.configurator" autoStart="true" startLevel="3" />
+      <plugin id="org.ekkescorner.logging.osgi" autoStart="true" startLevel="1" />
+      <plugin id="org.slf4j.jcl" autoStart="true" startLevel="0" />
+      <plugin id="org.slf4j.jul" autoStart="true" startLevel="0" />
+      <plugin id="org.slf4j.log4j" autoStart="true" startLevel="1" />
    </configurations>
 
 </product>

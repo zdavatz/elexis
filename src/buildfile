@@ -92,6 +92,9 @@ define "elexis" do
     task 'readme' => dest
   } if !Wikitext::skipDoc
 
+  define 'LogBackend', :version=> '1.0.0' do
+  end if !$skipPlugins.index('LogBackend')
+
   define 'ch.elexis.artikel_ch', :version=> '2.0.5' do
     dependencies << projects('ch.elexis', 'ch.elexis.importer.div', 'ch.rgw.utility', 'ch.elexis.core')
   end if !$skipPlugins.index('ch.elexis.artikel_ch')
@@ -103,6 +106,10 @@ define "elexis" do
   define 'ch.elexis.core', :version=> '0.0.2' do
     dependencies << projects('ch.rgw.utility')
   end if !$skipPlugins.index('ch.elexis.core')
+
+  define 'ch.elexis.developer.resources', :version=> '1.0.2' do
+    dependencies << projects('ch.elexis', 'ch.rgw.utility', 'ch.elexis.core')
+  end if !$skipPlugins.index('ch.elexis.developer.resources')
 
   define 'ch.elexis.diagnosecodes_ch', :version=> '2.0.2' do
     dependencies << projects('ch.elexis', 'ch.rgw.utility', 'ch.elexis.core')
@@ -179,7 +186,11 @@ define "elexis" do
   end if !$skipPlugins.index('ch.ngiger.elexis.branding')
 # ignoring ch.ngiger.elexis.opensource because no infoFiles found
 
-  define 'ch.rgw.utility', :version=> '2.0.5' do
+  define 'ch.ngiger.logging.configuration', :version=> '1.0.0.qualifier' do
+    dependencies << projects('org.ekkescorner.logging.osgi')
+  end if !$skipPlugins.index('ch.ngiger.logging.configuration')
+
+  define 'ch.rgw.utility', :version=> '2.0.8' do
     # checks to be run after package
     # elexis-base/ch.rgw.utility/target/classes/ch/rgw/tools/Money.class
     check                  file('target/classes/ch/rgw/tools/Money.class'), 'should exist' do
@@ -209,14 +220,8 @@ define "elexis" do
     check package(:plugin), 'org/apache/commons/compress/bzip2/CBZip2InputStream.class' do 
       it.should contain('org/apache/commons/compress/bzip2/CBZip2InputStream.class')
     end if false
-    check package(:plugin), 'checking for lib/log4j*.jar' do
-      it.should contain('lib/log4j*.jar')
-    end
     check package(:plugin), 'checking for lib/jdom.jar' do
       it.should contain('lib/jdom.jar')
-    end
-    check package(:plugin), 'checking for absence log4j*.jar' do
-      it.should_not contain('log4j*.jar')
     end
     check package(:plugin), 'checking for ch/rgw/tools/messages_fr.properties' do
       it.should contain('ch/rgw/tools/messages_fr.properties')
@@ -228,12 +233,15 @@ define "elexis" do
   define 'de.fhdo.elexis.perspective', :version=> '1.0.0' do
   end if !$skipPlugins.index('de.fhdo.elexis.perspective')
 
+  define 'org.ekkescorner.logging.osgi', :version=> '0.9.40.qualifier' do
+  end if !$skipPlugins.index('org.ekkescorner.logging.osgi')
+
   define 'org.iatrix.help.wiki', :version=> '1.4.1' do
     dependencies << projects('ch.elexis', 'ch.rgw.utility')
   end if !$skipPlugins.index('org.iatrix.help.wiki')
 # ignoring pde.test.utils because isTestProject
 
-  allProjects = ["ch.elexis.artikel_ch", "ch.elexis.arzttarife_ch", "ch.elexis.core", "ch.elexis.diagnosecodes_ch", "ch.elexis.ebanking_ch", "ch.elexis.eigenartikel", "ch.elexis.h2.connector", "ch.elexis.importer.div", "ch.elexis.labortarif.ch2009", "ch.elexis.mysql.connector", "ch.elexis.noatext", "ch.elexis.postgresql.connector", "ch.elexis.scripting.beanshell", "ch.elexis", "ch.medelexis.text.templator", "ch.ngiger.elexis.branding", "ch.rgw.utility", "de.fhdo.elexis.perspective", "org.iatrix.help.wiki"]
+  allProjects = ["LogBackend", "ch.elexis.artikel_ch", "ch.elexis.arzttarife_ch", "ch.elexis.core", "ch.elexis.developer.resources", "ch.elexis.diagnosecodes_ch", "ch.elexis.ebanking_ch", "ch.elexis.eigenartikel", "ch.elexis.h2.connector", "ch.elexis.importer.div", "ch.elexis.labortarif.ch2009", "ch.elexis.mysql.connector", "ch.elexis.noatext", "ch.elexis.postgresql.connector", "ch.elexis.scripting.beanshell", "ch.elexis", "ch.medelexis.text.templator", "ch.ngiger.elexis.branding", "ch.ngiger.logging.configuration", "ch.rgw.utility", "de.fhdo.elexis.perspective", "org.ekkescorner.logging.osgi", "org.iatrix.help.wiki"]
   
  define 'ch.ngiger.elexis.opensource', :base_dir => 'ch.ngiger.elexis.opensource' do
    inhalt = File.read('ch.ngiger.elexis.opensource/buildfile.project')
@@ -283,7 +291,7 @@ define "elexis" do
   inhalt = File.read(File.join(File.dirname(__FILE__), 'tasks', 'debian.include'))
   eval(inhalt) if false
 
-# defined 19 projects
+# defined 23 projects
 # will ignore 6 directories (as defined IgnoreSubDirs)
 # ignored 4 directories"
 

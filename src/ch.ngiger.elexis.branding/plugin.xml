@@ -17,7 +17,7 @@
          </property>
          <property
                name="startupProgressRect"
-               value="5,275,445,15">
+               value="5,775,445,15">
          </property>
          <property
                name="appName"

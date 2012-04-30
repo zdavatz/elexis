@@ -110,16 +110,43 @@ void copyConfigurationIfAccepted(String dest)
 }
 
 void afterPack() {
-  print("(beanshell)  "+ getSourceFileInfo() + " after pack " + pack.name + " inst " +  idata.getVariable("INSTALL_PATH") );
-  if (curDirIsAnElexisInstallation())
-    copyConfigurationIfAccepted(idata.getVariable("INSTALL_PATH") );
-  else
-    print("Did not find an Elexis configuration in " + bsh.cwd);
+  print("(beanshell)  "+ getSourceFileInfo() + " after pack " + pack.name + " INSTALL_PATH " +  idata.getVariable("INSTALL_PATH") + " USER_HOME " +  idata.getVariable("USER_HOME") );
+  if (pack.name.equals("Elexis-Kern"))
+    if (curDirIsAnElexisInstallation())
+      copyConfigurationIfAccepted(idata.getVariable("INSTALL_PATH") );
+    else
+      print("Did not find an Elexis configuration in " + bsh.cwd);
+  if (pack.name.startsWith("macosx.") || pack.name.startsWith("linux.") || pack.name.startsWith("win32."))
+    appendLogbackToConfig(idata.getVariable("INSTALL_PATH")+"/elexis.ini", idata.getVariable("INSTALL_PATH")+"/configuration/logback.xml");
 }
 
+void appendLogbackToConfig(iniName, logbackXmlPath)
+{
+  logbackXml = new File(logbackXmlPath);
+  if ( logbackXml.canRead() )
+  {
+    iniFile = new File(iniName);
+    if (iniFile.canWrite())
+    {
+      fw = new FileWriter(iniName, true); // append
+      out = new BufferedWriter(fw);
+      out.write("\n-Dlogback.configurationFile="+logbackXmlPath+"\n");
+      out.close();
+      print("appendLogbackToConfig append "+ logbackXmlPath + " to " + iniName); 
+    } else {
+      print("appendLogbackToConfig failed as "+iniName+ " cannot be written!!"); 
+    System.exit(2);
+    }
+  } else {
+      print("appendLogbackToConfig failed as "+logbackXmlPath+ " cannot be read!!"); 
+      System.exit(2);
+  }
+}
 // next lines for debugging
 if (false && idata == void) // idata is not defined, we want to test 
 {
+  appendLogbackToConfig("deploy/linux.gtk.x86_64/elexis.ini", "/home/niklaus/elexis/logback.xml");
   addClassPath("/opt/ch.elexis/ngiger-utilities-comm/lib/commons-io-1.4.jar");
+  print("Testing afterPack");
   copyConfigurationIfAccepted("Wohin");
 }

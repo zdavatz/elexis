@@ -8,17 +8,13 @@ require 'launch_util'
 module PDE_Test
   include Extension
 
-  first_time do
-    # Define task not specific to any projet.
-#    desc 'Run PDE-tests for the project. Envronment variabls OSGi must point to an empty Eclipse installation!'
-#    Project.local_task('pde_test')
-  end
-  
   before_define do |project|
 #    project.test.using :integration
     if project.parent == nil
-      puts "Add PDE_Test integration stuff for root project"
-      PDE_Test::stuffForRootProject 
+      if Buildr.options.test
+	puts "Add PDE_Test integration stuff for root project"
+	PDE_Test::stuffForRootProject 
+      end
     else
       short = project.name.sub(project.parent.name+':','')
       if project.compile.sources.size > 0 && project.test.sources.size > 0 
@@ -173,8 +169,8 @@ public
     project.test.exclude '*' # Tell junit to ignore all JUnit-test, as it would interfere with the PDE test
     return if !/importer/i.match(cfg.launchConfigName)
     project.integration.teardown(:createPDEtestHtml) 
-    project.integration.prerequisites << @@pdeTestUtilsJar
-    project.test.compile.with project.dependencies + project.compile.dependencies
+#    project.integration.prerequisites << @@pdeTestUtilsJar
+    project.test.compile.with project.dependencies + project.compile.dependencies + @@pdeTestUtilsJar
     project.test.with project.compile.target if project.compile.target
     project.test.compile.with ANT_ARTIFACTS
     testFragmentJar = PDE_Test::addTestJar(shortName, project)
@@ -258,32 +254,6 @@ public
     # TODO: mv all Text*.xml into a separate directory
     # FileUtils.mv('TEST*.xml', 'reports', :verbose => false)
   end
-x = <<EOF
-niklaus  21277 21401 42 00:07 pts/2    00:00:11 /usr/lib/jvm/java-6-sun-1.6.0.26/bin/java 
--agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:49605 
--Delexis-run-mode=RunFromScratch -Dch.elexis.username=007 -Dch.elexis.password=topsecret 
--Dfile.encoding=UTF-8 
--classpath /opt/indigo/eclipse.x86_64/plugins/org.eclipse.equinox.launcher_1.2.0.v20110502.jar org.eclipse.equinox.launcher.Main 
--os linux -ws gtk -arch x86_64 -nl de_CH -consoleLog 
--version 3 
--port 57095 
--testLoaderClass org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader 
--loaderpluginname org.eclipse.jdt.junit4.runtime 
--classNames ch.elexis.AllPluginTests 
--application org.eclipse.pde.junit.runtime.nonuithreadtestapplication 
--testApplication ch.elexis.ElexisApp 
--data /opt/elexis-2.1.7-rm/workspace/../junit-workspace -configuration file:/opt/elexis-2.1.7-rm/workspace/.metadata/.plugins/org.eclipse.pde.core/pde-junit/ 
--dev file:/opt/elexis-2.1.7-rm/workspace/.metadata/.plugins/org.eclipse.pde.core/pde-junit/dev.properties 
--os linux -ws gtk -arch x86_64 -nl de_CH 
--consoleLog 
--testpluginname ch.elexis
-
-um 0:30
- -application org.eclipse.pde.junit.runtime.uitestapplication -port 39891 -testpluginname ch.elexis -classnames ch.elexis.AllPluginTests -application ch.elexis.ElexisApp
-Command-line arguments:  -data /opt/src/elexis/src/reports -dev bin -application org.eclipse.pde.junit.runtime.uitestapplication -clean -port 39891 -testpluginname ch.elexis -classnames ch.elexis.AllPluginTests -consoleLog -debug -application ch.elexis.ElexisApp
-
-
-EOF
 end
 
 class Buildr::Project

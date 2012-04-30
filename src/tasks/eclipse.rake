@@ -32,6 +32,20 @@ def addDependencies(project)
   }
 end
 
+# Monkey-patch Javac compiler to exclude package-info.java from dependencies
+# see https://issues.apache.org/jira/browse/BUILDR-641
+module Buildr
+  module Compiler
+    class Javac
+      protected
+      def compile_map(sources, target)
+        map = super(sources, target)
+        map.reject { |k, v| k =~ /package-info.java$/ }
+      end
+    end
+  end
+end
+
 module EclipseExtension
   include Extension
   @@cachedMf = Hash.new if !defined?(@@cachedMf)
@@ -75,12 +89,34 @@ module EclipseExtension
       plugins    = []
       fragments  = []
       properties = Hash.new
-      allPlugins = doc.elements['product/plugins']
-      doc.elements['product/plugins'].elements.each { |x| x.attributes['fragment'] ? fragments << x.attributes['id']   : plugins << x.attributes['id'] }
-      doc.elements['product/configurations'].elements.each { |x| properties[x.attributes['name']]= x.attributes['value'] } if doc.elements['product/configurations']
+      doc.elements['product/plugins'].elements.each        { |x| x.attributes['fragment'] ? fragments << x.attributes['id']   : plugins << x.attributes['id'] }
+      result['properties'] = properties
+      startups = []
+      xx = %(
+      #  <plugin id="ch.qos.logback.classic" autoStart="false" startLevel="1" />
+      <plugin id="ch.qos.logback.classic" autoStart="false" startLevel="1" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.update.configurator" autoStart="true" startLevel="3" />
+      <plugin id="org.ekkescorner.logging.osgi" autoStart="true" startLevel="1" />
+      <plugin id="org.slf4j.jcl" autoStart="true" startLevel="0" />
+      <plugin id="org.slf4j.jul" autoStart="true" startLevel="0" />
+      # osgi.bundles=org.eclipse.core.runtime@start,org.eclipse.equinox.common@2:start,org.slf4j.jcl@start,org.ekkescorner.logging.osgi@1:start,org.eclipse.update.configurator@3:start,ch.qos.logback.classic@1,org.slf4j.jul@start
+)
+      doc.elements['product/configurations'].elements.each { |x|
+							     desc = x.attributes['id']
+                                                             if x.attributes['autoStart'].eql?('true')
+								x.attributes['startLevel'].eql?('0') ? desc += '@start' : desc += "@#{x.attributes['startLevel']}:start"
+							     else
+								 desc += "@#{x.attributes['startLevel']}"
+							     end	
+							     startups << desc
+                                                           } if doc.elements['product/configurations']
+      p startups
+      p startups.join(',')
       result['fragments']  = fragments
       result['plugins']    = plugins    
-      result['properties'] = properties
+      result['configurations'] = startups
 
       info  "Read product info from #{productInfoFile}"
       trace "Got product info from #{productInfoFile}:\n   #{result.inspect}"
@@ -98,17 +134,6 @@ module EclipseExtension
     result
   end
   
-  Timestamp = 'timestamp'
-  # Allow local override
-  if File.exists?('timestamp')
-    Qualifier = IO.readlines('timestamp')[0].chomp 
-    puts "Setup: Qualifier is #{Qualifier} (read from file #{File.expand_path(Timestamp)})"
-  else
-    Qualifier = Time.now.strftime('%Y%m%d%H%M') 
-    puts "Setup: Qualifier is current time #{Qualifier} (no file '#{Timestamp}' found)"
-    File.open(Timestamp, 'w') {|f| f.puts(Qualifier) }
-  end if !defined?(Qualifier)
-
   Layout.default[:source, :main, :java]      = 'src'
   Layout.default[:source, :main, :resources] = 'rsc2'
   Layout.default[:source, :main, :scala]     = 'src'
@@ -117,14 +142,38 @@ module EclipseExtension
   Layout.default[:target, :main  ] = 'target'
   Layout.default[:target, :main, :java] = File.join('target','bin')
   ProjWithBndBugs = ['ch.elexis.core.databinding', 'de.fhdo.elexis.perspective', 'ch.elexis.artikel_ch']
-  before_define do |project|
+private
+
+  
+  # This is a method as we sometimes just want to exit early
+  def EclipseExtension::eclipse_before_project(project)
     if !project.parent
       if !ENV['OSGi'] 
 	  puts "OSGi musts point to an installed eclipse"
 	  exit(3)
       end
     else
+      mf = nil
+      mfName = File.join(project._,'META-INF', 'MANIFEST.MF')
+      mf = Buildr::Packaging::Java::Manifest.parse(File.read(mfName)) if File.exists?(mfName)
+      if mf && project.version && /qualifier/.match(project.version)
+	newVersion = Buildr::Eclipse.getEclipseVersion(project.version)
+	puts "#{project.name}: Changing #{project.version} to #{newVersion}" if !project.version.eql?(newVersion) # if $VERBOSE
+	project.version =newVersion
+	mf.main['Bundle-Version'] = project.version if mf and mf.main
+      end
       short = project.name.sub(project.parent.name+':','')
+      localJars = Dir.glob(File.join(project._,'*.jar')) + Dir.glob(File.join(project._, 'lib', '*.jar'))
+      if localJars.size > 0
+	project.compile.dependencies << localJars
+	project.package(:bundle).tap do |bnd| 
+	  bnd['Include-Resource'] = "@#{localJars.join(',@')}"
+	end
+	# project.package(:bundle).use_bundle_version
+	project.package(:plugin).include(Dir.glob(File.join(project._,'*.jar')))
+	project.package(:plugin).include(Dir.glob(File.join(project._,'lib', '*.jar')), :path=> 'lib')
+	return if project.compile.sources.size == 0
+      end
       if $skipPlugins.index(short)
 	puts "Skipping plugin #{short} #{project.id}"
 	project.layout[:source, :main, :scala] = 'scala_not_found'
@@ -134,41 +183,18 @@ module EclipseExtension
 	  project.compile.options.target = '1.5' 
 	  puts "Specifiying 1.5 because of scala files in #{project.id}"
 	end
-	localJars = Dir.glob(File.join(project._,'*.jar')) + Dir.glob(File.join(project._, 'lib', '*.jar')) 
 	binDef = nil
 	if File.exists?(project._('build.properties'))
 	    inhalt = Hash.from_java_properties(File.read(project._('build.properties')))
 	    binDef = inhalt['bin.includes']
 	end
-	mf = nil
-	mfName = File.join(project._,'META-INF', 'MANIFEST.MF')
-	mf = Buildr::Packaging::Java::Manifest.parse(File.read(mfName)) if File.exists?(mfName)
-	project.version.sub!('qualifier', Qualifier) 
-	if mf && !mf.main['Bundle-Version'].eql?(project.version) && !/qualifier/.match(mf.main['Bundle-Version'])
-	  puts "Setting #{short} to version #{ mf.main['Bundle-Version']} instead of #{project.version}"
-	  project.version = mf.main['Bundle-Version'].sub('qualifier', Qualifier)
-	end
-	if !/#{Qualifier}/.match(project.version)
-	  puts "Adding timestamp #{Qualifier} to #{short} #{project.version}" if $VERBOSE
-	  project.version += '-' + Qualifier
-	  mf.main['Bundle-Version'] = project.version if mf and mf.main
-	end if false # only creates problem with eclipse
-      if binDef
+	if binDef
 	    binDef.split(',').each do
 	      |x|
 		  next if x.eql?('.')
 		  x += '*' if /\/$/.match(x)
 		  project.package(:plugin).include(Dir.glob(File.join(project._, x)), :path => File.dirname(x))
 	    end
-	end
-	if localJars.size > 0
-	  project.compile.dependencies << localJars
-#	  project.package(:zip).include(localJars)
-#	  project.package(:zip).include(project._("META-INF"))
-	  project.package(:jar).include(localJars)
-	  project.package(:jar).include(project._("META-INF"))
-	  project.package(:plugin)
-	  project.package(:plugin)
 	end
 
 	if project.compile.sources.size == 0
@@ -201,8 +227,121 @@ module EclipseExtension
       end
     end
   end
+public
+  before_define do |project|
+    if !project.parent
+      Buildr::Eclipse.setQualifier
+      Buildr::Eclipse.readQualifierFromFile('timestamp')
+    end
+    EclipseExtension::eclipse_before_project(project)
+  end
+  before_define do |project|
+#    p project.compile.sources
+#    project.compile.sources.delete_if {|x| p x if  x.eql?('package-info.java');  x.eql?('package-info.java') }
+  end
 end
 
 class Buildr::Project
   include EclipseExtension
+end
+
+module Buildr
+  module Eclipse
+    attr_reader :qualifier
+    
+    # Specify a qualifer value, eg. for testing
+    def self.setQualifier(newValue = Time.now.strftime('%Y%m%d%H%M') )
+      @@qualifier = newValue
+    end
+   
+    def self.qualifier
+      @@qualifier
+    end
+    # Set the default as early as possible
+    self.setQualifier
+    
+    # Allows one to override the timestamp, e.g to set it to specific value
+    # If the file does not exists. The current value will be saved
+    def self.readQualifierFromFile(filename)
+      # Allow local override
+      if File.exists?(filename)
+	@@qualifier = IO.readlines('timestamp')[0].chomp 
+	puts "Setup: qualifier is #{@@qualifier} (read from file #{File.expand_path(filename)})"
+      else
+	puts "Setup: qualifier is current time #{@@qualifier} (no file '#{filename}' found)"
+	File.open(filename, 'w') {|f| f.puts(@@qualifier) }
+      end
+    end
+    
+    MatchVersionWithBranch =  /([-_]\d+)(\.\d+|)(\.\d+|)(\.\d+|)(\.\d+|)/ #  /(\d*)\.(\d*)\.(\d*)\.([^-_]*)[-_](.*)/
+    # Enforces a version string consistent with http://wiki.eclipse.org/Version_Numbering#Guidelines_on_versioning_plug-ins
+    # e.g. 
+    # 1.0.1.R10x_v20030629
+    # 4.2.3.v20050506
+    # 1.4
+    # 2.2.0.dev-qualifier
+    def self.getEclipseVersion(versionString)
+      myVersion = OSGi::Version.new(versionString)
+      myVersion.qualifier = myVersion.qualifier.sub('qualifier', @@qualifier) if myVersion.qualifier
+      return myVersion.to_s
+    end
+
+    # Eclipse convention is that the character before the version is '_'. Buildr uses '-'
+    def  self.adaptName(jarname)
+      vers = MatchVersionWithBranch.match(jarname)
+      myVersion = OSGi::Version.new(vers[0])
+      if !vers 
+	puts "adaptName: did not find version for #{jarname}"
+	return File.basename(jarname)
+      end
+      return jarname.sub(vers[0],'_'+vers[0][1..-1])
+    end
+    
+    def self.mustUnpackJar(jarname)
+      mf = Buildr::Packaging::Java::Manifest.from_zip(jarname)
+      x =  mf.main['Bundle-ClassPath']
+      if x then
+	pathEntries = x.split(',')
+	if !pathEntries.index('.')
+	  res = pathEntries.find_all{|item| !/.jar/.match(item) }
+	  return true if res.size == 0
+	end
+      end
+      return false
+    end
+
+    def self.getTargetName(destDir, jarname)
+      destDir += 'plugins' if !/plugins$/i.match(destDir)
+      if mustUnpackJar(jarname)
+	return File.join(destDir, adaptName(File.basename(jarname, '.jar')))
+      else
+	return File.join(destDir, adaptName(File.basename(jarname)))
+      end
+    end
+    
+    # Installs a plugin.
+    # a) as a file copy if it is not a fragments
+    # b) unpacks into a sub-directory if the classpath consists of only jars (this seems to be an eclipse convention)
+    def self.installPlugin(jar, destDir, defPlatform = nil)
+      jarname = jar.to_s
+      destName = File.join(destDir,  Buildr::Eclipse.adaptName(File.basename(jarname))).gsub('/./','/')
+      trace "installPlugin #{jarname} as #{destName} defPlatform #{defPlatform}"
+      return if File.basename(jarname).index('.source_')
+      return if FileUtils.uptodate?(destName, jarname)
+      return if defPlatform and !EclipseExtension::jarMatchesPlatformFilter(jarname, defPlatform) 
+      if   Buildr::Eclipse.mustUnpackJar(jarname)
+	destSubDir = File.join(destDir, Buildr::Eclipse.adaptName(File.basename(jarname,'.jar')))
+	trace "installPlugin: unpack #{jar} ->#{destDir} #{destSubDir} already okay? #{File.directory?(destSubDir)}"
+	return destSubDir if File.directory?(destSubDir)
+	FileUtils.makedirs(File.dirname(destSubDir))
+	cmd = "unzip -q -o -d #{destSubDir} #{jarname}"
+	system(cmd)
+	return destSubDir
+      else
+	FileUtils.makedirs(destDir)
+	FileUtils.cp(jarname, destName, :verbose => Buildr.application.options.trace, :preserve=>true)
+	return destName
+      end
+    end
+  end
 end

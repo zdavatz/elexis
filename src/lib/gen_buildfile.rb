@@ -293,14 +293,8 @@ AddedCommands['ch.rgw.utility'] = <<EOF
     check package(:plugin), 'org/apache/commons/compress/bzip2/CBZip2InputStream.class' do 
       it.should contain('org/apache/commons/compress/bzip2/CBZip2InputStream.class')
     end if false
-    check package(:plugin), 'checking for lib/log4j*.jar' do
-      it.should contain('lib/log4j*.jar')
-    end
     check package(:plugin), 'checking for lib/jdom.jar' do
       it.should contain('lib/jdom.jar')
-    end
-    check package(:plugin), 'checking for absence log4j*.jar' do
-      it.should_not contain('log4j*.jar')
     end
     check package(:plugin), 'checking for ch/rgw/tools/messages_fr.properties' do
       it.should contain('ch/rgw/tools/messages_fr.properties')

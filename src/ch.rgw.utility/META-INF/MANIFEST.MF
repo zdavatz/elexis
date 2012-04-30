@@ -2,14 +2,11 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Systemunabhängige Utilities
 Bundle-SymbolicName: ch.rgw.utility
-Bundle-Version: 2.0.5
+Bundle-Version: 2.0.8
 Bundle-ClassPath: bin/,
  .,
  lib/jdom.jar,
- lib/bcprov-jdk15-140.jar,
- lib/log4j-over-slf4j-1.6.1.jar,
- lib/slf4j-jdk14-1.6.1.jar,
- lib/slf4j-api-1.6.1.jar
+ lib/bcprov-jdk15-140.jar
 Bundle-Vendor: G. Weirich
 Export-Package: .,
  ch.rgw.compress;uses:="ch.rgw.io",
@@ -18,7 +15,6 @@ Export-Package: .,
  ch.rgw.tools;uses:="javax.xml.transform,org.jdom",
  ch.rgw.tools.net,
  org.apache.commons.compress.bzip2,
- org.apache.log4j;uses:="org.slf4j",
  org.bouncycastle,
  org.bouncycastle.asn1,
  org.bouncycastle.asn1.cmp;uses:="org.bouncycastle.asn1.crmf,org.bouncycastle.asn1.x509,org.bouncycastle.asn1",
@@ -153,10 +149,12 @@ Export-Package: .,
    org.jdom,
    javax.xml.transform.sax,
    org.xml.sax",
- org.jdom.xpath;uses:="org.jdom",
- org.slf4j.impl;uses:="org.slf4j.spi,org.slf4j.helpers,org.slf4j"
+ org.jdom.xpath;uses:="org.jdom"
 Require-Bundle: ch.elexis.postgresql.connector;bundle-version="1.0.0";resolution:=optional,
  ch.elexis.mysql.connector;resolution:=optional,
  ch.elexis.h2.connector;bundle-version="1.2.0";resolution:=optional,
- com.ibm.icu;bundle-version="4.4.2"
+ org.slf4j.api;bundle-version="1.6.1",
+ ch.qos.logback.classic;bundle-version="0.9.27",
+ ch.qos.logback.core;bundle-version="0.9.27"
+Import-Package: org.eclipse.swt.widgets
 

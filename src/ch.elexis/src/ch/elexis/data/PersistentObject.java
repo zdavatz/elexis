@@ -42,6 +42,7 @@ import java.util.zip.ZipOutputStream;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
@@ -214,9 +215,8 @@ public abstract class PersistentObject implements IPersistentObject {
 		if ("RunFromScratch".equals(System.getProperty("elexis-run-mode"))) {
 			runningAsTest = true;
 		}
-		File base = new File(Hub.getBasePath());
-		File demo = new File(base.getParentFile().getParent() + "/demoDB");
-		log.log("Verzeichnis Demo-Datenbank: " + demo.getAbsolutePath(), Log.INFOS);
+		File base = new File(Platform.getInstanceLocation().getURL().getFile());
+		File demo = new File(base.getParentFile() + "/demoDB");
 		if (demo.exists() && demo.isDirectory()) {
 			j = JdbcLink.createH2Link(demo.getAbsolutePath() + File.separator + "db");
 			try {
@@ -321,7 +321,7 @@ public abstract class PersistentObject implements IPersistentObject {
 				System.exit(-1);
 			} else {
 				String d = PreferenceInitializer.getDefaultDBPath();
-				j = JdbcLink.createH2Link(d + File.separator + "elexisdb");
+				j = JdbcLink.createH2Link(d + File.separator + "elexisdb-2.1");
 				user = "sa";
 				pwd = StringTool.leer;
 				typ = getConnection().DBFlavor;
@@ -381,9 +381,8 @@ public abstract class PersistentObject implements IPersistentObject {
 							Person.NAME, Person.FIRSTNAME, Person.TITLE, Person.SEX,
 							Person.FLD_E_MAIL, Person.FLD_PHONE1, Person.FLD_FAX,
 							Kontakt.FLD_STREET, Kontakt.FLD_ZIP, Kontakt.FLD_PLACE
-						}, "Bond", "James", "Dr. med.", Person.MALE, clientEmail,
-							"0061 555 55 55", "0061 555 55 56", "10, Baker Street", "9999",
-							"Elexikon");
+						}, "Bond", "James", "Dr. med.", Person.MALE, clientEmail, "0061 555 55 55",
+							"0061 555 55 56", "10, Baker Street", "9999", "Elexikon");
 						String gprs = m.getInfoString(AccessControl.KEY_GROUPS); //$NON-NLS-1$
 						gprs = StringConstants.ROLE_ADMIN + "," + StringConstants.ROLE_USERS;
 						m.setInfoElement(AccessControl.KEY_GROUPS, gprs);
@@ -439,9 +438,13 @@ public abstract class PersistentObject implements IPersistentObject {
 		log.log("Vorhandene Elexis-Version: " + Hub.Version, Log.INFOS);
 		VersionInfo v2 = new VersionInfo(Hub.Version);
 		if (vi.isNewerMinor(v2)) {
-			SWTHelper.showError("Verbindung nicht möglich: Version zu alt",
-				"Die Datenbank ist für eine neuere Elexisversion. Bitte machen Sie ein Update.");
-			log.log("Datenbank zu neu", Log.FATALS);
+			String msg =
+				String
+					.format(
+						"Die Datenbank %1s ist für eine neuere Elexisversion '%2s' als die aufgestartete '%3s'. Bitte machen Sie ein Update.",
+						jd.getConnectString(), vi.version().toString(), v2.version().toString());
+			log.log(msg, Log.FATALS);
+			SWTHelper.showError("Verbindung nicht möglich: Aufstartete Elexis-Version zu alt", msg);
 			System.exit(2);
 		}
 		// Wenn trace global eingeschaltet ist, gilt es für alle
@@ -1289,8 +1292,9 @@ public abstract class PersistentObject implements IPersistentObject {
 				ElexisStatus status =
 					new ElexisStatus(ElexisStatus.ERROR, Hub.PLUGIN_ID, ElexisStatus.CODE_NONE,
 						"Fehler beim Lesen der Liste ", ex, ElexisStatus.LOG_ERRORS);
-				// This is not an exception but a misconfiguration. No need to stop program flow.
-// Just return null
+				// This is not an exception but a misconfiguration. No need to
+				// stop program flow.
+				// Just return null
 				// as the documentation of the method states.
 				// throw new PersistenceException(status);
 				return null;
@@ -1373,8 +1377,9 @@ public abstract class PersistentObject implements IPersistentObject {
 				new ElexisStatus(ElexisStatus.ERROR, Hub.PLUGIN_ID, ElexisStatus.CODE_NONE,
 					"Fehler bei: " + cmd + "(" + field + "=" + value + ")", ex,
 					ElexisStatus.LOG_ERRORS);
-			throw new PersistenceException(status); // See api doc. check this whether it breaks
-// existing code.
+			throw new PersistenceException(status); // See api doc. check this
+													// whether it breaks
+			// existing code.
 			// return false; // See api doc. Return false on errors.
 		} finally {
 			try {
@@ -1394,7 +1399,8 @@ public abstract class PersistentObject implements IPersistentObject {
 	@Override
 	public void setMap(final String field, final Map<Object, Object> map){
 		if (map == null) {
-			throw new PersistenceException(new ElexisStatus(Status.ERROR,Hub.PLUGIN_ID,ElexisStatus.CODE_NONE,"Attempt to store Null map",null));
+			throw new PersistenceException(new ElexisStatus(Status.ERROR, Hub.PLUGIN_ID,
+				ElexisStatus.CODE_NONE, "Attempt to store Null map", null));
 		}
 		byte[] bin = flatten((Hashtable) map);
 		cache.put(getKey(field), map, getCacheTime());
@@ -1437,8 +1443,9 @@ public abstract class PersistentObject implements IPersistentObject {
 			stm.executeUpdate();
 		} catch (Exception ex) {
 			log.log("Fehler beim Ausführen der Abfrage " + cmd, Log.ERRORS);
-			throw new PersistenceException(new ElexisStatus(Status.ERROR,Hub.PLUGIN_ID,ElexisStatus.CODE_NONE,"setBytes: Es trat ein Fehler beim Schreiben auf. "
-				+ ex.getMessage(),ex,Log.ERRORS));
+			throw new PersistenceException(new ElexisStatus(Status.ERROR, Hub.PLUGIN_ID,
+				ElexisStatus.CODE_NONE, "setBytes: Es trat ein Fehler beim Schreiben auf. "
+					+ ex.getMessage(), ex, Log.ERRORS));
 		} finally {
 			try {
 				stm.close();
@@ -1736,7 +1743,8 @@ public abstract class PersistentObject implements IPersistentObject {
 			ElexisStatus status =
 				new ElexisStatus(ElexisStatus.ERROR, Hub.PLUGIN_ID, ElexisStatus.CODE_NONE,
 					sb.toString(), ex, ElexisStatus.LOG_ERRORS);
-			// DONT Throw an Exception. The API doc states: return false on errors!!
+			// DONT Throw an Exception. The API doc states: return false on
+			// errors!!
 			// throw new PersistenceException(status);
 			return false;
 		} finally {
@@ -1857,7 +1865,8 @@ public abstract class PersistentObject implements IPersistentObject {
 			
 			log.log("Fehler bei decode ", Log.ERRORS);
 			
-			// Dont throw an exception. Null is an acceptable (and normally testes)
+			// Dont throw an exception. Null is an acceptable (and normally
+			// testes)
 			// return value if something went wrong.
 			// throw new PersistenceException(status);
 			
@@ -1900,10 +1909,12 @@ public abstract class PersistentObject implements IPersistentObject {
 			ElexisStatus status =
 				new ElexisStatus(ElexisStatus.ERROR, Hub.PLUGIN_ID, ElexisStatus.CODE_NONE,
 					"Fehler beim String encoder", ex, ElexisStatus.LOG_ERRORS);
-			// Dont throw an exeption. returning the original value is an acceptable way if encoding
-// is not possible. Frequently it's just
-			// a configuration problem, so just log it and let the user decide if they want to fix
-// it later.
+			// Dont throw an exeption. returning the original value is an
+			// acceptable way if encoding
+			// is not possible. Frequently it's just
+			// a configuration problem, so just log it and let the user decide
+			// if they want to fix
+			// it later.
 			// DONT throw new PersistenceException(status);
 			log.log("Fehler beim String encoder: " + ex.getMessage(), Log.ERRORS);
 			
@@ -2148,7 +2159,9 @@ public abstract class PersistentObject implements IPersistentObject {
 			return 0;
 		}
 		try {
-			return Integer.parseInt(((String) in).trim());	// We're sure in is a String at this point
+			return Integer.parseInt(((String) in).trim()); // We're sure in is a
+															// String at this
+															// point
 		} catch (NumberFormatException ex) {
 			ExHandler.handle(ex);
 			return 0;

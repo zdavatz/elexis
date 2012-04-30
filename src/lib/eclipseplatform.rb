@@ -8,41 +8,6 @@ include REXML
 require 'optparse'
 module ElipsePlatform
 
-  public 
-
-    def ElipsePlatform::readProductInfo(productInfoFile)
-      result = Hash.new # where we store all result about the product
-      doc  = Document.new File.new(productInfoFile) # input
-      product             = doc.elements['product']
-      result['name']        = product.attributes['name']
-      result['id']          = product.attributes['id']
-      result['uid']         = product.attributes['uid']
-      result['application'] = product.attributes['application']
-      result['version']     = product.attributes['version']
-      result['useFeatures'] = product.attributes['useFeatures']
-      result['configIni']   = doc.elements['product/configIni'].attributes['use']
-      result['aboutInfo']   = doc.elements['product/aboutInfo/text'].text
-      result['splash']      = doc.elements['product/splash'].attributes['location']    
-      result['launcher']    = doc.elements['product/launcher'].attributes['name']
-      result['programArgs'] = doc.elements['product/launcherArgs/programArgs'].text
-      result['vmArgs']      = doc.elements['product/launcherArgs/vmArgs'].text
-      result['vmArgsMac']   = doc.elements['product/launcherArgs/vmArgsMac'].text
-
-      plugins    = []
-      fragments  = []
-      properties = Hash.new
-      allPlugins = doc.elements['product/plugins']
-      doc.elements['product/plugins'].elements.each { |x| x.attributes['fragment'] ? fragments << x.attributes['id']   : plugins << x.attributes['id'] }
-      doc.elements['product/configurations'].elements.each { |x| properties[x.attributes['name']]= x.attributes['value'] }
-      result['fragments']  = fragments
-      result['plugins']    = plugins    
-      result['properties'] = properties
-
-      info  "Read product info from #{productInfoFile}"
-      trace "Got product info from #{productInfoFile}:\n   #{result.inspect}"
-      result
-    end
-
   private
     @@slicingOptions = {
       'includeOptional' => 'true',

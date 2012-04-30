@@ -2,3 +2,75 @@ h1. Elexis utilities
 
 This project contains some system independent utility classes. 
 (No dependencies to SWT or eclipse)
+
+Logging remarks will be placed later under ch.elexis.developer.resources/doc/developer.textile!
+
+h1. Logging
+
+h2. How to log in Elexis
+
+Logging in Elexis (on version 2.1.7 or newer) is based on "slf4j":http://www.slf4j.org/. *slf4j* stands for *Simple Logging Facade for Java (SLF4J)*. As backend we use "LogBack":http://logback.qos.ch/manual/. Logging via Apache commons logging, etc can easily be redirected to sl4j using ":egacy Bridges":http://www.slf4j.org/legacy.html. This allows us to send messages using differen logging schemes to one or more clients collecting all the messages they are interested in.
+
+You can either use the sl4j as show in this example (This is the preferred way for new code):
+
+bc. import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+public class HelloWorld {
+  public static void main(String[] args) {
+    Logger logger = LoggerFactory.getLogger(HelloWorld.class);
+    logger.info("Hello World");
+  }
+}
+
+Or the traditional Elexis way was:
+
+bc. import ch.rgw.tools.Log; // or ch.elexis.util.Log
+<...>
+private Log log = Log.get("LabNotSeen"); //$NON-NLS-1$
+<..>
+log.log(Level.WARNING, "Heartbeat unused"); //$NON-NLS-1$
+	
+ch.rgw.tools.Log has been modified to use the slf4j.
+
+Traditional Java Util Logging is depreciated and will be replaced in the code, as soon as somebody has the time for it. It must replaced, as it cannot be dynamically replaced by another method.
+
+Code using e.g. apache commons logging can stay the same. But one plug-in should use exactly one logging API!
+
+h2. Open questions
+
+* Can/should ch.elexis.util.Log and its possibility to pop up an alert be eliminated?
+* Should we use a different namespace for LogbackBundle and org.ekkescorner.logging.osgi?
+
+h2. Configuration
+
+The logging is configured by
+* I specify (as recommended "here":http://ekkescorner.wordpress.com/2009/09/05/osgi-logging-part-7-configure-your-logging-framework-the-dynamic-way) the path of the logback configuration in elexis.ini. To ease development I use to different locations. One must specify an absolute path, as variables like @user.home will not be expanded.
+** when using the installer it is: @-Dlogback.configurationFile=$INSTALL_PATH/configuration/logback.xml@
+** when creating an application, e.g. under @deploy/linux.gtk.x86_64@ it is: @-Dlogback.configurationFile=$USER_HOME/elexis/logback.xml@
+* Copying a default file from @ch.ngiger.elexis.opensource/rsc/logback.xml@ via the Elexis-Installer
+* The defaults are: 
+** Errors are logged on the console
+** Debug-Output goes into ${user.home}/elexis/logs/elexis.log
+** This file is maximal 10 MB big 
+** This fail is rotated daily (max. 10 files, using a timestamp time pattern).
+** If you change manually the file, the changes will take effect at most 60 seconds later (unless you remove the attribute scan)
+* The defaults are open for discussion. Maybe we should also add somewhere in the Elexis installation a second configuration which will log a lot more and could/should be activated when by coping it to the approriate place when the OC/developer are chasing problems.
+* The preferences page has a been changed by adding a note where one can find the logback.xml file.
+
+We assume that the developper has the ch.qos.logbac and slf4j plug-ins somewhere in his/her Eclipse installation. This will be the case if you have activated the correct "target definition", e.g. @ch.ngiger.elexis.opensource/desktop.dev.target@
+
+h2. Implementation notes
+
+* The plugin *LogbackBundle* collects *slf4j* log messages and passes them to *ch.qos.logback*.
+* The plugin *org.ekkescorner.logging.osgi* collects OSGi messages, e.g. when bundles are started and logs them via slf4j. Its activator also calls @SLF4JBridgeHandler.install()@ to redirect Java.util.logging.
+* The beanshell script @ch.ngiger.elexis.opensource/rsc/patchForLogback.bsh@ patches at installation time @elexis.ini@ to add a @logback.configurationFile@ property.
+* The new build system based on buildr.apache.org assures that the Elexis installer can install everything as needed. Using the old ant file will probably not work anymore.
+
+
+h2. Links for further reading
+
+# "Simple Logging Facade for Java (SLF4J)":http://www.slf4j.org/ 
+# "SLF4j Bridging legacy APIs":http://www.slf4j.org/legacy.html 
+# "LogBack manual":http://logback.qos.ch/manual/
+# "OSGi logging: putting it all together":http://blog.kornr.net/index.php/2008/12/18/osgi-logging-putting-it-all-together
+# "Logging in OSGI Enterprise Applications":http://ekkescorner.wordpress.com/blog-series/osgi-apps/ (Hint: use the BlogSeries from 2009 and not 2008!)

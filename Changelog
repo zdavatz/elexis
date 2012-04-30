@@ -1,3 +1,8 @@
+## 5.5.2012
+
+* Niklaus improved the buildr
+* Niklaus added new logging framework
+
 ## 13.4.2012
 
 * Niklaus improved the buildr (rebuild only needed plugins) and added support

@@ -180,7 +180,6 @@ public class Hub extends AbstractUIPlugin {
 			// do nothing
 		}
 		Log.setLevel(cfg.get(PreferenceConstants.ABL_LOGLEVEL, Log.ERRORS));
-		Log.setOutput(logPath, maxLogfileSize);
 		Log.setAlertLevel(cfg.get(PreferenceConstants.ABL_LOGALERT, Log.FATALS));
 		// Exception handler initialiseren, Output wie log, auf eigene Klassen
 		// begrenzen
