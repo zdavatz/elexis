@@ -9,6 +9,8 @@ import java.io.*;
 import java.util.zip.*;
 
 void unzipDemoDb (String filename, String where) {
+  print(filename);
+  print(where);
   BufferedOutputStream dest = null;
   FileInputStream fis = new FileInputStream(filename);
   CheckedInputStream checksum = new CheckedInputStream(fis, new Adler32());
@@ -47,7 +49,6 @@ void unpackDemoDB(String where) {
 	    return name.endsWith(".zip") && name.startsWith("demoDB");
 	}
     };
-    
    File dirName = new File(where);
    demoDB = dirName.listFiles(selectDemoDB);
    unzipDemoDb(demoDB[0].toString(), where);
@@ -55,9 +56,12 @@ void unpackDemoDB(String where) {
 
 void afterPack() {
   print("(beanshell)  "+ getSourceFileInfo() + " after pack " + pack.name + " inst " +  idata.getVariable("INSTALL_PATH") );
-  unpackDemoDB(idata.getVariable("INSTALL_PATH"));
+  dirName = idata.getVariable("USER_HOME") + idata.getVariable("FILE_SEPARATOR") + idata.getVariable("APP_NAME");
+  print("Will install demoDB into "+ dirName);
+  unpackDemoDB(dirName);
 }
 
 if (false && idata == void) // idata is not defined, we want to test 
+{
   unpackDemoDB(bsh.cwd);
-
+}

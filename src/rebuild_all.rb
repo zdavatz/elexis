@@ -1,9 +1,7 @@
 #!/usr/bin/env ruby
 # Small ruby script to build elexis with buildr and jruby
 # We assume a working eclipse installation pointed by the environment variable P2_EXE
-
 require 'fileutils'
-
 # Our default value for ngiger.dyndns.org/jenkins and medelexis.ch/jenkins
 # Both are running a GNU/Debian linux squeeze 64-bit OS
 ENV['P2_EXE']     ||= '/srv/jenkins/userContent/indigo'
@@ -12,6 +10,11 @@ if Dir.glob("#{ENV['P2_EXE']}/plugins/org.eclipse.equinox.launcher_*.jar").size 
   puts "    where we can find a plugins/org.eclipse.equinox.launcher_*.jar"
   exit 2
 end
+RVM_RUBY ||= ENV['RVM_RUBY']
+RVM_RUBY ||= 'jruby'
+prefix = "rvm #{RVM_RUBY} do"
+require 'rbconfig'
+prefix= 'jruby -S' if /mingw|bccwin|wince|cygwin|mswin32/i.match(RbConfig::CONFIG['host_os'])
                    
                    
 def runOneCommand(cmd)
@@ -23,10 +26,10 @@ def runOneCommand(cmd)
   log = File.open(logfile, 'w')
   log.puts "executing '#{cmd}'"
   f = open("| #{cmd}")
+  log.sync = true 
   while out = f.gets
     puts out
     log.puts(out)
-    log.flush
   end
   f.close
   res =  $?.success?
@@ -50,12 +53,7 @@ Dir.glob('step_*.log'),
 'deploy',
  ].each{ |aDir| FileUtils.rm_rf(aDir, :verbose=> true) }
 
-ENV['RVM_RUBY'] = 'jruby'
-RVM_RUBY ||= ENV['RVM_RUBY']
-prefix = "rvm #{RVM_RUBY} do"
-require 'rbconfig'
-prefix= 'jruby -S' if /mingw|bccwin|wince|cygwin|mswin32/i.match(RbConfig::CONFIG['host_os'])
-
+globalStartTime = Time.now
 # Here are all commands to rebuild elexis. See the comments in
 # https://github.com/zdavatz/elexis/src/buildr_howto.textile
 commands = [
@@ -69,3 +67,5 @@ commands = [
 #"#{prefix} buildr test=no elexis:debian",
 "#{prefix} buildr test", # integration tests (aka PDE test not work yet)
  ].each{ |cmd| runOneCommand(cmd) }
+puts msg = "All #{commands.size} steps successfull: took #{sprintf('%3s', (Time.now-globalStartTime).round.to_s)} seconds. Finished at #{Time.now}"
+

@@ -1,21 +1,19 @@
-<configuration>
+<configuration scan="true" debug="true">
+  <contextName>elexis</contextName> 
+  <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>  
    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%msg%n</pattern>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
     </encoder>
   </appender>
 
-  <root level="warn">
-    <appender-ref ref="STDOUT" />
-  </root>
-  
   <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>${user.home}/Elexis/logs/elexis_2.log</file>
+    <file>${user.home}/elexis/logs/elexis.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       <maxHistory>10</maxHistory>
       <cleanHistoryOnStart>true</cleanHistoryOnStart>
       <!-- rollover daily -->
-      <fileNamePattern>${user.home}/Elexis/logs/logging-configuration-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+      <fileNamePattern>${user.home}/elexis/logs/elexis-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
       <timeBasedFileNamingAndTriggeringPolicy
             class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
         <!-- or whenever the file size reaches 10MB -->
@@ -23,12 +21,21 @@
       </timeBasedFileNamingAndTriggeringPolicy>
     </rollingPolicy>
     <encoder>
-      <pattern>%msg%n</pattern>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
     </encoder>
   </appender>
-
-  <root level="DEBUG">
+  
+ <logger name="ch.qos.logback" level="INFO"/>
+ <logger name="AccessControl" level="DEBUG"/>
+ <logger name="net.kornr.log.LogbackAdaptor" level="DEBUG"/>
+ <logger name="Framework Event Dispatcher" level="DEBUG"/>
+ <logger name="Elexis startup" level="DEBUG"/>
+ <logger name="SoftCache" level="DEBUG">
+    <appender-ref ref="STDOUT" />
+ </logger>
+ 
+ <root level="DEBUG">
     <appender-ref ref="ROLLING" />
-  </root>
-
+ </root>
+ 
 </configuration>

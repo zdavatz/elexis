@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="lib/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="lib/jdom.jar" sourcepath="elexis-utilitiessrc.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/bcprov-jdk15-140.jar" sourcepath="D:/dev/contrib/BouncyCastle/src"/>
-	<classpathentry kind="lib" path="lib/log4j-over-slf4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="lib/slf4j-jdk14-1.6.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.java"/>

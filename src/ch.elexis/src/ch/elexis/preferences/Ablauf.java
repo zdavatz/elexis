@@ -29,22 +29,13 @@ public class Ablauf extends FieldEditorPreferencePage implements IWorkbenchPrefe
 	public Ablauf(){
 		super(GRID);
 		setPreferenceStore(new SettingsPreferenceStore(Hub.localCfg));
-		setDescription(Messages.Ablauf_0);
+		String logbackPlace = System.getProperty("logback.configurationFile");
+		String msg = String.format(Messages.Ablauf_0, logbackPlace);
+		setDescription(msg);
 	}
 	
 	@Override
 	protected void createFieldEditors(){
-		EmptyFileFieldEditor ffe =
-			new EmptyFileFieldEditor(PreferenceConstants.ABL_LOGFILE, Messages.Ablauf_1,
-				getFieldEditorParent());
-		ffe.setFileExtensions(new String[] {
-			Messages.Ablauf_2
-		});
-		
-		addField(ffe);
-		
-		addField(new StringFieldEditor(PreferenceConstants.ABL_LOGFILE_MAX_SIZE,
-			Messages.Ablauf_31, getFieldEditorParent()));
 		
 		addField(new RadioGroupFieldEditor(PreferenceConstants.ABL_LOGLEVEL, Messages.Ablauf_3, 2,
 			new String[][] {

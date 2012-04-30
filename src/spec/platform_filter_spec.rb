@@ -35,14 +35,6 @@ describe "Should match same ws/os/arch" do
     platformFilterMatches(macFilter1, Windows_x86_64).should be_false
   end
 
-  it "should match only x86 if x86_64 specified" do
-    macFilter = '(& (osgi.ws=cocoa) (osgi.os=macosx) (osgi.arch=x86_64) )'
-    platformFilterMatches(macFilter, Macosx_x86).should be_false
-    platformFilterMatches(macFilter, Macosx_x86_64).should be_true
-    platformFilterMatches(macFilter, Windows_x86).should be_false
-    platformFilterMatches(macFilter, Windows_x86_64).should be_false
-  end
-  
   it "should match arch, ws and os" do
     macFilter1 = '(& (osgi.ws=cocoa) (osgi.os=macosx) (|(osgi.arch=x86)(osgi.arch=ppc)) )'
     platformFilterMatches(macFilter1, Macosx_x86).should be_true
@@ -62,3 +54,4 @@ describe "Should match same ws/os/arch" do
 end
 
 end
+

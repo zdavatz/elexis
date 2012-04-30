@@ -267,3 +267,4 @@ Export-Package: .,
    org.eclipse.jface.dialogs",
  com.tiff.common.ui.datepicker;uses:="org.eclipse.swt.events,org.eclipse.swt.graphics,org.eclipse.swt.widgets"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.slf4j
