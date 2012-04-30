@@ -50,8 +50,8 @@ Dir.glob('step_*.log'),
 'deploy',
  ].each{ |aDir| FileUtils.rm_rf(aDir, :verbose=> true) }
 
+ENV['RVM_RUBY'] = 'jruby'
 RVM_RUBY ||= ENV['RVM_RUBY']
-RVM_RUBY ||= 'jruby'
 prefix = "rvm #{RVM_RUBY} do"
 require 'rbconfig'
 prefix= 'jruby -S' if /mingw|bccwin|wince|cygwin|mswin32/i.match(RbConfig::CONFIG['host_os'])
