@@ -17,33 +17,29 @@
 <repository location="http://download.eclipse.org/eclipse/updates/3.7"/>
 </location>
 <location includeAllPlatforms="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-<unit id="org.eclipse.persistence.sdk.feature.group" version="2.3.0.v20110604-r9504"/>
-<repository location="http://download.eclipse.org/rt/eclipselink/updates/"/>
-</location>
-<location includeAllPlatforms="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="org.apache.commons.logging" version="1.1.1.v201101211721"/>
 <unit id="org.apache.commons.logging.source" version="1.1.1.v201101211721"/>
 <unit id="org.apache.commons.lang" version="2.4.0.v201005080502"/>
 <unit id="org.apache.commons.lang.source" version="2.4.0.v201005080502"/>
 <unit id="org.apache.log4j" version="1.2.15.v201012070815"/>
 <unit id="org.apache.log4j.source" version="1.2.15.v201012070815"/>
-<unit id="ch.qos.logback.classic" version="0.9.27.v20110224-1110"/>
-<unit id="ch.qos.logback.classic.source" version="0.9.27.v20110224-1110"/>
-<unit id="ch.qos.logback.core" version="0.9.27.v20110224-1110"/>
-<unit id="ch.qos.logback.core.source" version="0.9.27.v20110224-1110"/>
-<unit id="ch.qos.logback.slf4j" version="0.9.27.v20110224-1110"/>
-<unit id="ch.qos.logback.slf4j.source" version="0.9.27.v20110224-1110"/>
-<unit id="org.slf4j.api" version="1.6.1.v20100831-0715"/>
-<unit id="org.slf4j.ext" version="1.6.1.v20100831-0715"/>
-<unit id="org.slf4j.ext.source" version="1.6.1.v20100831-0715"/>
-<unit id="org.slf4j.api.source" version="1.6.1.v20100831-0715"/>
-<unit id="org.slf4j.jul" version="1.6.1.v20100831-0715"/>
-<unit id="org.slf4j.jul.source" version="1.6.1.v20100831-0715"/>
-<unit id="org.slf4j.jcl" version="1.6.1.v20100831-0715"/>
-<unit id="org.slf4j.jcl.source" version="1.6.1.v20100831-0715"/>
-<unit id="org.slf4j.log4j" version="1.6.1.v20100831-0715"/>
-<unit id="org.slf4j.log4j.source" version="1.6.1.v20100831-0715"/>
-<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository/"/>
+<unit id="ch.qos.logback.classic" version="1.0.0.v20111214-2030"/> 
+<unit id="ch.qos.logback.classic.source" version="1.0.0.v20111214-2030"/>
+<unit id="ch.qos.logback.core" version="1.0.0.v20111214-2030"/>
+<unit id="ch.qos.logback.core.source" version="1.0.0.v20111214-2030"/>
+<unit id="ch.qos.logback.slf4j" version="1.0.0.v20120123-1500"/>
+<unit id="ch.qos.logback.slf4j.source" version="1.0.0.v20120123-1500"/>
+<unit id="org.slf4j.api" version="1.6.4.v20120130-2120"/>
+<unit id="org.slf4j.ext" version="1.6.4.v20120130-2120"/>
+<unit id="org.slf4j.ext.source" version="1.6.4.v20120130-2120"/>
+<unit id="org.slf4j.api.source" version="1.6.4.v20120130-2120"/>
+<unit id="org.slf4j.jul" version="1.6.4.v20120130-2120"/>
+<unit id="org.slf4j.jul.source" version="1.6.4.v20120130-2120"/>
+<unit id="org.slf4j.jcl" version="1.6.4.v20120130-2120"/>
+<unit id="org.slf4j.jcl.source" version="1.6.4.v20120130-2120"/>
+<unit id="org.slf4j.log4j" version="1.6.4.v20120130-2120"/>
+<unit id="org.slf4j.log4j.source" version="1.6.4.v20120130-2120"/>
+<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/S20120428190502/repository/"/>
 </location>
 <location path="/opt/downloads/delta-3.7.2/" type="Directory"/>
 </locations>

@@ -9,9 +9,10 @@ Import-Package: javax.naming,
  org.osgi.framework,
  org.osgi.service.log,
  org.osgi.util.tracker,
+ org.slf4j;version="1.6.1",
  org.xml.sax,
  org.xml.sax.helpers
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Require-Bundle: ch.qos.logback.classic;bundle-version="0.9.27",
- ch.qos.logback.core;bundle-version="0.9.27",
- org.slf4j.api;bundle-version="1.6.1"
+Require-Bundle: ch.qos.logback.classic;bundle-version="1.0.0",
+ ch.qos.logback.core;bundle-version="1.0.0",
+ org.slf4j.api;bundle-version="1.6.4"

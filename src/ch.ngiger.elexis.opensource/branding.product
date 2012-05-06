@@ -57,9 +57,11 @@
       <plugin id="ch.qos.logback.slf4j" fragment="true"/>
       <plugin id="ch.rgw.utility"/>
       <plugin id="com.ibm.icu"/>
-      <plugin id="javax.transaction" fragment="true"/>
+      <plugin id="javax.servlet"/>
       <plugin id="org.apache.commons.lang"/>
       <plugin id="org.apache.commons.logging"/>
+      <plugin id="org.apache.xerces"/>
+      <plugin id="org.apache.xml.resolver"/>
       <plugin id="org.eclipse.core.commands"/>
       <plugin id="org.eclipse.core.contenttype"/>
       <plugin id="org.eclipse.core.databinding"/>
@@ -68,6 +70,7 @@
       <plugin id="org.eclipse.core.expressions"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.runtime.compatibility.auth"/>
       <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
       <plugin id="org.eclipse.equinox.app"/>
       <plugin id="org.eclipse.equinox.common"/>
@@ -78,7 +81,6 @@
       <plugin id="org.eclipse.jface.databinding"/>
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.services"/>
-      <plugin id="org.eclipse.persistence.jpa.equinox.weaving" fragment="true"/>
       <plugin id="org.eclipse.swt"/>
       <plugin id="org.eclipse.swt.carbon.macosx" fragment="true"/>
       <plugin id="org.eclipse.swt.cocoa.macosx" fragment="true"/>
@@ -106,21 +108,26 @@
       <plugin id="org.jdom"/>
       <plugin id="org.junit"/>
       <plugin id="org.slf4j.api"/>
+      <plugin id="org.slf4j.ext"/>
       <plugin id="org.slf4j.jcl"/>
       <plugin id="org.slf4j.jul"/>
       <plugin id="org.slf4j.log4j"/>
    </plugins>
 
    <configurations>
-      <plugin id="LogBackend" autoStart="true" startLevel="1" />
-      <plugin id="ch.qos.logback.classic" autoStart="false" startLevel="1" />
+      <plugin id="LogBackend" autoStart="true" startLevel="2" />
+      <plugin id="ch.qos.logback.classic" autoStart="true" startLevel="2" />
+      <plugin id="ch.qos.logback.core" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.update.configurator" autoStart="true" startLevel="3" />
-      <plugin id="org.ekkescorner.logging.osgi" autoStart="true" startLevel="1" />
-      <plugin id="org.slf4j.jcl" autoStart="true" startLevel="0" />
-      <plugin id="org.slf4j.jul" autoStart="true" startLevel="0" />
-      <plugin id="org.slf4j.log4j" autoStart="true" startLevel="1" />
+      <plugin id="org.ekkescorner.logging.osgi" autoStart="true" startLevel="2" />
+      <plugin id="org.slf4j.api" autoStart="false" startLevel="2" />
+      <plugin id="org.slf4j.ext" autoStart="false" startLevel="2" />
+      <plugin id="org.slf4j.jcl" autoStart="true" startLevel="2" />
+      <plugin id="org.slf4j.jul" autoStart="true" startLevel="2" />
+      <plugin id="org.slf4j.log4j" autoStart="true" startLevel="2" />
    </configurations>
 
 </product>

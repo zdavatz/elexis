@@ -73,6 +73,7 @@
       'de.fhdo.elexis.perspective',
       'LogBackend',
       'org.iatrix.help.wiki',
+      'org.ekkescorner.logging.osgi',
       ]
     chProjects = [
       'ch.elexis.arzttarife_ch',

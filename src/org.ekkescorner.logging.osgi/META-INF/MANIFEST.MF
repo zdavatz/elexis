@@ -17,7 +17,6 @@ Bundle-ActivationPolicy: lazy
 Bundle-Localization: bundle
 Service-Component: OSGI-INF/osgi-logservice-component.xml
 Require-Bundle: org.slf4j.jul;bundle-version="1.6.1",
- org.slf4j.jcl;bundle-version="1.6.1",
  org.eclipse.osgi,
- ch.qos.logback.classic;bundle-version="0.9.27",
+ ch.qos.logback.classic;bundle-version="1.0.0",
  ch.qos.logback.core;bundle-version="0.9.27"
