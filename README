@@ -67,7 +67,8 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
 
 * git clone git@github.com:zdavatz/elexis.git
 * cd src
-* buildr delta OSGi (dauert beim ersten Mal ca. 30 Minuten)
+* export P2_EXE=/Applications/eclipse (Um das Eclipse Dir korrekt zu setzen).
+* ruby rebuild_all.rb
 
 Für den täglichen Gebrauch und nach dem ersten Build bei täglichen commits:
 
