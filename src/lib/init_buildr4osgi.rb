@@ -9,6 +9,7 @@
 # http://www.eclipse.org/legal/epl-v10.html
 #
 #  Small helper script. Should allow us to set-up a Jenkins CI fast
+require 'fileutils'
 
 $onWindows = false
 $onWindows = true if /mingw/.match(RUBY_PLATFORM)
