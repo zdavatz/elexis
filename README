@@ -111,3 +111,11 @@ oder z.B. für Mac OS X
   #ant -Dos=linux linux doc doc-plugins javadoc
   #ant -Dos=windows windows
   #ant -Dos=macosx macosx
+
+## Wenn man wieder von Scratch arbeiten möchte, muss man folgendes tun
+
+  * a) rm -rf ~/elexisdata
+  * b) einen neuen Mandanten anlegen. Der heisst bei fast allen ma mit Passort ma
+    und irgend einer Dummy-Email-adresse zb. tst@tst.org. Dann nochmals aufstarten
+  * c) Die Verbindung mit der Datenbank wieder definieren, nochmals aufstarten
+  * d) jetzt einloggen
