@@ -13,7 +13,7 @@
 # - Adding PDE-Test layout
 #
 #-----------------------------------------------------------------------------
-# 
+#
 #-----------------------------------------------------------------------------
 #
 #
@@ -43,26 +43,26 @@ else
   require "buildr/bnd"
   repositories.remote << Buildr::Bnd.remote_repository
   repositories.release_to = 'file:///opt/elexis-release'
-  puts "Setup: added some repositories to repositories.remote" 
+  puts "Setup: added some repositories to repositories.remote"
 end
 
 #-----------------------------------------------------------------------------
 # Stuff for handling repositories
 #-----------------------------------------------------------------------------
-desc "Add a new mercurial repository via URL, branch" 
-task :addMercurialRepo, :url, :branch do 
+desc "Add a new mercurial repository via URL, branch"
+task :addMercurialRepo, :url, :branch do
   |t, args|
     puts "TODO: add mercurial #{args[:url]} #{args[:branch]}"
 end
 
-desc "Add a new Subversion repository via URL, branch" 
-task :addSvnRepo, :url, :branch do 
+desc "Add a new Subversion repository via URL, branch"
+task :addSvnRepo, :url, :branch do
   |t, args|
     puts "TODO: add svn #{args[:url]} #{args[:branch]}"
 end
 
-desc "Update all (sub) checkout to branch" 
-task :updateAllCheckouts, :branch do 
+desc "Update all (sub) checkout to branch"
+task :updateAllCheckouts, :branch do
   |t, args|
     puts "TODO: updateAllCheckouts #{args[:branch]}"
 end

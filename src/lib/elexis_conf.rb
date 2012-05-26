@@ -17,7 +17,7 @@ Sources = ['/srv/www/elexis-rm/eclipse',
            '/srv/user-homes/ngiger/elexis-rm/eclipse',
            'http://mirror.switch.ch/eclipse/technology/epp/downloads/release/indigo/SR2',
            'http://rpm.scl.rs/eclipse/technology/epp/downloads/release/indigo/SR2/']
-LibDirs  = ['/srv/www/elexis-rm/lib', '/srv/jenkins/userContent/elexis-rm/lib', '/var/jenkins/userContent/elexis-rm/lib'] 
+LibDirs  = ['/srv/www/elexis-rm/lib', '/srv/jenkins/userContent/elexis-rm/lib', '/var/jenkins/userContent/elexis-rm/lib']
 module Elexis
   Elexis::DefaultSkips = ''
 end

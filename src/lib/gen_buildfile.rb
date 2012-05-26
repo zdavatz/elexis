@@ -10,7 +10,7 @@
 #
 #  This is a first attempt to use buildr.apache.org as a tool
 #  to build elexis and its plugin in more automated fashion
-# 
+#
 # Open problems:
 # - launch more than one PDE/Junit-Test per Plugin (e.g. ch.elexis)
 # - add rsc to PDE-Tests (e.g. ch.elexis.importer.div)
@@ -21,7 +21,7 @@
 # TODO: izPack installer
 # TODO: Port it to MacOSX
 # TODO: Make documentation working correctly
-# TODO: Add a working elexis-executable to the debian package 
+# TODO: Add a working elexis-executable to the debian package
 # TODO: Add a elexis-demoDB debian package
 # TODO: Make PDE-Unittests work
 # TODO: Fix remaining pluginsThatDontWorkYet (estudio, gdt, impfplan/scala, ch.elexis.laborimport.medics)
@@ -36,7 +36,7 @@ require 'pathname'
 MANIFEST_MF = 'META-INF/MANIFEST.MF'
 
 top = File.expand_path(File.dirname(File.dirname(__FILE__)))
-IgnoreSubDirs = [ 
+IgnoreSubDirs = [
 'clones',
 'reports',
 'target',
@@ -46,7 +46,7 @@ IgnoreSubDirs = [
 ]
 
 def createLogicalLinksForOldTest
-  Dir.glob("*/*_test").each{ 
+  Dir.glob("*/*_test").each{
     |x|
       dest = x.sub('_test','/test')
       if !File.exists?(dest)
@@ -56,7 +56,7 @@ def createLogicalLinksForOldTest
 #	FileUtils.cp_r(File.expand_path(x)+'/src', File.expand_path(dest), :verbose=>true, :preserve=>true)
   end
   }
-  Dir.glob("*/*_test/lib").each{ 
+  Dir.glob("*/*_test/lib").each{
     |x|
       dest = x.sub('_test/lib','/test/lib')
       if !File.exists?(dest)
@@ -84,11 +84,11 @@ EOF
 settingsName = "#{ENV['HOME']}/.buildr/settings.yaml"
 if !File.exists?(settingsName)
   FileUtils.makedirs(File.dirname(settingsName))
-  File.open(settingsName, 'w+') { |f| f.puts Settings } 
+  File.open(settingsName, 'w+') { |f| f.puts Settings }
 end
 
 Header = <<EOF
-#!/usr/bin/ruby 
+#!/usr/bin/ruby
 # encoding: utf-8
 # Please do not edit manually this file. Instead update
 # #{File.expand_path(__FILE__)}
@@ -103,7 +103,7 @@ dir = File.dirname(__FILE__)
 0.upto(99) do |x|
   where = File.expand_path(Dir.pwd) if Dir.glob('{.svn|.hg|.git}').size > 0
   Dir.chdir('..')
-  break if Dir.pwd.size < 3               
+  break if Dir.pwd.size < 3
 end
 Dir.chdir(saved)
 where = File.expand_path(where)
@@ -124,7 +124,7 @@ ss.each{ |x|
     break
   end
   }
-  
+
 if !defined?(P2_EXE)
   puts "Wrong setup! Please specify the dirctory of a working eclipse installation in the enviornment variable P2_EXE."
   puts "(Tried \#{ss.inspect})"
@@ -181,7 +181,7 @@ define "elexis" do
     |textileFile|
       src = textileFile.to_s
       dest =  src.to_s.sub('.textile', '.pdf')
-	Wikitext::pdfFromTextile(dest, src) 
+	Wikitext::pdfFromTextile(dest, src)
     task 'readme' => dest
   } if !Wikitext::skipDoc
 EOF
@@ -209,9 +209,9 @@ end
 
 # Here follow integrations tests for some package. This ensure that buildr always works correctly
 
-AddedProjects = {} 
+AddedProjects = {}
 
-AddedCommands = {} 
+AddedCommands = {}
 AddedCommands['dokumentation'] = <<EOF
     genDoku('elexis.tex')
     check package(:zip), 'zip should contain a pdf' do
@@ -253,7 +253,7 @@ AddedCommands['ch.elexis'] = <<EOF
     check package(:plugin), 'plugin should contain Fall.class' do
       it.should contain('ch/elexis/data/Fall.class')
     end
-    
+
 EOF
 
 AddedCommands['at.medevit.elexis.persistence.model.annotated'] = <<EOF
@@ -261,6 +261,11 @@ AddedCommands['at.medevit.elexis.persistence.model.annotated'] = <<EOF
   dependencies << artifact('org.eclipse:org.eclipse.persistence.jpa.osgi:jar:2.3.0')
   dependencies << artifact('org.eclipse:org.eclipse.persistence.antlr:jar:2.3.0')
   dependencies << artifact('osgi:javax.persistence:jar:2.0.3')
+  dependencies << artifact('org.eclipse:org.eclipse.equinox.ds:jar:1.3.1')
+EOF
+
+AddedCommands['ch.elexis.artikel_ch'] = <<EOF
+ dependencies << artifact('org.yaml:snakeyaml:bundle:1.10')
 EOF
 
 AddedCommands['ch.rgw.utility'] = <<EOF
@@ -283,14 +288,14 @@ AddedCommands['ch.rgw.utility'] = <<EOF
     end if false
     check package(:plugin), 'plugin should not contain a readme.pdf' do
       it.should_not contain('doc/readme.pdf')
-    end 
+    end
     check package(:plugin), 'should contain the medelexis.xml' do
       it.should contain('medelexis.xml')
     end
     check package(:plugin), 'plugin should contain bin/ch/rgw/compress/CompEx.class' do
       it.should contain('bin/ch/rgw/compress/CompEx.class')
     end  if false
-    check package(:plugin), 'org/apache/commons/compress/bzip2/CBZip2InputStream.class' do 
+    check package(:plugin), 'org/apache/commons/compress/bzip2/CBZip2InputStream.class' do
       it.should contain('org/apache/commons/compress/bzip2/CBZip2InputStream.class')
     end if false
     check package(:plugin), 'checking for lib/jdom.jar' do
@@ -356,24 +361,24 @@ def getProjectsFromManifest(filename)
   mf = Manifest.new(s)
   res = nil
   deps = []
-  mf.main.each{ |x| if x[0] == 'Fragment-Host' then 
-                   a = x[1].split(/;|,/).join(' ').split; 
+  mf.main.each{ |x| if x[0] == 'Fragment-Host' then
+                   a = x[1].split(/;|,/).join(' ').split;
                    deps << a[0]
               end
-		    if x[0] == 'Require-Bundle' then 
-                   a = x[1].split(/;|,/).join(' ').split; 
+		    if x[0] == 'Require-Bundle' then
+                   a = x[1].split(/;|,/).join(' ').split;
                    res = a.clone
 		   break
                    end }
   0.upto(res.size-1).each {
     |x|
-    deps << res[x] if !/(bundle-version)|(:=)/i.match(res[x])	
+    deps << res[x] if !/(bundle-version)|(:=)/i.match(res[x])
   } if res
   return deps
 end
 
 def ignoreProject(projDir, reason)
-    $nrIgnores += 1; 
+    $nrIgnores += 1;
     $buildfile.puts "# ignoring #{projDir} because #{reason}"
 end
 
@@ -403,7 +408,7 @@ def handleOneProject(aProjDir)
     meta = IO.readlines(metaName)
     deps = Array.new
     # looking for all .project files takes a lot of time. Therefore we cache it!
-    $projectDirs ||= [] 
+    $projectDirs ||= []
     if $projectDirs.size == 0
       $projectDirs = []
       Dir.glob("**/.project").each{|x| $projectDirs << File.basename(File.dirname(x)) }
@@ -430,14 +435,14 @@ def handleOneProject(aProjDir)
   $allProjects << sName
   if !File.basename(aProjDir).eql?(sName)
     puts "----------------------------------------------------------------------"
-    msg = "#   Project #{sName} in #{aProjDir} might cause problems as it does not follow the Elexis conventions!" 
+    msg = "#   Project #{sName} in #{aProjDir} might cause problems as it does not follow the Elexis conventions!"
     puts msg
     $buildfile.puts msg
     puts "----------------------------------------------------------------------"
   end
   info = ''
   info += ", :base_dir=>'#{aProjDir}'" if sName != aProjDir
-  info += ", :version=> '#{version}'" if version # .\#{TimeStamp}\"" if version 
+  info += ", :version=> '#{version}'" if version # .\#{TimeStamp}\"" if version
   return if  aProjDir.include?('doc_fr') # Has problems creating docs!
   $buildfile.puts "  define '#{sName}'#{info} do"
   pkg = "    package(:jar, :extension =>'.zip')" # :id => '#{sName}')"
@@ -465,27 +470,27 @@ def handleOneProject(aProjDir)
 end
 
 # Find all Eclipse project in all subdirectories
-Dir.glob("**/.project").sort.each{ 
-  |y| 
+Dir.glob("**/.project").sort.each{
+  |y|
   next if y.index('clones')
-  projectDirectory = File.dirname(y)	
+  projectDirectory = File.dirname(y)
   infoFiles = (Dir.glob("#{projectDirectory}/plugin.xml")+
                Dir.glob("#{projectDirectory}/feature.xml")+
                Dir.glob("#{projectDirectory}/fragment.xml")+
                Dir.glob("#{projectDirectory}/META-INF/MANIFEST.MF"))
-  msg = "# #{projectDirectory} has "  
+  msg = "# #{projectDirectory} has "
   infoFiles.each{ |iFile| msg += " #{iFile}" }
   msg += ". DontWorkYet #{pluginsThatDontWorkYet(projectDirectory)} "
   if infoFiles.size == 0 and !projectDirectory.include?('dokumentation')
-    ignoreProject(projectDirectory, "no infoFiles found") 
+    ignoreProject(projectDirectory, "no infoFiles found")
     next
   end
   if isTestProject(File.basename(projectDirectory)) # && !File.basename(projectDirectory).eql?('pde.test.utils')
-    ignoreProject(projectDirectory, "isTestProject") 
+    ignoreProject(projectDirectory, "isTestProject")
     next
   end
   if /ch.elexis.impfplan/.match(projectDirectory)
-    ignoreProject(projectDirectory, "ist ch.elexis.impfplan") 
+    ignoreProject(projectDirectory, "ist ch.elexis.impfplan")
     next
   end
   $buildfile.puts
@@ -498,10 +503,10 @@ Dir.glob("**/.project").sort.each{
 
 $buildfile.puts %(
   allProjects = #{$allProjects.inspect}
-  
+
 )
 
-AddedProjects.each { 
+AddedProjects.each {
   |name, content|
 $buildfile.puts %(
   #{content}
@@ -510,10 +515,10 @@ $buildfile.puts %(
 
 Dir.glob("**/buildfile.project").sort.each{ |buildFragment|
   $buildfile.puts " define '#{File.basename(File.dirname(buildFragment))}', :base_dir => '#{File.dirname(buildFragment)}' do"
-  $buildfile.puts "   inhalt = File.read('#{buildFragment}')"  
-  $buildfile.puts "   eval(inhalt)"  
-  $buildfile.puts "   # load '#{buildFragment}' # does not work because it generates a new context" 
-  $buildfile.puts " end"  
+  $buildfile.puts "   inhalt = File.read('#{buildFragment}')"
+  $buildfile.puts "   eval(inhalt)"
+  $buildfile.puts "   # load '#{buildFragment}' # does not work because it generates a new context"
+  $buildfile.puts " end"
   }
 
 $buildfile.puts %(
@@ -523,17 +528,17 @@ $buildfile.puts %(
     category.name = "elexis" # type= medelexis.xml
     category.label = "Elexis: eine umfassende Lösung für die Arztpraxis"
     category.description = "Elexis-Basis module" # <service:description>Elexis Basismodul</service:description> in medelexis.xml
-    (allProjects & P2SiteExtension::getFeatures).each { 
-      |aProj| 
+    (allProjects & P2SiteExtension::getFeatures).each {
+      |aProj|
       siteName = addFeatureToSite(aProj)
       category.features<< project(siteName)
     }
     package(:site).categories << category
     package(:p2_from_site)
-    
+
     desc 'create a P2 update site for Elexis'
-    task 'p2site' => package(:p2_from_site) 
-    
+    task 'p2site' => package(:p2_from_site)
+
     check package(:p2_from_site), 'The p2site should have a site.xml' do
       File.should exist(File.join(path_to(:target,'p2repository/site.xml')))
     end
@@ -548,7 +553,7 @@ $buildfile.puts %(
     end
     check package(:p2_from_site), 'The p2site should have a features directory' do
       File.should exist(File.join(path_to(:target,'p2repository/features')))
-    end 
+    end
     check package(:p2_from_site), 'The p2site should contain a de.fhdo.elexis.perspective jar' do
       File.should exist(File.join(path_to(:target,"p2repository/plugins/de.fhdo.elexis.perspective_\#{project('de.fhdo.elexis.perspective').version}.jar")))
     end
@@ -571,9 +576,9 @@ puts "This run should have generated a #{buildfile}"
 puts "  Usually you will continue with (osgi only needed when dependencies have changed)"
 puts "  add --trace to calls to buildr to see more details"
 puts "ruby init_buildr4osgi.rb"
-puts "rvm jruby do buildr osgi:clean:dependencies osgi:resolve:dependencies osgi:install:dependencies" 
+puts "rvm jruby do buildr osgi:clean:dependencies osgi:resolve:dependencies osgi:install:dependencies"
 puts "-- The next few lines are run whenever you want to compile/test/package/install something"
-puts "rvm jruby do buildr compile test package install buildr elexis:ch.ngiger.elexis.opensource:izpack:package elexis:p2:p2site elexis:debian" 
+puts "rvm jruby do buildr compile test package install buildr elexis:ch.ngiger.elexis.opensource:izpack:package elexis:p2:p2site elexis:debian"
 puts "# run tests and analyze their junit/cobertura testreports"
 puts "rvm jruby do buildr buildr junit:report test=all cobertura:html"
 puts "firefox reports/junit/html/index.html reports/cobertura/html/index.html"

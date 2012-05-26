@@ -1,0 +1,11 @@
+<!-- neuer Version under http://download.eclipse.org/tools/orbit/downloads/drops/S20120428190502/
+
+a) Unter http://download.eclipse.org/tools/orbit/downloads/drops/ die gewünschte Version auswählen
+z.B. http://download.eclipse.org/tools/orbit/downloads/drops/S20120428190502/
+b) Dor map file z.B. in p2 format Format anschauen
+
+http://download.eclipse.org/tools/orbit/downloads/drops/S20120428190502/directory.txt
+Von Hand neuere Versionen auswählen und in desktop.dev.target einsetzen
+
+
+Wie man das besser

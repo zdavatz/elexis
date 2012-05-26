@@ -7,7 +7,7 @@
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v10.html
 
-WithDebian     = false  # whether to generate a Debian package  
+WithDebian     = false  # whether to generate a Debian package
 WithAdditions  = false # whether to generate the medelexis additions
 WithZip        = false # whether to generate a big zip with an executable
 WithP2Site     = true # whether to generate a p2site for elexis updates
@@ -21,7 +21,7 @@ include REXML
 TimeStamp = Time.now.strftime('%Y%m%d') # Cannot use '-' because of p2site conventions
 
 @@skipName = File.expand_path('skipPlugins.lst')
-if !defined?(@@skipPlugins) 
+if !defined?(@@skipPlugins)
   if !File.exists?(@@skipName)
     puts "Setup: No plugins to skip defined. (No file #{@@skipName})"
     @@skipPlugins = []
@@ -41,7 +41,7 @@ def get_version_info(dirName)
   Dir.chdir(dirName)
   raise "#{dirName} is not under Mercurial" if !File.directory?(".hg")
   info = `hg summary`
-  info.split("\n").each{ 
+  info.split("\n").each{
     |x|
     splitted=x.split(' ')
     if /^parent/.match(x)
@@ -55,7 +55,7 @@ def get_version_info(dirName)
     local  = '' if /^commit.+\(clean\)/.match(x)
   }
   info = `hg log --template "{latesttag}\n" -l 1`
-ensure 
+ensure
   Dir.chdir(saved)
   #  Don't return local. Why?
   #  -  buildfile is usually generated again
@@ -98,7 +98,7 @@ def addDependenciesFromProject(projectsWeDependOn)
     |x|
       if project(x).compile.target
 	  compile.with project.dependencies, project(x),  project(x).compile.target
-	  eclipse.exclude_libs += [project(x).compile.target] 
+	  eclipse.exclude_libs += [project(x).compile.target]
       else
 	compile.with project(x) if Dir.glob(_('src')).size > 0
       end
@@ -141,7 +141,7 @@ def isScalaExample(projName)
       projName.eql?('ch.elexis.impfplan') ||  # Does not work as ImpfplanController.scala ist not found when compiling java
       projName.eql?('ch.elexis.scripting.scala')
 end
-  
+
 def isNotSupportedUnder_2_1_x(projName)
   projName = File.basename(projName)
   res = projName.eql?('ch.marlovits.addressSearch') ||
@@ -190,14 +190,14 @@ end
 def pluginsThatDontWorkYet(projName)
   return false if pluginsThatShouldWork(projName)
 @@skipPlugins.each {
-  |x| 
+  |x|
     if projName.eql?(x.chomp)
       puts "Skipping #{projName} as defined in #{@@skipName}"
-      return true 
+      return true
       end
 }
   projName = File.basename(projName)
-  return isNotSupportedUnder_2_1_x(projName) 
+  return isNotSupportedUnder_2_1_x(projName)
 end
 
 def shouldIgnoreProject(aProjDir)
@@ -216,7 +216,7 @@ end
 
 
 
-# converts a hash into an LDAP entry which we can use to compare the filter    
+# converts a hash into an LDAP entry which we can use to compare the filter
 def genEntryFromHash(aHash)
   entry = Net::LDAP::Entry.new
   aHash.each{ |name, value| entry["#{name}"] = value}
@@ -252,7 +252,7 @@ end
 
 if $0  == __FILE__
   require 'test/unit'
-  
+
   class Test2 < Test::Unit::TestCase
     def test_feature
       example = %(

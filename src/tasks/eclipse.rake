@@ -24,7 +24,7 @@ def addDependencies(project)
       next if x.class != Buildr::Project
     #  puts  "project #{project} x #{x} needed #{Dir.glob(project._('src')).size} with target  #{x.compile.target.inspect} "
       if x.compile.target
-	localJars = Dir.glob(File.join(x._,'*.jar')) + Dir.glob(File.join(x._, 'lib', '*.jar')) 
+	localJars = Dir.glob(File.join(x._,'*.jar')) + Dir.glob(File.join(x._, 'lib', '*.jar'))
 	project.compile.with project.dependencies, x, x.compile.target, localJars
       else
 		project.compile.with x if Dir.glob(project._('src')).size > 0 # for other jars like swt
@@ -52,22 +52,22 @@ module EclipseExtension
   @@allFragments = Array.new if !defined?(@@allFragments)
 
   def EclipseExtension::isFragment(jar)
-    return @@allFragments.index(File.basename(jar)) if @@cachedMf[File.basename(jar)] 
+    return @@allFragments.index(File.basename(jar)) if @@cachedMf[File.basename(jar)]
     EclipseExtension::getPlatformFilter(jar)
-    @@allFragments.index(File.basename(jar)) != nil 
+    @@allFragments.index(File.basename(jar)) != nil
   end
-  
+
   def EclipseExtension::getPlatformFilter(jar)
     mf = nil
-    return  @@cachedMf[File.basename(jar)] if @@cachedMf[File.basename(jar)] 
+    return  @@cachedMf[File.basename(jar)] if @@cachedMf[File.basename(jar)]
     mf = Buildr::Packaging::Java::Manifest.from_zip(jar)
     if mf.main['Fragment-Host'] or (mf.main['Eclipse-PatchFragment'] and mf.main['Eclipse-PatchFragment'].downcase.eql?('true'))
-      @@allFragments << File.basename(jar) 
+      @@allFragments << File.basename(jar)
       trace "Added fragment #{File.basename(jar)} with PlatformFilter #{mf.main['Eclipse-PlatformFilter']}"
     end
     @@cachedMf[File.basename(jar)] = mf.main['Eclipse-PlatformFilter']
   end
-  
+
     def EclipseExtension::readProductInfo(productInfoFile)
       result = Hash.new # where we store all result about the product
       doc  = Document.new File.new(productInfoFile) # input
@@ -80,7 +80,7 @@ module EclipseExtension
       result['useFeatures'] = product.attributes['useFeatures']
       result['configIni']   = doc.elements['product/configIni'].attributes['use']
       result['aboutInfo']   = doc.elements['product/aboutInfo/text'].text
-      result['splash']      = doc.elements['product/splash'].attributes['location']    
+      result['splash']      = doc.elements['product/splash'].attributes['location']
       result['launcher']    = doc.elements['product/launcher'].attributes['name']
       result['programArgs'] = doc.elements['product/launcherArgs/programArgs'].text
       result['vmArgs']      = doc.elements['product/launcherArgs/vmArgs'].text
@@ -99,11 +99,11 @@ module EclipseExtension
 								x.attributes['startLevel'].eql?('0') ? desc += '@start' : desc += "@#{x.attributes['startLevel']}:start"
 							     else
 								 desc += "@#{x.attributes['startLevel']}"
-							     end	
+							     end
 							     startups << desc
                                                            } if doc.elements['product/configurations']
       result['fragments']  = fragments
-      result['plugins']    = plugins    
+      result['plugins']    = plugins
       result['configurations'] = startups
 
       info  "Read product info from #{productInfoFile}"
@@ -118,10 +118,10 @@ module EclipseExtension
     return true if !filterInJar
     result = platformFilterMatches(filterInJar, filter)
     # For test see ../spec/platform_filter_spec.rb
-    trace "jarMatchesPlatformFilter: #{jar} #{File.exists?(jar)} filterInJar #{filterInJar.inspect} filter #{filter.inspect} returns #{result}" 
+    trace "jarMatchesPlatformFilter: #{jar} #{File.exists?(jar)} filterInJar #{filterInJar.inspect} filter #{filter.inspect} returns #{result}"
     result
   end
-  
+
   Layout.default[:source, :main, :java]      = 'src'
   Layout.default[:source, :main, :resources] = 'rsc2'
   Layout.default[:source, :main, :scala]     = 'src'
@@ -132,11 +132,11 @@ module EclipseExtension
   ProjWithBndBugs = ['ch.elexis.core.databinding', 'de.fhdo.elexis.perspective', 'ch.elexis.artikel_ch']
 private
 
-  
+
   # This is a method as we sometimes just want to exit early
   def EclipseExtension::eclipse_before_project(project)
     if !project.parent
-      if !ENV['OSGi'] 
+      if !ENV['OSGi']
 	  puts "OSGi musts point to an installed eclipse"
 	  exit(3)
       end
@@ -154,7 +154,7 @@ private
       localJars = Dir.glob(File.join(project._,'*.jar')) + Dir.glob(File.join(project._, 'lib', '*.jar'))
       if localJars.size > 0
 	project.compile.dependencies << localJars
-	project.package(:bundle).tap do |bnd| 
+	project.package(:bundle).tap do |bnd|
 	  bnd['Include-Resource'] = "@#{localJars.join(',@')}"
 	end
 	# project.package(:bundle).use_bundle_version
@@ -168,7 +168,7 @@ private
 	project.layout[:source, :main, :java]  = 'java_not_found'
       else
 	if Dir.glob(File.join(project._,'**','*.scala')).size > 0 # scala does not work with 1.6!
-	  project.compile.options.target = '1.5' 
+	  project.compile.options.target = '1.5'
 	  puts "Specifiying 1.5 because of scala files in #{project.id}"
 	end
 	binDef = nil
@@ -196,7 +196,7 @@ private
 	  project.package(:plugin).include(Dir.glob(File.join(project._,'medelexis.xml')))
 	  project.package(:plugin).include(Dir.glob(File.join(project._,'contexts.xml')))
 	  addDependencies(project) if project.dependencies
-	  project.package(:plugin) if Dir.glob(File.join(project._,'plugin.xml')).size >0 || Dir.glob(File.join(project._,'fragment.xml')).size >0 
+	  project.package(:plugin) if Dir.glob(File.join(project._,'plugin.xml')).size >0 || Dir.glob(File.join(project._,'fragment.xml')).size >0
 	  if mf
 	    frag = mf.main['Fragment-Host']
 	    frag = frag.split(';')[0] if frag
@@ -207,10 +207,10 @@ private
 	  end
 
 	  # Add all internationalization messages
-	  Dir.glob(File.join(project._('src','**','messages*.properties'))).each { 
+	  Dir.glob(File.join(project._('src','**','messages*.properties'))).each {
 	    |x|
 	    project.package(:plugin).include x, :as => x.sub(project._('src')+'/','')
-	  } 
+	  }
 	end
       end
     end
@@ -236,34 +236,34 @@ end
 module Buildr
   module Eclipse
     attr_reader :qualifier
-    
+
     # Specify a qualifer value, eg. for testing
     def self.setQualifier(newValue = Time.now.strftime('%Y%m%d%H%M') )
       @@qualifier = newValue
     end
-   
+
     def self.qualifier
       @@qualifier
     end
     # Set the default as early as possible
     self.setQualifier
-    
+
     # Allows one to override the timestamp, e.g to set it to specific value
     # If the file does not exists. The current value will be saved
     def self.readQualifierFromFile(filename)
       # Allow local override
       if File.exists?(filename)
-	@@qualifier = IO.readlines('timestamp')[0].chomp 
+	@@qualifier = IO.readlines('timestamp')[0].chomp
 	puts "Setup: qualifier is #{@@qualifier} (read from file #{File.expand_path(filename)})"
       else
 	puts "Setup: qualifier is current time #{@@qualifier} (no file '#{filename}' found)"
 	File.open(filename, 'w') {|f| f.puts(@@qualifier) }
       end
     end
-    
+
     MatchVersionWithBranch =  /([-_]\d+)(\.\d+|)(\.\d+|)(\.\d+|)(\.\d+|)/ #  /(\d*)\.(\d*)\.(\d*)\.([^-_]*)[-_](.*)/
     # Enforces a version string consistent with http://wiki.eclipse.org/Version_Numbering#Guidelines_on_versioning_plug-ins
-    # e.g. 
+    # e.g.
     # 1.0.1.R10x_v20030629
     # 4.2.3.v20050506
     # 1.4
@@ -278,13 +278,13 @@ module Buildr
     def  self.adaptName(jarname)
       vers = MatchVersionWithBranch.match(jarname)
       myVersion = OSGi::Version.new(vers[0])
-      if !vers 
+      if !vers
 	puts "adaptName: did not find version for #{jarname}"
 	return File.basename(jarname)
       end
       return jarname.sub(vers[0],'_'+vers[0][1..-1])
     end
-    
+
     def self.mustUnpackJar(jarname)
       mf = Buildr::Packaging::Java::Manifest.from_zip(jarname)
       x =  mf.main['Bundle-ClassPath']
@@ -306,7 +306,7 @@ module Buildr
 	return File.join(destDir, adaptName(File.basename(jarname)))
       end
     end
-    
+
     # Installs a plugin.
     # a) as a file copy if it is not a fragments
     # b) unpacks into a sub-directory if the classpath consists of only jars (this seems to be an eclipse convention)
@@ -316,7 +316,7 @@ module Buildr
       trace "installPlugin #{jarname} as #{destName} defPlatform #{defPlatform}"
       return if File.basename(jarname).index('.source_')
       return if FileUtils.uptodate?(destName, jarname)
-      return if defPlatform and !EclipseExtension::jarMatchesPlatformFilter(jarname, defPlatform) 
+      return if defPlatform and !EclipseExtension::jarMatchesPlatformFilter(jarname, defPlatform)
       if   Buildr::Eclipse.mustUnpackJar(jarname)
 	destSubDir = File.join(destDir, Buildr::Eclipse.adaptName(File.basename(jarname,'.jar')))
 	trace "installPlugin: unpack #{jar} ->#{destDir} #{destSubDir} already okay? #{File.directory?(destSubDir)}"

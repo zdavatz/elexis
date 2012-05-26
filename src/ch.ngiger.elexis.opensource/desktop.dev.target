@@ -23,7 +23,7 @@
 <unit id="org.apache.commons.lang.source" version="2.4.0.v201005080502"/>
 <unit id="org.apache.log4j" version="1.2.15.v201012070815"/>
 <unit id="org.apache.log4j.source" version="1.2.15.v201012070815"/>
-<unit id="ch.qos.logback.classic" version="1.0.0.v20111214-2030"/> 
+<unit id="ch.qos.logback.classic" version="1.0.0.v20111214-2030"/>
 <unit id="ch.qos.logback.classic.source" version="1.0.0.v20111214-2030"/>
 <unit id="ch.qos.logback.core" version="1.0.0.v20111214-2030"/>
 <unit id="ch.qos.logback.core.source" version="1.0.0.v20111214-2030"/>

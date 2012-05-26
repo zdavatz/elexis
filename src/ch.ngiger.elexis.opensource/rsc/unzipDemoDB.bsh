@@ -1,7 +1,7 @@
 // Copyright 2011 (c) Niklaus Giger niklaus.giger@member.fsf.org
 // License: Eclips Public Licens EPL 1.0
 //
-// Beanshell script for the izPack installer of Elexis. 
+// Beanshell script for the izPack installer of Elexis.
 // unpacks the demoDB
 print(getSourceFileInfo ( ) + " started in " + bsh.cwd);
 
@@ -28,7 +28,7 @@ void unzipDemoDb (String filename, String where) {
       data = new byte[2048];
       String name = where+"/"+entry.getName();
       // write the files to the disk
-      FileOutputStream fos = new 
+      FileOutputStream fos = new
 	FileOutputStream(name);
       print("extract to  "+name);
       dest = new BufferedOutputStream(fos, 2048);
@@ -61,7 +61,7 @@ void afterPack() {
   unpackDemoDB(dirName);
 }
 
-if (false && idata == void) // idata is not defined, we want to test 
+if (false && idata == void) // idata is not defined, we want to test
 {
   unpackDemoDB(bsh.cwd);
 }

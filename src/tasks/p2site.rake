@@ -17,13 +17,13 @@ require 'buildr4osgi/eclipse'
 
 def addFeatureToSite(short)
   siteName  = short+'.site.feature'
-  ENV['P2_EXE'] = ENV['OSGi'] if !ENV['P2_EXE'] 
+  ENV['P2_EXE'] = ENV['OSGi'] if !ENV['P2_EXE']
   define siteName do
     puts "P2SiteExtension: addFeatureForSite #{project.id} -> #{short}" if $VERBOSE
     medXml = project(short.to_s)._("medelexis.xml")
     puts "P2SiteExtension: addFeatureForSite medXml #{medXml}" if $VERBOSE
     doc = Document.new(File.new(medXml))
-    f = project.package(:feature) 
+    f = project.package(:feature)
     f.plugins <<  projects(short)
     # TODO: add also dependencies. Or does the plug-in handle it????
     f.label = "#{doc.root.attributes['name'] != nil ? doc.root.attributes['name'] : short}"
@@ -33,7 +33,7 @@ def addFeatureToSite(short)
     f.license = "Eclipse Public License Version 1.0"
     f.licenseURL = "http://eclipse.org/legal/epl-v10.html"
     f.update_sites << {:url => "http://www.elexis.ch/update", :name => "Elexis update site"}
-    f.discovery_sites = [{:url => "http://www.elexis.ch/update2", :name => "Elexis discovery site"}, 
+    f.discovery_sites = [{:url => "http://www.elexis.ch/update2", :name => "Elexis discovery site"},
       {:url => "http://backup.elexis.ch//backup-update", :name => "Backup update site"}]
   end
   siteName
@@ -51,7 +51,7 @@ module P2SiteExtension
     medFiles = []
     dirs.each { |x| medFiles += Dir.glob(File.join(root, x, '*', 'medelexis.xml')) }
     features = []
-    medFiles.each{ 
+    medFiles.each{
       |medXml|
 	doc = Document.new(File.new(medXml))
 	if /feature/i.match(doc.root.attributes['category']) and
@@ -62,7 +62,7 @@ module P2SiteExtension
     }
     features
   end
-    
+
   before_define do |project|
     if project.parent and !ENV['P2site'].eql?('no')
       medXml = project._("medelexis.xml")
@@ -74,8 +74,8 @@ module P2SiteExtension
 	end
       end
     end
-  end  
-  
+  end
+
 end
 
 class Buildr::Project

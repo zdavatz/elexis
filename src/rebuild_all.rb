@@ -15,10 +15,10 @@ RVM_RUBY ||= 'jruby'
 prefix = "rvm #{RVM_RUBY} do"
 require 'rbconfig'
 prefix= 'jruby -S' if /mingw|bccwin|wince|cygwin|mswin32/i.match(RbConfig::CONFIG['host_os'])
-                   
-                   
+
+
 def runOneCommand(cmd)
-  @@step ||= 0 
+  @@step ||= 0
   @@step += 1
   logfile = "step_#{@@step}.log"
   FileUtils.rm(logfile) if File.exists?(logfile)
@@ -26,7 +26,7 @@ def runOneCommand(cmd)
   log = File.open(logfile, 'w')
   log.puts "executing '#{cmd}'"
   f = open("| #{cmd}")
-  log.sync = true 
+  log.sync = true
   while out = f.gets
     puts out
     log.puts(out)
@@ -58,9 +58,9 @@ globalStartTime = Time.now
 # https://github.com/zdavatz/elexis/src/buildr_howto.textile
 commands = [
 "lib/init_buildr4osgi.rb",
-"#{prefix} ruby lib/gen_buildfile.rb", 
-"#{prefix} buildr delta OSGi elexis:readme", 
-"#{prefix} buildr osgi:clean:dependencies osgi:resolve:dependencies osgi:install:dependencies", 
+"#{prefix} ruby lib/gen_buildfile.rb",
+"#{prefix} buildr delta OSGi elexis:readme",
+"#{prefix} buildr osgi:clean:dependencies osgi:resolve:dependencies osgi:install:dependencies",
 "#{prefix} buildr test=no clean package",
 "#{prefix} buildr test=no elexis:ch.ngiger.elexis.opensource:izpack",
 "#{prefix} buildr test=no elexis:p2:p2site", # not yet working at this moment. Generates a p2site

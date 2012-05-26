@@ -45,7 +45,7 @@ Description: Elexis
 )
 end
 
-def Debian::control_docs 
+def Debian::control_docs
   %(Source: elexis-docs
 Section: java
 Priority: extra
@@ -90,7 +90,7 @@ end
     end
     end
   end
-  
+
   define 'debian-elexis' do
     project.version.gsub!(/[-_]/,'.')
     Buildr::write(_("target/debian/control"), Debian::control)
@@ -109,13 +109,13 @@ end
       docDest = '/usr/share/doc/elexis'
       deb.include(configName, :path => jarDest+"/configuration")
       rsc = File.join(project('ch.elexis')._, '..','BuildElexis','rsc')
-      deb.include(File.join(rsc, '{lizenz,LICENSE}*.*'), :path => docDest)      
+      deb.include(File.join(rsc, '{lizenz,LICENSE}*.*'), :path => docDest)
       projectsToPack.each do |fullName|
 	  proj2pack = project(fullName)
 	  pName = proj2pack.name.split(':')[1]
 	  trace "debian-elexis: Checking projectsToPack #{pName} group #{project.group} #{proj2pack} has #{artifacts(proj2pack).size} artifacts"
 	  p artifacts(proj2pack)
-	  artifacts(proj2pack).each do 
+	  artifacts(proj2pack).each do
 	  |x|
 	    begin
 	      trace "debian-elexis: Adding #{x.type} id #{x.id} #{x} exists? #{File.exists?(x)}"
@@ -123,10 +123,10 @@ end
 	      next if !File.exists?(x)
 	      if x.type == :jar
 		  next if x.id.include?(project.group) or x.id.include?('-sources.jar')
-		  deb.include x, :path => "#{jarDest}/plugins" 
+		  deb.include x, :path => "#{jarDest}/plugins"
 		  # project.dependencies << x
 	      elsif x.type == :zip
-		  deb.include x,  :path =>  "#{jarDest}/features" 
+		  deb.include x,  :path =>  "#{jarDest}/features"
 		  # project.dependencies << x
 		  # compile with project.dependencies
 		next
@@ -142,7 +142,7 @@ end
     define 'debian-elexis-demoDB' do
       # download demoDB
 	debDocs.control = _("target/debian/control_demoDB")
-#	debDocs.include(project('dokumentation'), :path => docDest) 
+#	debDocs.include(project('dokumentation'), :path => docDest)
     end
     FileUtils.makedirs('debian-elexis-postgresql')
     define 'debian-elexis-postgresql' do
@@ -156,5 +156,5 @@ task 'debian'
 ['debian-elexis', # 'debian-elexis-docs'
  ].each { |x| task 'debian' => project(x).package(:deb) }
 projectsToPack.each { |x| task 'debian' => project(x).package(:jar) }
-  
- 
+
+

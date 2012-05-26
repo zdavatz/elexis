@@ -13,11 +13,11 @@ module PDE_Test
     if project.parent == nil
       if Buildr.options.test
 	puts "Add PDE_Test integration stuff for root project"
-	PDE_Test::stuffForRootProject 
+	PDE_Test::stuffForRootProject
       end
     else
       short = project.name.sub(project.parent.name+':','')
-      if project.compile.sources.size > 0 && project.test.sources.size > 0 
+      if project.compile.sources.size > 0 && project.test.sources.size > 0
 	puts "#{short}: might define PDE-Test sources #{project.compile.sources.size} #{project.test.sources.size}"
 	project.test.using :integration      if !(short.eql?('ch.rgw.utility') or short.eql?('ch.elexis.core.databinding'))
 	dirs = Dir.glob(File.join(project._, '..', short+'_test')) + # e.g. ch.rgw.utility_test
@@ -32,24 +32,24 @@ module PDE_Test
 	end
       end
     end if Buildr.options.test
-  end 
+  end
 
   after_define do |project|
     if project.parent
       short = project.name.sub(project.parent.name+':','')
       launchConfigs = Dir.glob(project._('*.launch')) + Dir.glob(File.join(project.layout[:source, :test],'*.launch'))
-      launchConfigs.each{ 
+      launchConfigs.each{
 	|cfgFileName|
       cfg = Launch_Util.new(cfgFileName)
       if cfg.isPdeTest
-	trace "#{short} runs #{cfgFileName}" 
-	PDE_Test::run_pde_test(project, cfg) 
+	trace "#{short} runs #{cfgFileName}"
+	PDE_Test::run_pde_test(project, cfg)
       end
       }
     end if Buildr.options.test
   end
-  
-private 
+
+private
   ANT_ARTIFACTS = [
     'ant:ant-optional:jar:1.5.3-1',
     'org.apache.ant:ant:jar:1.8.2',
@@ -102,7 +102,7 @@ private
   end
 
   task :createPDEtestHtml do
-    Buildr.ant('create_html') do |ant|      
+    Buildr.ant('create_html') do |ant|
       FileUtils.makedirs('reports')
       ant.echo(:message => "Generating html report for all PDE tests")
       ant.taskdef :name=>'junitreport', :classname=>'org.apache.tools.ant.taskdefs.optional.junit.XMLResultAggregator',
@@ -113,11 +113,11 @@ private
       end
     end
   end
-  
+
   def PDE_Test::addTestJar(shortName, project)
     # we need a test fragment for the test
     testClassesDir = project.path_to(:target,:test,:classes)
-    testMetaMf = [testClassesDir,'META-INF','MANIFEST.MF'].join(File::SEPARATOR) 
+    testMetaMf = [testClassesDir,'META-INF','MANIFEST.MF'].join(File::SEPARATOR)
     file testMetaMf do
       Buildr.write testMetaMf, <<EOF
 Manifest-Version: 1.0
@@ -168,7 +168,7 @@ public
     end
     project.test.exclude '*' # Tell junit to ignore all JUnit-test, as it would interfere with the PDE test
     return if !/importer/i.match(cfg.launchConfigName)
-    project.integration.teardown(:createPDEtestHtml) 
+    project.integration.teardown(:createPDEtestHtml)
 #    project.integration.prerequisites << @@pdeTestUtilsJar
     project.test.compile.with project.dependencies + project.compile.dependencies + @@pdeTestUtilsJar
     project.test.with project.compile.target if project.compile.target
@@ -177,7 +177,7 @@ public
     project.test.using :integration
     project.PDETestResultXML = File.join('reports', "TEST-#{shortName}.xml")
 
-    pdeJars = [@@pdeTestUtilsJar, project.package(:plugin), testFragmentJar] 
+    pdeJars = [@@pdeTestUtilsJar, project.package(:plugin), testFragmentJar]
     deps = []
     project.dependencies.each{
       |x|
@@ -189,14 +189,14 @@ public
        |x|
 	  if x.class == String and x.index('.jar') >0
 	      puts "#{shortName} has #{x} #{x.class}"
-	    pdeJars << x 
+	    pdeJars << x
 	end
      }
     testPortFileName = 'pde_test_port.properties'
     project.clean.enhance do  FileUtils.rm_f(project.PDETestResultXML) end
     project.integration.prerequisites << project.PDETestResultXML
     file project.PDETestResultXML => pdeJars do
-      pdeJars.each { 
+      pdeJars.each {
 	|jar|
 	  dest = File.join(@@pluginPath, File.basename(jar.to_s).gsub('-','_'))
 	  file dest => jar.to_s do
@@ -204,26 +204,26 @@ public
 	  end
 	  file testPortFileName => dest
 	  FileUtils.cp(jar.to_s, @@pluginPath, :verbose => true)
-      } 
-      sleep(1) 
+      }
+      sleep(1)
       Java::Commands.java('pde.test.utils.PDETestPortLocator', {:classpath => getPdeTestClasspath, :verbose => true,} )
-      sleep(1) 
+      sleep(1)
       myTestPort = IO.readlines(testPortFileName).to_s.split('=')[1]
       output =[ Dir.pwd, 'reports'].join(File::SEPARATOR)
       Thread.new do
 	puts "#{shortName}: Starting PDE-integration test at #{Time.now} (ResultsCollector)"
-	res = Java::Commands.java('pde.test.utils.PDETestResultsCollector', shortName, myTestPort, 
+	res = Java::Commands.java('pde.test.utils.PDETestResultsCollector', shortName, myTestPort,
 				  {:classpath => getPdeTestClasspath, :verbose => true,} )
 	puts "#{shortName}: Finished PDE-integration test at #{Time.now} (ResultsCollector)"
       end
-      puts "#{shortName}: Started PDETestResultsCollector. Wait 1 second"; sleep(1)   
+      puts "#{shortName}: Started PDETestResultsCollector. Wait 1 second"; sleep(1)
       # applicatione für PhoneBookExample was
       # '-application',    'org.eclipse.pde.junit.runtime.uitestapplication',
       # für non-interactive PDE von ch.elexis
-      # -application org.eclipse.pde.junit.runtime.nonuithreadtestapplication 
+      # -application org.eclipse.pde.junit.runtime.nonuithreadtestapplication
 
-			
-      Java::Commands.java('org.eclipse.equinox.launcher.Main', 
+
+      Java::Commands.java('org.eclipse.equinox.launcher.Main',
 			  '-data',           output,
 			  '-dev',            'bin',
 #                          '-application',    'org.eclipse.pde.junit.runtime.nonuithreadtestapplication',
@@ -240,7 +240,7 @@ public
                                              ],
                            :verbose => true,
 			   :java_args => java_args,
-                           } 
+                           }
 			  )
       raise "#{project.PDETestResultXML} should exist" if !File.exists?(project.PDETestResultXML)
       raise "#{project.PDETestResultXML} should match succes" if !/<testsuite errors="0" failures="0"/.match(File.read(project.PDETestResultXML))
@@ -250,7 +250,7 @@ public
       pdeJars.each{|x|  FileUtils.rm_f(File.join(@@pluginPath, File.basename(x.to_s)), :verbose => true)}
       sleep(1)
     end
-    
+
     # TODO: mv all Text*.xml into a separate directory
     # FileUtils.mv('TEST*.xml', 'reports', :verbose => false)
   end
@@ -259,4 +259,4 @@ end
 class Buildr::Project
   include PDE_Test
   attr_accessor :PDETestClassName,:PDETestResultXML
-end 
+end

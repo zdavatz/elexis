@@ -26,31 +26,31 @@ class Launch_Util
     @isJunitTest = false
     @classnames = nil
     @java_args = nil
-    
-    prod = root.elements["stringAttribute[@key='product']"] 
+
+    prod = root.elements["stringAttribute[@key='product']"]
     useProduct = root.elements["booleanAttribute[@key='useProduct']"]
     if useProduct and prod
        useProduct = true if /true/i.match(useProduct.attributes['value'])
        @product = prod.attributes['value'] if useProduct
     end
-    
+
     run = root.elements["booleanAttribute[@key='run_in_ui_thread']"]
     if run
        if /true/i.match(run.attributes['value'])
 	  @run_in_ui_thread = true
        end
     end
-    
+
     appl = root.elements["stringAttribute[@key='testApplication']"]
     if appl
       @testApplication = appl.attributes['value']
     end
-    
+
     names = root.elements["stringAttribute[@key='org.eclipse.jdt.launching.MAIN_TYPE']"]
     if names
       @classnames = names.attributes['value']
     end
-    
+
     args = root.elements["stringAttribute[@key='org.eclipse.jdt.launching.VM_ARGUMENTS']"]
     if args
       @java_args = args.attributes['value'].gsub("\n"," ")
