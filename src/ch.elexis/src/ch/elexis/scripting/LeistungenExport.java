@@ -66,11 +66,12 @@ public class LeistungenExport {
 			int Migel = 17;
 			int kantonal = 18;
 			int andere = 19;
+			int Oddb = 20;
 			String[] cols = new String[] { "UUID", "PatientID", "FallID",
 					"KonsID", "Datum", "Mandant", "CodesystemName",
 					"CodesystemCode", "Code", "Text", "Kostentraeger",
 					"TarmedAL", "TarmedTL", "Physio", "Labor", "Medikament",
-					"Medical", "MiGEL", "Kantonal", "Andere" };
+					"Medical", "MiGEL", "Kantonal", "Andere", "ODDB" };
 			File dir = new File(toDir);
 			if (!dir.exists() || (!dir.isDirectory())) {
 				return dir + " nicht gefunden oder ist kein Verzeichnis.";
@@ -155,8 +156,10 @@ public class LeistungenExport {
 										offset=Medical;
 									}else if(vv.getCodeSystemName().startsWith("Medikament")){
 										offset=Medikament;
-									}else if(vv.getCodeSystemName().equals("MiGeL")){
+									}else if(vv.getCodeSystemName().equals("MiGel")){
 										offset=Migel;
+									}else if(vv.getCodeSystemName().equals("ODDB")){
+										offset=Oddb;
 									}
 									col[offset]=v.getNettoPreis().getAmountAsString();
 								}

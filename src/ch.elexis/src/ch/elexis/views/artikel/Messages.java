@@ -14,6 +14,7 @@ public class Messages extends NLS {
 	public static String ArtikelContextMenu_pleaseEnterNameForArticle;
 	public static String ArtikelContextMenu_propertiesAction;
 	public static String ArtikelContextMenu_propertiesTooltip;
+	public static String Artikeldetail_ATC_code;
 	public static String Artikeldetail_EAN;
 	public static String Artikeldetail_Einkaufspreis;
 	public static String Artikeldetail_istbestand;

@@ -46,6 +46,8 @@ public class Artikeldetail extends ViewPart implements IActivationListener, ISav
 		InputData[] ret =
 			new InputData[] {
 				new InputData(Messages.Artikeldetail_typ, Artikel.FLD_TYP, Typ.STRING, null),
+				new InputData(Messages.Artikeldetail_ATC_code, Artikel.FLD_ATC_CODE, Typ.STRING,
+						null), //$NON-NLS-2$
 				new InputData(Messages.Artikeldetail_EAN, Artikel.FLD_EAN, Typ.STRING, null),
 				new InputData(Messages.Artikeldetail_Pharmacode, Artikel.FLD_EXTINFO, Typ.STRING,
 					"Pharmacode"), //$NON-NLS-2$
@@ -128,7 +130,7 @@ public class Artikeldetail extends ViewPart implements IActivationListener, ISav
 	
 	@Override
 	public void setFocus(){
-
+		
 	}
 	
 	@Override
@@ -138,8 +140,8 @@ public class Artikeldetail extends ViewPart implements IActivationListener, ISav
 	}
 	
 	public void activation(boolean mode){
-	// TODO Auto-generated method stub
-	
+		// TODO Auto-generated method stub
+		
 	}
 	
 	public void visible(boolean mode){

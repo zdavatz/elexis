@@ -50,6 +50,7 @@ public class Artikel extends VerrechenbarAdapter {
 	public static final String EIGENNAME = "Eigenname";
 	public static final String FLD_TYP = "Typ";
 	public static final String FLD_NAME = "Name";
+	public static final String FLD_ATC_CODE = "ATC_code";
 	public static final String TABLENAME = "ARTIKEL";
 	public static Pattern NAME_VE_PATTERN = Pattern.compile(".+ ([0-9]+) Stk.*");
 	
@@ -65,7 +66,7 @@ public class Artikel extends VerrechenbarAdapter {
 	static {
 		addMapping(TABLENAME, FLD_LIEFERANT_ID, FLD_NAME, MAXBESTAND, MINBESTAND, ISTBESTAND,
 			FLD_EK_PREIS, FLD_VK_PREIS, FLD_TYP, FLD_EXTINFO, FLD_EAN, FLD_SUB_ID,
-			"Eigenname=Name_intern", FLD_CODECLASS, FLD_KLASSE);
+			"Eigenname=Name_intern", FLD_CODECLASS, FLD_KLASSE, FLD_ATC_CODE);
 		Xid.localRegisterXIDDomainIfNotExists(XID_PHARMACODE, "Pharmacode", Xid.ASSIGNMENT_REGIONAL);
 	}
 	
@@ -480,7 +481,15 @@ public class Artikel extends VerrechenbarAdapter {
 		set(FLD_EAN, ean);
 	}
 	
-	@SuppressWarnings("unchecked")
+	public String getATC_code(){
+		String ATC_code = get(FLD_ATC_CODE);
+		return ATC_code;
+	}
+	
+	public void setATC_code(String ATC_code){
+		set(FLD_ATC_CODE, ATC_code);
+	}
+	
 	public String getPharmaCode(){
 		Map ext = getMap(FLD_EXTINFO);
 		return checkNull((String) ext.get(FLD_PHARMACODE));
@@ -592,7 +601,7 @@ public class Artikel extends VerrechenbarAdapter {
 	protected String[] getExportFields(){
 		return new String[] {
 			FLD_EAN, FLD_SUB_ID, FLD_LIEFERANT_ID, FLD_KLASSE, FLD_NAME, MAXBESTAND, MINBESTAND,
-			ISTBESTAND, FLD_EK_PREIS, FLD_VK_PREIS, FLD_TYP, FLD_CODECLASS, FLD_EXTINFO
+			ISTBESTAND, FLD_EK_PREIS, FLD_VK_PREIS, FLD_TYP, FLD_CODECLASS, FLD_ATC_CODE, FLD_EXTINFO
 		};
 	}
 	
