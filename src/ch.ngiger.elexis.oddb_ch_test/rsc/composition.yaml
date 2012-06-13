@@ -1,0 +1,73 @@
+--- !oddb.org,2003/ODDB::Sequence
+compositions:
+- &id011 !oddb.org,2003/ODDB::Composition
+  galenic_form: &id012 !oddb.org,2003/ODDB::GalenicForm
+    oid: 85
+    descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+      de: Dosier-Aerosol
+      en: Metered dose aerosol
+      fr: "N\xC3\xA9buliseur-doseur"
+    galenic_group: !oddb.org,2003/ODDB::GalenicGroup
+      oid: 6
+      descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+        de: Inhalation
+        en: Inhalation
+        fr: Inhalation
+- &id001 !oddb.org,2003/ODDB::Composition
+  galenic_form: !oddb.org,2003/ODDB::GalenicForm
+    oid: 28
+    descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+      de: Emulsion
+      lt: EMULSIONEM
+    galenic_group: &id007 !oddb.org,2003/ODDB::GalenicGroup
+      oid: 4
+      descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+        de: Salben
+        en: Ointments
+        fr: Onguents
+- &id014 !oddb.org,2003/ODDB::Composition
+  galenic_form: *id012
+  active_agents:
+  - !oddb.org,2003/ODDB::ActiveAgent
+    substance: 
+    dose: !oddb.org,2003/ODDB::Dose
+      not_normalized:
+      val: 100
+      unit: UI/ml
+      scale:
+- &id164 !oddb.org,2003/ODDB::Composition
+  galenic_form: *id014
+  active_agents:
+  - !oddb.org,2003/ODDB::ActiveAgent
+    substance: &id166 !oddb.org,2003/ODDB::Substance
+      oid: 3858
+      descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+        de: Donepezil Hydrochlorid
+        en: Donepezil Hydrochloride
+        fr: Donepezil Hydrochloride
+        lt: Donepezili Hydrochloridum
+      synonyms:
+      - Hydrochloride de Donepezili
+      - Donepezili Chlorhydrate
+      - Chlorhydrate de Donepezili
+      - Hydrochloride de Donepezil
+      - Donepezil Chlorhydrate
+      - Chlorhydrate de Donepezil
+      swissmedic_code:
+      effective_form: !oddb.org,2003/ODDB::Substance
+        oid: 5931
+        descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+          en: Donepezil
+          fr: "Don\xC3\xA9p\xC3\xA9zil"
+          lt: Donepezilum
+        synonyms: []
+- &id167 !oddb.org,2003/ODDB::Composition
+  galenic_form: *id014
+  active_agents:
+  - !oddb.org,2003/ODDB::ActiveAgent
+    substance: *id166
+    dose: !oddb.org,2003/ODDB::Dose
+      not_normalized:
+      val: 10
+      unit: mg
+      scale:

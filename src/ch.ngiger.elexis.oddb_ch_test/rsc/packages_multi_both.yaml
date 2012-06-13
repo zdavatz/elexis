@@ -1,0 +1,70 @@
+--- !oddb.org,2003/ODDB::Sequence
+packages:
+  "010": !oddb.org,2003/ODDB::Package
+    ikscd: "010"
+    lppv: false
+    descr: ""
+    ikscat: E
+    sl_entry:
+    parts:
+    - !oddb.org,2003/ODDB::Part
+      count: 1
+      multi: 1
+      measure: !oddb.org,2003/ODDB::Dose
+        not_normalized:
+        val: 200
+        unit: ml
+        scale:
+      addition: 0
+      commercial_form:
+      composition: 
+    has_generic: false
+    ean13: "7680384750109"
+    price_exfactory: 0.0
+    price_public: 0.0
+    pharmacode:
+    narcotics: []
+
+    deductible:
+--- !oddb.org,2003/ODDB::Sequence
+packages:
+  "017": !oddb.org,2003/ODDB::Package
+    ikscd: "017"
+    lppv:
+    descr: ""
+    ikscat: B
+    sl_entry: !oddb.org,2003/ODDB::SlEntry
+      bsv_dossier: "17465"
+      introduction_date: 2000-07-01
+      limitation:
+      limitation_points:
+      limitation_text:
+    parts:
+    - !oddb.org,2003/ODDB::Part
+      count: 1
+      multi: !oddb.org,2003/ODDB::Dose
+        not_normalized:
+        val: 1
+        unit: ""
+        scale:
+      measure: !oddb.org,2003/ODDB::Dose
+        not_normalized:
+        val: 10
+        unit: ml
+        scale:
+      addition: 0
+      commercial_form: &id009 !oddb.org,2003/ODDB::CommercialForm
+        oid: 1067527
+        descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+          de: Durchstechflasche(n)
+          fr: Flacon perforable
+      composition:
+    has_generic: false
+    ean13: "7680549280175"
+    price_exfactory: 25.52
+    price_public: 45.65
+    pharmacode: "2234423"
+    narcotics: []
+
+    deductible: 10
+

@@ -1,0 +1,8 @@
+h1. ODDB-Import in Elexis
+
+h2. TODO:
+
+* UTF-8 Escape-Sequenzen werden nicht in korrekte String umgewandelt. Dies ist ein SnakeYaml-Problem (sa. PerTest.java)
+* Umwandlung in sprechende Namen der Verpackung ist nicht fertig
+* name beginnt manchmal mit " "
+* Composition

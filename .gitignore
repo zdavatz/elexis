@@ -4,4 +4,10 @@ clones
 target
 bin
 workspace
+.svn
+.hg
+.git
+src/OSGi
+*.patch
+*.tmp
 

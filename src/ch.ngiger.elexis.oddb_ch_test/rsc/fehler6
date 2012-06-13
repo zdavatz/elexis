@@ -1,0 +1,738 @@
+ name: Intrakutan-Test Solanum tuberosum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619920017 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.283 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Solanum tuberosum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619920017 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Alnus glutinosa, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619930016 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.283 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Alnus glutinosa, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619930016 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Fraxinus excelsior, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619940015 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.283 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Fraxinus excelsior, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619940015 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Brassica oleracea, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619950014 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.284 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Brassica oleracea, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619950014 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Spinacia oleracea, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619960013 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.284 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Spinacia oleracea, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619960013 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Pisum sativum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619970012 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.284 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Pisum sativum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619970012 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Bertholletia excelsa, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619980011 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.284 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Bertholletia excelsa, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619980011 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Capsicum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619990010 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.284 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Capsicum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680619990010 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Lycopersicum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620000012 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.285 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Lycopersicum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620000012 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Persicum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620010011 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.285 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Persicum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620010011 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Quercus robur, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620020010 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.285 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Quercus robur, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620020010 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Fagus silvatica, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620030019 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.285 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Fagus silvatica, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620030019 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Mixtura Graminea-Cerealis, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620040018 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.285 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Mixtura Graminea-Cerealis, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620040018 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Mixtura Graminea, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620050017 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.285 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Mixtura Graminea, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620050017 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Robinia pseudoacacia, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620060016 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.286 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Robinia pseudoacacia, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620060016 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Betula spec., Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620070015 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.286 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Betula spec., Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620070015 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Secale cereale, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620080014 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.286 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Secale cereale, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620080014 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Triticum sativum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620090013 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.286 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Triticum sativum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620090013 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Ambrosia trifida, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620110018 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.286 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Ambrosia trifida, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620110018 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Taraxacum vulgare, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620120017 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.286 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Taraxacum vulgare, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620120017 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Herbarius, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620130016 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.287 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Herbarius, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620130016 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Alternaria tenuis, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620140015 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.287 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Alternaria tenuis, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620140015 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Aspergillus fumigatus, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620150014 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.287 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Aspergillus fumigatus, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620150014 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Botrytis cinerea, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620160013 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.287 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Botrytis cinerea, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620160013 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Candida albicans, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620170012 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.287 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Candida albicans, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620170012 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Chaetomium globosum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620180011 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.287 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Chaetomium globosum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620180011 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Urtica dioica, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620190010 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.288 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Urtica dioica, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620190010 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Parietaria officinalis, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620200016 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.288 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Parietaria officinalis, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620200016 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Artemisia vulgaris, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620210015 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.288 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Artemisia vulgaris, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620210015 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Arbores ll, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620220014 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.288 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Arbores ll, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620220014 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Phoma betae, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620230013 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.288 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Phoma betae, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620230013 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Pullularia pullulans, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620240012 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.289 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Pullularia pullulans, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620240012 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Mucor mucedo, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620250011 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.289 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Mucor mucedo, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620250011 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Penicilium notatum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620260010 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.289 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Penicilium notatum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620260010 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Helminthosporium halodes, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620270019 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.289 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Helminthosporium halodes, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620270019 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Fusarium moniliforme, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620280018 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.289 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Fusarium moniliforme, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620280018 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Curvularia lunata, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620290017 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.290 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Curvularia lunata, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620290017 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+ name: Intrakutan-Test Cladosporium herbarum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620300013 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.290 [Worker-3] DEBUG org.oddb.ch.Import -  name: Intrakutan-Test Cladosporium herbarum, Pulver und LÃ¶sungsmittel intrakutan ean13: 7680620300013 EK: 0.00 0 VK: 0.00 0 atc: V04CL
+22:55:50.290 [Worker-3] INFO  org.oddb.ch.Import - 321: Allergopharma AG  ean13 7601001003491 url
+{de=Tabletten, en=Tablets, fr=ComprimÃ©s, lt=compresso}
+gg: 2: of 979 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+22:55:50.293 [Worker-3] DEBUG org.oddb.ch.Import - Ortensan: atc N02BE01, iksnr: 48107 revision_date null exp null inactiv 2003-12-31 :generic comp null oid 0
+ name: Ortensan Tabletten ean13: 7680481070285 EK: 0.00 0 VK: 0.00 0 atc: N02BE01
+22:55:50.293 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ortensan Tabletten ean13: 7680481070285 EK: 0.00 0 VK: 0.00 0 atc: N02BE01
+22:55:50.293 [Worker-3] INFO  org.oddb.ch.Import - 322: ASTA Medica GmbH
+{de=Puder, en=Powder, fr=Poudre}
+gg: 1472713: of 981 {de=Spray/Puder, en=Spray/Powder, fr=Spray/Poudre}
+{de=Salbe, en=Ointment, fr=Onguent, lt=unguentum}
+gg: 4: of 983 {de=Salben, en=Ointments, fr=Onguents}
+{de=Kapseln, en=Capsules, fr=Capsules, lt=capsula}
+gg: 2: of 985 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+{de=Filmtabletten, en=Coated tablets, fr=ComprimÃ©s filmÃ©s, lt=compresso obducto}
+gg: 2: of 986 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+{de=Suspension, lt=SUSPENSIONEM}
+gg: 1: of 988 {de=unbekannt, en=unbekannt, fr=unbekannt}
+22:55:50.300 [Worker-3] DEBUG org.oddb.ch.Import - Baneocin: atc D06AX, iksnr: 48109 revision_date 2002-10-31 exp 2007-10-30 inactiv 2008-03-31 null comp null oid 0
+22:55:50.300 [Worker-3] DEBUG org.oddb.ch.Import - Baneocin: atc D06AX, iksnr: 48110 revision_date 2002-10-31 exp 2007-10-30 inactiv 2008-03-31 null comp null oid 0
+22:55:50.300 [Worker-3] DEBUG org.oddb.ch.Import - Standacillin 250 mg: atc J01CA01, iksnr: 50665 revision_date null exp null inactiv 2005-07-18 null comp null oid 0
+22:55:50.300 [Worker-3] INFO  org.oddb.ch.Import - 323: PV Biochemie AG
+{de=Filmtabletten, en=Coated tablets, fr=ComprimÃ©s filmÃ©s, lt=compresso obducto}
+gg: 2: of 990 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+22:55:50.302 [Worker-3] DEBUG org.oddb.ch.Import - Zink-Longoral: atc A12CB, iksnr: 48154 revision_date null exp null inactiv 2003-06-24 null comp null oid 0
+22:55:50.302 [Worker-3] INFO  org.oddb.ch.Import - 324: Kogrere AG  ean13 7601001003828
+22:55:50.303 [Worker-3] INFO  org.oddb.ch.Import - 325: Pharma Consulting  ean13 7601001001312
+{de=Mundwasser, en=Mouthwash, fr=Eau dentifrice}
+gg: 1472699: of 992 {de=Buccal-/Dentalprodukte, en=Buccal/dental products, fr=Produits buccodentaires}
+{de=Sirup, en=Sirup, fr=Sirop}
+gg: 7: of 994 {de=LÃ¶sbar zur Einnahme, en=Soluble for ingestion, fr=Soluble pour ingestion}
+{de=Tabletten, en=Tablets, fr=ComprimÃ©s, lt=compresso}
+gg: 2: of 996 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+22:55:50.308 [Worker-3] DEBUG org.oddb.ch.Import - Orahexal: atc A01AB03, iksnr: 48200 revision_date null exp null inactiv 2006-03-01 null comp null oid 0
+ name: Orahexal colluttorio ean13: 7680482000281 EK: 0.00 0 VK: 0.00 0 atc: A01AB03
+22:55:50.308 [Worker-3] DEBUG org.oddb.ch.Import -  name: Orahexal colluttorio ean13: 7680482000281 EK: 0.00 0 VK: 0.00 0 atc: A01AB03
+22:55:50.308 [Worker-3] DEBUG org.oddb.ch.Import - Tossimex: atc R05CB02, iksnr: 48288 revision_date null exp null inactiv 2008-03-31 null comp null oid 0
+22:55:50.308 [Worker-3] DEBUG org.oddb.ch.Import - Neutra-C: atc A11GA01, iksnr: 48485 revision_date null exp 2006-12-31 inactiv 2009-04-14 null comp null oid 0
+ name: Neutra-C compresse ean13: 7680484850228 EK: 0.00 0 VK: 0.00 0 atc: A11GA01
+22:55:50.309 [Worker-3] DEBUG org.oddb.ch.Import -  name: Neutra-C compresse ean13: 7680484850228 EK: 0.00 0 VK: 0.00 0 atc: A11GA01
+22:55:50.309 [Worker-3] INFO  org.oddb.ch.Import - 326: Sorgente della Vita SA
+22:55:50.309 [Worker-3] INFO  org.oddb.ch.Import - 327: Femada SA  ean13 7601001369733
+22:55:50.310 [Worker-3] INFO  org.oddb.ch.Import - 328: Apivet GmbH
+22:55:50.310 [Worker-3] INFO  org.oddb.ch.Import - 329: Pavesco AG  ean13 7601001004061
+{de=Markierungsbesteck, en=Marker kit, fr=Kit de marquage}
+gg: 12: of 998 {de=ZubehÃ¶r, en=Other, fr=Autres}
+22:55:50.312 [Worker-3] DEBUG org.oddb.ch.Import - Makro-Albumon: atc V04A, iksnr: 48628 revision_date null exp null inactiv 2005-04-20 null comp null oid 0
+ name: Makro-Albumon Markierungsbesteck ean13: 7680486280283 EK: 0.00 0 VK: 180.00 18000 atc: V04A
+22:55:50.312 [Worker-3] DEBUG org.oddb.ch.Import -  name: Makro-Albumon Markierungsbesteck ean13: 7680486280283 EK: 0.00 0 VK: 180.00 18000 atc: V04A
+22:55:50.312 [Worker-3] INFO  org.oddb.ch.Import - 330: Wehntal-Apotheke  ean13 7601001021792
+22:55:50.313 [Worker-3] INFO  org.oddb.ch.Import - 331: Josef Styger AG
+{de=Kapseln, en=Capsules, fr=Capsules, lt=capsula}
+gg: 2: of 1000 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+22:55:50.320 [Worker-3] DEBUG org.oddb.ch.Import - Etidoxine 100 mg: atc J01AA02, iksnr: 48903 revision_date null exp null inactiv 2003-06-24 null comp null oid 0
+22:55:50.320 [Worker-3] DEBUG org.oddb.ch.Import - Tridocine-75 mg: atc M01AB01, iksnr: 48904 revision_date null exp null inactiv 2003-06-24 null comp null oid 0
+22:55:50.320 [Worker-3] DEBUG org.oddb.ch.Import - Etimonis 20 mg: atc C01DA14, iksnr: 48905 revision_date null exp null inactiv 2003-06-24 null comp null oid 0
+ name: Etimonis 20 mg gÃ©lules ean13: 7680489050135 EK: 0.00 0 VK: 0.00 0 atc: C01DA14
+22:55:50.321 [Worker-3] DEBUG org.oddb.ch.Import -  name: Etimonis 20 mg gÃ©lules ean13: 7680489050135 EK: 0.00 0 VK: 0.00 0 atc: C01DA14
+ name: Etimonis 20 mg gÃ©lules ean13: 7680489050562 EK: 0.00 0 VK: 0.00 0 atc: C01DA14
+22:55:50.321 [Worker-3] DEBUG org.oddb.ch.Import -  name: Etimonis 20 mg gÃ©lules ean13: 7680489050562 EK: 0.00 0 VK: 0.00 0 atc: C01DA14
+ name: Etimonis 40 mg gÃ©lules ean13: 7680489050210 EK: 0.00 0 VK: 0.00 0 atc: C01DA14
+22:55:50.321 [Worker-3] DEBUG org.oddb.ch.Import -  name: Etimonis 40 mg gÃ©lules ean13: 7680489050210 EK: 0.00 0 VK: 0.00 0 atc: C01DA14
+ name: Etimonis 40 mg gÃ©lules ean13: 7680489050647 EK: 0.00 0 VK: 0.00 0 atc: C01DA14
+22:55:50.321 [Worker-3] DEBUG org.oddb.ch.Import -  name: Etimonis 40 mg gÃ©lules ean13: 7680489050647 EK: 0.00 0 VK: 0.00 0 atc: C01DA14
+ name: Etimonis 60 mg gÃ©lules ean13: 7680489050487 EK: 0.00 0 VK: 0.00 0 atc: C01DA14
+22:55:50.321 [Worker-3] DEBUG org.oddb.ch.Import -  name: Etimonis 60 mg gÃ©lules ean13: 7680489050487 EK: 0.00 0 VK: 0.00 0 atc: C01DA14
+ name: Etimonis 60 mg gÃ©lules ean13: 7680489050722 EK: 0.00 0 VK: 0.00 0 atc: C01DA14
+22:55:50.321 [Worker-3] DEBUG org.oddb.ch.Import -  name: Etimonis 60 mg gÃ©lules ean13: 7680489050722 EK: 0.00 0 VK: 0.00 0 atc: C01DA14
+22:55:50.321 [Worker-3] INFO  org.oddb.ch.Import - 332: Ethypharm SA  ean13 7601001236202
+{de=Tropfen, en=Drops, fr=Gouttes, lt=guttae}
+gg: 890432: of 1002 {de=Tropfen, en=Drops, fr=Gouttes}
+{de=DragÃ©es, en=DragÃ©es, fr=DragÃ©es}
+gg: 2: of 1004 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+22:55:50.326 [Worker-3] DEBUG org.oddb.ch.Import - Hyperforat: atc N06AX, iksnr: 48913 revision_date null exp null inactiv 2004-10-13 null comp null oid 3234
+ name: Hyperforat gouttes ean13: 7680489130165 EK: 0.00 0 VK: 17.25 1725 atc: N06AX
+22:55:50.326 [Worker-3] DEBUG org.oddb.ch.Import -  name: Hyperforat gouttes ean13: 7680489130165 EK: 0.00 0 VK: 17.25 1725 atc: N06AX
+ name: Hyperforat gouttes ean13: 7680489130240 EK: 0.00 0 VK: 43.15 4315 atc: N06AX
+22:55:50.326 [Worker-3] DEBUG org.oddb.ch.Import -  name: Hyperforat gouttes ean13: 7680489130240 EK: 0.00 0 VK: 43.15 4315 atc: N06AX
+22:55:50.326 [Worker-3] DEBUG org.oddb.ch.Import - Hyperforat: atc N06AX, iksnr: 50371 revision_date null exp null inactiv 2004-12-31 null comp null oid 3234
+ name: Hyperforat dragÃ©es ean13: 7680503710182 EK: 0.00 0 VK: 14.55 1455 atc: N06AX
+22:55:50.326 [Worker-3] DEBUG org.oddb.ch.Import -  name: Hyperforat dragÃ©es ean13: 7680503710182 EK: 0.00 0 VK: 14.55 1455 atc: N06AX
+ name: Hyperforat dragÃ©es ean13: 7680503710267 EK: 0.00 0 VK: 32.55 3255 atc: N06AX
+22:55:50.327 [Worker-3] DEBUG org.oddb.ch.Import -  name: Hyperforat dragÃ©es ean13: 7680503710267 EK: 0.00 0 VK: 32.55 3255 atc: N06AX
+22:55:50.327 [Worker-3] INFO  org.oddb.ch.Import - 333: Dr Cl. et A. Behringer  ean13 7601000165886
+22:55:50.327 [Worker-3] INFO  org.oddb.ch.Import - 334: R. Meier's SÃ¶hne AG
+{de=Gel, en=Gel, fr=gel, lt=gelatum}
+gg: 4: of 1006 {de=Salben, en=Ointments, fr=Onguents}
+22:55:50.329 [Worker-3] DEBUG org.oddb.ch.Import - EffacnÃ© 5: atc D10AE01, iksnr: 48938 revision_date 2003-04-01 exp 2007-12-31 inactiv 2005-07-01 :generic comp null oid 2765
+ name: EffacnÃ© 5 wÃ¤sseriges Gel ean13: 7680489380195 EK: 0.00 0 VK: 5.40 540 atc: D10AE01
+22:55:50.329 [Worker-3] DEBUG org.oddb.ch.Import -  name: EffacnÃ© 5 wÃ¤sseriges Gel ean13: 7680489380195 EK: 0.00 0 VK: 5.40 540 atc: D10AE01
+22:55:50.329 [Worker-3] INFO  org.oddb.ch.Import - 335: Cosmetique Active (Suisse) SA
+{de=Tropfen, en=Drops, fr=Gouttes, lt=guttae}
+gg: 890432: of 1008 {de=Tropfen, en=Drops, fr=Gouttes}
+{de=LÃ¶sung, en=Solution, fr=Solution, lt=solutionem}
+gg: 1: of 1010 {de=unbekannt, en=unbekannt, fr=unbekannt}
+22:55:50.359 [Worker-3] DEBUG org.oddb.ch.Import - Bucheli's homÃ¶opathische HÃ¤morrhoiden- und Krampfadertropfen: atc C05Z, iksnr: 49129 revision_date 2007-08-28 exp 2012-08-27 inactiv 2011-10-10 null comp :homeopathy oid 0
+ name: Bucheli's homÃ¶opathische HÃ¤morrhoiden- und Krampfadertropfen ean13: 7680491290178 EK: 13.00 1300 VK: 20.50 2050 atc: C05Z pharmacode: 1340181
+22:55:50.359 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bucheli's homÃ¶opathische HÃ¤morrhoiden- und Krampfadertropfen ean13: 7680491290178 EK: 13.00 1300 VK: 20.50 2050 atc: C05Z pharmacode: 1340181
+22:55:50.359 [Worker-3] DEBUG org.oddb.ch.Import - Bucheli's homÃ¶opathische Grippetropfen: atc R05Z, iksnr: 49128 revision_date 2008-01-17 exp 2013-01-16 inactiv 2011-10-10 null comp :homeopathy oid 0
+ name: Bucheli's homÃ¶opathische Grippetropfen ean13: 7680491280100 EK: 13.00 1300 VK: 20.50 2050 atc: R05Z pharmacode: 1340175
+22:55:50.360 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bucheli's homÃ¶opathische Grippetropfen ean13: 7680491280100 EK: 13.00 1300 VK: 20.50 2050 atc: R05Z pharmacode: 1340175
+22:55:50.360 [Worker-3] DEBUG org.oddb.ch.Import - Bucheli's homÃ¶opathische Herztropfen: atc C01EZ, iksnr: 49130 revision_date 2008-01-17 exp 2013-01-16 inactiv 2011-10-10 null comp :homeopathy oid 0
+ name: Bucheli's homÃ¶opathische Herztropfen ean13: 7680491300150 EK: 13.00 1300 VK: 20.50 2050 atc: C01EZ
+22:55:50.360 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bucheli's homÃ¶opathische Herztropfen ean13: 7680491300150 EK: 13.00 1300 VK: 20.50 2050 atc: C01EZ
+ name: Bucheli's homÃ¶opathische Heuschnupfentropfen Tropfen ean13: 7680509380181 EK: 13.00 1300 VK: 20.50 2050 atc: R01Z pharmacode: 1846420
+22:55:50.360 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bucheli's homÃ¶opathische Heuschnupfentropfen Tropfen ean13: 7680509380181 EK: 13.00 1300 VK: 20.50 2050 atc: R01Z pharmacode: 1846420
+ name: Bucheli's homÃ¶opathische Heuschnupfentropfen Tropfen ean13: 7680509380266 EK: 0.00 0 VK: 0.00 0 atc: R01Z
+22:55:50.360 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bucheli's homÃ¶opathische Heuschnupfentropfen Tropfen ean13: 7680509380266 EK: 0.00 0 VK: 0.00 0 atc: R01Z
+ name: Bucheli's homÃ¶opathische Nieren- und Blasentropfen ean13: 7680496970150 EK: 13.00 1300 VK: 20.50 2050 atc: G04BZ pharmacode: 1340206
+22:55:50.361 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bucheli's homÃ¶opathische Nieren- und Blasentropfen ean13: 7680496970150 EK: 13.00 1300 VK: 20.50 2050 atc: G04BZ pharmacode: 1340206
+ name: Bucheli's homÃ¶opathische Gallen- und Lebertropfen ean13: 7680495740105 EK: 13.00 1300 VK: 20.50 2050 atc: A05CZ pharmacode: 1340169
+22:55:50.361 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bucheli's homÃ¶opathische Gallen- und Lebertropfen ean13: 7680495740105 EK: 13.00 1300 VK: 20.50 2050 atc: A05CZ pharmacode: 1340169
+ name: Bucheli's homÃ¶opathische ErkÃ¤ltungstropfen ean13: 7680499650288 EK: 13.00 1300 VK: 20.50 2050 atc: R05Z pharmacode: 3688735
+22:55:50.361 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bucheli's homÃ¶opathische ErkÃ¤ltungstropfen ean13: 7680499650288 EK: 13.00 1300 VK: 20.50 2050 atc: R05Z pharmacode: 3688735
+ name: Bucheli's homÃ¶opathische Kreislauftropfen ean13: 7680499660164 EK: 13.00 1300 VK: 20.50 2050 atc: C01EX pharmacode: 3688741
+22:55:50.361 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bucheli's homÃ¶opathische Kreislauftropfen ean13: 7680499660164 EK: 13.00 1300 VK: 20.50 2050 atc: C01EX pharmacode: 3688741
+22:55:50.361 [Worker-3] INFO  org.oddb.ch.Import - 337: Bucheli AG  ean13  url
+{de=Tropfen, en=Drops, fr=Gouttes, lt=guttae}
+gg: 890432: of 1012 {de=Tropfen, en=Drops, fr=Gouttes}
+{de=Tabletten, en=Tablets, fr=ComprimÃ©s, lt=compresso}
+gg: 2: of 1014 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+{de=Pulver, en=Soluble Powder, fr=Poudre soluble, lt=Pulverum}
+gg: 7: of 1016 {de=LÃ¶sbar zur Einnahme, en=Soluble for ingestion, fr=Soluble pour ingestion}
+{de=Gel, en=Gel, fr=gel, lt=gelatum}
+gg: 4: of 1018 {de=Salben, en=Ointments, fr=Onguents}
+{de=homÃ¶opathische Heuschnupfentropfen}
+gg: 1: of 1020 {de=unbekannt, en=unbekannt, fr=unbekannt}
+{de=Filmtabletten, en=Coated tablets, fr=ComprimÃ©s filmÃ©s, lt=compresso obducto}
+gg: 2: of 1021 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+{de=Schlaftropfen}
+gg: 1: of 1022 {de=unbekannt, en=unbekannt, fr=unbekannt}
+{de=homÃ¶opathische Hustentropfen}
+gg: 1: of 1023 {de=unbekannt, en=unbekannt, fr=unbekannt}
+{de=Kapseln, en=Capsules, fr=Capsules, lt=capsula}
+gg: 2: of 1024 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+22:55:50.392 [Worker-3] DEBUG org.oddb.ch.Import - Brachiapas: atc M09AZ, iksnr: 50569 revision_date 2004-05-15 exp 2006-12-31 inactiv 2005-05-14 null comp :complementary oid 0
+ name: Brachiapas homÃ¶opathische Tropfen ean13: 7680505690123 EK: 0.00 0 VK: 19.30 1930 atc: M09AZ
+22:55:50.392 [Worker-3] DEBUG org.oddb.ch.Import -  name: Brachiapas homÃ¶opathische Tropfen ean13: 7680505690123 EK: 0.00 0 VK: 19.30 1930 atc: M09AZ
+ name: Brachiapas homÃ¶opathische Tropfen ean13: 7680505690208 EK: 0.00 0 VK: 128.10 12810 atc: M09AZ
+22:55:50.393 [Worker-3] DEBUG org.oddb.ch.Import -  name: Brachiapas homÃ¶opathische Tropfen ean13: 7680505690208 EK: 0.00 0 VK: 128.10 12810 atc: M09AZ
+22:55:50.393 [Worker-3] DEBUG org.oddb.ch.Import - Gallopas: atc A16AX99, iksnr: 51149 revision_date 2004-05-15 exp 2007-12-31 inactiv 2005-05-14 null comp :complementary oid 0
+ name: Gallopas Tabletten ean13: 7680511490250 EK: 0.00 0 VK: 24.20 2420 atc: A16AX99
+22:55:50.393 [Worker-3] DEBUG org.oddb.ch.Import -  name: Gallopas Tabletten ean13: 7680511490250 EK: 0.00 0 VK: 24.20 2420 atc: A16AX99
+22:55:50.393 [Worker-3] DEBUG org.oddb.ch.Import - Markalakt: atc A02DA99, iksnr: 49216 revision_date 2004-05-15 exp 2007-10-02 inactiv 2005-05-14 null comp :complementary oid 0
+ name: Markalakt Pulver ean13: 7680492160258 EK: 0.00 0 VK: 0.00 0 atc: A02DA99
+22:55:50.393 [Worker-3] DEBUG org.oddb.ch.Import -  name: Markalakt Pulver ean13: 7680492160258 EK: 0.00 0 VK: 0.00 0 atc: A02DA99
+ name: Contusin Gel ean13: 7680496230117 EK: 0.00 0 VK: 13.50 1350 atc: M02AX10 pharmacode: 2118786
+22:55:50.393 [Worker-3] DEBUG org.oddb.ch.Import -  name: Contusin Gel ean13: 7680496230117 EK: 0.00 0 VK: 13.50 1350 atc: M02AX10 pharmacode: 2118786
+ name: Herballerg homÃ¶opathische Heuschnupfentropfen ean13: 7680545130382 EK: 0.00 0 VK: 0.00 0 atc: R01Z pharmacode: 2663265
+22:55:50.393 [Worker-3] DEBUG org.oddb.ch.Import -  name: Herballerg homÃ¶opathische Heuschnupfentropfen ean13: 7680545130382 EK: 0.00 0 VK: 0.00 0 atc: R01Z pharmacode: 2663265
+ name: Nemagran homÃ¶opathische Tropfen ean13: 7680535120119 EK: 0.00 0 VK: 0.00 0 atc: N02BZ
+22:55:50.393 [Worker-3] DEBUG org.oddb.ch.Import -  name: Nemagran homÃ¶opathische Tropfen ean13: 7680535120119 EK: 0.00 0 VK: 0.00 0 atc: N02BZ
+ name: Pascoleucyn homÃ¶opathische Tropfen ean13: 7680507750115 EK: 0.00 0 VK: 0.00 0 atc: N02BZ
+22:55:50.394 [Worker-3] DEBUG org.oddb.ch.Import -  name: Pascoleucyn homÃ¶opathische Tropfen ean13: 7680507750115 EK: 0.00 0 VK: 0.00 0 atc: N02BZ
+ name: Pascoleucyn homÃ¶opathische Tropfen ean13: 7680507750382 EK: 0.00 0 VK: 0.00 0 atc: N02BZ
+22:55:50.394 [Worker-3] DEBUG org.oddb.ch.Import -  name: Pascoleucyn homÃ¶opathische Tropfen ean13: 7680507750382 EK: 0.00 0 VK: 0.00 0 atc: N02BZ
+ name: Pascosedon Filmtabletten ean13: 7680488510531 EK: 0.00 0 VK: 0.00 0 atc: N05CX
+22:55:50.394 [Worker-3] DEBUG org.oddb.ch.Import -  name: Pascosedon Filmtabletten ean13: 7680488510531 EK: 0.00 0 VK: 0.00 0 atc: N05CX
+ name: Pascosedon Filmtabletten ean13: 7680488510616 EK: 0.00 0 VK: 0.00 0 atc: N05CX
+22:55:50.394 [Worker-3] DEBUG org.oddb.ch.Import -  name: Pascosedon Filmtabletten ean13: 7680488510616 EK: 0.00 0 VK: 0.00 0 atc: N05CX
+ name: Pascotox Tropfen ean13: 7680532130142 EK: 0.00 0 VK: 0.00 0 atc: R05Z
+22:55:50.394 [Worker-3] DEBUG org.oddb.ch.Import -  name: Pascotox Tropfen ean13: 7680532130142 EK: 0.00 0 VK: 0.00 0 atc: R05Z
+ name: Pascotox Tropfen ean13: 7680532130227 EK: 0.00 0 VK: 0.00 0 atc: R05Z
+22:55:50.394 [Worker-3] DEBUG org.oddb.ch.Import -  name: Pascotox Tropfen ean13: 7680532130227 EK: 0.00 0 VK: 0.00 0 atc: R05Z
+ name: Sanguicimin homÃ¶opathische Wechseljahrtropfen ean13: 7680561580215 EK: 0.00 0 VK: 0.00 0 atc: G02CZ pharmacode: 2798887
+22:55:50.394 [Worker-3] DEBUG org.oddb.ch.Import -  name: Sanguicimin homÃ¶opathische Wechseljahrtropfen ean13: 7680561580215 EK: 0.00 0 VK: 0.00 0 atc: G02CZ pharmacode: 2798887
+ name: Soporin Schlaftropfen ean13: 7680492190163 EK: 0.00 0 VK: 0.00 0 atc: N05CX pharmacode: 1451874
+22:55:50.395 [Worker-3] DEBUG org.oddb.ch.Import -  name: Soporin Schlaftropfen ean13: 7680492190163 EK: 0.00 0 VK: 0.00 0 atc: N05CX pharmacode: 1451874
+ name: Tussex homÃ¶opathische Hustentropfen ean13: 7680561380013 EK: 0.00 0 VK: 0.00 0 atc: R02A pharmacode: 2695911
+22:55:50.395 [Worker-3] DEBUG org.oddb.ch.Import -  name: Tussex homÃ¶opathische Hustentropfen ean13: 7680561380013 EK: 0.00 0 VK: 0.00 0 atc: R02A pharmacode: 2695911
+ name: Herbalance Tropfen, homÃ¶opathisches Arzneimittel ean13: 7680574710425 EK: 0.00 0 VK: 0.00 0 atc: N06AZ pharmacode: 3062160
+22:55:50.395 [Worker-3] DEBUG org.oddb.ch.Import -  name: Herbalance Tropfen, homÃ¶opathisches Arzneimittel ean13: 7680574710425 EK: 0.00 0 VK: 0.00 0 atc: N06AZ pharmacode: 3062160
+ name: Circuvin homÃ¶opathische Kreislauftropfen ean13: 7680587410015 EK: 0.00 0 VK: 0.00 0 atc: C01EZ pharmacode: 4237928
+22:55:50.395 [Worker-3] DEBUG org.oddb.ch.Import -  name: Circuvin homÃ¶opathische Kreislauftropfen ean13: 7680587410015 EK: 0.00 0 VK: 0.00 0 atc: C01EZ pharmacode: 4237928
+ name: Vigor Eleutherococcus Kapseln ean13: 7680579520012 EK: 0.00 0 VK: 24.00 2400 atc: A13A pharmacode: 4470903
+22:55:50.395 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vigor Eleutherococcus Kapseln ean13: 7680579520012 EK: 0.00 0 VK: 24.00 2400 atc: A13A pharmacode: 4470903
+ name: Vigor Eleutherococcus Kapseln ean13: 7680579520029 EK: 0.00 0 VK: 0.00 0 atc: A13A
+22:55:50.395 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vigor Eleutherococcus Kapseln ean13: 7680579520029 EK: 0.00 0 VK: 0.00 0 atc: A13A
+22:55:50.395 [Worker-3] INFO  org.oddb.ch.Import - 338: Herbamed AG  ean13 7601001372382 url
+{de=Gel, en=Gel, fr=gel, lt=gelatum}
+gg: 4: of 1026 {de=Salben, en=Ointments, fr=Onguents}
+{de=Liniment, en=Liniment, fr=Liniment, lt=Liniment}
+gg: 4: of 1027 {de=Salben, en=Ointments, fr=Onguents}
+22:55:50.401 [Worker-3] DEBUG org.oddb.ch.Import - Roliwol S: atc M02AC, iksnr: 49309 revision_date 2002-11-27 exp 2007-11-26 inactiv 2003-06-01 null comp null oid 0
+ name: Roliwol S Gel ean13: 7680493090158 EK: 0.00 0 VK: 0.00 0 atc: M02AC
+22:55:50.401 [Worker-3] DEBUG org.oddb.ch.Import -  name: Roliwol S Gel ean13: 7680493090158 EK: 0.00 0 VK: 0.00 0 atc: M02AC
+ name: Roliwol S Gel ean13: 7680493090233 EK: 0.00 0 VK: 0.00 0 atc: M02AC
+22:55:50.401 [Worker-3] DEBUG org.oddb.ch.Import -  name: Roliwol S Gel ean13: 7680493090233 EK: 0.00 0 VK: 0.00 0 atc: M02AC
+22:55:50.401 [Worker-3] DEBUG org.oddb.ch.Import - Roliwol S: atc M02AC, iksnr: 49310 revision_date 2002-12-04 exp 2007-12-03 inactiv 2003-06-01 null comp null oid 0
+ name: Roliwol S Liniment ean13: 7680493100130 EK: 0.00 0 VK: 0.00 0 atc: M02AC
+22:55:50.401 [Worker-3] DEBUG org.oddb.ch.Import -  name: Roliwol S Liniment ean13: 7680493100130 EK: 0.00 0 VK: 0.00 0 atc: M02AC
+22:55:50.402 [Worker-3] DEBUG org.oddb.ch.Import - Roliven: atc C05BA53, iksnr: 52917 revision_date null exp null inactiv 2004-06-01 null comp null oid 0
+22:55:50.402 [Worker-3] INFO  org.oddb.ch.Import - 339: Stada (Schweiz) AG
+{de=InjektionslÃ¶sung, en=Injection solution, fr=Solution injectable}
+gg: 3: of 1029 {de=Injektion/Infusion, en=Injection/Infusion, fr=Injection/Infusion}
+{de=Gel, en=Gel, fr=gel, lt=gelatum}
+gg: 4: of 1031 {de=Salben, en=Ointments, fr=Onguents}
+{de=Retard-Kapseln, en=Delayed release capsules, fr=Capsules retard}
+gg: 14: of 1033 {de=Retard-Tabletten, en=Delayed release tablets, fr=ComprimÃ©s retards}
+{de=Salbe, en=Ointment, fr=Onguent, lt=unguentum}
+gg: 4: of 1034 {de=Salben, en=Ointments, fr=Onguents}
+22:55:50.410 [Worker-3] DEBUG org.oddb.ch.Import - Deflamat: atc M01AB05, iksnr: 52252 revision_date null exp null inactiv 2005-09-14 :generic comp null oid 0
+ name: Deflamat solution injectable ean13: 7680522520168 EK: 0.00 0 VK: 0.00 0 atc: M01AB05
+22:55:50.410 [Worker-3] DEBUG org.oddb.ch.Import -  name: Deflamat solution injectable ean13: 7680522520168 EK: 0.00 0 VK: 0.00 0 atc: M01AB05
+ name: Deflamat solution injectable ean13: 7680522520243 EK: 0.00 0 VK: 0.00 0 atc: M01AB05
+22:55:50.410 [Worker-3] DEBUG org.oddb.ch.Import -  name: Deflamat solution injectable ean13: 7680522520243 EK: 0.00 0 VK: 0.00 0 atc: M01AB05
+22:55:50.410 [Worker-3] DEBUG org.oddb.ch.Import - Deflamat: atc M02AA15, iksnr: 52253 revision_date null exp null inactiv 2005-09-14 null comp null oid 0
+ name: Deflamat gel ean13: 7680522530129 EK: 0.00 0 VK: 0.00 0 atc: M02AA15
+22:55:50.410 [Worker-3] DEBUG org.oddb.ch.Import -  name: Deflamat gel ean13: 7680522530129 EK: 0.00 0 VK: 0.00 0 atc: M02AA15
+ name: Deflamat gel ean13: 7680522530204 EK: 0.00 0 VK: 0.00 0 atc: M02AA15
+22:55:50.410 [Worker-3] DEBUG org.oddb.ch.Import -  name: Deflamat gel ean13: 7680522530204 EK: 0.00 0 VK: 0.00 0 atc: M02AA15
+22:55:50.410 [Worker-3] DEBUG org.oddb.ch.Import - Nivadil 8 mg: atc C08CA10, iksnr: 52706 revision_date 2003-02-10 exp 2006-12-31 inactiv 2004-01-01 null comp null oid 0
+ name: Nivadil 8 mg capsules retard ean13: 7680527060171 EK: 0.00 0 VK: 43.45 4345 atc: C08CA10
+22:55:50.410 [Worker-3] DEBUG org.oddb.ch.Import -  name: Nivadil 8 mg capsules retard ean13: 7680527060171 EK: 0.00 0 VK: 43.45 4345 atc: C08CA10
+ name: Nivadil 8 mg capsules retard ean13: 7680527060256 EK: 0.00 0 VK: 101.45 10145 atc: C08CA10
+22:55:50.411 [Worker-3] DEBUG org.oddb.ch.Import -  name: Nivadil 8 mg capsules retard ean13: 7680527060256 EK: 0.00 0 VK: 101.45 10145 atc: C08CA10
+ name: Nivadil 16 mg capsules retard ean13: 7680527060331 EK: 0.00 0 VK: 54.40 5440 atc: C08CA10
+22:55:50.411 [Worker-3] DEBUG org.oddb.ch.Import -  name: Nivadil 16 mg capsules retard ean13: 7680527060331 EK: 0.00 0 VK: 54.40 5440 atc: C08CA10
+ name: Nivadil 16 mg capsules retard ean13: 7680527060416 EK: 0.00 0 VK: 135.65 13565 atc: C08CA10
+22:55:50.411 [Worker-3] DEBUG org.oddb.ch.Import -  name: Nivadil 16 mg capsules retard ean13: 7680527060416 EK: 0.00 0 VK: 135.65 13565 atc: C08CA10
+ name: Locoid pommade ean13: 7680364830241 EK: 9.24 924 VK: 21.10 2110 atc: D07AB02
+22:55:50.411 [Worker-3] DEBUG org.oddb.ch.Import -  name: Locoid pommade ean13: 7680364830241 EK: 9.24 924 VK: 21.10 2110 atc: D07AB02
+22:55:50.411 [Worker-3] INFO  org.oddb.ch.Import - 340: Fujisawa AG  ean13  url
+{de=Gel, en=Gel, fr=gel, lt=gelatum}
+gg: 4: of 1036 {de=Salben, en=Ointments, fr=Onguents}
+22:55:50.415 [Worker-3] DEBUG org.oddb.ch.Import - Apitraumin: atc B01AB51, iksnr: 49524 revision_date null exp null inactiv 2003-11-01 null comp null oid 0
+ name: Apitraumin Gel ean13: 7680495240131 EK: 0.00 0 VK: 0.00 0 atc: B01AB51
+22:55:50.415 [Worker-3] DEBUG org.oddb.ch.Import -  name: Apitraumin Gel ean13: 7680495240131 EK: 0.00 0 VK: 0.00 0 atc: B01AB51
+ name: Apitraumin Gel ean13: 7680495240216 EK: 0.00 0 VK: 0.00 0 atc: B01AB51
+22:55:50.416 [Worker-3] DEBUG org.oddb.ch.Import -  name: Apitraumin Gel ean13: 7680495240216 EK: 0.00 0 VK: 0.00 0 atc: B01AB51
+22:55:50.416 [Worker-3] INFO  org.oddb.ch.Import - 341: Apisana AG
+{de=CrÃ¨me, en=Cream, fr=CrÃ¨me}
+gg: 4: of 1038 {de=Salben, en=Ointments, fr=Onguents}
+22:55:50.420 [Worker-3] DEBUG org.oddb.ch.Import - Bimboderm: atc D03AX04, iksnr: 49552 revision_date null exp null inactiv 2003-12-01 null comp null oid 0
+ name: Bimboderm CrÃ¨me ean13: 7680495520172 EK: 0.00 0 VK: 6.90 690 atc: D03AX04
+22:55:50.420 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bimboderm CrÃ¨me ean13: 7680495520172 EK: 0.00 0 VK: 6.90 690 atc: D03AX04
+ name: Bimboderm CrÃ¨me ean13: 7680495520257 EK: 0.00 0 VK: 13.95 1395 atc: D03AX04
+22:55:50.420 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bimboderm CrÃ¨me ean13: 7680495520257 EK: 0.00 0 VK: 13.95 1395 atc: D03AX04
+22:55:50.420 [Worker-3] DEBUG org.oddb.ch.Import - Bimboderm plus: atc D03, iksnr: 51505 revision_date 2003-03-21 exp 2007-12-31 inactiv 2003-12-01 null comp null oid 0
+ name: Bimboderm plus CrÃ¨me ean13: 7680515050184 EK: 0.00 0 VK: 0.00 0 atc: D03
+22:55:50.420 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bimboderm plus CrÃ¨me ean13: 7680515050184 EK: 0.00 0 VK: 0.00 0 atc: D03
+ name: Bimboderm plus CrÃ¨me ean13: 7680515050269 EK: 0.00 0 VK: 0.00 0 atc: D03
+22:55:50.420 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bimboderm plus CrÃ¨me ean13: 7680515050269 EK: 0.00 0 VK: 0.00 0 atc: D03
+22:55:50.420 [Worker-3] INFO  org.oddb.ch.Import - 342: Apotheke Dr. Portmann AG  ean13 7601001011625
+22:55:50.421 [Worker-3] INFO  org.oddb.ch.Import - 343: Sokosi Pharma SA
+22:55:50.421 [Worker-3] INFO  org.oddb.ch.Import - 344: Enpro Bio Kill AG
+{de=Kapseln, en=Capsules, fr=Capsules, lt=capsula}
+gg: 2: of 1040 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+{de=Sirup, en=Sirup, fr=Sirop}
+gg: 7: of 1042 {de=LÃ¶sbar zur Einnahme, en=Soluble for ingestion, fr=Soluble pour ingestion}
+{de=Kautabletten, en=Chewing tablets, fr=ComprimÃ©s Ã  mÃ¢cher}
+gg: 754720: of 1044 {de=Kaugummi, en=Chewing Gum, fr=Chewing Gum}
+{de=Suspension, lt=SUSPENSIONEM}
+gg: 1: of 1046 {de=unbekannt, en=unbekannt, fr=unbekannt}
+22:55:50.426 [Worker-3] DEBUG org.oddb.ch.Import - Ampifrinil: atc J01CA01, iksnr: 49750 revision_date null exp null inactiv 2003-06-24 null comp null oid 0
+22:55:50.426 [Worker-3] DEBUG org.oddb.ch.Import - Ampifrinil 125 mg: atc J01CA01, iksnr: 49751 revision_date null exp null inactiv 2003-06-24 null comp null oid 0
+22:55:50.426 [Worker-3] DEBUG org.oddb.ch.Import - Combifrinil, comprimÃ©s Ã  mÃ¢cher: atc P02CC01, iksnr: 49972 revision_date 2004-12-15 exp 2009-12-14 inactiv null null comp null oid 0
+22:55:50.426 [Worker-3] INFO  org.oddb.ch.Import - 345: Frilab SA
+22:55:50.426 [Worker-3] INFO  org.oddb.ch.Import - 346: Genera Pharma AG
+{de=Tabletten, en=Tablets, fr=ComprimÃ©s, lt=compresso}
+gg: 2: of 1048 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+22:55:50.440 [Worker-3] DEBUG org.oddb.ch.Import - Dynelem Manganese-Cobalt: atc A12CX, iksnr: 49799 revision_date 2005-12-15 exp 2010-12-14 inactiv 2008-03-31 :unknown comp null oid 0
+ name: Dynelem Manganese-Cobalt comprimÃ©s ean13: 7680497990126 EK: 8.24 824 VK: 17.65 1765 atc: A12CX
+22:55:50.440 [Worker-3] DEBUG org.oddb.ch.Import -  name: Dynelem Manganese-Cobalt comprimÃ©s ean13: 7680497990126 EK: 8.24 824 VK: 17.65 1765 atc: A12CX
+22:55:50.440 [Worker-3] DEBUG org.oddb.ch.Import - Dynelem Cuivre: atc A12CX, iksnr: 49994 revision_date 2005-12-15 exp 2010-12-14 inactiv 2011-02-10 null comp null oid 0
+ name: Dynelem Cuivre comprimÃ©s ean13: 7680499940280 EK: 8.24 824 VK: 17.65 1765 atc: A12CX pharmacode: 1314634
+22:55:50.440 [Worker-3] DEBUG org.oddb.ch.Import -  name: Dynelem Cuivre comprimÃ©s ean13: 7680499940280 EK: 8.24 824 VK: 17.65 1765 atc: A12CX pharmacode: 1314634
+22:55:50.440 [Worker-3] DEBUG org.oddb.ch.Import - Dynelem Lithium: atc A12CX, iksnr: 49995 revision_date 2005-12-15 exp 2010-12-14 inactiv 2011-01-11 null comp null oid 0
+ name: Dynelem Lithium comprimÃ©s ean13: 7680499950166 EK: 8.24 824 VK: 17.65 1765 atc: A12CX pharmacode: 1314657
+22:55:50.441 [Worker-3] DEBUG org.oddb.ch.Import -  name: Dynelem Lithium comprimÃ©s ean13: 7680499950166 EK: 8.24 824 VK: 17.65 1765 atc: A12CX pharmacode: 1314657
+ name: Dynelem Manganese comprimÃ©s ean13: 7680499960127 EK: 8.24 824 VK: 17.65 1765 atc: A12CX pharmacode: 1314686
+22:55:50.441 [Worker-3] DEBUG org.oddb.ch.Import -  name: Dynelem Manganese comprimÃ©s ean13: 7680499960127 EK: 8.24 824 VK: 17.65 1765 atc: A12CX pharmacode: 1314686
+ name: Dynelem Manganese-Cuivre comprimÃ©s ean13: 7680499970195 EK: 8.24 824 VK: 17.65 1765 atc: A12CX pharmacode: 1314700
+22:55:50.441 [Worker-3] DEBUG org.oddb.ch.Import -  name: Dynelem Manganese-Cuivre comprimÃ©s ean13: 7680499970195 EK: 8.24 824 VK: 17.65 1765 atc: A12CX pharmacode: 1314700
+ name: Dynelem Phosphore comprimÃ©s ean13: 7680503120110 EK: 0.00 0 VK: 15.90 1590 atc: A12CX
+22:55:50.441 [Worker-3] DEBUG org.oddb.ch.Import -  name: Dynelem Phosphore comprimÃ©s ean13: 7680503120110 EK: 0.00 0 VK: 15.90 1590 atc: A12CX
+ name: Dynelem Magnesium comprimÃ©s ean13: 7680503130188 EK: 0.00 0 VK: 15.90 1590 atc: A12CC03
+22:55:50.441 [Worker-3] DEBUG org.oddb.ch.Import -  name: Dynelem Magnesium comprimÃ©s ean13: 7680503130188 EK: 0.00 0 VK: 15.90 1590 atc: A12CC03
+ name: Dynelem Cuivre-Or-Argent comprimÃ©s ean13: 7680503140149 EK: 8.24 824 VK: 17.65 1765 atc: A12CX pharmacode: 1314640
+22:55:50.441 [Worker-3] DEBUG org.oddb.ch.Import -  name: Dynelem Cuivre-Or-Argent comprimÃ©s ean13: 7680503140149 EK: 8.24 824 VK: 17.65 1765 atc: A12CX pharmacode: 1314640
+ name: Dynelem Zinc-Cuivre comprimÃ©s ean13: 7680503150100 EK: 0.00 0 VK: 15.90 1590 atc: A12CX
+22:55:50.441 [Worker-3] DEBUG org.oddb.ch.Import -  name: Dynelem Zinc-Cuivre comprimÃ©s ean13: 7680503150100 EK: 0.00 0 VK: 15.90 1590 atc: A12CX
+ name: Dynelem Fluor comprimÃ©s ean13: 7680503160178 EK: 0.00 0 VK: 15.90 1590 atc: A12CD01
+22:55:50.441 [Worker-3] DEBUG org.oddb.ch.Import -  name: Dynelem Fluor comprimÃ©s ean13: 7680503160178 EK: 0.00 0 VK: 15.90 1590 atc: A12CD01
+ name: Dynelem Soufre comprimÃ©s ean13: 7680503170139 EK: 0.00 0 VK: 15.90 1590 atc: A12CX
+22:55:50.442 [Worker-3] DEBUG org.oddb.ch.Import -  name: Dynelem Soufre comprimÃ©s ean13: 7680503170139 EK: 0.00 0 VK: 15.90 1590 atc: A12CX
+ name: Dynelem Zinc-Nickel-Cobalt comprimÃ©s ean13: 7680503180282 EK: 0.00 0 VK: 15.90 1590 atc: A12CX
+22:55:50.442 [Worker-3] DEBUG org.oddb.ch.Import -  name: Dynelem Zinc-Nickel-Cobalt comprimÃ©s ean13: 7680503180282 EK: 0.00 0 VK: 15.90 1590 atc: A12CX
+22:55:50.442 [Worker-3] INFO  org.oddb.ch.Import - 347: Phytolis SA  ean13 7601001254015
+22:55:50.442 [Worker-3] INFO  org.oddb.ch.Import - 348: Sanochemia AG
+{de=Kapseln, en=Capsules, fr=Capsules, lt=capsula}
+gg: 2: of 1050 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+22:55:50.445 [Worker-3] DEBUG org.oddb.ch.Import - Servidipine: atc C08CA05, iksnr: 50967 revision_date null exp null inactiv 2003-06-24 null comp null oid 0
+ name: Servidipine Kapseln ean13: 7680509670183 EK: 0.00 0 VK: 0.00 0 atc: C08CA05
+22:55:50.446 [Worker-3] DEBUG org.oddb.ch.Import -  name: Servidipine Kapseln ean13: 7680509670183 EK: 0.00 0 VK: 0.00 0 atc: C08CA05
+ name: Servidipine Kapseln ean13: 7680509670268 EK: 0.00 0 VK: 0.00 0 atc: C08CA05
+22:55:50.446 [Worker-3] DEBUG org.oddb.ch.Import -  name: Servidipine Kapseln ean13: 7680509670268 EK: 0.00 0 VK: 0.00 0 atc: C08CA05
+22:55:50.446 [Worker-3] DEBUG org.oddb.ch.Import - Servidipine 5: atc C08CA05, iksnr: 52243 revision_date null exp null inactiv 2003-06-24 null comp null oid 0
+ name: Servidipine 5 Kapseln ean13: 7680522430177 EK: 0.00 0 VK: 0.00 0 atc: C08CA05
+22:55:50.446 [Worker-3] DEBUG org.oddb.ch.Import -  name: Servidipine 5 Kapseln ean13: 7680522430177 EK: 0.00 0 VK: 0.00 0 atc: C08CA05
+22:55:50.446 [Worker-3] INFO  org.oddb.ch.Import - 349: Servipharm AG
+{de=Sirup, en=Sirup, fr=Sirop}
+gg: 7: of 1052 {de=LÃ¶sbar zur Einnahme, en=Soluble for ingestion, fr=Soluble pour ingestion}
+{de=Tabletten, en=Tablets, fr=ComprimÃ©s, lt=compresso}
+gg: 2: of 1054 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+{de=Retard-Kapseln, en=Delayed release capsules, fr=Capsules retard}
+gg: 14: of 1056 {de=Retard-Tabletten, en=Delayed release tablets, fr=ComprimÃ©s retards}
+{de=Pulver, en=Soluble Powder, fr=Poudre soluble, lt=Pulverum}
+gg: 7: of 1057 {de=LÃ¶sbar zur Einnahme, en=Soluble for ingestion, fr=Soluble pour ingestion}
+22:55:50.452 [Worker-3] DEBUG org.oddb.ch.Import - Fluibron: atc R05CB06, iksnr: 49947 revision_date null exp null inactiv 2003-12-01 null comp null oid 1593
+ name: Fluibron sirop ean13: 7680499470381 EK: 0.00 0 VK: 0.00 0 atc: R05CB06
+22:55:50.453 [Worker-3] DEBUG org.oddb.ch.Import -  name: Fluibron sirop ean13: 7680499470381 EK: 0.00 0 VK: 0.00 0 atc: R05CB06
+22:55:50.453 [Worker-3] DEBUG org.oddb.ch.Import - Fluibron: atc R05CB06, iksnr: 49948 revision_date null exp null inactiv 2003-12-01 null comp null oid 0
+ name: Fluibron comprimÃ©s ean13: 7680499480267 EK: 0.00 0 VK: 0.00 0 atc: R05CB06
+22:55:50.453 [Worker-3] DEBUG org.oddb.ch.Import -  name: Fluibron comprimÃ©s ean13: 7680499480267 EK: 0.00 0 VK: 0.00 0 atc: R05CB06
+22:55:50.453 [Worker-3] DEBUG org.oddb.ch.Import - Fluibron: atc R05CB06, iksnr: 49949 revision_date null exp null inactiv 2003-12-01 null comp null oid 1593
+ name: Fluibron capsules retard ean13: 7680499490143 EK: 0.00 0 VK: 0.00 0 atc: R05CB06
+22:55:50.453 [Worker-3] DEBUG org.oddb.ch.Import -  name: Fluibron capsules retard ean13: 7680499490143 EK: 0.00 0 VK: 0.00 0 atc: R05CB06
+ name: Brexidol compresse ean13: 7680505400142 EK: 0.00 0 VK: 0.00 0 atc: M01AC01
+22:55:50.453 [Worker-3] DEBUG org.oddb.ch.Import -  name: Brexidol compresse ean13: 7680505400142 EK: 0.00 0 VK: 0.00 0 atc: M01AC01
+ name: Brexidol bustine ean13: 7680505420171 EK: 0.00 0 VK: 0.00 0 atc: M01AC01
+22:55:50.453 [Worker-3] DEBUG org.oddb.ch.Import -  name: Brexidol bustine ean13: 7680505420171 EK: 0.00 0 VK: 0.00 0 atc: M01AC01
+22:55:50.453 [Worker-3] INFO  org.oddb.ch.Import - 350: Chiesi S.A.
+{de=Dosier-Aerosol, en=Metered dose aerosol, fr=NÃ©buliseur-doseur}
+gg: 6: of 1059 {de=Inhalation, en=Inhalation, fr=Inhalation}
+22:55:50.456 [Worker-3] DEBUG org.oddb.ch.Import - Salbutamol SkyePharma 0: atc R03AC02, iksnr: 49976 revision_date null exp null inactiv 2005-12-31 null comp null oid 0
+22:55:50.456 [Worker-3] DEBUG org.oddb.ch.Import - Ipratropiumbromid SkyePharma: atc R03BB01, iksnr: 50395 revision_date null exp null inactiv 2005-12-31 null comp null oid 0
+22:55:50.456 [Worker-3] INFO  org.oddb.ch.Import - 351: Skye Pharma AG  ean13 7601001322882
+22:55:50.457 [Worker-3] INFO  org.oddb.ch.Import - 352: St. Jakob-Apotheke  ean13 7601001004221
+{de=Tabletten, en=Tablets, fr=ComprimÃ©s, lt=compresso}
+gg: 2: of 1061 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+22:55:50.459 [Worker-3] DEBUG org.oddb.ch.Import - Unidipine 20 mg: atc C08CA05, iksnr: 51565 revision_date null exp null inactiv 2003-06-24 null comp null oid 0
+ name: Unidipine 20 mg compresse a rilascio ritardato ean13: 7680515650100 EK: 0.00 0 VK: 0.00 0 atc: C08CA05
+22:55:50.459 [Worker-3] DEBUG org.oddb.ch.Import -  name: Unidipine 20 mg compresse a rilascio ritardato ean13: 7680515650100 EK: 0.00 0 VK: 0.00 0 atc: C08CA05
+ name: Unidipine 50 mg compresse a rilascio ritardato ean13: 7680515650377 EK: 0.00 0 VK: 0.00 0 atc: C08CA05
+22:55:50.459 [Worker-3] DEBUG org.oddb.ch.Import -  name: Unidipine 50 mg compresse a rilascio ritardato ean13: 7680515650377 EK: 0.00 0 VK: 0.00 0 atc: C08CA05
+22:55:50.460 [Worker-3] INFO  org.oddb.ch.Import - 353: Elan Pharma SA  ean13  url
+{de=Gel, en=Gel, fr=gel, lt=gelatum}
+gg: 4: of 1063 {de=Salben, en=Ointments, fr=Onguents}
+{de=Kapseln, en=Capsules, fr=Capsules, lt=capsula}
+gg: 2: of 1065 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+{de=Tabletten, en=Tablets, fr=ComprimÃ©s, lt=compresso}
+gg: 2: of 1066 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+{de=Filmtabletten, en=Coated tablets, fr=ComprimÃ©s filmÃ©s, lt=compresso obducto}
+gg: 2: of 1067 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+{de=InjektionslÃ¶sung, en=Injection solution, fr=Solution injectable}
+gg: 3: of 1069 {de=Injektion/Infusion, en=Injection/Infusion, fr=Injection/Infusion}
+{de=Retard-Tabletten, en=Delayed release tablets, fr=ComprimÃ©s retards}
+gg: 14: of 1071 {de=Retard-Tabletten, en=Delayed release tablets, fr=ComprimÃ©s retards}
+22:55:50.554 [Worker-3] DEBUG org.oddb.ch.Import - Fastum: atc M02AA10, iksnr: 50227 revision_date 2007-09-11 exp 2017-09-10 inactiv null :unknown comp null oid 26199817
+ name: Fastum Gel ean13: 7680502270144 EK: 5.42 542 VK: 14.40 1440 atc: M02AA10 pharmacode: 1931999
+22:55:50.554 [Worker-3] DEBUG org.oddb.ch.Import -  name: Fastum Gel ean13: 7680502270144 EK: 5.42 542 VK: 14.40 1440 atc: M02AA10 pharmacode: 1931999
+ name: Fastum Gel ean13: 7680502270229 EK: 9.56 956 VK: 19.15 1915 atc: M02AA10 pharmacode: 2063766
+22:55:50.554 [Worker-3] DEBUG org.oddb.ch.Import -  name: Fastum Gel ean13: 7680502270229 EK: 9.56 956 VK: 19.15 1915 atc: M02AA10 pharmacode: 2063766
+ name: Fastum Gel ean13: 7680502270304 EK: 5.42 542 VK: 14.40 1440 atc: M02AA10 pharmacode: 0
+22:55:50.554 [Worker-3] DEBUG org.oddb.ch.Import -  name: Fastum Gel ean13: 7680502270304 EK: 5.42 542 VK: 14.40 1440 atc: M02AA10 pharmacode: 0
+ name: Fastum Gel ean13: 7680502270496 EK: 9.56 956 VK: 19.15 1915 atc: M02AA10 pharmacode: 3587483
+22:55:50.554 [Worker-3] DEBUG org.oddb.ch.Import -  name: Fastum Gel ean13: 7680502270496 EK: 9.56 956 VK: 19.15 1915 atc: M02AA10 pharmacode: 3587483
+22:55:50.555 [Worker-3] DEBUG org.oddb.ch.Import - Lioton 1000: atc C05BA03, iksnr: 50476 revision_date 2007-11-12 exp 2012-11-11 inactiv null :unknown comp null oid 26199860
+ name: Lioton 1000 Gel ean13: 7680504760148 EK: 6.87 687 VK: 12.65 1265 atc: C05BA03 pharmacode: 1932007
+22:55:50.555 [Worker-3] DEBUG org.oddb.ch.Import -  name: Lioton 1000 Gel ean13: 7680504760148 EK: 6.87 687 VK: 12.65 1265 atc: C05BA03 pharmacode: 1932007
+ name: Lioton 1000 Gel ean13: 7680504760223 EK: 12.69 1269 VK: 23.40 2340 atc: C05BA03 pharmacode: 1932013
+22:55:50.555 [Worker-3] DEBUG org.oddb.ch.Import -  name: Lioton 1000 Gel ean13: 7680504760223 EK: 12.69 1269 VK: 23.40 2340 atc: C05BA03 pharmacode: 1932013
+22:55:50.555 [Worker-3] DEBUG org.oddb.ch.Import - Altiazem RR, Kapseln: atc C08DB01, iksnr: 51479 revision_date 2006-12-22 exp 2011-12-21 inactiv null null comp null oid 0
+ name: Nebilet Tabletten ean13: 7680544890218 EK: 10.95 1095 VK: 20.75 2075 atc: C07AB12 pharmacode: 1982465
+22:55:50.555 [Worker-3] DEBUG org.oddb.ch.Import -  name: Nebilet Tabletten ean13: 7680544890218 EK: 10.95 1095 VK: 20.75 2075 atc: C07AB12 pharmacode: 1982465
+ name: Nebilet Tabletten ean13: 7680544890485 EK: 19.27 1927 VK: 38.50 3850 atc: C07AB12 pharmacode: 1982471
+22:55:50.555 [Worker-3] DEBUG org.oddb.ch.Import -  name: Nebilet Tabletten ean13: 7680544890485 EK: 19.27 1927 VK: 38.50 3850 atc: C07AB12 pharmacode: 1982471
+ name: Nebilet Tabletten ean13: 7680544890492 EK: 32.58 3258 VK: 53.80 5380 atc: C07AB12 pharmacode: 4518490
+22:55:50.555 [Worker-3] DEBUG org.oddb.ch.Import -  name: Nebilet Tabletten ean13: 7680544890492 EK: 32.58 3258 VK: 53.80 5380 atc: C07AB12 pharmacode: 4518490
+ name: Ketesse 25 Filmtabletten ean13: 7680547520167 EK: 7.32 732 VK: 16.60 1660 atc: M01AE17 pharmacode: 2322334
+22:55:50.555 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ketesse 25 Filmtabletten ean13: 7680547520167 EK: 7.32 732 VK: 16.60 1660 atc: M01AE17 pharmacode: 2322334
+ name: Ketesse 25 Filmtabletten ean13: 7680547520242 EK: 12.88 1288 VK: 27.05 2705 atc: M01AE17 pharmacode: 2322357
+22:55:50.556 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ketesse 25 Filmtabletten ean13: 7680547520242 EK: 12.88 1288 VK: 27.05 2705 atc: M01AE17 pharmacode: 2322357
+ name: Ketesse 25 Filmtabletten ean13: 7680547520327 EK: 18.88 1888 VK: 38.05 3805 atc: M01AE17 pharmacode: 3022249
+22:55:50.556 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ketesse 25 Filmtabletten ean13: 7680547520327 EK: 18.88 1888 VK: 38.05 3805 atc: M01AE17 pharmacode: 3022249
+ name: Zofenil 7,5 mg Filmtabletten ean13: 7680551130024 EK: 0.00 0 VK: 0.00 0 atc: C09AA15 pharmacode: 2548699
+22:55:50.556 [Worker-3] DEBUG org.oddb.ch.Import -  name: Zofenil 7,5 mg Filmtabletten ean13: 7680551130024 EK: 0.00 0 VK: 0.00 0 atc: C09AA15 pharmacode: 2548699
+ name: Zofenil 30 mg Filmtabletten ean13: 7680551130109 EK: 27.54 2754 VK: 48.00 4800 atc: C09AA15 pharmacode: 2548707
+22:55:50.556 [Worker-3] DEBUG org.oddb.ch.Import -  name: Zofenil 30 mg Filmtabletten ean13: 7680551130109 EK: 27.54 2754 VK: 48.00 4800 atc: C09AA15 pharmacode: 2548707
+ name: Zofenil 30 mg Filmtabletten ean13: 7680551130123 EK: 48.41 4841 VK: 72.00 7200 atc: C09AA15 pharmacode: 2548713
+22:55:50.556 [Worker-3] DEBUG org.oddb.ch.Import -  name: Zofenil 30 mg Filmtabletten ean13: 7680551130123 EK: 48.41 4841 VK: 72.00 7200 atc: C09AA15 pharmacode: 2548713
+ name: Zofenil 60 mg Filmtabletten ean13: 7680551130161 EK: 27.54 2754 VK: 48.00 4800 atc: C09AA15
+22:55:50.556 [Worker-3] DEBUG org.oddb.ch.Import -  name: Zofenil 60 mg Filmtabletten ean13: 7680551130161 EK: 27.54 2754 VK: 48.00 4800 atc: C09AA15
+ name: Zofenil 60 mg Filmtabletten ean13: 7680551130185 EK: 48.41 4841 VK: 72.00 7200 atc: C09AA15
+22:55:50.556 [Worker-3] DEBUG org.oddb.ch.Import -  name: Zofenil 60 mg Filmtabletten ean13: 7680551130185 EK: 48.41 4841 VK: 72.00 7200 atc: C09AA15
+ name: Brivex Tabletten ean13: 7680554650024 EK: 122.77 12277 VK: 157.35 15735 atc: J05AB15 pharmacode: 2694254
+22:55:50.557 [Worker-3] DEBUG org.oddb.ch.Import -  name: Brivex Tabletten ean13: 7680554650024 EK: 122.77 12277 VK: 157.35 15735 atc: J05AB15 pharmacode: 2694254
+ name: Ketesse InjektionslÃ¶sung ean13: 7680560590024 EK: 7.32 732 VK: 16.60 1660 atc: M01AE17 pharmacode: 2900191
+22:55:50.557 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ketesse InjektionslÃ¶sung ean13: 7680560590024 EK: 7.32 732 VK: 16.60 1660 atc: M01AE17 pharmacode: 2900191
+ name: Ketesse InjektionslÃ¶sung ean13: 7680560590048 EK: 0.00 0 VK: 0.00 0 atc: M01AE17 pharmacode: 2900216
+22:55:50.557 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ketesse InjektionslÃ¶sung ean13: 7680560590048 EK: 0.00 0 VK: 0.00 0 atc: M01AE17 pharmacode: 2900216
+ name: Ketesse InjektionslÃ¶sung ean13: 7680560590062 EK: 0.00 0 VK: 0.00 0 atc: M01AE17
+22:55:50.557 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ketesse InjektionslÃ¶sung ean13: 7680560590062 EK: 0.00 0 VK: 0.00 0 atc: M01AE17
+ name: Zofenil plus, Filmtabletten Filmtabletten ean13: 7680567160015 EK: 31.37 3137 VK: 52.40 5240 atc: C09BA15 pharmacode: 3022195
+22:55:50.557 [Worker-3] DEBUG org.oddb.ch.Import -  name: Zofenil plus, Filmtabletten Filmtabletten ean13: 7680567160015 EK: 31.37 3137 VK: 52.40 5240 atc: C09BA15 pharmacode: 3022195
+ name: Zofenil plus, Filmtabletten Filmtabletten ean13: 7680567160039 EK: 55.14 5514 VK: 79.70 7970 atc: C09BA15 pharmacode: 3022203
+22:55:50.557 [Worker-3] DEBUG org.oddb.ch.Import -  name: Zofenil plus, Filmtabletten Filmtabletten ean13: 7680567160039 EK: 55.14 5514 VK: 79.70 7970 atc: C09BA15 pharmacode: 3022203
+ name: Votum 10 mg Filmtabletten ean13: 7680571420013 EK: 23.25 2325 VK: 43.05 4305 atc: C09CA08 pharmacode: 2994602
+22:55:50.557 [Worker-3] DEBUG org.oddb.ch.Import -  name: Votum 10 mg Filmtabletten ean13: 7680571420013 EK: 23.25 2325 VK: 43.05 4305 atc: C09CA08 pharmacode: 2994602
+ name: Votum 10 mg Filmtabletten ean13: 7680571420037 EK: 0.00 0 VK: 0.00 0 atc: C09CA08
+22:55:50.558 [Worker-3] DEBUG org.oddb.ch.Import -  name: Votum 10 mg Filmtabletten ean13: 7680571420037 EK: 0.00 0 VK: 0.00 0 atc: C09CA08
+ name: Votum 10 mg Filmtabletten ean13: 7680571420051 EK: 69.15 6915 VK: 95.80 9580 atc: C09CA08 pharmacode: 2994619
+22:55:50.558 [Worker-3] DEBUG org.oddb.ch.Import -  name: Votum 10 mg Filmtabletten ean13: 7680571420051 EK: 69.15 6915 VK: 95.80 9580 atc: C09CA08 pharmacode: 2994619
+ name: Votum 10 mg Filmtabletten ean13: 7680571420075 EK: 0.00 0 VK: 0.00 0 atc: C09CA08
+22:55:50.558 [Worker-3] DEBUG org.oddb.ch.Import -  name: Votum 10 mg Filmtabletten ean13: 7680571420075 EK: 0.00 0 VK: 0.00 0 atc: C09CA08
+ name: Votum 10 mg Filmtabletten ean13: 7680571420099 EK: 0.00 0 VK: 0.00 0 atc: C09CA08 pharmacode: 2997701
+22:55:50.558 [Worker-3] DEBUG org.oddb.ch.Import -  name: Votum 10 mg Filmtabletten ean13: 7680571420099 EK: 0.00 0 VK: 0.00 0 atc: C09CA08 pharmacode: 2997701
+ name: Votum 20 mg Filmtabletten ean13: 7680571420112 EK: 27.90 2790 VK: 48.40 4840 atc: C09CA08 pharmacode: 2994625
+22:55:50.558 [Worker-3] DEBUG org.oddb.ch.Import -  name: Votum 20 mg Filmtabletten ean13: 7680571420112 EK: 27.90 2790 VK: 48.40 4840 atc: C09CA08 pharmacode: 2994625
+ name: Votum 20 mg Filmtabletten ean13: 7680571420136 EK: 0.00 0 VK: 0.00 0 atc: C09CA08
+22:55:50.558 [Worker-3] DEBUG org.oddb.ch.Import -  name: Votum 20 mg Filmtabletten ean13: 7680571420136 EK: 0.00 0 VK: 0.00 0 atc: C09CA08
+ name: Votum 20 mg Filmtabletten ean13: 7680571420150 EK: 83.00 8300 VK: 111.70 11170 atc: C09CA08 pharmacode: 2994631
+22:55:50.558 [Worker-3] DEBUG org.oddb.ch.Import -  name: Votum 20 mg Filmtabletten ean13: 7680571420150 EK: 83.00 8300 VK: 111.70 11170 atc: C09CA08 pharmacode: 2994631
+ name: Votum 20 mg Filmtabletten ean13: 7680571420174 EK: 0.00 0 VK: 0.00 0 atc: C09CA08
+22:55:50.558 [Worker-3] DEBUG org.oddb.ch.Import -  name: Votum 20 mg Filmtabletten ean13: 7680571420174 EK: 0.00 0 VK: 0.00 0 atc: C09CA08
+ name: Votum 20 mg Filmtabletten ean13: 7680571420198 EK: 0.00 0 VK: 0.00 0 atc: C09CA08 pharmacode: 2997718
+22:55:50.559 [Worker-3] DEBUG org.oddb.ch.Import -  name: Votum 20 mg Filmtabletten ean13: 7680571420198 EK: 0.00 0 VK: 0.00 0 atc: C09CA08 pharmacode: 2997718
+ name: Votum 40 mg Filmtabletten ean13: 7680571420211 EK: 35.60 3560 VK: 57.25 5725 atc: C09CA08 pharmacode: 2994648
+22:55:50.559 [Worker-3] DEBUG org.oddb.ch.Import -  name: Votum 40 mg Filmtabletten ean13: 7680571420211 EK: 35.60 3560 VK: 57.25 5725 atc: C09CA08 pharmacode: 2994648
+ name: Votum 40 mg Filmtabletten ean13: 7680571420235 EK: 0.00 0 VK: 0.00 0 atc: C09CA08
+22:55:50.559 [Worker-3] DEBUG org.oddb.ch.Import -  name: Votum 40 mg Filmtabletten ean13: 7680571420235 EK: 0.00 0 VK: 0.00 0 atc: C09CA08
+ name: Votum 40 mg Filmtabletten ean13: 7680571420259 EK: 105.90 10590 VK: 137.95 13795 atc: C09CA08 pharmacode: 2994654
+22:55:50.559 [Worker-3] DEBUG org.oddb.ch.Import -  name: Votum 40 mg Filmtabletten ean13: 7680571420259 EK: 105.90 10590 VK: 137.95 13795 atc: C09CA08 pharmacode: 2994654
+ name: Votum 40 mg Filmtabletten ean13: 7680571420273 EK: 0.00 0 VK: 0.00 0 atc: C09CA08
+22:55:50.559 [Worker-3] DEBUG org.oddb.ch.Import -  name: Votum 40 mg Filmtabletten ean13: 7680571420273 EK: 0.00 0 VK: 0.00 0 atc: C09CA08
+ name: Votum 40 mg Filmtabletten ean13: 7680571420297 EK: 0.00 0 VK: 0.00 0 atc: C09CA08 pharmacode: 2997724
+22:55:50.559 [Worker-3] DEBUG org.oddb.ch.Import -  name: Votum 40 mg Filmtabletten ean13: 7680571420297 EK: 0.00 0 VK: 0.00 0 atc: C09CA08 pharmacode: 2997724
+ name: Vascord 20mg/5mg Filmtabletten ean13: 7680592700019 EK: 23.92 2392 VK: 43.85 4385 atc: C09DB02 pharmacode: 4055854
+22:55:50.559 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord 20mg/5mg Filmtabletten ean13: 7680592700019 EK: 23.92 2392 VK: 43.85 4385 atc: C09DB02 pharmacode: 4055854
+ name: Vascord 20mg/5mg Filmtabletten ean13: 7680592700026 EK: 68.30 6830 VK: 94.80 9480 atc: C09DB02 pharmacode: 4055860
+22:55:50.560 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord 20mg/5mg Filmtabletten ean13: 7680592700026 EK: 68.30 6830 VK: 94.80 9480 atc: C09DB02 pharmacode: 4055860
+ name: Vascord 40mg/5mg Filmtabletten ean13: 7680592700033 EK: 29.57 2957 VK: 50.35 5035 atc: C09DB02 pharmacode: 4055877
+22:55:50.560 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord 40mg/5mg Filmtabletten ean13: 7680592700033 EK: 29.57 2957 VK: 50.35 5035 atc: C09DB02 pharmacode: 4055877
+ name: Vascord 40mg/5mg Filmtabletten ean13: 7680592700040 EK: 85.12 8512 VK: 114.10 11410 atc: C09DB02 pharmacode: 4055883
+22:55:50.560 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord 40mg/5mg Filmtabletten ean13: 7680592700040 EK: 85.12 8512 VK: 114.10 11410 atc: C09DB02 pharmacode: 4055883
+ name: Vascord 40mg/10mg Filmtabletten ean13: 7680592700057 EK: 30.84 3084 VK: 51.80 5180 atc: C09DB02 pharmacode: 4055908
+22:55:50.560 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord 40mg/10mg Filmtabletten ean13: 7680592700057 EK: 30.84 3084 VK: 51.80 5180 atc: C09DB02 pharmacode: 4055908
+ name: Vascord 40mg/10mg Filmtabletten ean13: 7680592700064 EK: 93.39 9339 VK: 123.60 12360 atc: C09DB02 pharmacode: 4055914
+22:55:50.560 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord 40mg/10mg Filmtabletten ean13: 7680592700064 EK: 93.39 9339 VK: 123.60 12360 atc: C09DB02 pharmacode: 4055914
+ name: Xelevia 25 mg Filmtabletten ean13: 7680612120018 EK: 48.54 4854 VK: 72.10 7210 atc: A10BH01 pharmacode: 4535525
+22:55:50.560 [Worker-3] DEBUG org.oddb.ch.Import -  name: Xelevia 25 mg Filmtabletten ean13: 7680612120018 EK: 48.54 4854 VK: 72.10 7210 atc: A10BH01 pharmacode: 4535525
+ name: Xelevia 25 mg Filmtabletten ean13: 7680612120025 EK: 169.88 16988 VK: 211.40 21140 atc: A10BH01 pharmacode: 4535531
+22:55:50.560 [Worker-3] DEBUG org.oddb.ch.Import -  name: Xelevia 25 mg Filmtabletten ean13: 7680612120025 EK: 169.88 16988 VK: 211.40 21140 atc: A10BH01 pharmacode: 4535531
+ name: Xelevia 50 mg Filmtabletten ean13: 7680612120032 EK: 48.54 4854 VK: 72.10 7210 atc: A10BH01 pharmacode: 4535560
+22:55:50.561 [Worker-3] DEBUG org.oddb.ch.Import -  name: Xelevia 50 mg Filmtabletten ean13: 7680612120032 EK: 48.54 4854 VK: 72.10 7210 atc: A10BH01 pharmacode: 4535560
+ name: Xelevia 50 mg Filmtabletten ean13: 7680612120049 EK: 169.88 16988 VK: 211.40 21140 atc: A10BH01 pharmacode: 4535577
+22:55:50.561 [Worker-3] DEBUG org.oddb.ch.Import -  name: Xelevia 50 mg Filmtabletten ean13: 7680612120049 EK: 169.88 16988 VK: 211.40 21140 atc: A10BH01 pharmacode: 4535577
+ name: Xelevia 100 mg Filmtabletten ean13: 7680612120056 EK: 48.54 4854 VK: 72.10 7210 atc: A10BH01 pharmacode: 4535608
+22:55:50.561 [Worker-3] DEBUG org.oddb.ch.Import -  name: Xelevia 100 mg Filmtabletten ean13: 7680612120056 EK: 48.54 4854 VK: 72.10 7210 atc: A10BH01 pharmacode: 4535608
+ name: Xelevia 100 mg Filmtabletten ean13: 7680612120063 EK: 169.88 16988 VK: 211.40 21140 atc: A10BH01 pharmacode: 4535614
+22:55:50.561 [Worker-3] DEBUG org.oddb.ch.Import -  name: Xelevia 100 mg Filmtabletten ean13: 7680612120063 EK: 169.88 16988 VK: 211.40 21140 atc: A10BH01 pharmacode: 4535614
+ name: Velmetia 50/500 mg Filmtabletten ean13: 7680612130017 EK: 50.02 5002 VK: 73.85 7385 atc: A10BD07 pharmacode: 4537990
+22:55:50.561 [Worker-3] DEBUG org.oddb.ch.Import -  name: Velmetia 50/500 mg Filmtabletten ean13: 7680612130017 EK: 50.02 5002 VK: 73.85 7385 atc: A10BD07 pharmacode: 4537990
+ name: Velmetia 50/500 mg Filmtabletten ean13: 7680612130024 EK: 175.09 17509 VK: 217.40 21740 atc: A10BD07 pharmacode: 4538067
+22:55:50.562 [Worker-3] DEBUG org.oddb.ch.Import -  name: Velmetia 50/500 mg Filmtabletten ean13: 7680612130024 EK: 175.09 17509 VK: 217.40 21740 atc: A10BD07 pharmacode: 4538067
+ name: Velmetia 50/850 mg Filmtabletten ean13: 7680612130031 EK: 50.02 5002 VK: 73.85 7385 atc: A10BD07 pharmacode: 4538096
+22:55:50.562 [Worker-3] DEBUG org.oddb.ch.Import -  name: Velmetia 50/850 mg Filmtabletten ean13: 7680612130031 EK: 50.02 5002 VK: 73.85 7385 atc: A10BD07 pharmacode: 4538096
+ name: Velmetia 50/850 mg Filmtabletten ean13: 7680612130048 EK: 175.09 17509 VK: 217.40 21740 atc: A10BD07 pharmacode: 4538133
+22:55:50.562 [Worker-3] DEBUG org.oddb.ch.Import -  name: Velmetia 50/850 mg Filmtabletten ean13: 7680612130048 EK: 175.09 17509 VK: 217.40 21740 atc: A10BD07 pharmacode: 4538133
+ name: Velmetia 50/1000 mg Filmtabletten ean13: 7680612130055 EK: 50.02 5002 VK: 73.85 7385 atc: A10BD07 pharmacode: 4538216
+22:55:50.562 [Worker-3] DEBUG org.oddb.ch.Import -  name: Velmetia 50/1000 mg Filmtabletten ean13: 7680612130055 EK: 50.02 5002 VK: 73.85 7385 atc: A10BD07 pharmacode: 4538216
+ name: Velmetia 50/1000 mg Filmtabletten ean13: 7680612130062 EK: 175.09 17509 VK: 217.40 21740 atc: A10BD07 pharmacode: 4538222
+22:55:50.562 [Worker-3] DEBUG org.oddb.ch.Import -  name: Velmetia 50/1000 mg Filmtabletten ean13: 7680612130062 EK: 175.09 17509 VK: 217.40 21740 atc: A10BD07 pharmacode: 4538222
+ name: Nebilet plus 5/12,5 mg Filmtabletten ean13: 7680592620010 EK: 11.72 1172 VK: 25.75 2575 atc: C07BB12 pharmacode: 4603014
+22:55:50.562 [Worker-3] DEBUG org.oddb.ch.Import -  name: Nebilet plus 5/12,5 mg Filmtabletten ean13: 7680592620010 EK: 11.72 1172 VK: 25.75 2575 atc: C07BB12 pharmacode: 4603014
+ name: Nebilet plus 5/12,5 mg Filmtabletten ean13: 7680592620027 EK: 34.86 3486 VK: 56.40 5640 atc: C07BB12 pharmacode: 4603037
+22:55:50.562 [Worker-3] DEBUG org.oddb.ch.Import -  name: Nebilet plus 5/12,5 mg Filmtabletten ean13: 7680592620027 EK: 34.86 3486 VK: 56.40 5640 atc: C07BB12 pharmacode: 4603037
+ name: Nebilet plus 5/25 mg Filmtabletten ean13: 7680592620034 EK: 11.72 1172 VK: 25.75 2575 atc: C07BB12 pharmacode: 4603066
+22:55:50.562 [Worker-3] DEBUG org.oddb.ch.Import -  name: Nebilet plus 5/25 mg Filmtabletten ean13: 7680592620034 EK: 11.72 1172 VK: 25.75 2575 atc: C07BB12 pharmacode: 4603066
+ name: Nebilet plus 5/25 mg Filmtabletten ean13: 7680592620041 EK: 34.86 3486 VK: 56.40 5640 atc: C07BB12 pharmacode: 4603072
+22:55:50.563 [Worker-3] DEBUG org.oddb.ch.Import -  name: Nebilet plus 5/25 mg Filmtabletten ean13: 7680592620041 EK: 34.86 3486 VK: 56.40 5640 atc: C07BB12 pharmacode: 4603072
+ name: Ranexa 375 mg Retardtabletten ean13: 7680605330011 EK: 0.00 0 VK: 0.00 0 atc: C01EB18
+22:55:50.563 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ranexa 375 mg Retardtabletten ean13: 7680605330011 EK: 0.00 0 VK: 0.00 0 atc: C01EB18
+ name: Ranexa 375 mg Retardtabletten ean13: 7680605330028 EK: 80.85 8085 VK: 109.20 10920 atc: C01EB18 pharmacode: 4603273
+22:55:50.563 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ranexa 375 mg Retardtabletten ean13: 7680605330028 EK: 80.85 8085 VK: 109.20 10920 atc: C01EB18 pharmacode: 4603273
+ name: Ranexa 375 mg Retardtabletten ean13: 7680605330035 EK: 132.22 13222 VK: 168.20 16820 atc: C01EB18 pharmacode: 4603304
+22:55:50.563 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ranexa 375 mg Retardtabletten ean13: 7680605330035 EK: 132.22 13222 VK: 168.20 16820 atc: C01EB18 pharmacode: 4603304
+ name: Ranexa 500 mg Retardtabletten ean13: 7680605330042 EK: 0.00 0 VK: 0.00 0 atc: C01EB18
+22:55:50.563 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ranexa 500 mg Retardtabletten ean13: 7680605330042 EK: 0.00 0 VK: 0.00 0 atc: C01EB18
+ name: Ranexa 500 mg Retardtabletten ean13: 7680605330059 EK: 80.85 8085 VK: 109.20 10920 atc: C01EB18 pharmacode: 4603327
+22:55:50.563 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ranexa 500 mg Retardtabletten ean13: 7680605330059 EK: 80.85 8085 VK: 109.20 10920 atc: C01EB18 pharmacode: 4603327
+ name: Ranexa 500 mg Retardtabletten ean13: 7680605330066 EK: 132.22 13222 VK: 168.20 16820 atc: C01EB18 pharmacode: 4603356
+22:55:50.563 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ranexa 500 mg Retardtabletten ean13: 7680605330066 EK: 132.22 13222 VK: 168.20 16820 atc: C01EB18 pharmacode: 4603356
+ name: Ranexa 750 mg Retardtabletten ean13: 7680605330073 EK: 0.00 0 VK: 0.00 0 atc: C01EB18
+22:55:50.564 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ranexa 750 mg Retardtabletten ean13: 7680605330073 EK: 0.00 0 VK: 0.00 0 atc: C01EB18
+ name: Ranexa 750 mg Retardtabletten ean13: 7680605330080 EK: 80.85 8085 VK: 109.20 10920 atc: C01EB18 pharmacode: 4603385
+22:55:50.564 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ranexa 750 mg Retardtabletten ean13: 7680605330080 EK: 80.85 8085 VK: 109.20 10920 atc: C01EB18 pharmacode: 4603385
+ name: Ranexa 750 mg Retardtabletten ean13: 7680605330097 EK: 132.22 13222 VK: 168.20 16820 atc: C01EB18 pharmacode: 4603422
+22:55:50.564 [Worker-3] DEBUG org.oddb.ch.Import -  name: Ranexa 750 mg Retardtabletten ean13: 7680605330097 EK: 132.22 13222 VK: 168.20 16820 atc: C01EB18 pharmacode: 4603422
+ name: Vascord HCT 20/5/12.5mg Filmtabletten ean13: 7680623090010 EK: 32.57 3257 VK: 53.75 5375 atc: C09DX03 pharmacode: 5010167
+22:55:50.564 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord HCT 20/5/12.5mg Filmtabletten ean13: 7680623090010 EK: 32.57 3257 VK: 53.75 5375 atc: C09DX03 pharmacode: 5010167
+ name: Vascord HCT 20/5/12.5mg Filmtabletten ean13: 7680623090027 EK: 93.00 9300 VK: 123.15 12315 atc: C09DX03 pharmacode: 5010173
+22:55:50.564 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord HCT 20/5/12.5mg Filmtabletten ean13: 7680623090027 EK: 93.00 9300 VK: 123.15 12315 atc: C09DX03 pharmacode: 5010173
+ name: Vascord HCT 40/5/12.5mg Filmtabletten ean13: 7680623090034 EK: 40.27 4027 VK: 62.65 6265 atc: C09DX03 pharmacode: 5010196
+22:55:50.564 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord HCT 40/5/12.5mg Filmtabletten ean13: 7680623090034 EK: 40.27 4027 VK: 62.65 6265 atc: C09DX03 pharmacode: 5010196
+ name: Vascord HCT 40/5/12.5mg Filmtabletten ean13: 7680623090041 EK: 115.90 11590 VK: 149.45 14945 atc: C09DX03 pharmacode: 5010204
+22:55:50.564 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord HCT 40/5/12.5mg Filmtabletten ean13: 7680623090041 EK: 115.90 11590 VK: 149.45 14945 atc: C09DX03 pharmacode: 5010204
+ name: Vascord HCT 40/10/12.5mg Filmtabletten ean13: 7680623090058 EK: 41.99 4199 VK: 64.60 6460 atc: C09DX03 pharmacode: 5010210
+22:55:50.565 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord HCT 40/10/12.5mg Filmtabletten ean13: 7680623090058 EK: 41.99 4199 VK: 64.60 6460 atc: C09DX03 pharmacode: 5010210
+ name: Vascord HCT 40/10/12.5mg Filmtabletten ean13: 7680623090065 EK: 127.17 12717 VK: 162.40 16240 atc: C09DX03 pharmacode: 5010227
+22:55:50.565 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord HCT 40/10/12.5mg Filmtabletten ean13: 7680623090065 EK: 127.17 12717 VK: 162.40 16240 atc: C09DX03 pharmacode: 5010227
+ name: Vascord HCT 40/5/25mg Filmtabletten ean13: 7680623090072 EK: 40.27 4027 VK: 62.65 6265 atc: C09DX03 pharmacode: 5010233
+22:55:50.565 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord HCT 40/5/25mg Filmtabletten ean13: 7680623090072 EK: 40.27 4027 VK: 62.65 6265 atc: C09DX03 pharmacode: 5010233
+ name: Vascord HCT 40/5/25mg Filmtabletten ean13: 7680623090089 EK: 115.90 11590 VK: 149.45 14945 atc: C09DX03 pharmacode: 5010256
+22:55:50.565 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord HCT 40/5/25mg Filmtabletten ean13: 7680623090089 EK: 115.90 11590 VK: 149.45 14945 atc: C09DX03 pharmacode: 5010256
+ name: Vascord HCT 40/10/25mg Filmtabletten ean13: 7680623090096 EK: 41.99 4199 VK: 64.60 6460 atc: C09DX03 pharmacode: 5010262
+22:55:50.565 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord HCT 40/10/25mg Filmtabletten ean13: 7680623090096 EK: 41.99 4199 VK: 64.60 6460 atc: C09DX03 pharmacode: 5010262
+ name: Vascord HCT 40/10/25mg Filmtabletten ean13: 7680623090102 EK: 127.17 12717 VK: 162.40 16240 atc: C09DX03 pharmacode: 5010279
+22:55:50.565 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vascord HCT 40/10/25mg Filmtabletten ean13: 7680623090102 EK: 127.17 12717 VK: 162.40 16240 atc: C09DX03 pharmacode: 5010279
+ name: Bilaxten 20 mg Tabletten ean13: 7680614460013 EK: 4.99 499 VK: 9.85 985 atc: R06AX29 pharmacode: 5127432
+22:55:50.565 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bilaxten 20 mg Tabletten ean13: 7680614460013 EK: 4.99 499 VK: 9.85 985 atc: R06AX29 pharmacode: 5127432
+ name: Bilaxten 20 mg Tabletten ean13: 7680614460020 EK: 0.00 0 VK: 0.00 0 atc: R06AX29
+22:55:50.565 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bilaxten 20 mg Tabletten ean13: 7680614460020 EK: 0.00 0 VK: 0.00 0 atc: R06AX29
+ name: Bilaxten 20 mg Tabletten ean13: 7680614460037 EK: 13.49 1349 VK: 27.80 2780 atc: R06AX29 pharmacode: 5127449
+22:55:50.566 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bilaxten 20 mg Tabletten ean13: 7680614460037 EK: 13.49 1349 VK: 27.80 2780 atc: R06AX29 pharmacode: 5127449
+ name: Bilaxten 20 mg Tabletten ean13: 7680614460044 EK: 0.00 0 VK: 0.00 0 atc: R06AX29
+22:55:50.566 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bilaxten 20 mg Tabletten ean13: 7680614460044 EK: 0.00 0 VK: 0.00 0 atc: R06AX29
+ name: Bilaxten 20 mg Tabletten ean13: 7680614460051 EK: 22.04 2204 VK: 41.70 4170 atc: R06AX29 pharmacode: 5127455
+22:55:50.566 [Worker-3] DEBUG org.oddb.ch.Import -  name: Bilaxten 20 mg Tabletten ean13: 7680614460051 EK: 22.04 2204 VK: 41.70 4170 atc: R06AX29 pharmacode: 5127455
+22:55:50.566 [Worker-3] INFO  org.oddb.ch.Import - 354: A. Menarini AG  ean13 7601001301252
+{de=Salbe, en=Ointment, fr=Onguent, lt=unguentum}
+gg: 4: of 1073 {de=Salben, en=Ointments, fr=Onguents}
+22:55:50.569 [Worker-3] DEBUG org.oddb.ch.Import - Realderm Baby: atc D11AX, iksnr: 50338 revision_date 2005-06-30 exp 2015-03-03 inactiv null null comp null oid 0
+ name: Realderm Baby pommade ean13: 7680503380101 EK: 0.00 0 VK: 0.00 0 atc: D11AX pharmacode: 1482716
+22:55:50.569 [Worker-3] DEBUG org.oddb.ch.Import -  name: Realderm Baby pommade ean13: 7680503380101 EK: 0.00 0 VK: 0.00 0 atc: D11AX pharmacode: 1482716
+ name: Realderm Baby pommade ean13: 7680503380293 EK: 0.00 0 VK: 0.00 0 atc: D11AX pharmacode: 3022226
+22:55:50.570 [Worker-3] DEBUG org.oddb.ch.Import -  name: Realderm Baby pommade ean13: 7680503380293 EK: 0.00 0 VK: 0.00 0 atc: D11AX pharmacode: 3022226
+22:55:50.570 [Worker-3] INFO  org.oddb.ch.Import - 355: Medical Concepts Reall-YS SÃ rl
+{de=Kapseln, en=Capsules, fr=Capsules, lt=capsula}
+gg: 2: of 1075 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+{de=LÃ¶sung, en=Solution, fr=Solution, lt=solutionem}
+gg: 1: of 1077 {de=unbekannt, en=unbekannt, fr=unbekannt}
+{de=DragÃ©es, en=DragÃ©es, fr=DragÃ©es}
+gg: 2: of 1078 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+{de=Tabletten, en=Tablets, fr=ComprimÃ©s, lt=compresso}
+gg: 2: of 1079 {de=Tabletten, en=Tablets, fr=ComprimÃ©s}
+22:55:50.591 [Worker-3] DEBUG org.oddb.ch.Import - Rical: atc A06AB05, iksnr: 54552 revision_date 2006-06-27 exp 2016-06-26 inactiv null null comp :phytotherapy oid 0
+ name: Rical Kapseln ean13: 7680545520251 EK: 0.00 0 VK: 18.70 1870 atc: A06AB05 pharmacode: 2539507
+22:55:50.592 [Worker-3] DEBUG org.oddb.ch.Import -  name: Rical Kapseln ean13: 7680545520251 EK: 0.00 0 VK: 18.70 1870 atc: A06AB05 pharmacode: 2539507
+22:55:50.592 [Worker-3] DEBUG org.oddb.ch.Import - Evit 200: atc A11HA03, iksnr: 53294 revision_date 2005-10-14 exp 2015-10-13 inactiv null null comp null oid 28684133
+ name: Evit 200 Kapseln ean13: 7680532940147 EK: 0.00 0 VK: 29.00 2900 atc: A11HA03 pharmacode: 1917551
+22:55:50.592 [Worker-3] DEBUG org.oddb.ch.Import -  name: Evit 200 Kapseln ean13: 7680532940147 EK: 0.00 0 VK: 29.00 2900 atc: A11HA03 pharmacode: 1917551
+ name: Evit 600 Kapseln ean13: 7680532940222 EK: 0.00 0 VK: 42.00 4200 atc: A11HA03 pharmacode: 1917539
+22:55:50.592 [Worker-3] DEBUG org.oddb.ch.Import -  name: Evit 600 Kapseln ean13: 7680532940222 EK: 0.00 0 VK: 42.00 4200 atc: A11HA03 pharmacode: 1917539
+ name: Evit 600 Kapseln ean13: 7680532940307 EK: 0.00 0 VK: 75.00 7500 atc: A11HA03 pharmacode: 1917545
+22:55:50.592 [Worker-3] DEBUG org.oddb.ch.Import -  name: Evit 600 Kapseln ean13: 7680532940307 EK: 0.00 0 VK: 75.00 7500 atc: A11HA03 pharmacode: 1917545
+22:55:50.592 [Worker-3] DEBUG org.oddb.ch.Import - Evit 800: atc A11HA03, iksnr: 55557 revision_date 2007-07-20 exp 2017-07-19 inactiv null null comp null oid 28684133
+ name: Evit 800 Kapseln ean13: 7680555570123 EK: 0.00 0 VK: 0.00 0 atc: A11HA03 pharmacode: 2635949
+22:55:50.592 [Worker-3] DEBUG org.oddb.ch.Import -  name: Evit 800 Kapseln ean13: 7680555570123 EK: 0.00 0 VK: 0.00 0 atc: A11HA03 pharmacode: 2635949
+ name: Evit 800 Kapseln ean13: 7680555570147 EK: 0.00 0 VK: 0.00 0 atc: A11HA03 pharmacode: 2635955
+22:55:50.592 [Worker-3] DEBUG org.oddb.ch.Import -  name: Evit 800 Kapseln ean13: 7680555570147 EK: 0.00 0 VK: 0.00 0 atc: A11HA03 pharmacode: 2635955
+ name: Imuvital Kapseln ean13: 7680552230044 EK: 0.00 0 VK: 68.50 6850 atc: A11AA03 pharmacode: 2112186
+22:55:50.593 [Worker-3] DEBUG org.oddb.ch.Import -  name: Imuvital Kapseln ean13: 7680552230044 EK: 0.00 0 VK: 68.50 6850 atc: A11AA03 pharmacode: 2112186
+ name: Imuvital Kapseln ean13: 7680552230068 EK: 0.00 0 VK: 27.00 2700 atc: A11AA03 pharmacode: 2112163
+22:55:50.593 [Worker-3] DEBUG org.oddb.ch.Import -  name: Imuvital Kapseln ean13: 7680552230068 EK: 0.00 0 VK: 27.00 2700 atc: A11AA03 pharmacode: 2112163
+ name: Vita ErkÃ¤ltungs- und Bronchialbad ean13: 7680537760276 EK: 0.00 0 VK: 0.00 0 atc: R05X
+22:55:50.593 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vita ErkÃ¤ltungs- und Bronchialbad ean13: 7680537760276 EK: 0.00 0 VK: 0.00 0 atc: R05X
+ name: Natu-Hepa 600 DragÃ©es ean13: 7680559590240 EK: 0.00 0 VK: 0.00 0 atc: A05AX99 pharmacode: 2897951
+22:55:50.593 [Worker-3] DEBUG org.oddb.ch.Import -  name: Natu-Hepa 600 DragÃ©es ean13: 7680559590240 EK: 0.00 0 VK: 0.00 0 atc: A05AX99 pharmacode: 2897951
+ name: Natu-Hepa 600 DragÃ©es ean13: 7680559590301 EK: 0.00 0 VK: 0.00 0 atc: A05AX99 pharmacode: 2897945
+22:55:50.593 [Worker-3] DEBUG org.oddb.ch.Import -  name: Natu-Hepa 600 DragÃ©es ean13: 7680559590301 EK: 0.00 0 VK: 0.00 0 atc: A05AX99 pharmacode: 2897945
+ name: Natu-Seda 600 DragÃ©es ean13: 7680556950108 EK: 0.00 0 VK: 0.00 0 atc: N05CM09 pharmacode: 2897968
+22:55:50.593 [Worker-3] DEBUG org.oddb.ch.Import -  name: Natu-Seda 600 DragÃ©es ean13: 7680556950108 EK: 0.00 0 VK: 0.00 0 atc: N05CM09 pharmacode: 2897968
+ name: Natu-Seda 600 DragÃ©es ean13: 7680556950146 EK: 0.00 0 VK: 0.00 0 atc: N05CM09 pharmacode: 2897980
+22:55:50.593 [Worker-3] DEBUG org.oddb.ch.Import -  name: Natu-Seda 600 DragÃ©es ean13: 7680556950146 EK: 0.00 0 VK: 0.00 0 atc: N05CM09 pharmacode: 2897980
+ name: Lipo E Vitamin E 800 "Vit" Kapseln ean13: 7680548430465 EK: 0.00 0 VK: 0.00 0 atc: A11HA03
+22:55:50.594 [Worker-3] DEBUG org.oddb.ch.Import -  name: Lipo E Vitamin E 800 "Vit" Kapseln ean13: 7680548430465 EK: 0.00 0 VK: 0.00 0 atc: A11HA03
+ name: Dicalm DragÃ©es ean13: 7680503520484 EK: 0.00 0 VK: 14.80 1480 atc: N05CX
+22:55:50.594 [Worker-3] DEBUG org.oddb.ch.Import -  name: Dicalm DragÃ©es ean13: 7680503520484 EK: 0.00 0 VK: 14.80 1480 atc: N05CX
+ name: Dicalm DragÃ©es ean13: 7680503520569 EK: 0.00 0 VK: 34.50 3450 atc: N05CX
+22:55:50.594 [Worker-3] DEBUG org.oddb.ch.Import -  name: Dicalm DragÃ©es ean13: 7680503520569 EK: 0.00 0 VK: 34.50 3450 atc: N05CX
+ name: Vita Biotin 5 mg Tabletten ean13: 7680580340036 EK: 0.00 0 VK: 0.00 0 atc: A11HA05 pharmacode: 3796637
+22:55:50.594 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vita Biotin 5 mg Tabletten ean13: 7680580340036 EK: 0.00 0 VK: 0.00 0 atc: A11HA05 pharmacode: 3796637
+ name: Vita Biotin 5 mg Tabletten ean13: 7680580340074 EK: 0.00 0 VK: 0.00 0 atc: A11HA05 pharmacode: 3796672
+22:55:50.594 [Worker-3] DEBUG org.oddb.ch.Import -  name: Vita Biotin 5 mg Tabletten ean13: 7680580340074 EK: 0.00 0 VK: 0.00 0 atc: A11HA05 pharmacode: 3796672
+22:55:50.594 [Worker-3] INFO  org.oddb.ch.Import - 356: Vita Health Care AG  ean13 7601001365872
+{de=Markierungsbesteck, en=Marker kit, fr=Kit de marquage}
+gg: 12: of 1081 {de=ZubehÃ¶r, en=Other, fr=Autres}
+{de=InjektionslÃ¶sung, en=Injection solution, fr=Solution injectable}
+gg: 3: of 1083 {de=Injektion/Infusion, en=Injection/Infusion, fr=Injection/Infusion}
+{de=Gas, fr=Gaz}
+gg: 6: of 1085 {de=Inhalation, en=Inhalation, fr=Inhalation}
+{de=Inhalationsgas, en=Inhalation gas, fr=Gaz pour inhalation}
+gg: 6: of 1086 {de=Inhalation, en=Inhalation, fr=Inhalation}
+{de=Iobenguane (I-}
+gg: 1: of 1088 {de=unbekannt, en=unbekannt, fr=unbekannt}
+{de=Diagnosekapseln}
+gg: 1: of 1089 {de=unbekannt, en=unbekannt, fr=unbekannt}
+{de=Generator, fr=GÃ©nÃ©rateur}
+gg: 1: of 1090 {de=unbekannt, en=unbekannt, fr=unbekannt}
+{de=Technetium-Generator, fr=Generateur Technetium}
+gg: 12: of 1091 {de=ZubehÃ¶r, en=Other, fr=Autres}
+{de=) Yttriumchlorid}
+gg: 1: of 1092 {de=unbekannt, en=unbekannt, fr=unbekannt}
+22:56:16.893 [main] DEBUG Import - Heartbeat medium
+22:56:16.893 [main] DEBUG Import - Heartbeat high
+
+!ENTRY ch.elexis 4 0 2012-06-13 22:56:22.116
+!MESSAGE Fehler beim Import Cannot create property=registrations for JavaBean=357: Heider AG  ean13 7601000334299; Cannot create property=sequences for JavaBean=; Cannot create property=packages for JavaBean=org.oddb.ch.Sequence@495098; Cannot create property=parts for JavaBean=org.oddb.ch.Package@5e2db1b; Cannot create property=count for JavaBean=; null
+!STACK 0
+org.yaml.snakeyaml.error.YAMLException: Cannot create property=registrations for JavaBean=357: Heider AG  ean13 7601000334299; Cannot create property=sequences for JavaBean=; Cannot create property=packages for JavaBean=org.oddb.ch.Sequence@495098; Cannot create property=parts for JavaBean=org.oddb.ch.Package@5e2db1b; Cannot create property=count for JavaBean=; null
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.constructJavaBean2ndStep(Constructor.java:299)
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.construct(Constructor.java:189)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructObject(BaseConstructor.java:182)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructDocument(BaseConstructor.java:141)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.getData(BaseConstructor.java:108)
+	at org.yaml.snakeyaml.Yaml$1.next(Yaml.java:501)
+	at org.oddb.ch.Import.importString(Import.java:135)
+	at org.oddb.ch.Import.importFile(Import.java:120)
+	at ch.ngiger.elexis.oddb_ch.data.OddbImporter.doImport(OddbImporter.java:74)
+	at ch.elexis.util.ImporterPage$ImporterJob.run(ImporterPage.java:114)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: org.yaml.snakeyaml.error.YAMLException: Cannot create property=sequences for JavaBean=; Cannot create property=packages for JavaBean=org.oddb.ch.Sequence@495098; Cannot create property=parts for JavaBean=org.oddb.ch.Package@5e2db1b; Cannot create property=count for JavaBean=; null
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.constructJavaBean2ndStep(Constructor.java:299)
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.construct(Constructor.java:189)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructObject(BaseConstructor.java:182)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructArrayStep2(BaseConstructor.java:283)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructArray(BaseConstructor.java:271)
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructSequence.construct(Constructor.java:516)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructObject(BaseConstructor.java:182)
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.constructJavaBean2ndStep(Constructor.java:296)
+	... 10 more
+Caused by: org.yaml.snakeyaml.error.YAMLException: Cannot create property=packages for JavaBean=org.oddb.ch.Sequence@495098; Cannot create property=parts for JavaBean=org.oddb.ch.Package@5e2db1b; Cannot create property=count for JavaBean=; null
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.constructJavaBean2ndStep(Constructor.java:299)
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.construct(Constructor.java:189)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructObject(BaseConstructor.java:182)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructMapping2ndStep(BaseConstructor.java:325)
+	at org.yaml.snakeyaml.constructor.SafeConstructor.constructMapping2ndStep(SafeConstructor.java:145)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructMapping(BaseConstructor.java:306)
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.construct(Constructor.java:170)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructObject(BaseConstructor.java:182)
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.constructJavaBean2ndStep(Constructor.java:296)
+	... 17 more
+Caused by: org.yaml.snakeyaml.error.YAMLException: Cannot create property=parts for JavaBean=org.oddb.ch.Package@5e2db1b; Cannot create property=count for JavaBean=; null
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.constructJavaBean2ndStep(Constructor.java:299)
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.construct(Constructor.java:189)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructObject(BaseConstructor.java:182)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructMapping2ndStep(BaseConstructor.java:325)
+	at org.yaml.snakeyaml.constructor.SafeConstructor.constructMapping2ndStep(SafeConstructor.java:145)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructMapping(BaseConstructor.java:306)
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.construct(Constructor.java:170)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructObject(BaseConstructor.java:182)
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.constructJavaBean2ndStep(Constructor.java:296)
+	... 25 more
+Caused by: org.yaml.snakeyaml.error.YAMLException: Cannot create property=count for JavaBean=; null
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.constructJavaBean2ndStep(Constructor.java:299)
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.construct(Constructor.java:189)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructObject(BaseConstructor.java:182)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructSequenceStep2(BaseConstructor.java:276)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructSequence(BaseConstructor.java:247)
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructSequence.construct(Constructor.java:510)
+	at org.yaml.snakeyaml.constructor.BaseConstructor.constructObject(BaseConstructor.java:182)
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.constructJavaBean2ndStep(Constructor.java:296)
+	... 33 more
+Caused by: java.lang.IllegalArgumentException
+	at sun.reflect.GeneratedMethodAccessor19.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.yaml.snakeyaml.introspector.MethodProperty.set(MethodProperty.java:48)
+	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.constructJavaBean2ndStep(Constructor.java:297)
+	... 40 more
+22:56:46.893 [main] DEBUG Import - Heartbeat high

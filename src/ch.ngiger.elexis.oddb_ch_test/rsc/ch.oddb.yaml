@@ -1,0 +1,1118 @@
+--- !oddb.org,2003/ODDB::Company 
+oid: 123
+ean13: "7601001307001"
+name: athenstaedt AG
+business_area: ba_pharma
+generic_type: 
+registrations: 
+- !oddb.org,2003/ODDB::Registration 
+  iksnr: "21109"
+  registration_date: 1955-01-21
+  revision_date: 
+  expiration_date: 2015-01-06
+  inactive_date: 
+  sequences: 
+    "01": !oddb.org,2003/ODDB::Sequence 
+      seqnr: "01"
+      name_base: Lecicarbon
+      name_descr: "Suppositorien f\xC3\xBCr Erwachsene"
+      atc_class: &id003 !oddb.org,2003/ODDB::AtcClass 
+        code: A06AB
+        descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+          de: Kontaktlaxanzien
+          en: Contact Laxatives
+        guidelines: !oddb.org,2003/ODDB::Text::Document 
+          descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+            en: !oddb.org,2003/ODDB::Text::Chapter 
+              heading: ""
+              sections: 
+              - !oddb.org,2003/ODDB::Text::Section 
+                subheading: ""
+                paragraphs: 
+                - !oddb.org,2003/ODDB::Text::Paragraph 
+                  formats: 
+                  - !oddb.org,2003/ODDB::Text::Format 
+                    values: []
+
+                    start: 0
+                    end: -1
+                  text: |-
+                    This group comprises agents, which mainly inhibit the absorption of electrolytes and water through a specific pharmacological mechanism.
+                    Combinations with osmotically acting laxatives are classified here.
+                    Combinations with bulk producing laxatives are classified in
+                    A06AC - Bulk producers.
+                    Gas producing rectal preparations and glycerol suppositories, see A06AX - Other laxatives.
+                    Phenolphthalein in combination with liquid paraffin, see A06AA.
+                    Combined packages with tablets and enemas are classified in A06AG.
+                    A major part of the products classified in this group are various combinations of two or more contact laxatives. These are classified at separate 5th levels:
+                    A06AB20 - contact laxatives in combination
+                    A06AB30 - contact laxatives in combination with belladonna alkaloids
+                    Otherwise combination products are classified at separate 5th levels using the corresponding 50-series.
+                  preformatted: false
+        ddd_guidelines: 
+        ddds: {}
+
+      composition_text: natrii hydrogenocarbonas 500 mg, natrii dihydrogenophosphas anhydricus 680 mg, excipiens pro suppositorio.
+      compositions: 
+      - &id001 !oddb.org,2003/ODDB::Composition 
+        galenic_form: &id004 !oddb.org,2003/ODDB::GalenicForm 
+          oid: 11
+          descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+            de: Suppositorien
+            en: Suppositories
+            fr: Suppositoires
+          galenic_group: !oddb.org,2003/ODDB::GalenicGroup 
+            oid: 17
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Suppositorien
+              en: Suppositories
+              fr: Suppositoires
+        active_agents: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: &id005 !oddb.org,2003/ODDB::Substance 
+            oid: 760
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Natrium Hydrogencarbonat
+              en: Sodium Hydrogen Carbonate
+              fr: Sodium Hydrogenocarbonate
+              lt: Natrii Hydrogenocarbonas
+            synonyms: 
+            - Natrii Hydrogenocarbonas 14g
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 500
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: &id006 !oddb.org,2003/ODDB::Substance 
+            oid: 2355
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Natrium Dihydrogenophosphat Anhydrid
+              en: Sodium Dihydrogenophosphate Anhydrate
+              fr: Sodium Dihydrogenophosphate Anhydre
+              lt: Natrii Dihydrogenophosphas Anhydricus
+            synonyms: []
+
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 680
+            unit: mg
+            scale: 
+      packages: 
+        "010": !oddb.org,2003/ODDB::Package 
+          ikscd: "010"
+          lppv: true
+          descr: ""
+          ikscat: D
+          sl_entry: 
+          parts: 
+          - !oddb.org,2003/ODDB::Part 
+            count: 10
+            multi: 1
+            measure: 
+            addition: 0
+            commercial_form: &id002 !oddb.org,2003/ODDB::CommercialForm 
+              oid: 1067445
+              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+                de: Suppositorien
+                en: suppositories
+                fr: suppositoires
+            composition: *id001
+          has_generic: false
+          ean13: "7680211090101"
+          price_exfactory: 0.0
+          price_public: 10.25
+          pharmacode: "756873"
+          narcotics: []
+
+          deductible: 
+        "037": !oddb.org,2003/ODDB::Package 
+          ikscd: "037"
+          lppv: true
+          descr: ""
+          ikscat: D
+          sl_entry: 
+          parts: 
+          - !oddb.org,2003/ODDB::Part 
+            count: 100
+            multi: 1
+            measure: 
+            addition: 0
+            commercial_form: *id002
+            composition: *id001
+          has_generic: false
+          ean13: "7680211090378"
+          price_exfactory: 0.0
+          price_public: 71.15
+          pharmacode: "759185"
+          narcotics: []
+
+          deductible: 
+    "02": !oddb.org,2003/ODDB::Sequence 
+      seqnr: "02"
+      name_base: Lecicarbon
+      name_descr: "Suppositorien f\xC3\xBCr Kinder"
+      atc_class: *id003
+      composition_text: natrii hydrogenocarbonas 250 mg, natrii dihydrogenophosphas anhydricus 340 mg, excipiens pro suppositorio.
+      compositions: 
+      - &id007 !oddb.org,2003/ODDB::Composition 
+        galenic_form: *id004
+        active_agents: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: *id005
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 250
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: *id006
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 340
+            unit: mg
+            scale: 
+      packages: 
+        "053": !oddb.org,2003/ODDB::Package 
+          ikscd: "053"
+          lppv: true
+          descr: ""
+          ikscat: D
+          sl_entry: 
+          parts: 
+          - !oddb.org,2003/ODDB::Part 
+            count: 10
+            multi: 1
+            measure: 
+            addition: 0
+            commercial_form: *id002
+            composition: *id007
+          has_generic: false
+          ean13: "7680211090538"
+          price_exfactory: 0.0
+          price_public: 7.55
+          pharmacode: "756867"
+          narcotics: []
+
+          deductible: 
+  indication: !oddb.org,2003/ODDB::Indication 
+    oid: 438
+    descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+      de: Laxans
+  export_flag: false
+  fachinfo_oid: 25759198
+  generic_type: 
+  complementary_type: 
+url: 
+email: 
+addresses: 
+- !oddb.org,2003/ODDB::Address2 
+  title: 
+  name: 
+  additional_lines: []
+
+  address: "Rigistrasse 6\xC2\xA0\xC2\xA0"
+  location: "6440\xC2\xA0 Brunnen\xC2\xA0"
+  canton: 
+  fon: 
+  - "041 8206651\xC2\xA0"
+  fax: 
+  - "061 8206652\xC2\xA0"
+  type: 
+contact: 
+contact_email: 
+
+--- !oddb.org,2003/ODDB::Company 
+oid: 124
+ean13: "7601001000605"
+name: Mavena AG
+business_area: 
+generic_type: 
+registrations: []
+
+url: 
+email: 
+addresses: 
+- !oddb.org,2003/ODDB::Address2 
+  title: 
+  name: 
+  additional_lines: []
+
+  address: Birkenweg 1-8
+  location: 3123 Belp
+  canton: 
+  fon: 
+  - 031 8185500
+  fax: 
+  - 031 8185510
+  type: 
+contact: 
+contact_email: 
+
+--- !oddb.org,2003/ODDB::Company 
+oid: 126
+ean13: 
+name: Arcolab SA
+business_area: ba_pharma
+generic_type: 
+registrations: 
+- !oddb.org,2003/ODDB::Registration 
+  iksnr: "21874"
+  registration_date: 1956-05-14
+  revision_date: 
+  expiration_date: 
+  inactive_date: 2003-05-01
+  sequences: 
+    "01": !oddb.org,2003/ODDB::Sequence 
+      seqnr: "01"
+      name_base: Cloramidina
+      name_descr: capsules
+      atc_class: &id001 !oddb.org,2003/ODDB::AtcClass 
+        code: J01BA01
+        descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+          de: Chloramphenicol
+          en: Chloramphenicol
+        guidelines: 
+        ddd_guidelines: 
+        ddds: 
+          O: !oddb.org,2003/ODDB::AtcClass::DDD 
+            administration_route: O
+            dose: !oddb.org,2003/ODDB::Drugs::Dose 
+              not_normalized: 
+              val: 3
+              unit: g
+              scale: 
+            note: 
+          P: !oddb.org,2003/ODDB::AtcClass::DDD 
+            administration_route: P
+            dose: !oddb.org,2003/ODDB::Drugs::Dose 
+              not_normalized: 
+              val: 3
+              unit: g
+              scale: 
+            note: 
+      composition_text: 
+      compositions: 
+      - !oddb.org,2003/ODDB::Composition 
+        galenic_form: &id003 !oddb.org,2003/ODDB::GalenicForm 
+          oid: 24
+          descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+            de: Kapseln
+            en: Capsules
+            fr: Capsules
+            lt: capsula
+          galenic_group: !oddb.org,2003/ODDB::GalenicGroup 
+            oid: 2
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Tabletten
+              en: Tablets
+              fr: "Comprim\xC3\xA9s"
+        active_agents: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: &id002 !oddb.org,2003/ODDB::Substance 
+            oid: 5907
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              en: Chloramphenicol
+              lt: Chloramphenicolum
+            synonyms: []
+
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 250
+            unit: mg
+            scale: 
+      packages: {}
+
+  indication: 
+  export_flag: false
+  generic_type: 
+  complementary_type: 
+- !oddb.org,2003/ODDB::Registration 
+  iksnr: "21875"
+  registration_date: 1956-05-14
+  revision_date: 
+  expiration_date: 
+  inactive_date: 2003-05-01
+  sequences: 
+    "01": !oddb.org,2003/ODDB::Sequence 
+      seqnr: "01"
+      name_base: Cloramidina
+      name_descr: sirop
+      atc_class: *id001
+      composition_text: 
+      compositions: 
+      - !oddb.org,2003/ODDB::Composition 
+        galenic_form: !oddb.org,2003/ODDB::GalenicForm 
+          oid: 12
+          descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+            de: Sirup
+            en: Sirup
+            fr: Sirop
+          galenic_group: !oddb.org,2003/ODDB::GalenicGroup 
+            oid: 7
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: "L\xC3\xB6sbar zur Einnahme"
+              en: Soluble for ingestion
+              fr: Soluble pour ingestion
+        active_agents: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: *id002
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 250
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 3378
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Chloramphenicol Palmitat
+              en: Chloramphenicol Palmitate
+              fr: Chloramphenicol Palmitate
+              lt: Chloramphenicoli Palmitas
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: *id002
+          dose: 
+      packages: {}
+
+  indication: 
+  export_flag: false
+  generic_type: 
+  complementary_type: 
+- !oddb.org,2003/ODDB::Registration 
+  iksnr: "29690"
+  registration_date: 1964-03-02
+  revision_date: 
+  expiration_date: 
+  inactive_date: 2003-05-01
+  sequences: 
+    "01": !oddb.org,2003/ODDB::Sequence 
+      seqnr: "01"
+      name_base: Cloramidina succinicum
+      name_descr: "pr\xC3\xA9paration injectable"
+      atc_class: *id001
+      composition_text: 
+      compositions: 
+      - !oddb.org,2003/ODDB::Composition 
+        galenic_form: !oddb.org,2003/ODDB::GalenicForm 
+          oid: 39
+          descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+            de: "Injektionspr\xC3\xA4parat"
+            en: Injection preparation
+            fr: "Pr\xC3\xA9paration injectable"
+          galenic_group: !oddb.org,2003/ODDB::GalenicGroup 
+            oid: 3
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Injektion/Infusion
+              en: Injection/Infusion
+              fr: Injection/Infusion
+        active_agents: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: *id002
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 1
+            unit: g
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 4492
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Chloramphenicol Natriumsuccinat
+              en: Chloramphenicol Sodium Succinate
+              fr: Chloramphenicol Sodique Succinate
+              lt: Chloramphenicoli Natrii Succinas
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: *id002
+          dose: 
+      packages: {}
+
+  indication: 
+  export_flag: false
+  generic_type: 
+  complementary_type: 
+- !oddb.org,2003/ODDB::Registration 
+  iksnr: "36285"
+  registration_date: 1971-11-19
+  revision_date: 
+  expiration_date: 
+  inactive_date: 2005-01-21
+  sequences: 
+    "01": !oddb.org,2003/ODDB::Sequence 
+      seqnr: "01"
+      name_base: Arcostrong
+      name_descr: capsules
+      atc_class: !oddb.org,2003/ODDB::AtcClass 
+        code: A11JC
+        descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+          de: Vitamine, andere Kombinationen
+          en: Vitamins, Other Combinations
+        guidelines: !oddb.org,2003/ODDB::Text::Document 
+          descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+            en: !oddb.org,2003/ODDB::Text::Chapter 
+              heading: ""
+              sections: 
+              - !oddb.org,2003/ODDB::Text::Section 
+                subheading: ""
+                paragraphs: 
+                - !oddb.org,2003/ODDB::Text::Paragraph 
+                  formats: 
+                  - !oddb.org,2003/ODDB::Text::Format 
+                    values: []
+
+                    start: 0
+                    end: -1
+                  text: |-
+                    This group comprises all products, which contain vitamins (with or without minerals) and in addition other substances, e.g. caffeine and strychnine. Combinations with folic acid are classified in B03BB if "folic acid deficiency" is the main indication.
+                    This group contains products, which may also be regarded as tonics. No sharp line has been drawn between these two groups.
+                    Tonics are classified in A13. The vitamin content of tonics should be rather low.
+                  preformatted: false
+        ddd_guidelines: 
+        ddds: {}
+
+      composition_text: 
+      compositions: 
+      - &id012 !oddb.org,2003/ODDB::Composition 
+        galenic_form: *id003
+        active_agents: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 5140
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Ergocalciferol
+              en: Ergocalciferol
+              fr: Ergocalciferol
+              lt: Ergocalciferolum
+            synonyms: []
+
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 500
+            unit: UI
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 3683
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: "Ascorbins\xC3\xA4ure"
+              en: Ascorbic Acid
+              fr: Acide Ascorbique
+              lt: Acidum Ascorbicum
+            synonyms: []
+
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 40
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 853
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Pyridoxin Hydrochlorid
+              en: Pyridoxine Hydrochloride
+              fr: Pyridoxine Hydrochloride
+              lt: Pyridoxini Hydrochloridum
+            synonyms: 
+            - Pyridoxinhydrochlorid
+            swissmedic_code: 
+            effective_form: !oddb.org,2003/ODDB::Substance 
+              oid: 3367
+              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+                de: Pyridoxin
+                en: Pyridoxine
+                fr: Pyridoxine
+                lt: Pyridoxinum
+              synonyms: []
+
+              swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 1
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 1620
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: "Fols\xC3\xA4ure"
+              en: Folic Acid
+              fr: Acide Folique
+              lt: Acidum Folicum
+            synonyms: 
+            - Vitamin B9
+            - Vitamin B11
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 0.5
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 4220
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: DL-Methionin
+              en: DL-Methionine
+              fr: DL-Methionine
+              lt: DL-Methioninum
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: !oddb.org,2003/ODDB::Substance 
+              oid: 1999
+              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+                de: Methionin
+                en: Methionine
+                fr: Methionine
+                lt: Methioninum
+              synonyms: []
+
+              swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 50
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 4093
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Cyanocobalamin
+              en: Cyanocobalamine
+              fr: Cyanocobalamine
+              lt: Cyanocobalaminum
+            synonyms: []
+
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 2
+            unit: "\xC2\xB5g"
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 5323
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Retinol Palmitat
+              en: Retinol Palmitate
+              fr: Retinol Palmitate
+              lt: Retinoli Palmitas
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: !oddb.org,2003/ODDB::Substance 
+              oid: 3820
+              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+                de: Retinol
+                en: Retinol
+                fr: Retinol
+                lt: Retinolum
+              synonyms: []
+
+              swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 5000
+            unit: UI
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 1139
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Riboflavin
+              en: Riboflavine
+              fr: Riboflavine
+              lt: Riboflavinum
+            synonyms: []
+
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 3
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 3478
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Cholin Hydrogentartrat
+              en: Choline Hydrogen Tartrate
+              fr: Choline Hydrogenotartrate
+              lt: Cholini Hydrogenotartras
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: !oddb.org,2003/ODDB::Substance 
+              oid: 218
+              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+                de: Cholin
+                en: Choline
+                fr: Choline
+                lt: Cholinum
+              synonyms: 
+              - Cholinum (Cation)
+              swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 50
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 4761
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Inositol
+              en: Inositol
+              fr: Inositol
+              lt: Inositolum
+            synonyms: []
+
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 50
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 4306
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Nikotinamid
+              en: Nicotinamide
+              fr: Nicotinamide
+              lt: Nicotinamidum
+            synonyms: 
+            - pyridine-3-carboxamide
+            - vitamin b3
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 20
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 5055
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Calciumpantothenat
+              en: Calcium Pantothenate
+              fr: Calcium Pantothenate
+              lt: Calcii Pantothenas
+            synonyms: 
+            - Vitamin B5
+            swissmedic_code: 
+            effective_form: &id004 !oddb.org,2003/ODDB::Substance 
+              oid: 4516
+              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+                lt: Calcium
+              synonyms: 
+              - Kalzium
+              - Kalcium
+              swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 5
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 3998
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Thiamin Nitrat
+              en: Thiamine Nitrate
+              fr: Thiamine Nitrate
+              lt: Thiamini Nitras
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: !oddb.org,2003/ODDB::Substance 
+              oid: 5596
+              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+                de: Thiamin
+                en: Thiamine
+                fr: Thiamine
+                lt: Thiaminum
+              synonyms: []
+
+              swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 5
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: &id009 !oddb.org,2003/ODDB::Substance 
+            oid: 4610
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              lt: Ferrum
+            synonyms: []
+
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 15
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: &id010 !oddb.org,2003/ODDB::Substance 
+            oid: 2061
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Magnesium
+              en: Magnesium
+              fr: Magnesium
+              lt: Magnesium
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: *id004
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 3
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: &id011 !oddb.org,2003/ODDB::Substance 
+            oid: 4928
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Mangan
+              en: Mangan
+              fr: Mangan
+              lt: Manganum
+            synonyms: []
+
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 0.5
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: &id008 !oddb.org,2003/ODDB::Substance 
+            oid: 4754
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              en: Potassium
+              fr: Potassium
+              lt: Kalium
+            synonyms: []
+
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 2
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: &id007 !oddb.org,2003/ODDB::Substance 
+            oid: 2662
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              lt: Cuprum
+            synonyms: []
+
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 0.5
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: &id005 !oddb.org,2003/ODDB::Substance 
+            oid: 4832
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              lt: Zincum
+            synonyms: []
+
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 0.5
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: *id004
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 75
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 3737
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Zinksulfat
+              en: Zinc Sulfate
+              fr: Zinc Sulfate
+              lt: Zinci Sulfas
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: *id005
+          dose: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: &id006 !oddb.org,2003/ODDB::Substance 
+            oid: 2601
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Iod
+              en: Iod
+              fr: Iod
+              lt: Iodum
+            synonyms: 
+            - Iodidum
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 0.1
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 4774
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Kalium Iodid
+              en: Potassium Iodide
+              fr: Potassium Iodide
+              lt: Kalii Iodidum
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: *id006
+          dose: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 3834
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Alpha-tocopherol Acetat
+              en: Alpha-tocopherol Acetate
+              fr: "Alpha-tocopherol Ac\xC3\xA9tate"
+              lt: Alfa-tocopheroli Acetas
+            synonyms: 
+            - Alfa-tocopherol Acetat
+            - Alfa-tocopherylis Acetas
+            - Alfatocopherylis Acetas
+            - Int-rac-alfa-tocopheryl Acetat
+            - Int-rac-alfa-tocopheryl Acetate
+            - Int-rac-alfa-tocopherylis Acetas
+            - Int-rac-alfa-tocopheryl Acetate
+            swissmedic_code: 
+            effective_form: !oddb.org,2003/ODDB::Substance 
+              oid: 1711
+              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+                de: Alpha-tocopherol
+                en: Alpha-tocopherol
+                fr: Alpha-tocopherol
+                lt: Alpha-tocopherolum
+              synonyms: 
+              - Alpha-Tocoferolum
+              - (+)-alfa-tocopherolum
+              - Alfa-Tocopherolum
+              - Vitamin E
+              - Int-rac-alfa-tocopherol
+              - Int-rac-alfa-tocopherol
+              - Int-rac-alfa-tocopherolum
+              - Int-rac-alfa-tocopherol
+              swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 10
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 1990
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              lt: Phosphorus
+            synonyms: []
+
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 58
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 1354
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Calcium Hydrogenphosphat
+              en: Calcium Hydrogen Phosphate
+              fr: Calcium Hydrogenophosphate
+              lt: Calcii Hydrogenophosphas
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: *id004
+          dose: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 3668
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              lt: Cupri Sulfas Pentahydricus
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: *id007
+          dose: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 1341
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Kalium Sulfat
+              en: Potassium Sulfate
+              fr: Potassium Sulfate
+              lt: Kalii Sulfas
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: *id008
+          dose: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 501
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              lt: Ferrosi Sulfas
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: *id009
+          dose: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 923
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Lecithin
+              en: Lecithine
+              fr: Lecithine
+              lt: Lecithinum
+            synonyms: []
+
+            swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 25
+            unit: mg
+            scale: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 2169
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              de: Magnesium Sulfat
+              en: Magnesium Sulfate
+              fr: Magnesium Sulfate
+              lt: Magnesii Sulfas
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: *id010
+          dose: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 5271
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              lt: Mangani(ii) Sulfas Tetrahydricus
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: *id011
+          dose: 
+        - !oddb.org,2003/ODDB::ActiveAgent 
+          substance: !oddb.org,2003/ODDB::Substance 
+            oid: 1804
+            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+              lt: Ginseng Radix
+            synonyms: []
+
+            swissmedic_code: 
+            effective_form: !oddb.org,2003/ODDB::Substance 
+              oid: 730
+              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+                lt: Ginseng
+              synonyms: []
+
+              swissmedic_code: 
+          dose: !oddb.org,2003/ODDB::Dose 
+            not_normalized: 
+            val: 150
+            unit: mg
+            scale: 
+      packages: 
+        "036": !oddb.org,2003/ODDB::Package 
+          ikscd: "036"
+          lppv: 
+          descr: ""
+          ikscat: D
+          sl_entry: 
+          parts: 
+          - !oddb.org,2003/ODDB::Part 
+            count: 30
+            multi: 1
+            measure: 
+            addition: 0
+            commercial_form: &id013 !oddb.org,2003/ODDB::CommercialForm 
+              oid: 1067461
+              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+                de: Kapsel(n)
+                en: Capsule(s)
+                fr: "G\xC3\xA9lule(s)"
+            composition: *id012
+          has_generic: false
+          ean13: "7680362850364"
+          price_exfactory: 0.0
+          price_public: 0.0
+          pharmacode: 
+          narcotics: []
+
+          deductible: 
+        "044": !oddb.org,2003/ODDB::Package 
+          ikscd: "044"
+          lppv: 
+          descr: ""
+          ikscat: D
+          sl_entry: 
+          parts: 
+          - !oddb.org,2003/ODDB::Part 
+            count: 100
+            multi: 1
+            measure: 
+            addition: 0
+            commercial_form: *id013
+            composition: *id012
+          has_generic: false
+          ean13: "7680362850449"
+          price_exfactory: 0.0
+          price_public: 0.0
+          pharmacode: 
+          narcotics: []
+
+          deductible: 
+  indication: 
+  export_flag: false
+  generic_type: 
+  complementary_type: 
+url: 
+email: 
+addresses: 
+- !oddb.org,2003/ODDB::Address2 
+  title: 
+  name: 
+  additional_lines: []
+
+  address: 
+  location: " "
+  canton: 
+  fon: []
+
+  fax: []
+
+  type: 
+contact: 
+contact_email: 
+

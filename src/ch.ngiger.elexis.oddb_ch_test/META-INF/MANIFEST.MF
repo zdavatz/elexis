@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Artikel_ch_test
+Bundle-SymbolicName: ch.ngiger.elexis.oddb_ch_test
+Bundle-Version: 1.0.0.qualifier
+Fragment-Host: ch.ngiger.elexis.oddb_ch;bundle-version="1.0.0.qualifier"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.junit;bundle-version="4.8.2",
+ org.eclipse.jdt.core
+Bundle-ClassPath: rsc/,
+ .
+Import-Package: org.apache.commons.lang
