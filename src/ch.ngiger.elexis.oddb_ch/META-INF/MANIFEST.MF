@@ -4,16 +4,18 @@ Bundle-Name: Artikelkataloge ODDB.ch für Elexis
 Bundle-SymbolicName: ch.ngiger.elexis.oddb_ch;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: elexis.ch
-Require-Bundle: org.eclipse.ui,
+Bundle-Localization: plugin
+Require-Bundle: ch.elexis;bundle-version="2.1.6",
  org.eclipse.core.runtime,
- ch.elexis;bundle-version="2.1.6",
- ch.rgw.utility;bundle-version="2.0.8",
- ch.elexis.core;bundle-version="0.0.2",
+ org.eclipse.ui,
+ org.eclipse.ui.forms;bundle-version="3.5.101",
  ch.elexis.importer.div;bundle-version="1.5.0",
- org.eclipse.ui.forms;bundle-version="3.5.101"
+ ch.rgw.utility;bundle-version="2.0.8",
+ ch.elexis.core;bundle-version="0.0.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: lib/snakeyaml-1.10.jar,
+Bundle-ClassPath: bin/,
+ lib/snakeyaml-1.10.jar,
  .
 Export-Package: ch.ngiger.elexis.oddb_ch,
  ch.ngiger.elexis.oddb_ch.data,
