@@ -1,8 +1,36 @@
 h1. ODDB-Import in Elexis
 
+Erlaubt es die ODDB.yaml-Dateien von oddb.org in elexis zu importieren. Das Format ist dokumentiert "hier":http://ch.oddb.org/resources/downloads/datadesc/oddb.yaml.txt. Eine Kopie liegt unter doc/oddb.yaml.txt
+
+Der Import geht gleich wie bei den anderen Artikel-Importern.
+
+h1. Use Cases (Anwendungsszenarien)
+
+* Erster Import. Darf ggf. etwas länger dauern. Ziel Dauer < 10 Minuten
+* Regelmässiges Update, z.B. alle Monate. Ziel Dauer < 1 Minute
+* Meldung von Fehlern
+* Bitte um Erfassung von neuen/fehlenden Produkte-Daten
+
+h2. Unschönheiten
+
+* UTF-8 Escape-Sequenzen werden nicht in korrekte String umgewandelt. Details http://code.google.com/p/snakeyaml/issues/detail?id=151. Lokaler Workaround in org.oddb.ch.Import  Funktion patchUtfEscape
+
+h2. Tests 
+
+* Siehe Plugin ch.ngiger.elexis.oddb_ch_test (JUnit)
+* GUI/Jubula tests fehlen (noch?)
+
 h2. TODO:
 
-* UTF-8 Escape-Sequenzen werden nicht in korrekte String umgewandelt. Dies ist ein SnakeYaml-Problem (sa. PerTest.java)
-* Umwandlung in sprechende Namen der Verpackung ist nicht fertig
-* name beginnt manchmal mit " "
-* Composition
+* Ist es richtig zu empfehlen, zuerst alle ODDB-Artikel zu löschen??
+* Umwandlung in sprechende Namen der Verpackung korrekt?
+* name beginnt manchmal mit " ". Häufig mit Pharmacode. Weshalb?
+* handle duplicates in org.oddb.ch.Import
+* Check whether we really imported all articles
+* Erweiterungen Importer (md5-Checksumme, logging in DB, GUI dazu, Download von Update-Seite)
+* GUI/Jubula tests via buildr.apache.org unter MySQL, PostgreSQL & H2
+
+Niklaus Giger, 15.06.2012
+
+Copyright 2012 Niklaus Giger <niklaus.giger@member.fsf.org>
+

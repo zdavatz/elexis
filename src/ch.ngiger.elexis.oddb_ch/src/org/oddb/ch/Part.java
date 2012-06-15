@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Niklaus Giger <niklaus.giger@member.fsf.org>.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Niklaus Giger <niklaus.giger@member.fsf.org> - initial API and implementation
+ ******************************************************************************/
 package org.oddb.ch;
 
 import java.util.Map;
@@ -5,38 +15,22 @@ import java.util.Map;
 import org.oddb.ch.CommercialForm;
 import org.oddb.ch.Composition;
 import org.oddb.ch.Dose;
+//see http://ch.oddb.org/resources/downloads/datadesc/oddb.yaml.txt
 
 public class Part {
 	Composition composition; // Zusammensetzung dieses Bestandteils
 	public Dose multi; // _5_ x 10 + 10 Ampullen à 15 ml
-	int count; // 5 x _10_ + 10 Ampullen à 15 ml
-	int addition;
+	Dose count; // 5 x _10_ + 10 Ampullen à 15 ml
+	IntOrEmpty addition;
 // private Addition addition; // 5 x 10 + _10_ Ampullen à 15 ml
 	CommercialForm commercial_form; // 5 x 10 + 10 _Ampullen_ à 15 ml
 	Dose measure; // 5 x 10 + 10 Ampullen à _15 ml_
 	
-	public class Addition {
-		public int value;
-		
-		public Addition(int val){
-			value = val;
-		}
-		
-		public Addition(){
-			value = 0;
-		}
-	}
-	
-	/*
-	 * public Addition getAddition(){ return this.addition; }
-	 * 
-	 * public void setAddition(Addition addition){ this.addition = addition; }
-	 */
-	public int getAddition(){
+	public IntOrEmpty getAddition(){
 		return addition;
 	}
 	
-	public void setAddition(int addition){
+	public void setAddition(IntOrEmpty addition){
 		this.addition = addition;
 	}
 	
@@ -46,17 +40,19 @@ public class Part {
 			sb.append(composition.toString() + " ");
 		if (multi != null)
 			sb.append(multi.toString());
-		if (count > 0)
-			sb.append(String.format(" x %d", count));
-		// if (addition.value > 0)
-		// sb.append(String.format(" + %d", addition.value));
-		if (addition > 0)
-			sb.append(String.format(" + %d", addition));
-		if (commercial_form != null)
-			sb.append(" " + commercial_form.toString());
+		if (count != null && count.val > 0.0)
+			sb.append(String.format(" x %f", count.val));
 		if (measure != null)
 			sb.append(" à " + measure.toString());
 		return sb.toString();
+		/* If I use the parts below I get about 54 errors while importing the oddb.yaml!!!!
+		 */
+		/*
+		if (addition != null && addition.getValue() > 0)
+			sb.append(String.format(" + %d", addition));
+		if (commercial_form != null)
+			sb.append(" " + commercial_form.toString());
+			*/
 	}
 	
 	static private int counter;
@@ -65,9 +61,9 @@ public class Part {
 		super();
 		counter++;
 		composition = null;
-		addition = 0;
-		// addition = new Addition();
-		count = 0;
+		// addition = 0;
+		addition = new IntOrEmpty();
+		count = null;
 		commercial_form = null;
 		measure = null;
 	}
@@ -81,8 +77,7 @@ public class Part {
 	}
 	
 	public void setMulti(int multi){
-		System.out.println("Integer creator");
-		// this.multi = multi;
+		this.multi = new Dose(multi);
 	}
 	
 	public Dose getMeasure(){
@@ -102,11 +97,14 @@ public class Part {
 		this.composition = composition;
 	}
 	
-	public int getCount(){
+	public Dose getCount(){
 		return count;
 	}
 	
 	public void setCount(int count){
+		this.count = new Dose(count);
+	}
+	public void setCount(Dose count){
 		this.count = count;
 	}
 	

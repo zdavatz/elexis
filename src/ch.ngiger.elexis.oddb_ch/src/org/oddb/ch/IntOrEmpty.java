@@ -10,32 +10,27 @@
  ******************************************************************************/
 package org.oddb.ch;
 
-import java.util.Map;
-
 //see http://ch.oddb.org/resources/downloads/datadesc/oddb.yaml.txt
+//This is trick to enable a null constructor for boolean
 
-public class CommercialForm {
-	int oid; // Unique Identifier
-	Map<String, String> descriptions; // Sprache, Bezeichnung. siehe Glossar (SimpleLanguage::Descriptions)
-	public int getOid(){
-		return oid;
-	}
-	public String toString(){
-		if (descriptions != null && descriptions.get("de") != null)
-//			return "";
-			return oid + " " +descriptions.get("de");
-		else
-			return String.format("%d", oid);
+public class IntOrEmpty {
+	
+	private int value;
+	
+	public IntOrEmpty() {
+		setValue(0);
 	}
 
-	public void setOid(int oid){
-		this.oid = oid;
+	public IntOrEmpty(int val) {
+		value = val;
 	}
-	public Map<String, String> getDescriptions(){
-		return descriptions;
+
+	public int getValue(){
+		return value;
 	}
-	public void setDescriptions(Map<String, String> descriptions){
-		this.descriptions = descriptions;
+
+	public void setValue(int value){
+		this.value = value;
 	}
 	
 }

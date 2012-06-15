@@ -7,8 +7,7 @@
  *
  * Contributors:
  *    G. Weirich - initial implementation
- *    
- *  $Id: ArtikelFactory.java 5932 2010-01-14 22:30:04Z rgw_ch $
+ *    N. Giger - 2012 adapted to ODDB-Artikel
  *******************************************************************************/
 
 package ch.ngiger.elexis.oddb_ch.data;

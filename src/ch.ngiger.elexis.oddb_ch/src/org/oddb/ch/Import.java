@@ -1,23 +1,30 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Niklaus Giger <niklaus.giger@member.fsf.org>.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Niklaus Giger <niklaus.giger@member.fsf.org> - initial API and implementation
+ ******************************************************************************/
 package org.oddb.ch;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
 
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Construct;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.constructor.SafeConstructor;
-import org.yaml.snakeyaml.nodes.Node;
 import org.yaml.snakeyaml.nodes.Tag;
 
 import org.oddb.ch.Address2;
@@ -48,9 +55,11 @@ public class Import {
 			if (ean13 != null)
 				msg.append(" ean13: " + ean13);
 			if (EKPreis != null)
-				msg.append(String.format(" EK: %1$s %2$s", EKPreis.toString(), EKPreis.getCentsAsString()));
+				msg.append(String.format(" EK: %1$s %2$s", EKPreis.toString(),
+					EKPreis.getCentsAsString()));
 			if (VKPreis != null)
-				msg.append(String.format(" VK: %1$s %2$s", VKPreis.toString(), VKPreis.getCentsAsString()));
+				msg.append(String.format(" VK: %1$s %2$s", VKPreis.toString(),
+					VKPreis.getCentsAsString()));
 			if (verpackungsEinheit != null)
 				msg.append(" verpackungsEinheit: " + verpackungsEinheit);
 			if (abgabeEinheit != null)
@@ -64,17 +73,6 @@ public class Import {
 		}
 	}
 	
-	/*
-	 * Mapping between Elexis-ARTIKEL table and oddb yaml
-	 * 
-	 * id interne ID extid subid Pharmacode name Name Sequence.basename Name_intern Meistens Null wo
-	 * wird da verwendet ek_preis In Rappen Package.price_exfactory (in Fr.rappen) vk_preis In
-	 * Rappen Package.price_public (in Fr.rappen) typ Medikament, Eigenartikel, Laborleistung,
-	 * Medical, Medicals, Medikament, ODDB codeclass NULL, '', 'G', 'K', 'O' Klasse NULL oder
-	 * ch.elexis.medikamente.bag.data.BAGMedi deleted EAN Package.ean13 Nicht relevant: minbestand
-	 * Nicht relevant: maxbestand Nicht relevant: istbestand Nicht relevant: lastupdate | bigint(20)
-	 * Nicht relevant: ValidFrom | char(8) Nicht relevant: ValidTo | char(8)
-	 */
 	/*
 	 * Access Registration via iksnr
 	 */
@@ -114,25 +112,81 @@ public class Import {
 	public boolean importFile(String filename){
 		try {
 			File file = new File(filename);
-			System.out.println(String.format("importFile: %1$s %2$d", file.getAbsolutePath(), file.length()));
-//			return importString(ch.rgw.io.FileTool.readTextFile(file, "UTF-8"));
-//			return importString(ch.rgw.io.FileTool.readTextFile(file, "utf-8"));
+			System.out.println(String.format("importFile: %1$s %2$d", file.getAbsolutePath(),
+				file.length()));
 			return importString(ch.rgw.io.FileTool.readTextFile(file, "ASCII"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
 	}
 	
+	// This is an ugly patch, as snakeyaml has a problem with escaped UTF-8 characters
+	// produced by oddb.org.
+	// see http://code.google.com/p/snakeyaml/issues/detail?id=151
+	// Don't know where the problem lies. But this fixes the issues for the time beeing.
+	static private String patchUtfEscape(String input)
+	{			
+		HashMap<String, String> convertTable = new HashMap();
+		// see http://www.utf8-zeichentabelle.de/
+		convertTable.put("\\xC3\\xB6", "ö");
+		convertTable.put("\\xC3\\xA9", "é");
+		convertTable.put("\\xC3\\xA8", "è");
+		convertTable.put("\\xC3\\xA0", "à");
+		convertTable.put("\\xC3\\xC6", "Ö");
+		convertTable.put("\\xC3\\x9C", "Ü");
+		convertTable.put("\\xC3\\xBC", "ü");
+		convertTable.put("\\xC3\\x84", "Ä");
+		convertTable.put("\\xC3\\xA4", "ä");
+		convertTable.put("\\xC2\\xA0", " "); // No break space
+		convertTable.put("\\xC2\\xB5", "µ");
+		convertTable.put("\\xC3\\xAF", "ï");
+		convertTable.put("\\xC3\\xA2", "â");
+		convertTable.put("\\xC3\\x96", "Ö");
+		convertTable.put("\\xC2\\xB2", "²");
+		convertTable.put("\\xC2\\xAB", "«");
+		convertTable.put("\\xC2\\xBB", "»");
+		convertTable.put("\\xC3\\xAA", "ê");
+		convertTable.put("\\xC3\\xB4", "ô");
+		convertTable.put("\\xC3\\xA7", "ç");
+		convertTable.put("\\xC3\\xAB", "ë");
+		convertTable.put("\\xC3\\xB2", "ò");
+		convertTable.put("\\xC3\\x89", "É");
+		convertTable.put("\\xC3\\xAE", "î");
+		convertTable.put("\\xC3\\xBB", "û");
+		convertTable.put("\\xC2\\xB0", "°");
+		convertTable.put("\\xC3\\xB9", "ð");
+		convertTable.put("\\xC3\\xB3", "ó");
+		convertTable.put("\\xC2\\xB1", "±");
+		convertTable.put("\\xC3\\x80", "À");
+		convertTable.put("\\xC3\\xA1", "á");
+		convertTable.put("\\xC3\\xAC", "á");
+		Iterator iter = convertTable.entrySet().iterator();
+		while (iter.hasNext())
+		{
+			Entry<String, String> entry = (Entry<String, String>) iter.next();
+			input = input.replaceAll(Matcher.quoteReplacement(entry.getKey()), entry.getValue());
+		}
+		int offset = input.indexOf("\\xC");
+		if (offset >= 0)
+		{
+			String msg = String.format("Still UTF-8 in input at %1$d see %2$s",
+				offset, input.substring(offset, offset+ 200));
+			System.out.println(msg);
+			logger.error(msg);
+		}
+		return input;
+	}
 	public boolean importString(String yamlContent){
 		Constructor c = new ImportConstructor();
 		TypeDescription descr =
 			new TypeDescription(Address2.class, new Tag(Version.ODDB_VERSION_PREFIX + "::Adress2"));
 		c.addTypeDescription(descr);
 		Yaml yaml = new Yaml(c);
+		int counter = 0;
+		int nrExceptions = 0;
 		Date d1 = new Date(System.currentTimeMillis());
-		for (Object obj : yaml.loadAll(yamlContent)) {
+		for (Object obj : yaml.loadAll(patchUtfEscape(yamlContent))) {
 			Company corp = (Company) obj;
 			companies.put(corp.getEan13(), corp);
 			for (int j = 0; j < corp.getRegistrations().length; j++) {
@@ -150,26 +204,33 @@ public class Import {
 					Iterator<Entry<String, Package>> itP = seq.packages.entrySet().iterator();
 					while (itP.hasNext()) {
 						Entry<String, Package> p = itP.next();
-						Package pack = p.getValue();
-						ElexisArtikel a = new ElexisArtikel();
-						if (seq.name_descr != null && seq.name_descr.length() > 0)
-							a.name = seq.name_base + " "+ seq.name_descr;
-						else
-							a.name = seq.name_base;
-						a.atc_code = seq.atc_class.code;
-						a.ean13 = pack.ean13;
-						a.pharmacode = pack.pharmacode;
-						a.VKPreis = new Money(pack.price_public);
-						a.EKPreis = new Money(pack.price_exfactory);
-						List<Part> parts = pack.parts;
-						StringBuffer partS = new StringBuffer("");
-						for (int k=0; k< parts.size(); k++)
-						{
-							Part myPart = parts.get(k);
-							partS.append(myPart.toString());
+						Package pack;
+						try {
+							pack = p.getValue();
+							ElexisArtikel a = new ElexisArtikel();
+							if (seq.name_descr != null && seq.name_descr.length() > 0)
+								a.name = seq.name_base + " " + seq.name_descr;
+							else
+								a.name = seq.name_base;
+							a.atc_code = seq.atc_class.code;
+							a.ean13 = pack.ean13;
+							a.pharmacode = pack.pharmacode;
+							a.VKPreis = new Money(pack.price_public);
+							a.EKPreis = new Money(pack.price_exfactory);
+							List<Part> parts = pack.parts;
+							StringBuffer partS = new StringBuffer("");
+							for (int k = 0; k < parts.size(); k++) {
+								Part myPart = parts.get(k);
+								partS.append(myPart.toString());
+							}
+							articles.add(a);
+							counter++;
+							// logger.debug(a.toString());
+						} catch (Exception e) {
+						nrExceptions++;
+							System.out.println(String.format("\n\n!!!	%1$d: Unexpected class %2$s \n%3$s %4$s\n%5$s\n\n", counter, p.getClass(),
+								obj.toString(), p.toString(), seq.toString()));
 						}
-						System.out.println(a.toString());
-						logger.debug(a.toString());
 					}
 				}
 			}
@@ -177,8 +238,10 @@ public class Import {
 		}
 		Date d2 = new Date(System.currentTimeMillis());
 		long difference = d2.getTime() - d1.getTime();
-		logger.info(String
-			.format("Elapsed %1$d.%2$d seconds", difference / 1000, difference % 1000));
+		String msg = String
+				.format("Elapsed %1$d.%2$d seconds. Ignoring %3$d exception(s)", difference / 1000, difference % 1000, nrExceptions); 
+		System.out.println(msg);
+		logger.info(msg);
 		logger
 			.info(String
 				.format(

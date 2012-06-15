@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Niklaus Giger <niklaus.giger@member.fsf.org>.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Niklaus Giger <niklaus.giger@member.fsf.org> - initial API and implementation
+ ******************************************************************************/
 package org.oddb.ch;
 
 import java.util.HashMap;
@@ -25,9 +35,7 @@ public class GalenicGroup {
 	public void setDescriptions(Map<String, String> descriptions){
 		this.descriptions = descriptions;
 	}
-//Descriptions descriptions;
-//public Descriptions getDescriptions(){	return descriptions; }
-//public void setDescriptions(Descriptions descriptions){	this.descriptions = descriptions; }
+	
 	private static int counter;
 	
 	public GalenicGroup(){
@@ -40,12 +48,4 @@ public class GalenicGroup {
 	public void setOid(int oid){
 		this.oid = oid;
 	}
-	/*
-	public Map<String, String> getDescriptions(){
-		return descriptions;
-	}
-	public void setDescriptions(Map<String, String> descriptions){
-		this.descriptions = descriptions;
-	}
-	*/
 }

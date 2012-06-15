@@ -1,6 +1,14 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Niklaus Giger <niklaus.giger@member.fsf.org>.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Niklaus Giger <niklaus.giger@member.fsf.org> - initial API and implementation
+ ******************************************************************************/
 package org.oddb.ch;
-
-import java.util.Map;
 
 import org.oddb.ch.Dose;
 import org.oddb.ch.Substance;
@@ -9,17 +17,11 @@ import org.oddb.ch.Substance;
 
 public class ActiveAgent {
 	Substance substance; // Substanz/Wirkstoff
-	/* TODO:
-	Map <String, String> dose;
-	public Map<String, String> getDose(){
-		return dose;
-	}
-	public void setDose(Map<String, String> dose){
-		this.dose = dose;
-	}
-	*/
-	
 	Dose dose; // Dosis
+	public ActiveAgent()
+	{
+		super();
+	}
 	public Dose getDose(){
 		return dose;
 	}

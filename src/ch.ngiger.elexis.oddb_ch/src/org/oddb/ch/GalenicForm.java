@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Niklaus Giger <niklaus.giger@member.fsf.org>.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Niklaus Giger <niklaus.giger@member.fsf.org> - initial API and implementation
+ ******************************************************************************/
 package org.oddb.ch;
 
 import java.util.HashMap;
@@ -9,11 +19,6 @@ import org.oddb.ch.GalenicGroup;
 
 public class GalenicForm {
 	int oid       ; //Unique Identifier
-//	- descriptions      (SimpleLanguage::Descriptions (String, String)) ; //Sprache, Bezeichnung. siehe Glossar (SimpleLanguage::Descriptions)
-	
-	//	Descriptions descriptions;
-	//public Descriptions getDescriptions(){	return descriptions; }
-	// public void setDescriptions(Descriptions descriptions){	this.descriptions = descriptions; }
 	GalenicGroup galenic_group     ; //siehe Glossar (GalenicGroup)
 	private static int counter;
 	
@@ -21,8 +26,8 @@ public class GalenicForm {
 		super();
 		oid = -2;
 		counter++;
-//		descriptions = new HashMap<String, String>();
-		galenic_group = new GalenicGroup();
+		descriptions = null;
+		galenic_group = null;
 	}
 	public int getOid(){
 		return oid;
@@ -35,14 +40,12 @@ public class GalenicForm {
 		return descriptions;
 	}
 	public void setDescriptions(Map<String, String> descriptions){
-		System.out.println(descriptions.toString());
 		this.descriptions = descriptions;
 	}
 	public GalenicGroup getGalenic_group(){
 		return galenic_group;
 	}
 	public void setGalenic_group(GalenicGroup galenic_group){
-		System.out.println(galenic_group.toString());
 		this.galenic_group = galenic_group;
 	}
 	

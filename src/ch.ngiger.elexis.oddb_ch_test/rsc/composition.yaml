@@ -13,6 +13,7 @@ compositions:
         de: Inhalation
         en: Inhalation
         fr: Inhalation
+  active_agents:
 - &id001 !oddb.org,2003/ODDB::Composition
   galenic_form: !oddb.org,2003/ODDB::GalenicForm
     oid: 28
@@ -25,6 +26,7 @@ compositions:
         de: Salben
         en: Ointments
         fr: Onguents
+  active_agents:
 - &id014 !oddb.org,2003/ODDB::Composition
   galenic_form: *id012
   active_agents:

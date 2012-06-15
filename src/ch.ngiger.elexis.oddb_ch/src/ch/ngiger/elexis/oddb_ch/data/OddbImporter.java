@@ -7,14 +7,16 @@
  *
  * Contributors:
  *    Niklaus Giger - initial implementation
- *    
- * $Id$
  *******************************************************************************/
 package ch.ngiger.elexis.oddb_ch.data;
 
 import java.io.File;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.regex.Matcher;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -98,12 +100,8 @@ public class OddbImporter extends ImporterPage {
 						oddbA = new Artikel(a.name, ODDB, a.pharmacode);
 					} else {
 						// TODO: handle duplicates
-						System.out.println(oddbA.getName());
-						System.out.println(oddbA.toString());
-						System.out.println(oddbA.get("Typ"));
 						logger.error(String.format("ODDB-Duplikat ?? %1$s", a.ean13));
 					}
-// OddbArtikel oddbA = new OddbArtikel(a.ean13, a.name);
 					if (a.EKPreis != null)
 						oddbA.setEKPreis(a.EKPreis);
 					if (a.VKPreis != null)
@@ -115,22 +113,19 @@ public class OddbImporter extends ImporterPage {
 					if (a.ean13 != null)
 						oddbA.setEAN(a.ean13);
 					if (a.pharmacode != null)
-						oddbA.setExt(Artikel.FLD_PHARMACODE, a.pharmacode);
+						oddbA.setPharmaCode(a.pharmacode);
 					if (a.atc_code != null)
-						oddbA.setExt(Artikel.FLD_ATC_CODE, a.atc_code);
+						oddbA.setATC_code(a.atc_code);
 					if (a.verpackungsEinheit != null)
 						oddbA.setExt(Artikel.VERPACKUNGSEINHEIT, a.verpackungsEinheit);
 					if (a.abgabeEinheit != null)
 						oddbA.setExt(Artikel.VERKAUFSEINHEIT, a.abgabeEinheit);
-					logger.debug("j: " + j + ":" + oddbA.toString());
 					monitor.worked(1);
 					if (j % 1000 == 500) { // Speicher freigeben
 						PersistentObject.clearCache();
 						System.gc();
 						Thread.sleep(100);
 					}
-					if (j >= 500)
-						j = 1000000;
 				}
 				Date d2 = new Date(System.currentTimeMillis());
 				long difference = d2.getTime() - d1.getTime();

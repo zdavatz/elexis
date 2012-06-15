@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Niklaus Giger <niklaus.giger@member.fsf.org>.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Niklaus Giger <niklaus.giger@member.fsf.org> - initial API and implementation
+ ******************************************************************************/
 package org.oddb.ch;
 
 import org.oddb.ch.Dose;
@@ -29,8 +39,6 @@ public class Dose {
 		val = (float) i;	
 		unit = "";
 	}
-	
-	// public Dose(float f){ val = f; unit = ""; } // creates errors very early
 	
 	public String getNot_normalized(){
 		return not_normalized;

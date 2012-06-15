@@ -1,8 +1,19 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Niklaus Giger <niklaus.giger@member.fsf.org>.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Niklaus Giger <niklaus.giger@member.fsf.org> - initial API and implementation
+ ******************************************************************************/
 package org.oddb.ch;
 
 import java.util.Map;
 
 import org.oddb.ch.Dose;
+//see http://ch.oddb.org/resources/downloads/datadesc/oddb.yaml.txt
 
 public class AtcClass {
 	/*
@@ -13,7 +24,7 @@ public class AtcClass {
 - ddds              (Hash (DDD.administration_route, DDD) -> DailyDrugDose Informationen der WHO. siehe Glossar (DailyDrugDose)
 
 	 */
-	// Map<String, String> descriptions; // (SimpleLanguage::Descriptions (String, String)) -> Sprache, Bezeichnung. siehe Glossar (SimpleLanguage::Descriptions)
+	Map<String, String> descriptions; // (SimpleLanguage::Descriptions (String, String)) -> Sprache, Bezeichnung. siehe Glossar (SimpleLanguage::Descriptions)
 	Document guidelines; //        (Text::Document)       -> Guidelines der WHO zum Atc-Code. Sprache: en
 	Document ddd_guidelines; //    (Text::Document)       -> Guidelines der WHO zu den DailyDoses. Sprache: en
 	Map<String, DDD> ddds; //              (Hash (DDD.administration_route, DDD) -> DailyDrugDose Informationen der WHO. siehe Glossar (DailyDrugDose)
@@ -39,7 +50,6 @@ public class AtcClass {
 	public void setDdds(Map<String, DDD> ddds){
 		this.ddds = ddds;
 	}
-	Map<String, String> descriptions; // (SimpleLanguage::Descriptions (String, String)) -> Sprache, Bezeichnung. siehe Glossar (SimpleLanguage::Descriptions)
 	public Map<String, String> getDescriptions(){
 		return descriptions;
 	}

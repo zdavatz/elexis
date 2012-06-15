@@ -7,8 +7,8 @@
  *
  * Contributors:
  *    G. Weirich - initial implementation
+ *    N. Giger - 2012 adapted to ODDB-Artikel
  *    
- *  $Id$
  *******************************************************************************/
 package ch.ngiger.elexis.oddb_ch.data;
 
@@ -22,7 +22,7 @@ public class OddbArtikel extends Artikel {
 	public OddbArtikel(String ean, String text){
 		String fullId = String.format("%1$s.%2$s",ODDB_NAME,ean);  //$NON-NLS-1$
 		create(fullId);
-		set(new String[] {
+		set(new String[] {	
 			Artikel.FLD_NAME, Artikel.FLD_TYP, Artikel.FLD_SUB_ID, Artikel.FLD_KLASSE
 		}, new String[] {
 			fullId, ODDB_NAME, ean, OddbArtikel.class.getName()

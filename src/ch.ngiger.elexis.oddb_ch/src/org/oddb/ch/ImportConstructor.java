@@ -1,12 +1,31 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Niklaus Giger <niklaus.giger@member.fsf.org>.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Niklaus Giger <niklaus.giger@member.fsf.org> - initial API and implementation
+ ******************************************************************************/
 package org.oddb.ch;
 
 import org.oddb.ch.Import.CustomConstructor;
 import org.yaml.snakeyaml.constructor.Construct;
 import org.yaml.snakeyaml.constructor.Constructor;
+import org.yaml.snakeyaml.constructor.SafeConstructor;
+import org.yaml.snakeyaml.constructor.SafeConstructor.ConstructYamlMap;
 import org.yaml.snakeyaml.nodes.Node;
 import org.yaml.snakeyaml.nodes.Tag;
 
+//see http://ch.oddb.org/resources/downloads/datadesc/oddb.yaml.txt
+
+// Here we establish the mapping between the yaml entities
+// and the Java classes we want to import
+// This is sometimes a little be tricky!!
+
 public class ImportConstructor extends Constructor {
+	
 	public ImportConstructor(){
 		// define tags which begin with !org.yaml.
 		String prefix = Version.ODDB_VERSION_PREFIX;
@@ -47,32 +66,19 @@ public class ImportConstructor extends Constructor {
 			node.setType(org.oddb.ch.Composition.class);
 		}
 		if (node.getTag().equals(
-			// Here we use a simple Map
+			// Here we use a simple Map (but with a constructor which know about the
+			// oddb tag!. Using a class did not work
 			new Tag(Version.ODDB_VERSION_PREFIX + "::SimpleLanguage::Descriptions"))) {
-			if (true) {
-				node.setUseClassConstructor(false);
-				node.setType(CustomConstructor.class);
-			}
-			else 
-			{
-				node.setUseClassConstructor(true);
-				node.setType(org.oddb.ch.Descriptions.class);			
-			}
+			node.setUseClassConstructor(false);
+			node.setType(CustomConstructor.class);
 		}
 		if (node.getTag().equals(new Tag(Version.ODDB_VERSION_PREFIX + "::LimitationText"))) {
-// node.setUseClassConstructor(false);
-// node.setType(CustomConstructor.class);
 			node.setUseClassConstructor(true);
 			node.setType(org.oddb.ch.Descriptions.class);
 		}
 		if (node.getTag().equals(new Tag(Version.ODDB_VERSION_PREFIX + "::Dose"))) {
-			if (false) {
-				node.setUseClassConstructor(false);
-				node.setType(CustomConstructor.class);
-			} else {
-				node.setUseClassConstructor(true);
-				node.setType(org.oddb.ch.Dose.class);
-			}
+			node.setUseClassConstructor(true);
+			node.setType(org.oddb.ch.Dose.class);
 		}
 		if (node.getTag().equals(new Tag(Version.ODDB_VERSION_PREFIX + "::Text::Document"))) {
 			node.setUseClassConstructor(true);
@@ -87,40 +93,12 @@ public class ImportConstructor extends Constructor {
 			node.setType(org.oddb.ch.Format.class);
 		}
 		if (node.getTag().equals(new Tag(Version.ODDB_VERSION_PREFIX + "::GalenicForm"))) {
-			if (false) // TODO:
-			{
-				node.setUseClassConstructor(false);
-				node.setType(CustomConstructor.class);
-			}
-			else
-			{
-				node.setUseClassConstructor(true);
-				node.setType(org.oddb.ch.GalenicForm.class);				
-			}
-		}
-		if (node.getTag().equals(new Tag(Version.ODDB_VERSION_PREFIX + "::GalenicForm"))) {
-			if (false) // TODO:
-			{
-				node.setUseClassConstructor(false);
-				node.setType(CustomConstructor.class);
-			}
-			else
-			{
-				node.setUseClassConstructor(true);
-				node.setType(org.oddb.ch.GalenicForm.class);				
-			}
+			node.setUseClassConstructor(true);
+			node.setType(org.oddb.ch.GalenicForm.class);
 		}
 		if (node.getTag().equals(new Tag(Version.ODDB_VERSION_PREFIX + "::GalenicGroup"))) {
-			if (false) // TODO:
-			{
-				node.setUseClassConstructor(false);
-				node.setType(CustomConstructor.class);
-			}
-			else
-			{
-				node.setUseClassConstructor(true);
-				node.setType(org.oddb.ch.GalenicGroup.class);				
-			}
+			node.setUseClassConstructor(true);
+			node.setType(org.oddb.ch.GalenicGroup.class);
 		}
 		if (node.getTag().equals(new Tag(Version.ODDB_VERSION_PREFIX + "::GenericTypexx"))) {
 			node.setUseClassConstructor(true);
@@ -135,27 +113,16 @@ public class ImportConstructor extends Constructor {
 			node.setType(org.oddb.ch.LimitationText.class);
 		}
 		if (node.getTag().equals(new Tag(Version.ODDB_VERSION_PREFIX + "::Package"))) {
-			if (false) { // TODO:
-				node.setUseClassConstructor(false);
-				node.setType(CustomConstructor.class);
-			} else {
-				node.setUseClassConstructor(true);
-				node.setType(org.oddb.ch.Package.class);
-			}
+			node.setUseClassConstructor(true);
+			node.setType(org.oddb.ch.Package.class);
 		}
 		if (node.getTag().equals(new Tag(Version.ODDB_VERSION_PREFIX + "::Text::Paragraph"))) {
 			node.setUseClassConstructor(true);
 			node.setType(org.oddb.ch.Paragraph.class);
 		}
 		if (node.getTag().equals(new Tag(Version.ODDB_VERSION_PREFIX + "::Part"))) {
-			if (false) {
-				// TODO:
-				node.setUseClassConstructor(false);
-				node.setType(CustomConstructor.class);
-			} else {
-				node.setUseClassConstructor(true);
-				node.setType(org.oddb.ch.Part.class);
-			}
+			node.setUseClassConstructor(true);
+			node.setType(org.oddb.ch.Part.class);
 		}
 		if (node.getTag().equals(new Tag(Version.ODDB_VERSION_PREFIX + "::Registration"))) {
 			node.setUseClassConstructor(true);

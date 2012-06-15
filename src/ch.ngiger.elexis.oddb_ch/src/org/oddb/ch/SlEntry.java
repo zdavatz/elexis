@@ -1,8 +1,16 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Niklaus Giger <niklaus.giger@member.fsf.org>.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Niklaus Giger <niklaus.giger@member.fsf.org> - initial API and implementation
+ ******************************************************************************/
 package org.oddb.ch;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 //see http://ch.oddb.org/resources/downloads/datadesc/oddb.yaml.txt
 
@@ -11,11 +19,7 @@ public class SlEntry {
 	Date introduction_date; // Datum der Aufnahme in die Spezialitätenliste
 	String limitation; // Limitation Ja/Nein
 	String limitation_points; // Limitationspunkte
-	//List<String> limitation_text; // Limitationstexte in 3 Sprachen: de/it/fr
-//	List<String> limitation_text; // Limitationstexte in 3 Sprachen: de/it/fr
 	LimitationText limitation_text ; // Limitationstexte in 3 Sprachen: de/it/fr
-	// ging nicht mit Map<String, String>
-	// ging nicht mit List<String>
 	public String getBsv_dossier(){
 		return bsv_dossier;
 	}

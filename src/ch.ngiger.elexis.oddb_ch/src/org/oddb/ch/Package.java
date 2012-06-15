@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Niklaus Giger <niklaus.giger@member.fsf.org>.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Niklaus Giger <niklaus.giger@member.fsf.org> - initial API and implementation
+ ******************************************************************************/
 package org.oddb.ch;
 
 import java.util.List;
@@ -13,25 +23,6 @@ public class Package {
 // Swissmedic-Nummer.
 	String descr; // Zusätzlicher Beschreibungstext. Selten.
 	String ikscat; // Abgabekategorie. A-E
-	// TODO:
-/*
-	List<String> parts; // Packungsbestandteile (siehe Part)
-	public List<String> getParts(){
-		return parts;
-	}
-	public void setParts(List<String> parts){
-		this.parts = parts;
-	}
-	*/
-	/* did not work when importing via Part
-	Part[] parts; // Packungsbestandteile (siehe Part)
-	public Part[] getParts(){
-		return parts;
-	}
-	public void setParts(Part[] parts){
-		this.parts = parts;
-	}
-	 */
 	List<Part> parts; // Packungsbestandteile (siehe Part)
 	public List<Part> getParts(){
 		return parts;

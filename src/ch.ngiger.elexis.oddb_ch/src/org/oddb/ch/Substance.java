@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Niklaus Giger <niklaus.giger@member.fsf.org>.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Niklaus Giger <niklaus.giger@member.fsf.org> - initial API and implementation
+ ******************************************************************************/
 package org.oddb.ch;
 
 import java.util.Map;
@@ -10,9 +20,7 @@ public class Substance {
 	int oid; // Unique Identifier
 	Map<String, String> descriptions; // Sprache, Substanzname. siehe Glossar
 // (SimpleLanguage::Descriptions)
-// - descriptions (SimpleLanguage::Descriptions (String, String)) ; //Sprache, Substanzname. siehe
-// Glossar (SimpleLanguage::Descriptions)
-	String[] synonyms; // Weitere bezeichnungen
+	String[] synonyms; // Weitere Bezeichnungen
 	Substance effective_form; // Wirkform
 	String narcotic; // CAS Registry Number
 	String swissmedic_code; // Substanz-Code der Swissmedic. siehe Glossar (Swissmedic-Code)
