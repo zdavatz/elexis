@@ -39,7 +39,7 @@
 <unit id="org.slf4j.jcl.source" version="1.6.4.v20120130-2120"/>
 <unit id="org.slf4j.log4j" version="1.6.4.v20120130-2120"/>
 <unit id="org.slf4j.log4j.source" version="1.6.4.v20120130-2120"/>
-<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/S20120428190502/repository/"/>
+<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20120526062928/repository/"/>
 </location>
 <location path="/opt/downloads/delta-3.7.2/" type="Directory"/>
 </locations>

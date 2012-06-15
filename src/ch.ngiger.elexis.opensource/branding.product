@@ -32,7 +32,6 @@
    <vm>
    </vm>
 
-
    <plugins>
       <plugin id="LogBackend"/>
       <plugin id="ch.elexis"/>
@@ -51,6 +50,7 @@
       <plugin id="ch.elexis.scripting.beanshell"/>
       <plugin id="ch.medelexis.text.templator"/>
       <plugin id="ch.ngiger.elexis.branding"/>
+      <plugin id="ch.ngiger.elexis.oddb_ch"/>
       <plugin id="ch.qos.logback.classic"/>
       <plugin id="ch.qos.logback.core"/>
       <plugin id="ch.qos.logback.slf4j" fragment="true"/>

@@ -81,6 +81,7 @@
       'ch.elexis.diagnosecodes_ch',
       'ch.elexis.labortarif.ch2009',
       'ch.elexis.artikel_ch',
+      'ch.ngiger.elexis.oddb_ch',
     ]
     oo2Projects = [] #  'ch.elexis.noatext' ]
     txtTemplProjects = [ 'ch.medelexis.text.templator' ]

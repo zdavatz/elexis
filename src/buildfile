@@ -1,4 +1,4 @@
-#!/usr/bin/ruby 
+#!/usr/bin/ruby
 # encoding: utf-8
 # Please do not edit manually this file. Instead update
 # /opt/src/elexis/src/lib/gen_buildfile.rb
@@ -13,7 +13,7 @@ dir = File.dirname(__FILE__)
 0.upto(99) do |x|
   where = File.expand_path(Dir.pwd) if Dir.glob('{.svn|.hg|.git}').size > 0
   Dir.chdir('..')
-  break if Dir.pwd.size < 3               
+  break if Dir.pwd.size < 3
 end
 Dir.chdir(saved)
 where = File.expand_path(where)
@@ -34,7 +34,7 @@ ss.each{ |x|
     break
   end
   }
-  
+
 if !defined?(P2_EXE)
   puts "Wrong setup! Please specify the dirctory of a working eclipse installation in the enviornment variable P2_EXE."
   puts "(Tried #{ss.inspect})"
@@ -88,7 +88,7 @@ define "elexis" do
     |textileFile|
       src = textileFile.to_s
       dest =  src.to_s.sub('.textile', '.pdf')
-	Wikitext::pdfFromTextile(dest, src) 
+	Wikitext::pdfFromTextile(dest, src)
     task 'readme' => dest
   } if !Wikitext::skipDoc
 
@@ -96,6 +96,7 @@ define "elexis" do
   end if !$skipPlugins.index('LogBackend')
 
   define 'ch.elexis.artikel_ch', :version=> '2.0.5' do
+ dependencies << artifact('org.yaml:snakeyaml:bundle:1.10')
     dependencies << projects('ch.elexis', 'ch.elexis.importer.div', 'ch.rgw.utility', 'ch.elexis.core')
   end if !$skipPlugins.index('ch.elexis.artikel_ch')
 
@@ -174,7 +175,7 @@ define "elexis" do
     check package(:plugin), 'plugin should contain Fall.class' do
       it.should contain('ch/elexis/data/Fall.class')
     end
-    
+
     dependencies << projects('ch.rgw.utility', 'ch.elexis.core')
   end if !$skipPlugins.index('ch.elexis')
 
@@ -184,11 +185,17 @@ define "elexis" do
 
   define 'ch.ngiger.elexis.branding', :version=> '1.0.0.qualifier' do
   end if !$skipPlugins.index('ch.ngiger.elexis.branding')
+
+  define 'ch.ngiger.elexis.oddb_ch', :version=> '1.0.0.qualifier' do
+    dependencies << projects('ch.elexis', 'ch.rgw.utility', 'ch.elexis.core', 'ch.elexis.importer.div')
+  end if !$skipPlugins.index('ch.ngiger.elexis.oddb_ch')
+# ignoring ch.ngiger.elexis.oddb_ch_test because isTestProject
 # ignoring ch.ngiger.elexis.opensource because no infoFiles found
 
   define 'ch.ngiger.logging.configuration', :version=> '1.0.0.qualifier' do
     dependencies << projects('org.ekkescorner.logging.osgi')
   end if !$skipPlugins.index('ch.ngiger.logging.configuration')
+# ignoring ch.oddb.yaml.test because no infoFiles found
 
   define 'ch.rgw.utility', :version=> '2.0.8' do
     # checks to be run after package
@@ -210,14 +217,14 @@ define "elexis" do
     end if false
     check package(:plugin), 'plugin should not contain a readme.pdf' do
       it.should_not contain('doc/readme.pdf')
-    end 
+    end
     check package(:plugin), 'should contain the medelexis.xml' do
       it.should contain('medelexis.xml')
     end
     check package(:plugin), 'plugin should contain bin/ch/rgw/compress/CompEx.class' do
       it.should contain('bin/ch/rgw/compress/CompEx.class')
     end  if false
-    check package(:plugin), 'org/apache/commons/compress/bzip2/CBZip2InputStream.class' do 
+    check package(:plugin), 'org/apache/commons/compress/bzip2/CBZip2InputStream.class' do
       it.should contain('org/apache/commons/compress/bzip2/CBZip2InputStream.class')
     end if false
     check package(:plugin), 'checking for lib/jdom.jar' do
@@ -232,6 +239,7 @@ define "elexis" do
 
   define 'de.fhdo.elexis.perspective', :version=> '1.0.0' do
   end if !$skipPlugins.index('de.fhdo.elexis.perspective')
+# ignoring oddb.import because no infoFiles found
 
   define 'org.ekkescorner.logging.osgi', :version=> '0.9.40.qualifier' do
   end if !$skipPlugins.index('org.ekkescorner.logging.osgi')
@@ -240,9 +248,11 @@ define "elexis" do
     dependencies << projects('ch.elexis', 'ch.rgw.utility')
   end if !$skipPlugins.index('org.iatrix.help.wiki')
 # ignoring pde.test.utils because isTestProject
+# ignoring snakeyaml because no infoFiles found
+# ignoring yamlbeans because no infoFiles found
 
-  allProjects = ["LogBackend", "ch.elexis.artikel_ch", "ch.elexis.arzttarife_ch", "ch.elexis.core", "ch.elexis.developer.resources", "ch.elexis.diagnosecodes_ch", "ch.elexis.ebanking_ch", "ch.elexis.eigenartikel", "ch.elexis.h2.connector", "ch.elexis.importer.div", "ch.elexis.labortarif.ch2009", "ch.elexis.mysql.connector", "ch.elexis.noatext", "ch.elexis.postgresql.connector", "ch.elexis.scripting.beanshell", "ch.elexis", "ch.medelexis.text.templator", "ch.ngiger.elexis.branding", "ch.ngiger.logging.configuration", "ch.rgw.utility", "de.fhdo.elexis.perspective", "org.ekkescorner.logging.osgi", "org.iatrix.help.wiki"]
-  
+  allProjects = ["LogBackend", "ch.elexis.artikel_ch", "ch.elexis.arzttarife_ch", "ch.elexis.core", "ch.elexis.developer.resources", "ch.elexis.diagnosecodes_ch", "ch.elexis.ebanking_ch", "ch.elexis.eigenartikel", "ch.elexis.h2.connector", "ch.elexis.importer.div", "ch.elexis.labortarif.ch2009", "ch.elexis.mysql.connector", "ch.elexis.noatext", "ch.elexis.postgresql.connector", "ch.elexis.scripting.beanshell", "ch.elexis", "ch.medelexis.text.templator", "ch.ngiger.elexis.branding", "ch.ngiger.elexis.oddb_ch", "ch.ngiger.logging.configuration", "ch.rgw.utility", "de.fhdo.elexis.perspective", "org.ekkescorner.logging.osgi", "org.iatrix.help.wiki"]
+
  define 'ch.ngiger.elexis.opensource', :base_dir => 'ch.ngiger.elexis.opensource' do
    inhalt = File.read('ch.ngiger.elexis.opensource/buildfile.project')
    eval(inhalt)
@@ -255,17 +265,17 @@ define "elexis" do
     category.name = "elexis" # type= medelexis.xml
     category.label = "Elexis: eine umfassende Lösung für die Arztpraxis"
     category.description = "Elexis-Basis module" # <service:description>Elexis Basismodul</service:description> in medelexis.xml
-    (allProjects & P2SiteExtension::getFeatures).each { 
-      |aProj| 
+    (allProjects & P2SiteExtension::getFeatures).each {
+      |aProj|
       siteName = addFeatureToSite(aProj)
       category.features<< project(siteName)
     }
     package(:site).categories << category
     package(:p2_from_site)
-    
+
     desc 'create a P2 update site for Elexis'
-    task 'p2site' => package(:p2_from_site) 
-    
+    task 'p2site' => package(:p2_from_site)
+
     check package(:p2_from_site), 'The p2site should have a site.xml' do
       File.should exist(File.join(path_to(:target,'p2repository/site.xml')))
     end
@@ -280,7 +290,7 @@ define "elexis" do
     end
     check package(:p2_from_site), 'The p2site should have a features directory' do
       File.should exist(File.join(path_to(:target,'p2repository/features')))
-    end 
+    end
     check package(:p2_from_site), 'The p2site should contain a de.fhdo.elexis.perspective jar' do
       File.should exist(File.join(path_to(:target,"p2repository/plugins/de.fhdo.elexis.perspective_#{project('de.fhdo.elexis.perspective').version}.jar")))
     end
@@ -291,9 +301,9 @@ define "elexis" do
   inhalt = File.read(File.join(File.dirname(__FILE__), 'tasks', 'debian.include'))
   eval(inhalt) if false
 
-# defined 23 projects
+# defined 24 projects
 # will ignore 6 directories (as defined IgnoreSubDirs)
-# ignored 4 directories"
+# ignored 9 directories"
 
 end
 

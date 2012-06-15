@@ -1,8 +1,18 @@
+#-------------------------------------------------------------------------------
+# Copyright (c) 2012 Niklaus Giger <niklaus.giger@member.fsf.org>.
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v1.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v10.html
+# 
+# Contributors:
+#     Niklaus Giger <niklaus.giger@member.fsf.org> - initial API and implementation
+#-------------------------------------------------------------------------------
 Elexis - Demoversion
 ====================
 
 *********************************
-Für Schnellweiterblätterer: Um sich beim Programmstart anzumelden, müssen Sie für Anmeldename und Passwort jeweils "test" schreiben (ohne die Anführungszeichen)
+Fï¿½r Schnellweiterblï¿½tterer: Um sich beim Programmstart anzumelden, mï¿½ssen Sie fï¿½r Anmeldename und Passwort jeweils "test" schreiben (ohne die Anfï¿½hrungszeichen)
 *********************************
 
 Bitte beachten Sie vor der Benutzung die untenstehende Lizenzvereinbarung und den
@@ -11,28 +21,28 @@ Haftungsausschluss.
 
 a) Beschreibung, Umfang  und Mindestvoraussetzungen
 ---------------------------------------------------
-Dies ist eine vollständige Elexis-Installation für Windows inklusive Java Runtime und OpenOffice, welche mit einer Demo-Datenbank verknüpft ist. 
+Dies ist eine vollstï¿½ndige Elexis-Installation fï¿½r Windows inklusive Java Runtime und OpenOffice, welche mit einer Demo-Datenbank verknï¿½pft ist. 
 
-Diese Version läuft nur auf Microsoft Windows 2000 oder XP. Der Computer sollte mindestens 256MB RAM haben (besser 512) und auf der Festplatte müssen mindestens 350MB frei sein.
+Diese Version lï¿½uft nur auf Microsoft Windows 2000 oder XP. Der Computer sollte mindestens 256MB RAM haben (besser 512) und auf der Festplatte mï¿½ssen mindestens 350MB frei sein.
 
 b) Programmstart
 ----------------
-Diese Version enthält eine Datenbank mit einigen Demo-Daten zum Ausprobieren. Melden Sie sich mit Anwendernamen und Passwort "test" an, Sie haben dann vollen Zugriff auf alle Programteile.
+Diese Version enthï¿½lt eine Datenbank mit einigen Demo-Daten zum Ausprobieren. Melden Sie sich mit Anwendernamen und Passwort "test" an, Sie haben dann vollen Zugriff auf alle Programteile.
 
 d) Deinstallation
 -----------------
-Im Startmenu finden Sie nebst Elexis auch einen Menuepunkt "Deinstallation". Wählen Sie diesen Punkt, um Elexis vollständig zu löschen (Achtung: Dies löscht auch alle Daten, die Sie vielleicht seit der Installation in Elexis eingegeben haben).
-Sie können auch einfach den Elexis-Ordner löschen. Auch dies deinstalliert das Programm vollständig.
+Im Startmenu finden Sie nebst Elexis auch einen Menuepunkt "Deinstallation". Wï¿½hlen Sie diesen Punkt, um Elexis vollstï¿½ndig zu lï¿½schen (Achtung: Dies lï¿½scht auch alle Daten, die Sie vielleicht seit der Installation in Elexis eingegeben haben).
+Sie kï¿½nnen auch einfach den Elexis-Ordner lï¿½schen. Auch dies deinstalliert das Programm vollstï¿½ndig.
 
 
 e) Upgrade auf die Vollversion
 ------------------------------
-Löschen Sie einfach das Unterverzeichnis "demoDB" im Elexis-Verzeichnis. Das Programm ist dann identisch mit der Normalversion (muss also auch konfiguriert und parametrisiert werden)
+Lï¿½schen Sie einfach das Unterverzeichnis "demoDB" im Elexis-Verzeichnis. Das Programm ist dann identisch mit der Normalversion (muss also auch konfiguriert und parametrisiert werden)
 
 
 f) Zusatzmaterialien und Handbuch
 ---------------------------------
-Ein Handbuch (elexis.pdf) wurde ebenfalls mitinstalliert. Bitte lesen Sie dort zunächst nach, wenn Probleme auftreten.
+Ein Handbuch (elexis.pdf) wurde ebenfalls mitinstalliert. Bitte lesen Sie dort zunï¿½chst nach, wenn Probleme auftreten.
 
 
 --------------------------------------------------------------------------------------
@@ -43,20 +53,20 @@ http://www.elexis.ch
 
 
  Sie erhalten das Recht zur nicht-exklusiven Nutzung dieses Programms auf beliebig vielen Rechnern und zur Weitergabe an andere, nach eigenem Ermessen.
- Sie müssen aber diesen Text unverändert beilegen und Sie dürfen keine Copyright - Hinweise aus dem Programm bzw. dessen Quelltexten entfernen.
+ Sie mï¿½ssen aber diesen Text unverï¿½ndert beilegen und Sie dï¿½rfen keine Copyright - Hinweise aus dem Programm bzw. dessen Quelltexten entfernen.
 
 
- Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass es Ihnen von
+ Die Verï¿½ffentlichung dieses Programms erfolgt in der Hoffnung, dass es Ihnen von
  Nutzen sein wird, aber OHNE IRGENDEINE Garantie, sogar ohne die implizite Garantie
- der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN ZWECK.
+ der MARKTREIFE oder der VERWENDBARKEIT Fï¿½R EINEN BESTIMMTEN ZWECK.
 
  Sollten aus der Verwendung oder Nichtverwendbarkeit dieses Programms irgendwelche
- materielle oder immaterielle Schäden entstehen, wird jede Haftung abgelehnt.
+ materielle oder immaterielle Schï¿½den entstehen, wird jede Haftung abgelehnt.
 
- Sie dürfen das Programm nur verwenden, wenn Sie diesen Bedingungen zustimmen.
+ Sie dï¿½rfen das Programm nur verwenden, wenn Sie diesen Bedingungen zustimmen.
 
-Im übrigen gelten die Bedingungen der  Eclipse public license, welche untenstehend im
-Original beigefügt ist, und welche auch als epl-v10.html diesem Programmpaket beiliegt.
+Im ï¿½brigen gelten die Bedingungen der  Eclipse public license, welche untenstehend im
+Original beigefï¿½gt ist, und welche auch als epl-v10.html diesem Programmpaket beiliegt.
 
 -------------------------------------------------------------------------------------
 Eclipse Public License - v 1.0
