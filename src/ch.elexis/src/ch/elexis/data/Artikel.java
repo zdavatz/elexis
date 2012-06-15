@@ -490,6 +490,12 @@ public class Artikel extends VerrechenbarAdapter {
 		set(FLD_ATC_CODE, ATC_code);
 	}
 	
+	public void setPharmaCode(String pharmacode){
+		Map<Object, Object> ext = getMap(FLD_EXTINFO);
+		ext.put(FLD_PHARMACODE, pharmacode);
+		setMap(FLD_EXTINFO, ext);
+	}
+	
 	public String getPharmaCode(){
 		Map ext = getMap(FLD_EXTINFO);
 		return checkNull((String) ext.get(FLD_PHARMACODE));
