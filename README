@@ -70,7 +70,13 @@ Es gibt in der Schweiz ca. 15 Firmen die kommerziellen Support für das Med-Elex
 * export P2_EXE=/Applications/eclipse (Um das Eclipse Dir korrekt zu setzen).
 * ruby rebuild_all.rb
 
-Für den täglichen Gebrauch und nach dem ersten Build bei täglichen commits:
+## Beim ersten Install auf OSX muss RVM installiert werden
+
+* bash -s master < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer) 
+* rvm install jruby-1.6.7
+* Terminal neu starten
+
+## Für den täglichen Gebrauch und nach dem ersten Build bei täglichen commits:
 
 * ruby src/rebuild_all.rb
 
