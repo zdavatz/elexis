@@ -11,6 +11,23 @@ h1. Use Cases (Anwendungsszenarien)
 * Meldung von Fehlern
 * Bitte um Erfassung von neuen/fehlenden Produkte-Daten
 
+h1. Implementation
+
+h2. Design-Entscheidungen
+
+* Die oddb.yaml definierten Elemente werden nicht in vielen Tabellen abspeichert. Einzig die gewünschte Informationen wird extrahiert und wie bisher als ch.elexis.data.Artikel abspeichern. Der Elexis-Klasse Artikel entspricht in etwa der Package in der oddb.yaml-Definition.
+* Damit UnitTests nicht die gesamte Persitenz nutzen müssen, wurde die  Klasse ElexisArtikel in org.oddb.ch.Import realisiert. Dort werden folgende Felder (in Klammer oddb.yaml-Bezeichungnen) definiert:
+** ean13
+** name (name_base, name_descr)
+** EKPreis (price_exfactory)
+** VKPreis (price_public)
+** pharmacode
+** atc_code
+** verpackungsEinheit (TODO:)
+** abgabeEinheit (TODO:)
+** partString
+* ch.ngiger.elexis.oddb_ch.data.OddbImporter benutzt org.oddb.ch.Import, um den Elexis-Import durchzuführen und die Objekte der Klasse ElexisArtikel in solche der Klasse ch.elexis.data.Artikel überzuführen.
+
 h2. Unschönheiten
 
 * UTF-8 Escape-Sequenzen werden nicht in korrekte String umgewandelt. Details http://code.google.com/p/snakeyaml/issues/detail?id=151. Lokaler Workaround in org.oddb.ch.Import  Funktion patchUtfEscape
@@ -23,9 +40,11 @@ h2. Tests
 h2. TODO:
 
 * Ist es richtig zu empfehlen, zuerst alle ODDB-Artikel zu löschen??
+* Ca 500 ean13-Werte tauchen nicht in der Elexis-Tabelle Artikel auf. Warum?
 * Umwandlung in sprechende Namen der Verpackung korrekt?
 * name beginnt manchmal mit " ". Häufig mit Pharmacode. Weshalb?
 * handle duplicates in org.oddb.ch.Import
+* Abgabe/Verpackungseinheit importieren?
 * Check whether we really imported all articles
 * Erweiterungen Importer (md5-Checksumme, logging in DB, GUI dazu, Download von Update-Seite)
 * GUI/Jubula tests via buildr.apache.org unter MySQL, PostgreSQL & H2

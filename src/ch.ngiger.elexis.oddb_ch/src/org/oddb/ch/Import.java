@@ -223,6 +223,7 @@ public class Import {
 								Part myPart = parts.get(k);
 								partS.append(myPart.toString());
 							}
+							a.partString = parts.toString();
 							articles.add(a);
 							counter++;
 							// logger.debug(a.toString());
