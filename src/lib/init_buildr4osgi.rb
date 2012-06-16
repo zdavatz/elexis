@@ -88,10 +88,12 @@ def checkGem(gemName, version=nil)
   return false
 end
 
-{'net-ldap' => nil, 'buildrdeb' => nil,'buildrizpack' =>'0.2','buildr' => '1.4.'}.each do
+{'net-ldap' => nil, 'buildrdeb' => nil,'buildrizpack' =>'0.2','buildr' => '1.4.6'}.each do
   |name, version|
     if !checkGem(name,version)
-      system("#{$usePrefix} gem install #{name}")
+      cmd = "#{$usePrefix} gem install #{name}"
+      cmd += " --version #{version}" if version
+      system(cmd)
     else
       puts "gem #{name} is already installed"
     end
