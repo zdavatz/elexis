@@ -5716,7 +5716,7 @@ registrations:
 
           deductible: 10
   indication: *id106
-  export_flag: false
+  export_flag:
   fachinfo_oid: 27046012
   generic_type: :generic
   complementary_type:

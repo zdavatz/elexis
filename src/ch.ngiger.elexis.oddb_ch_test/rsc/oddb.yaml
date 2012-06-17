@@ -1093,7 +1093,7 @@ registrations:
 
           deductible: 
   indication: 
-  export_flag: false
+  export_flag: 
   generic_type: 
   complementary_type: 
 url: 
@@ -1609,7 +1609,7 @@ registrations:
 
           deductible: 
   indication: 
-  export_flag: false
+  export_flag:  
   fachinfo_oid: 1823
   generic_type: 
   complementary_type: 
