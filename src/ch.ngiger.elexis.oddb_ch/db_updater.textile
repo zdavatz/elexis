@@ -1,0 +1,32 @@
+h1. DB-Updater
+
+h2. Ziel: extInfo-Felder auf einfache Art eliminieren
+
+Help-Java-Applikation mit diversen Schritten
+
+Aktuelle Uhrzeit, DB-URI, Db-Typ ermitteln
+Tabelle auslesen (alle anzeigen)
+Felder (namen, anzahl, max. Grösse) in extinfo ermitteln
+Updaten
+Log-Datei der DB-Strukturänderungen/DB-Inserts, etc erstellen
+Sind wir ohne PersistenceObject viel schneller?
+Kann man das Ganze in eine einzige Transaktion verpacken (inkl. Tabellenänderung)?
+(Gemäss http://wiki.postgresql.org/wiki/Transactional_DDL_in_PostgreSQL:_A_Competitive_Analysis nur mit PostgreSQL)
+* http://www.h2database.com/html/grammar.htm
+
+h2. Rezeptbuch für Umbau einer Klasse
+
+* GUI/Jubula-Test schreiben
+* Tests unter H2, MySQL & PostgreSQL ausführen!
+* map ergänzen
+* getExt durch get ersetzen?
+
+h2. Offene Probleme/Fragen
+
+h3. Rückwärtskompatibilität?
+
+* DB-Upgrade muss um diese Möglichkeit erweitert werden, Z.b. anstelle von sql-Script
+eine Meta-Anweisung einbauen
+
+* getExt in 2.1.6 erweitern, dass zuerst in Feld gesucht wird?
+

@@ -18,16 +18,19 @@ public class OddbArtikel extends Artikel {
 	
 	public static final String ODDB_NAME = "ODDB";
 	
-	
-	public OddbArtikel(String ean, String text){
+	/*
+	 * @param text: Präparatname
+	 * @param ean des Artikels
+	 */
+	public OddbArtikel(String text, String ean){
 		String fullId = String.format("%1$s.%2$s",ODDB_NAME,ean);  //$NON-NLS-1$
 		create(fullId);
 		set(new String[] {	
 			Artikel.FLD_NAME, Artikel.FLD_TYP, Artikel.FLD_SUB_ID, Artikel.FLD_KLASSE
 		}, new String[] {
-			fullId, ODDB_NAME, ean, OddbArtikel.class.getName()
+			text, ODDB_NAME, "", OddbArtikel.class.getName()
 		}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-		setExt("FullText", text); //$NON-NLS-1$
+		// setExt("FullText", text); //$NON-NLS-1$
 	}
 	
 	@Override

@@ -1,0 +1,1434 @@
+diff --git a/src/ch.ngiger.elexis.oddb_ch_test/rsc/oddb.yaml b/src/ch.ngiger.elexis.oddb_ch_test/rsc/oddb.yaml
+index 56c51be..aa6e9f8 100644
+--- a/src/ch.ngiger.elexis.oddb_ch_test/rsc/oddb.yaml
++++ b/src/ch.ngiger.elexis.oddb_ch_test/rsc/oddb.yaml
+@@ -15,7 +15,7 @@ registrations:
+     "01": !oddb.org,2003/ODDB::Sequence
+       seqnr: "01"
+       name_base: Lecicarbon
+-      name_descr: "Suppositorien f\xC3\xBCr Erwachsene"
++      name_descr: "Suppositorien für Erwachsene"
+       atc_class: &id003 !oddb.org,2003/ODDB::AtcClass
+         code: A06AB
+         descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+@@ -33,6 +33,7 @@ registrations:
+                   formats:
+                   - !oddb.org,2003/ODDB::Text::Format
+                     values: []
++
+                     start: 0
+                     end: -1
+                   text: |-
+@@ -49,7 +50,7 @@ registrations:
+                     Otherwise combination products are classified at separate 5th levels using the corresponding 50-series.
+                   preformatted: false
+         ddd_guidelines:
+-        ddds: {}
++        ddds: []
+ 
+       composition_text: natrii hydrogenocarbonas 500 mg, natrii dihydrogenophosphas anhydricus 680 mg, excipiens pro suppositorio.
+       compositions:
+@@ -102,16 +103,15 @@ registrations:
+       packages:
+         "010": !oddb.org,2003/ODDB::Package
+           ikscd: "010"
+-          lppv: true
+           descr: ""
+           ikscat: D
+           sl_entry:
+           parts:
+           - !oddb.org,2003/ODDB::Part
++            addition: 0
+             count: 10
+             multi: 1
+             measure:
+-            addition: 0
+             commercial_form: &id002 !oddb.org,2003/ODDB::CommercialForm
+               oid: 1067445
+               descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+@@ -121,6 +121,7 @@ registrations:
+             composition: *id001
+           has_generic: false
+           ean13: "7680211090101"
++          lppv: true
+           price_exfactory: 0.0
+           price_public: 10.25
+           pharmacode: "756873"
+@@ -129,20 +130,20 @@ registrations:
+           deductible:
+         "037": !oddb.org,2003/ODDB::Package
+           ikscd: "037"
+-          lppv: true
+           descr: ""
+           ikscat: D
+           sl_entry:
+           parts:
+           - !oddb.org,2003/ODDB::Part
++            addition: 0
+             count: 100
+             multi: 1
+             measure:
+-            addition: 0
+             commercial_form: *id002
+             composition: *id001
+           has_generic: false
+           ean13: "7680211090378"
++          lppv: true
+           price_exfactory: 0.0
+           price_public: 71.15
+           pharmacode: "759185"
+@@ -152,7 +153,7 @@ registrations:
+     "02": !oddb.org,2003/ODDB::Sequence
+       seqnr: "02"
+       name_base: Lecicarbon
+-      name_descr: "Suppositorien f\xC3\xBCr Kinder"
++      name_descr: "Suppositorien für Kinder"
+       atc_class: *id003
+       composition_text: natrii hydrogenocarbonas 250 mg, natrii dihydrogenophosphas anhydricus 340 mg, excipiens pro suppositorio.
+       compositions:
+@@ -176,20 +177,20 @@ registrations:
+       packages:
+         "053": !oddb.org,2003/ODDB::Package
+           ikscd: "053"
+-          lppv: true
+           descr: ""
+           ikscat: D
+           sl_entry:
+           parts:
+           - !oddb.org,2003/ODDB::Part
++            addition: 0
+             count: 10
+             multi: 1
+             measure:
+-            addition: 0
+             commercial_form: *id002
+             composition: *id007
+           has_generic: false
+           ean13: "7680211090538"
++          lppv: true
+           price_exfactory: 0.0
+           price_public: 7.55
+           pharmacode: "756867"
+@@ -212,13 +213,13 @@ addresses:
+   name:
+   additional_lines: []
+ 
+-  address: "Rigistrasse 6\xC2\xA0\xC2\xA0"
+-  location: "6440\xC2\xA0 Brunnen\xC2\xA0"
++  address: "Rigistrasse 6  "
++  location: "6440  Brunnen "
+   canton:
+   fon:
+-  - "041 8206651\xC2\xA0"
++  - "041 8206651 "
+   fax:
+-  - "061 8206652\xC2\xA0"
++  - "061 8206652 "
+   type:
+ contact:
+ contact_email:
+@@ -276,7 +277,7 @@ registrations:
+         guidelines:
+         ddd_guidelines:
+         ddds:
+-          O: !oddb.org,2003/ODDB::AtcClass::DDD 
++        - !oddb.org,2003/ODDB::AtcClass::DDD
+           administration_route: O
+           dose: !oddb.org,2003/ODDB::Drugs::Dose
+             not_normalized:
+@@ -284,7 +285,7 @@ registrations:
+             unit: g
+             scale:
+           note:
+-          P: !oddb.org,2003/ODDB::AtcClass::DDD 
++        - !oddb.org,2003/ODDB::AtcClass::DDD
+           administration_route: P
+           dose: !oddb.org,2003/ODDB::Drugs::Dose
+             not_normalized:
+@@ -307,7 +308,7 @@ registrations:
+             descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+               de: Tabletten
+               en: Tablets
+-              fr: "Comprim\xC3\xA9s"
++              fr: "Comprimés"
+         active_agents:
+         - !oddb.org,2003/ODDB::ActiveAgent
+           substance: &id002 !oddb.org,2003/ODDB::Substance
+@@ -353,7 +354,7 @@ registrations:
+           galenic_group: !oddb.org,2003/ODDB::GalenicGroup
+             oid: 7
+             descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+-              de: "L\xC3\xB6sbar zur Einnahme"
++              de: "Lösbar zur Einnahme"
+               en: Soluble for ingestion
+               fr: Soluble pour ingestion
+         active_agents:
+@@ -393,7 +394,7 @@ registrations:
+     "01": !oddb.org,2003/ODDB::Sequence
+       seqnr: "01"
+       name_base: Cloramidina succinicum
+-      name_descr: "pr\xC3\xA9paration injectable"
++      name_descr: "préparation injectable"
+       atc_class: *id001
+       composition_text:
+       compositions:
+@@ -401,9 +402,9 @@ registrations:
+         galenic_form: !oddb.org,2003/ODDB::GalenicForm
+           oid: 39
+           descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+-            de: "Injektionspr\xC3\xA4parat"
++            de: "Injektionspräparat"
+             en: Injection preparation
+-            fr: "Pr\xC3\xA9paration injectable"
++            fr: "Préparation injectable"
+           galenic_group: !oddb.org,2003/ODDB::GalenicGroup
+             oid: 3
+             descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+@@ -474,7 +475,7 @@ registrations:
+                     Tonics are classified in A13. The vitamin content of tonics should be rather low.
+                   preformatted: false
+         ddd_guidelines:
+-        ddds: {}
++        ddds: []
+ 
+       composition_text:
+       compositions:
+@@ -501,7 +502,7 @@ registrations:
+           substance: !oddb.org,2003/ODDB::Substance
+             oid: 3683
+             descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+-              de: "Ascorbins\xC3\xA4ure"
++              de: "Ascorbinsäure"
+               en: Ascorbic Acid
+               fr: Acide Ascorbique
+               lt: Acidum Ascorbicum
+@@ -543,7 +544,7 @@ registrations:
+           substance: !oddb.org,2003/ODDB::Substance
+             oid: 1620
+             descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+-              de: "Fols\xC3\xA4ure"
++              de: "Folsäure"
+               en: Folic Acid
+               fr: Acide Folique
+               lt: Acidum Folicum
+@@ -596,7 +597,7 @@ registrations:
+           dose: !oddb.org,2003/ODDB::Dose
+             not_normalized:
+             val: 2
+-            unit: "\xC2\xB5g"
++            unit: "µg"
+             scale:
+         - !oddb.org,2003/ODDB::ActiveAgent
+           substance: !oddb.org,2003/ODDB::Substance
+@@ -891,7 +892,7 @@ registrations:
+             descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+               de: Alpha-tocopherol Acetat
+               en: Alpha-tocopherol Acetate
+-              fr: "Alpha-tocopherol Ac\xC3\xA9tate"
++              fr: "Alpha-tocopherol Acétate"
+               lt: Alfa-tocopheroli Acetas
+             synonyms:
+             - Alfa-tocopherol Acetat
+@@ -1045,25 +1046,25 @@ registrations:
+       packages:
+         "036": !oddb.org,2003/ODDB::Package
+           ikscd: "036"
+-          lppv: false
+           descr: ""
+           ikscat: D
+           sl_entry:
+           parts:
+           - !oddb.org,2003/ODDB::Part
++            addition: 0
+             count: 30
+             multi: 1
+             measure:
+-            addition: 0
+             commercial_form: &id013 !oddb.org,2003/ODDB::CommercialForm
+               oid: 1067461
+               descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+                 de: Kapsel(n)
+                 en: Capsule(s)
+-                fr: "G\xC3\xA9lule(s)"
++                fr: "Gélule(s)"
+             composition: *id012
+           has_generic: false
+           ean13: "7680362850364"
++          lppv: false
+           price_exfactory: 0.0
+           price_public: 0.0
+           pharmacode:
+@@ -1072,364 +1073,30 @@ registrations:
+           deductible:
+         "044": !oddb.org,2003/ODDB::Package
+           ikscd: "044"
+-          lppv: false
+           descr: ""
+           ikscat: D
+           sl_entry:
+           parts:
+           - !oddb.org,2003/ODDB::Part
++            addition: 0
+             count: 100
+             multi: 1
+             measure:
+-            addition: 0
+             commercial_form: *id013
+             composition: *id012
+           has_generic: false
+           ean13: "7680362850449"
+-          price_exfactory: 0.0
+-          price_public: 0.0
+-          pharmacode: 
+-          narcotics: []
+-
+-          deductible: 
+-  indication: 
+-  export_flag: 
+-  generic_type: 
+-  complementary_type: 
+-url: 
+-email: 
+-addresses: 
+-- !oddb.org,2003/ODDB::Address2 
+-  title: 
+-  name: 
+-  additional_lines: []
+-
+-  address: 
+-  location: " "
+-  canton: 
+-  fon: []
+-
+-  fax: []
+-
+-  type: 
+-contact: 
+-contact_email: 
+-
+---- !oddb.org,2003/ODDB::Company 
+-oid: 127
+-ean13: 
+-name: Mislin + Balthasar AG
+-business_area: ba_pharma
+-generic_type: 
+-registrations: 
+-- !oddb.org,2003/ODDB::Registration 
+-  iksnr: "22080"
+-  registration_date: 1961-04-17
+-  revision_date: 2005-11-09
+-  expiration_date: 2010-11-08
+-  inactive_date: 2010-03-11
+-  sequences: 
+-    "01": !oddb.org,2003/ODDB::Sequence 
+-      seqnr: "01"
+-      name_base: Poho Oel Golden Lotus
+-      name_descr: 
+-      atc_class: !oddb.org,2003/ODDB::AtcClass 
+-        code: R05X
+-        descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-          de: "ANDERE KOMBINATIONSPR\xC3\x84PARATE GEGEN ERK\xC3\x84LTUNGSKRANKHEITEN"
+-          en: Other Cold Preparations
+-        guidelines: !oddb.org,2003/ODDB::Text::Document 
+-          descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-            en: !oddb.org,2003/ODDB::Text::Chapter 
+-              heading: ""
+-              sections: 
+-              - !oddb.org,2003/ODDB::Text::Section 
+-                subheading: ""
+-                paragraphs: 
+-                - !oddb.org,2003/ODDB::Text::Paragraph 
+-                  formats: 
+-                  - !oddb.org,2003/ODDB::Text::Format 
+-                    values: []
+-
+-                    start: 0
+-                    end: -1
+-                  text: This group comprises cold preparations with various ingredients, which cannot be classified in the preceding groups. Combinations with therapeutic amounts of various ingredients (e.g. quinine as an antipyretic, antihistamines, ascorbic acid and caffeine) are classified in this group. Various remedies for symptomatic relief in cough and cold, e.g. inhalants with menthol, camphora, thymol etc. are also classified here.
+-                  preformatted: false
+-        ddd_guidelines: 
+-        ddds: {}
+-
+-      composition_text: menthae sinensis aetheroleum.
+-      compositions: 
+-      - &id001 !oddb.org,2003/ODDB::Composition 
+-        galenic_form: !oddb.org,2003/ODDB::GalenicForm 
+-          oid: 72
+-          descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-            de: Oel
+-            en: Oil
+-            fr: Huile
+-          galenic_group: !oddb.org,2003/ODDB::GalenicGroup 
+-            oid: 4
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              de: Salben
+-              en: Ointments
+-              fr: Onguents
+-        active_agents: 
+-        - !oddb.org,2003/ODDB::ActiveAgent 
+-          substance: !oddb.org,2003/ODDB::Substance 
+-            oid: 539
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              lt: Menthae Sinensis Aetheroleum
+-            synonyms: []
+-
+-            swissmedic_code: 
+-          dose: 
+-      packages: 
+-        "016": !oddb.org,2003/ODDB::Package 
+-          ikscd: "016"
+-          lppv: false
+-          descr: 
+-          ikscat: E
+-          sl_entry: 
+-          parts: 
+-          - !oddb.org,2003/ODDB::Part 
+-            count: 1
+-            multi: 1
+-            measure: !oddb.org,2003/ODDB::Dose 
+-              not_normalized: 
+-              val: 10
+-              unit: ml
+-              scale: 
+-            addition: 0
+-            commercial_form: 
+-            composition: *id001
+-          has_generic: false
+-          ean13: "7680220800166"
+-          price_exfactory: 0.0
+-          price_public: 0.0
+-          pharmacode: 
+-          narcotics: []
+-
+-          deductible: 
+-  indication: !oddb.org,2003/ODDB::Indication 
+-    oid: 853163
+-    descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-      de: "\xC3\x84usserlich zur Linderung bei Schnupfen und Erk\xC3\xA4ltungen"
+-  export_flag: false
+-  generic_type: 
+-  complementary_type: :phytotherapy
+-- !oddb.org,2003/ODDB::Registration 
+-  iksnr: "38475"
+-  registration_date: 1980-11-25
+-  revision_date: 
+-  expiration_date: 2019-03-02
+-  inactive_date: 2009-07-19
+-  sequences: 
+-    "02": !oddb.org,2003/ODDB::Sequence 
+-      seqnr: "02"
+-      name_base: "Amigo Kr\xC3\xA4utersirup"
+-      name_descr: 
+-      atc_class: !oddb.org,2003/ODDB::AtcClass 
+-        code: R05C
+-        descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-          de: EXPEKTORANZIEN, EXKL. KOMBINATIONEN MIT ANTITUSSIVA
+-          en: Expectorants, Excl. Combinations with Cough Suppressants
+-        guidelines: !oddb.org,2003/ODDB::Text::Document 
+-          descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-            en: !oddb.org,2003/ODDB::Text::Chapter 
+-              heading: ""
+-              sections: 
+-              - !oddb.org,2003/ODDB::Text::Section 
+-                subheading: ""
+-                paragraphs: 
+-                - !oddb.org,2003/ODDB::Text::Paragraph 
+-                  formats: 
+-                  - !oddb.org,2003/ODDB::Text::Format 
+-                    values: []
+-
+-                    start: 0
+-                    end: -1
+-                  text: |-
+-                    This group comprises preparations with expectorants and mucolytics.
+-                    Combined preparations are classified at separate 5th levels using the code number 10. These may also contain bronchodilating agents, antihistamines etc.
+-                    Preparations, which contain small amounts of herbal extracts, menthol etc., are regarded as plain preparations.
+-                  preformatted: false
+-        ddd_guidelines: 
+-        ddds: {}
+-
+-      composition_text: "liquiritiae extractum siccum 66 mg, foeniculi extractum spissum 34.5 mg, plantaginis extractum spissum 27.5 mg, melissae extractum spissum 31 mg, aurantii pericarpii extractum spissum 21 mg, saccharinum natricum, aromatica, Color.: E 150, Conserv.: E 202, E 218, excipiens ad solutionem pro 10 ml."
+-      compositions: 
+-      - &id002 !oddb.org,2003/ODDB::Composition 
+-        galenic_form: !oddb.org,2003/ODDB::GalenicForm 
+-          oid: 22
+-          descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-            de: "L\xC3\xB6sung"
+-            en: Solution
+-            fr: Solution
+-            lt: solutionem
+-          galenic_group: !oddb.org,2003/ODDB::GalenicGroup 
+-            oid: 1
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              de: unbekannt
+-              en: unbekannt
+-              fr: unbekannt
+-        active_agents: 
+-        - !oddb.org,2003/ODDB::ActiveAgent 
+-          substance: !oddb.org,2003/ODDB::Substance 
+-            oid: 1671
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              lt: Liquiritiae Extractum Siccum
+-            synonyms: []
+-
+-            swissmedic_code: 
+-            effective_form: !oddb.org,2003/ODDB::Substance 
+-              oid: 6654
+-              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-                lt: Glycyrrhiza Glabra
+-              synonyms: []
+-
+-              swissmedic_code: 
+-          dose: !oddb.org,2003/ODDB::Dose 
+-            not_normalized: 66mg / 10ml
+-            val: 6.6
+-            unit: mg/ml
+-            scale: !oddb.org,2003/ODDB::Dose 
+-              not_normalized: 
+-              val: 10
+-              unit: ml
+-              scale: 
+-        - !oddb.org,2003/ODDB::ActiveAgent 
+-          substance: !oddb.org,2003/ODDB::Substance 
+-            oid: 3952
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              lt: Foeniculi Extractum Spissum
+-            synonyms: []
+-
+-            swissmedic_code: 
+-            effective_form: !oddb.org,2003/ODDB::Substance 
+-              oid: 6586
+-              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-                lt: Foeniculum Dulce
+-              synonyms: []
+-
+-              swissmedic_code: 
+-          dose: !oddb.org,2003/ODDB::Dose 
+-            not_normalized: 34.5mg / 10ml
+-            val: 3.45
+-            unit: mg/ml
+-            scale: !oddb.org,2003/ODDB::Dose 
+-              not_normalized: 
+-              val: 10
+-              unit: ml
+-              scale: 
+-        - !oddb.org,2003/ODDB::ActiveAgent 
+-          substance: !oddb.org,2003/ODDB::Substance 
+-            oid: 1785
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              lt: Plantaginis Extractum Spissum
+-            synonyms: []
+-
+-            swissmedic_code: 
+-            effective_form: !oddb.org,2003/ODDB::Substance 
+-              oid: 2544
+-              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-                lt: Plantago Major
+-              synonyms: []
+-
+-              swissmedic_code: 
+-          dose: !oddb.org,2003/ODDB::Dose 
+-            not_normalized: 27.5mg / 10ml
+-            val: 2.75
+-            unit: mg/ml
+-            scale: !oddb.org,2003/ODDB::Dose 
+-              not_normalized: 
+-              val: 10
+-              unit: ml
+-              scale: 
+-        - !oddb.org,2003/ODDB::ActiveAgent 
+-          substance: !oddb.org,2003/ODDB::Substance 
+-            oid: 2733
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              lt: Melissae Extractum Spissum
+-            synonyms: []
+-
+-            swissmedic_code: 
+-            effective_form: !oddb.org,2003/ODDB::Substance 
+-              oid: 6680
+-              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-                lt: Melissa Officinalis
+-              synonyms: []
+-
+-              swissmedic_code: 
+-          dose: !oddb.org,2003/ODDB::Dose 
+-            not_normalized: 31mg / 10ml
+-            val: 3.1
+-            unit: mg/ml
+-            scale: !oddb.org,2003/ODDB::Dose 
+-              not_normalized: 
+-              val: 10
+-              unit: ml
+-              scale: 
+-        - !oddb.org,2003/ODDB::ActiveAgent 
+-          substance: !oddb.org,2003/ODDB::Substance 
+-            oid: 3390
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              lt: Aurantii Pericarpii Extractum Spissum
+-            synonyms: []
+-
+-            swissmedic_code: 
+-            effective_form: !oddb.org,2003/ODDB::Substance 
+-              oid: 6411
+-              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-                de: Orange
+-                en: Orange
+-                fr: Orange
+-                lt: Citrus Aurantium
+-              synonyms: []
+-
+-              swissmedic_code: 
+-          dose: !oddb.org,2003/ODDB::Dose 
+-            not_normalized: 21mg / 10ml
+-            val: 2.1
+-            unit: mg/ml
+-            scale: !oddb.org,2003/ODDB::Dose 
+-              not_normalized: 
+-              val: 10
+-              unit: ml
+-              scale: 
+-      packages: 
+-        "010": !oddb.org,2003/ODDB::Package 
+-          ikscd: "010"
+           lppv: false
+-          descr: ""
+-          ikscat: E
+-          sl_entry: 
+-          parts: 
+-          - !oddb.org,2003/ODDB::Part 
+-            count: 1
+-            multi: 1
+-            measure: !oddb.org,2003/ODDB::Dose 
+-              not_normalized: 
+-              val: 200
+-              unit: ml
+-              scale: 
+-            addition: 0
+-            commercial_form: 
+-            composition: *id002
+-          has_generic: false
+-          ean13: "7680384750109"
+           price_exfactory: 0.0
+           price_public: 0.0
+           pharmacode:
+           narcotics: []
+ 
+           deductible:
+-  indication: !oddb.org,2003/ODDB::Indication 
+-    oid: 315
+-    descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-      de: "Bei Erk\xC3\xA4ltungshusten"
++  indication:
+   export_flag: false
+   generic_type:
+-  complementary_type: :phytotherapy
++  complementary_type:
+ url:
+ email:
+ addresses:
+@@ -1448,805 +1115,3 @@ addresses:
+   type:
+ contact:
+ contact_email:
+-
+---- !oddb.org,2003/ODDB::Company 
+-oid: 128
+-ean13: "7601001004559"
+-name: Odontopharm AG
+-business_area: ba_pharma
+-generic_type: 
+-registrations: 
+-- !oddb.org,2003/ODDB::Registration 
+-  iksnr: "40015"
+-  registration_date: 1992-07-24
+-  revision_date: 
+-  expiration_date: 
+-  inactive_date: 2005-09-14
+-  sequences: 
+-    "02": !oddb.org,2003/ODDB::Sequence 
+-      seqnr: "02"
+-      name_base: "Cr\xC3\xA9soph\xC3\xA8ne"
+-      name_descr: "L\xC3\xB6sung"
+-      atc_class: &id002 !oddb.org,2003/ODDB::AtcClass 
+-        code: A01AD11
+-        descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-          de: Verschiedene
+-          en: Various
+-        guidelines: 
+-        ddd_guidelines: 
+-        ddds: {}
+-
+-      composition_text: 
+-      compositions: 
+-      - &id001 !oddb.org,2003/ODDB::Composition 
+-        galenic_form: !oddb.org,2003/ODDB::GalenicForm 
+-          oid: 22
+-          descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-            de: "L\xC3\xB6sung"
+-            en: Solution
+-            fr: Solution
+-            lt: solutionem
+-          galenic_group: !oddb.org,2003/ODDB::GalenicGroup 
+-            oid: 1
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              de: unbekannt
+-              en: unbekannt
+-              fr: unbekannt
+-        active_agents: 
+-        - !oddb.org,2003/ODDB::ActiveAgent 
+-          substance: !oddb.org,2003/ODDB::Substance 
+-            oid: 217
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              de: Dextrocampher
+-              en: Dextrocamphor
+-              fr: Dextrocamphre
+-              lt: Dextrocamphora
+-            synonyms: []
+-
+-            swissmedic_code: 
+-          dose: !oddb.org,2003/ODDB::Dose 
+-            not_normalized: 
+-            val: 648.89
+-            unit: mg
+-            scale: 
+-        - !oddb.org,2003/ODDB::ActiveAgent 
+-          substance: !oddb.org,2003/ODDB::Substance 
+-            oid: 3900
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              de: Thymol
+-              en: Thymol
+-              fr: Thymol
+-              lt: Thymolum
+-            synonyms: []
+-
+-            swissmedic_code: 
+-          dose: !oddb.org,2003/ODDB::Dose 
+-            not_normalized: 
+-            val: 50
+-            unit: mg
+-            scale: 
+-        - !oddb.org,2003/ODDB::ActiveAgent 
+-          substance: !oddb.org,2003/ODDB::Substance 
+-            oid: 1958
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              de: Parachlorophenol
+-              en: Parachlorophenol
+-              fr: Parachlorophenol
+-              lt: Parachlorophenolum
+-            synonyms: []
+-
+-            swissmedic_code: 
+-          dose: !oddb.org,2003/ODDB::Dose 
+-            not_normalized: 
+-            val: 300
+-            unit: mg
+-            scale: 
+-        - !oddb.org,2003/ODDB::ActiveAgent 
+-          substance: !oddb.org,2003/ODDB::Substance 
+-            oid: 5248
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              de: Dexamethason Acetat
+-              en: Dexamethasone Acetate
+-              fr: Dexamethasone Acetate
+-              lt: Dexamethasoni Acetas
+-            synonyms: []
+-
+-            swissmedic_code: 
+-            effective_form: !oddb.org,2003/ODDB::Substance 
+-              oid: 6245
+-              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-                de: Dexamethason
+-                en: Dexamethasone
+-                fr: Dexamethasone
+-                lt: Dexamethasonum
+-              synonyms: []
+-
+-              swissmedic_code: 
+-              effective_form: !oddb.org,2003/ODDB::Substance 
+-                oid: 6060
+-                descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-                  de: Glucocorticoide
+-                  en: Glucocorticoids
+-                  fr: Glucocorticoides
+-                  lt: Glucocorticoida
+-                synonyms: []
+-
+-                swissmedic_code: 
+-          dose: !oddb.org,2003/ODDB::Dose 
+-            not_normalized: 
+-            val: 1.11
+-            unit: mg
+-            scale: 
+-      packages: 
+-        019: !oddb.org,2003/ODDB::Package 
+-          ikscd: 019
+-          lppv: false
+-          descr: ""
+-          ikscat: B
+-          sl_entry: 
+-          parts: 
+-          - !oddb.org,2003/ODDB::Part 
+-            count: 1
+-            multi: 1
+-            measure: !oddb.org,2003/ODDB::Dose 
+-              not_normalized: 
+-              val: 13
+-              unit: ml
+-              scale: 
+-            addition: 0
+-            commercial_form: !oddb.org,2003/ODDB::CommercialForm 
+-              oid: 1067568
+-              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-                de: Flasche(n)
+-                fr: flacon(s)
+-            composition: *id001
+-          has_generic: false
+-          ean13: "7680400150197"
+-          price_exfactory: 0.0
+-          price_public: 0.0
+-          pharmacode: 
+-          narcotics: []
+-
+-          deductible: 
+-  indication: 
+-  export_flag:  
+-  fachinfo_oid: 1823
+-  generic_type: 
+-  complementary_type: 
+-- !oddb.org,2003/ODDB::Registration 
+-  iksnr: "48158"
+-  registration_date: 1988-03-22
+-  revision_date: 
+-  expiration_date: 
+-  inactive_date: 2003-05-31
+-  sequences: 
+-    "01": !oddb.org,2003/ODDB::Sequence 
+-      seqnr: "01"
+-      name_base: Caustinerf forte
+-      name_descr: Paste
+-      atc_class: *id002
+-      composition_text: 
+-      compositions: 
+-      - &id003 !oddb.org,2003/ODDB::Composition 
+-        galenic_form: !oddb.org,2003/ODDB::GalenicForm 
+-          oid: 1472704
+-          descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-            de: Dental-Paste
+-            en: Dental Paste
+-            fr: Paste Dentaire
+-          galenic_group: !oddb.org,2003/ODDB::GalenicGroup 
+-            oid: 1472699
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              de: Buccal-/Dentalprodukte
+-              en: Buccal/dental products
+-              fr: Produits buccodentaires
+-        active_agents: 
+-        - !oddb.org,2003/ODDB::ActiveAgent 
+-          substance: !oddb.org,2003/ODDB::Substance 
+-            oid: 4758
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              en: Phenol
+-              lt: Phenolum
+-            synonyms: []
+-
+-            swissmedic_code: 
+-          dose: !oddb.org,2003/ODDB::Dose 
+-            not_normalized: 
+-            val: 60
+-            unit: mg
+-            scale: 
+-        - !oddb.org,2003/ODDB::ActiveAgent 
+-          substance: !oddb.org,2003/ODDB::Substance 
+-            oid: 5940
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              de: Lidocain
+-              en: Lidocaine
+-              fr: "Lidoca\xC3\xAFne"
+-              lt: Lidocainum
+-            synonyms: []
+-
+-            swissmedic_code: 
+-          dose: !oddb.org,2003/ODDB::Dose 
+-            not_normalized: 
+-            val: 370
+-            unit: mg
+-            scale: 
+-        - !oddb.org,2003/ODDB::ActiveAgent 
+-          substance: !oddb.org,2003/ODDB::Substance 
+-            oid: 3682
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions 
+-              de: Polyoxymethylen
+-              en: Polyoxymethylen
+-              fr: "Polyoxymethyl\xC3\xA8ne"
+-              lt: Polyoxymethylenum
+-            synonyms: []
+-
+-            swissmedic_code: 
+-          dose: !oddb.org,2003/ODDB::Dose 
+-            not_normalized: 
+-            val: 460
+-            unit: mg
+-            scale: 
+-      packages: 
+-        "013": !oddb.org,2003/ODDB::Package 
+-          ikscd: "013"
+-          lppv: false
+-          descr: ""
+-          ikscat: B
+-          sl_entry: 
+-          parts: 
+-          - !oddb.org,2003/ODDB::Part 
+-            count: 1
+-            multi: 1
+-            measure: !oddb.org,2003/ODDB::Dose 
+-              not_normalized: 
+-              val: 4.5
+-              unit: g
+-              scale: 
+-            addition: 0
+-            commercial_form: 
+-            composition: *id003
+-          has_generic: false
+-          ean13: "7680481580135"
+-          price_exfactory: 0.0
+-          price_public: 0.0
+-          pharmacode: 
+-          narcotics: []
+-
+-          deductible: 
+-  indication: 
+-  export_flag: false
+-  fachinfo_oid: 1822
+-  generic_type: 
+-  complementary_type: 
+-url: 
+-email: 
+-addresses: 
+-- !oddb.org,2003/ODDB::Address2 
+-  title: 
+-  name: 
+-  additional_lines: []
+-
+-  address: "M\xC3\xBCnzgraben 6\xC2\xA0\xC2\xA0"
+-  location: "3050\xC2\xA0 Bern\xC2\xA0"
+-  canton: 
+-  fon: 
+-  - "031 3026888\xC2\xA0"
+-  fax: 
+-  - "031 3027051\xC2\xA0"
+-  type: 
+-contact: 
+-contact_email: 
+-
+---- !oddb.org,2003/ODDB::Company
+-oid: 25648249
+-ean13:
+-name: CP Pharma (Schweiz) AG
+-business_area: ba_pharma
+-generic_type:
+-registrations:
+-- !oddb.org,2003/ODDB::Registration
+-  iksnr: "54928"
+-  registration_date: 1999-12-23
+-  revision_date: 2004-12-10
+-  expiration_date: 2014-12-09
+-  inactive_date:
+-  sequences:
+-    "01": !oddb.org,2003/ODDB::Sequence
+-      seqnr: "01"
+-      name_base: Insulin CP Pharma Hypurin Porcine Neutral Vial
+-      name_descr: "Injektionsl\xC3\xB6sung"
+-      atc_class: &id002 !oddb.org,2003/ODDB::AtcClass
+-        code: A10AB03
+-        descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+-          de: Insulin (Schwein)
+-          en: Insulin (Pork)
+-        guidelines:
+-        ddd_guidelines:
+-        ddds:
+-          P: !oddb.org,2003/ODDB::AtcClass::DDD
+-            administration_route: P
+-            dose: !oddb.org,2003/ODDB::Drugs::Dose
+-              not_normalized:
+-              val: 40
+-              unit: U
+-              scale:
+-            note:
+-      composition_text: "insulinum suis solutum 100 U.I., natrii phosphates, glycerolum, conserv.: metacresolum 1.6 mg, phenolum 0.65 mg, aqua ad iniectabilia q.s. ad solutionem pro 1 ml."
+-      compositions:
+-      - &id001 !oddb.org,2003/ODDB::Composition
+-        galenic_form: &id003 !oddb.org,2003/ODDB::GalenicForm
+-          oid: 25
+-          descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+-            de: "Injektionsl\xC3\xB6sung"
+-            en: Injection solution
+-            fr: Solution injectable
+-          galenic_group: &id007 !oddb.org,2003/ODDB::GalenicGroup
+-            oid: 3
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+-              de: Injektion/Infusion
+-              en: Injection/Infusion
+-              fr: Injection/Infusion
+-        active_agents:
+-        - !oddb.org,2003/ODDB::ActiveAgent
+-          substance: &id004 !oddb.org,2003/ODDB::Substance
+-            oid: 18
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+-              de: Insulin Schwein
+-              en: Insulin Porcin
+-              fr: Insuline Porcine
+-              lt: Insulinum Suis
+-            synonyms:
+-            - Insulinum Suis Solutum
+-            swissmedic_code:
+-            effective_form: &id008 !oddb.org,2003/ODDB::Substance
+-              oid: 5882
+-              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+-                en: Insulin
+-                fr: Insuline
+-                lt: Insulinum
+-              synonyms:
+-              - Insulinum Solutum
+-              swissmedic_code:
+-          dose: !oddb.org,2003/ODDB::Dose
+-            not_normalized:
+-            val: 100
+-            unit: UI/ml
+-            scale:
+-      packages:
+-        "017": !oddb.org,2003/ODDB::Package
+-          ikscd: "017"
+-          lppv:
+-          descr: ""
+-          ikscat: B
+-          sl_entry: !oddb.org,2003/ODDB::SlEntry
+-            bsv_dossier: "17465"
+-            introduction_date: 2000-07-01
+-            limitation:
+-            limitation_points:
+-            limitation_text:
+-          parts:
+-          - !oddb.org,2003/ODDB::Part
+-            count: 1
+-            multi: !oddb.org,2003/ODDB::Dose
+-              not_normalized:
+-              val: 1
+-              unit: ""
+-              scale:
+-            measure: !oddb.org,2003/ODDB::Dose
+-              not_normalized:
+-              val: 10
+-              unit: ml
+-              scale:
+-            addition: 0
+-            commercial_form: &id009 !oddb.org,2003/ODDB::CommercialForm
+-              oid: 1067527
+-              descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+-                de: Durchstechflasche(n)
+-                fr: Flacon perforable
+-            composition: *id001
+-          has_generic: false
+-          ean13: "7680549280175"
+-          price_exfactory: 25.52
+-          price_public: 45.65
+-          pharmacode: "2234423"
+-          narcotics: []
+-
+-          deductible: 10
+-  indication: &id006 !oddb.org,2003/ODDB::Indication
+-    oid: 4
+-    descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+-      de: Diabetes mellitus
+-  export_flag: false
+-  fachinfo_oid: 2857
+-  generic_type: :unknown
+-  complementary_type:
+-- !oddb.org,2003/ODDB::Registration
+-  iksnr: "54929"
+-  registration_date: 1999-12-23
+-  revision_date: 2004-12-10
+-  expiration_date: 2014-12-09
+-  inactive_date:
+-  sequences:
+-    "01": !oddb.org,2003/ODDB::Sequence
+-      seqnr: "01"
+-      name_base: Insulin CP Pharma Hypurin Porcine Neutral Patronen
+-      name_descr: "Injektionsl\xC3\xB6sung"
+-      atc_class: *id002
+-      composition_text: "insulinum suis solutum 100 U.I., natrii phosphates, glycerolum, conserv.: metacresolum 1.6 mg, phenolum 0.65 mg, aqua ad iniectabilia q.s. ad solutionem pro 1 ml."
+-      compositions:
+-      - &id005 !oddb.org,2003/ODDB::Composition
+-        galenic_form: *id003
+-        active_agents:
+-        - !oddb.org,2003/ODDB::ActiveAgent
+-          substance: *id004
+-          dose: !oddb.org,2003/ODDB::Dose
+-            not_normalized:
+-            val: 100
+-            unit: UI/ml
+-            scale:
+-      packages:
+-        "021": !oddb.org,2003/ODDB::Package
+-          ikscd: "021"
+-          lppv:
+-          descr:
+-          ikscat: B
+-          sl_entry: !oddb.org,2003/ODDB::SlEntry
+-            bsv_dossier: "17466"
+-            introduction_date: 2005-07-01
+-            limitation:
+-            limitation_points:
+-            limitation_text:
+-          parts:
+-          - !oddb.org,2003/ODDB::Part
+-            count: 1
+-            multi: !oddb.org,2003/ODDB::Dose
+-              not_normalized:
+-              val: 5
+-              unit: ""
+-              scale:
+-            measure: !oddb.org,2003/ODDB::Dose
+-              not_normalized:
+-              val: 3
+-              unit: ml
+-              scale:
+-            addition: 0
+-            commercial_form:
+-            composition: *id005
+-          has_generic: false
+-          ean13: "7680549290211"
+-          price_exfactory: 48.0
+-          price_public: 71.5
+-          pharmacode: "2873620"
+-          narcotics: []
+-
+-          deductible: 10
+-  indication: *id006
+-  export_flag: false
+-  fachinfo_oid: 2857
+-  generic_type: :unknown
+-  complementary_type:
+-- !oddb.org,2003/ODDB::Registration
+-  iksnr: "54930"
+-  registration_date: 1999-12-23
+-  revision_date: 2004-12-10
+-  expiration_date: 2014-12-09
+-  inactive_date:
+-  sequences:
+-    "01": !oddb.org,2003/ODDB::Sequence
+-      seqnr: "01"
+-      name_base: Insulin CP Pharma Hypurin Porcine Isophane Vial
+-      name_descr: Injektionssuspension
+-      atc_class: &id011 !oddb.org,2003/ODDB::AtcClass
+-        code: A10AC03
+-        descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+-          de: Insulin (Schwein)
+-          en: Insulin (Pork)
+-        guidelines:
+-        ddd_guidelines:
+-        ddds:
+-          P: !oddb.org,2003/ODDB::AtcClass::DDD
+-            administration_route: P
+-            dose: !oddb.org,2003/ODDB::Drugs::Dose
+-              not_normalized:
+-              val: 40
+-              unit: U
+-              scale:
+-            note:
+-      composition_text: "insulinum suis isophanum 100 U.I., natrii phosphates, glycerolum, protamini sulfas, zincum, conserv.: metacresolum 1.6 mg, phenolum 0.65 mg, aqua ad iniectabilia q.s. ad suspensionem pro 1 ml."
+-      compositions:
+-      - &id010 !oddb.org,2003/ODDB::Composition
+-        galenic_form: &id012 !oddb.org,2003/ODDB::GalenicForm
+-          oid: 46
+-          descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+-            de: Injektionssuspension
+-            en: Injection suspension
+-            fr: Suspension injectable
+-          galenic_group: *id007
+-        active_agents:
+-        - !oddb.org,2003/ODDB::ActiveAgent
+-          substance: &id013 !oddb.org,2003/ODDB::Substance
+-            oid: 2732
+-            descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+-              de: Insulin Schwein Isophan
+-              en: Insulin Porcin Isophane
+-              fr: Insuline Porcine Isophane
+-              lt: Insulinum Suis Isophanum
+-            synonyms: []
+-
+-            swissmedic_code:
+-            effective_form: *id008
+-          dose: !oddb.org,2003/ODDB::Dose
+-            not_normalized:
+-            val: 100
+-            unit: UI/ml
+-            scale:
+-      packages:
+-        "011": !oddb.org,2003/ODDB::Package
+-          ikscd: "011"
+-          lppv:
+-          descr: ""
+-          ikscat: B
+-          sl_entry: !oddb.org,2003/ODDB::SlEntry
+-            bsv_dossier: "17467"
+-            introduction_date: 2000-07-01
+-            limitation:
+-            limitation_points:
+-            limitation_text:
+-          parts:
+-          - !oddb.org,2003/ODDB::Part
+-            count: 1
+-            multi: !oddb.org,2003/ODDB::Dose
+-              not_normalized:
+-              val: 1
+-              unit: ""
+-              scale:
+-            measure: !oddb.org,2003/ODDB::Dose
+-              not_normalized:
+-              val: 10
+-              unit: ml
+-              scale:
+-            addition: 0
+-            commercial_form: *id009
+-            composition: *id010
+-          has_generic: false
+-          ean13: "7680549300118"
+-          price_exfactory: 25.52
+-          price_public: 45.65
+-          pharmacode: "2234452"
+-          narcotics: []
+-
+-          deductible: 10
+-  indication: *id006
+-  export_flag: false
+-  fachinfo_oid: 2857
+-  generic_type: :unknown
+-  complementary_type:
+-- !oddb.org,2003/ODDB::Registration
+-  iksnr: "54931"
+-  registration_date: 1999-12-23
+-  revision_date: 2004-12-10
+-  expiration_date: 2014-12-09
+-  inactive_date:
+-  sequences:
+-    "01": !oddb.org,2003/ODDB::Sequence
+-      seqnr: "01"
+-      name_base: Insulin CP Pharma Hypurin Porcine Isophane Patronen
+-      name_descr: Injektionssuspension
+-      atc_class: *id011
+-      composition_text: "insulinum suis isophanum 100 U.I., natrii phosphates, glycerolum, protamini sulfas, zincum, conserv.: metacresolum 1.6 mg, phenolum 0.65 mg, aqua ad iniectabilia q.s. ad suspensionem pro 1 ml."
+-      compositions:
+-      - &id014 !oddb.org,2003/ODDB::Composition
+-        galenic_form: *id012
+-        active_agents:
+-        - !oddb.org,2003/ODDB::ActiveAgent
+-          substance: *id013
+-          dose: !oddb.org,2003/ODDB::Dose
+-            not_normalized:
+-            val: 100
+-            unit: UI/ml
+-            scale:
+-      packages:
+-        "026": !oddb.org,2003/ODDB::Package
+-          ikscd: "026"
+-          lppv:
+-          descr:
+-          ikscat: B
+-          sl_entry: !oddb.org,2003/ODDB::SlEntry
+-            bsv_dossier: "17468"
+-            introduction_date: 2005-07-01
+-            limitation:
+-            limitation_points:
+-            limitation_text:
+-          parts:
+-          - !oddb.org,2003/ODDB::Part
+-            count: 1
+-            multi: !oddb.org,2003/ODDB::Dose
+-              not_normalized:
+-              val: 5
+-              unit: ""
+-              scale:
+-            measure: !oddb.org,2003/ODDB::Dose
+-              not_normalized:
+-              val: 3
+-              unit: ml
+-              scale:
+-            addition: 0
+-            commercial_form:
+-            composition: *id014
+-          has_generic: false
+-          ean13: "7680549310261"
+-          price_exfactory: 48.0
+-          price_public: 71.5
+-          pharmacode: "2873637"
+-          narcotics: []
+-
+-          deductible: 10
+-  indication: *id006
+-  export_flag: false
+-  fachinfo_oid: 2857
+-  generic_type: :unknown
+-  complementary_type:
+-- !oddb.org,2003/ODDB::Registration
+-  iksnr: "54932"
+-  registration_date: 1999-12-23
+-  revision_date: 2004-12-10
+-  expiration_date: 2014-12-09
+-  inactive_date:
+-  sequences:
+-    "01": !oddb.org,2003/ODDB::Sequence
+-      seqnr: "01"
+-      name_base: Insulin CP Pharma Hypurin Porcine 30/70 Mix Vial
+-      name_descr: Injektionssuspension
+-      atc_class: &id016 !oddb.org,2003/ODDB::AtcClass
+-        code: A10AD03
+-        descriptions: !oddb.org,2003/ODDB::SimpleLanguage::Descriptions
+-          de: Insulin (Schwein)
+-          en: Insulin (Pork)
+-        guidelines:
+-        ddd_guidelines:
+-        ddds:
+-          P: !oddb.org,2003/ODDB::AtcClass::DDD
+-            administration_route: P
+-            dose: !oddb.org,2003/ODDB::Drugs::Dose
+-              not_normalized:
+-              val: 40
+-              unit: U
+-              scale:
+-            note:
+-      composition_text: "insulinum suis 100 U.I. ut, insulinum solutum 30 % et insulinum isophanum 70 %, natrii phosphates, glycerolum, protamini sulfas, zincum, conserv.: metacresolum 1.6 mg, phenolum 0.65 mg, aqua ad iniectabilia q.s. ad suspensionem pro 1 ml."
+-      compositions:
+-      - &id015 !oddb.org,2003/ODDB::Composition
+-        galenic_form: *id012
+-        active_agents:
+-        - !oddb.org,2003/ODDB::ActiveAgent
+-          substance: *id004
+-          dose: !oddb.org,2003/ODDB::Dose
+-            not_normalized:
+-            val: 100
+-            unit: UI/ml
+-            scale:
+-      packages:
+-        "014": !oddb.org,2003/ODDB::Package
+-          ikscd: "014"
+-          lppv:
+-          descr: ""
+-          ikscat: B
+-          sl_entry: !oddb.org,2003/ODDB::SlEntry
+-            bsv_dossier: "17469"
+-            introduction_date: 2000-07-01
+-            limitation:
+-            limitation_points:
+-            limitation_text:
+-          parts:
+-          - !oddb.org,2003/ODDB::Part
+-            count: 1
+-            multi: !oddb.org,2003/ODDB::Dose
+-              not_normalized:
+-              val: 1
+-              unit: ""
+-              scale:
+-            measure: !oddb.org,2003/ODDB::Dose
+-              not_normalized:
+-              val: 10
+-              unit: ml
+-              scale:
+-            addition: 0
+-            commercial_form: *id009
+-            composition: *id015
+-          has_generic: false
+-          ean13: "7680549320147"
+-          price_exfactory: 25.52
+-          price_public: 45.65
+-          pharmacode: "2234481"
+-          narcotics: []
+-
+-          deductible: 10
+-  indication: *id006
+-  export_flag: false
+-  fachinfo_oid: 2857
+-  generic_type: :unknown
+-  complementary_type:
+-- !oddb.org,2003/ODDB::Registration
+-  iksnr: "54933"
+-  registration_date: 1999-12-23
+-  revision_date: 2004-12-10
+-  expiration_date: 2014-12-09
+-  inactive_date:
+-  sequences:
+-    "01": !oddb.org,2003/ODDB::Sequence
+-      seqnr: "01"
+-      name_base: Insulin CP Pharma Hypurin Porcine 30/70 Mix Patronen
+-      name_descr: Injektionssuspension
+-      atc_class: *id016
+-      composition_text: "insulinum suis 100 U.I. ut, insulinum solutum 30 % et insulinum isophanum 70 %, natrii phosphates, glycerolum, protamini sulfas, zincum, conserv.: metacresolum 1.6 mg, phenolum 0.65 mg, aqua ad iniectabilia q.s. ad suspensionem pro 1 ml."
+-      compositions:
+-      - &id017 !oddb.org,2003/ODDB::Composition
+-        galenic_form: *id012
+-        active_agents:
+-        - !oddb.org,2003/ODDB::ActiveAgent
+-          substance: *id004
+-          dose: !oddb.org,2003/ODDB::Dose
+-            not_normalized:
+-            val: 100
+-            unit: UI/ml
+-            scale:
+-      packages:
+-        029: !oddb.org,2003/ODDB::Package
+-          ikscd: 029
+-          lppv:
+-          descr:
+-          ikscat: B
+-          sl_entry: !oddb.org,2003/ODDB::SlEntry
+-            bsv_dossier: "17470"
+-            introduction_date: 2005-07-01
+-            limitation:
+-            limitation_points:
+-            limitation_text:
+-          parts:
+-          - !oddb.org,2003/ODDB::Part
+-            count: 1
+-            multi: !oddb.org,2003/ODDB::Dose
+-              not_normalized:
+-              val: 5
+-              unit: ""
+-              scale:
+-            measure: !oddb.org,2003/ODDB::Dose
+-              not_normalized:
+-              val: 3
+-              unit: ml
+-              scale:
+-            addition: 0
+-            commercial_form:
+-            composition: *id017
+-          has_generic: false
+-          ean13: "7680549330290"
+-          price_exfactory: 48.0
+-          price_public: 71.5
+-          pharmacode: "2873643"
+-          narcotics: []
+-
+-          deductible: 10
+-  indication: *id006
+-  export_flag: false
+-  fachinfo_oid: 2857
+-  generic_type: :unknown
+-  complementary_type:
+-url:
+-email:
+-addresses:
+-- !oddb.org,2003/ODDB::Address2
+-  title:
+-  name:
+-  additional_lines: []
+-
+-  address:
+-  location:
+-  canton:
+-  fon: []
+-
+-  fax: []
+-
+-  type:
+-contact:
+-contact_email:

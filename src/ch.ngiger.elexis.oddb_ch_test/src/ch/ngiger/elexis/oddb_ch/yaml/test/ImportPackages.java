@@ -117,7 +117,7 @@ public class ImportPackages {
 		}
 		assert (res);
 	}
-	//@Test
+	@Test
 	public final void testOrion(){
 		boolean res = false;
 		Import oddbImport = new Import();

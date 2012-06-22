@@ -10,6 +10,7 @@
  ******************************************************************************/
 package org.oddb.ch;
 
+import java.util.List;
 import java.util.Map;
 
 import org.oddb.ch.Dose;
@@ -27,7 +28,8 @@ public class AtcClass {
 	Map<String, String> descriptions; // (SimpleLanguage::Descriptions (String, String)) -> Sprache, Bezeichnung. siehe Glossar (SimpleLanguage::Descriptions)
 	Document guidelines; //        (Text::Document)       -> Guidelines der WHO zum Atc-Code. Sprache: en
 	Document ddd_guidelines; //    (Text::Document)       -> Guidelines der WHO zu den DailyDoses. Sprache: en
-	Map<String, DDD> ddds; //              (Hash (DDD.administration_route, DDD) -> DailyDrugDose Informationen der WHO. siehe Glossar (DailyDrugDose)
+//	Map<String, DDD> ddds; //              (Hash (DDD.administration_route, DDD) -> DailyDrugDose Informationen der WHO. siehe Glossar (DailyDrugDose)
+	List<DDD> ddds; //              (Hash (DDD.administration_route, DDD) -> DailyDrugDose Informationen der WHO. siehe Glossar (DailyDrugDose)
 	String code ; //Atc-Code. siehe Glossar (AtcCode)
 	String administration_route ; //Route of Administration, Codiert gemäss WHO. Diverse Werte.
 	Dose dose     ; //Empfohlene Tagesdosis für diese Route of Administration gemäss WHO.
@@ -44,11 +46,13 @@ public class AtcClass {
 	public void setDdd_guidelines(Document ddd_guidelines){
 		this.ddd_guidelines = ddd_guidelines;
 	}
-	public Map<String, DDD> getDdds(){
+//	public Map<String, DDD> getDdds(){
+	public List<DDD> getDdds(){
 		return ddds;
 	}
-	public void setDdds(Map<String, DDD> ddds){
-		this.ddds = ddds;
+//	public void setDdds(Map<String, DDD> ddds){
+	public void setDdds(List<DDD> ddds){
+			this.ddds = ddds;
 	}
 	public Map<String, String> getDescriptions(){
 		return descriptions;

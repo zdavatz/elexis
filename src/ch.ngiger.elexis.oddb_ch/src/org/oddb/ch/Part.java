@@ -21,16 +21,15 @@ public class Part {
 	Composition composition; // Zusammensetzung dieses Bestandteils
 	public Dose multi; // _5_ x 10 + 10 Ampullen à 15 ml
 	Dose count; // 5 x _10_ + 10 Ampullen à 15 ml
-	IntOrEmpty addition;
-// private Addition addition; // 5 x 10 + _10_ Ampullen à 15 ml
+	int addition;
 	CommercialForm commercial_form; // 5 x 10 + 10 _Ampullen_ à 15 ml
 	Dose measure; // 5 x 10 + 10 Ampullen à _15 ml_
 	
-	public IntOrEmpty getAddition(){
+	public int getAddition(){
 		return addition;
 	}
 	
-	public void setAddition(IntOrEmpty addition){
+	public void setAddition(int addition){
 		this.addition = addition;
 	}
 	
@@ -61,8 +60,7 @@ public class Part {
 		super();
 		counter++;
 		composition = null;
-		// addition = 0;
-		addition = new IntOrEmpty();
+		addition = 0;
 		count = null;
 		commercial_form = null;
 		measure = null;

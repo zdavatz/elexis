@@ -182,6 +182,7 @@ public class ImportFileTest {
 		boolean res = oddbImport.importFile(fileName);		
 		Date d2 = new Date(System.currentTimeMillis());
 		long difference = d2.getTime() - d1.getTime();
+		System.out.println("runOneImportFile passed: "+fileName );		
 		System.out.println(String.format("Elapsed %1$d.%2$d seconds importing %3$s", difference / 1000,
 			difference % 1000, file.getAbsolutePath()));
 	}
@@ -195,11 +196,10 @@ public class ImportFileTest {
 			e.printStackTrace();
 		}
 		runOneOddbImport("rsc/oddb.yaml");	
-		assertEquals(6, Address2.counter);
-		assertEquals(15, Registration.counter);
-		assertEquals(6, Company.counter);
-		runOneOddbImport("/opt/src/elexis/src/oddb.yaml");
-
+		assertEquals(3, Address2.counter);
+		assertEquals(5, Registration.counter);
+		assertEquals(3, Company.counter);
+		runOneOddbImport("/opt/downloads/oddb.yaml");
 	}
 	
 	public class CustomConstructor extends SafeConstructor {
@@ -256,10 +256,9 @@ public class ImportFileTest {
 	}
 	
 	@Test
-	public void testImportWholeCHasHash(){
+	public void testImportWholeAsHash(){
 		runOneImport("rsc/composition.yaml", false);
 		runOneImport("rsc/oddb.yaml", true);
-		runOneImport("/opt/src/elexis/src/oddb.yaml", true);
 	}
 	
 }

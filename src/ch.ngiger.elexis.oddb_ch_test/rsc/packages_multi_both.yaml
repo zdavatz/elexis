@@ -30,7 +30,7 @@ packages:
 packages:
   "017": !oddb.org,2003/ODDB::Package
     ikscd: "017"
-    lppv:
+    lppv: false
     descr: ""
     ikscat: B
     sl_entry: !oddb.org,2003/ODDB::SlEntry

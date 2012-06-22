@@ -27,7 +27,7 @@ public class Registration {
 	Indication indication; // Indikationsbezeichnung aus der Registrationsurkunde
 	String generic_type; // siehe Glossar ;GenericType)
 	String complementary_type; // siehe Glossar ;ComplementaryType)
-	BoolOrEmpty export_flag; // Produkt ist nur für den Export bestimmt
+	boolean export_flag; // Produkt ist nur für den Export bestimmt
 	int fachinfo_oid; // Verbindungsschlüssel zur Fachinformation ;in fachinfo.yaml)
 	public static int counter;
 	
@@ -126,11 +126,11 @@ public class Registration {
 		this.complementary_type = complementary_type;
 	}
 	
-	public BoolOrEmpty isExport_flag(){
+	public boolean isExport_flag(){
 		return export_flag;
 	}
 	
-	public void setExport_flag(BoolOrEmpty export_flag){
+	public void setExport_flag(boolean export_flag){
 		this.export_flag = export_flag;
 	}
 	

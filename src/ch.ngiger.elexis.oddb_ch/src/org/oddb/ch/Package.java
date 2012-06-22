@@ -38,11 +38,9 @@ public class Package {
 	String ean13; // Ean13 des Produkts
 	String[] narcotics; // Betäubungsmitteleinträge: CAS Registry Numbers
 	String pharmacode; // Pharmacode gemäss RefData
-	BoolOrEmpty lppv; // Produkt ist in LPPV
-	public BoolOrEmpty isLppv(){
-		return lppv;
-	}
-	public void setLppv(BoolOrEmpty lppv){
+	boolean lppv; // Produkt ist in LPPV
+
+	public void setLppv(boolean lppv){
 		this.lppv = lppv;
 	}
 	boolean has_generic; // Es gibt Generika zu diesem Produkt

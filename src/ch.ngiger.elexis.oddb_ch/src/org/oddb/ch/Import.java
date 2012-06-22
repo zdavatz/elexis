@@ -114,69 +114,13 @@ public class Import {
 			File file = new File(filename);
 			System.out.println(String.format("importFile: %1$s %2$d", file.getAbsolutePath(),
 				file.length()));
-			return importString(ch.rgw.io.FileTool.readTextFile(file, "ASCII"));
+			return importString(ch.rgw.io.FileTool.readTextFile(file, "UTF-8"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
 	
-	// This is an ugly patch, as snakeyaml has a problem with escaped UTF-8 characters
-	// produced by oddb.org.
-	// see http://code.google.com/p/snakeyaml/issues/detail?id=151
-	// Don't know where the problem lies. But this fixes the issues for the time beeing.
-	static private String patchUtfEscape(String input)
-	{			
-		HashMap<String, String> convertTable = new HashMap();
-		// see http://www.utf8-zeichentabelle.de/
-		convertTable.put("\\xC3\\xB6", "ö");
-		convertTable.put("\\xC3\\xA9", "é");
-		convertTable.put("\\xC3\\xA8", "è");
-		convertTable.put("\\xC3\\xA0", "à");
-		convertTable.put("\\xC3\\xC6", "Ö");
-		convertTable.put("\\xC3\\x9C", "Ü");
-		convertTable.put("\\xC3\\xBC", "ü");
-		convertTable.put("\\xC3\\x84", "Ä");
-		convertTable.put("\\xC3\\xA4", "ä");
-		convertTable.put("\\xC2\\xA0", " "); // No break space
-		convertTable.put("\\xC2\\xB5", "µ");
-		convertTable.put("\\xC3\\xAF", "ï");
-		convertTable.put("\\xC3\\xA2", "â");
-		convertTable.put("\\xC3\\x96", "Ö");
-		convertTable.put("\\xC2\\xB2", "²");
-		convertTable.put("\\xC2\\xAB", "«");
-		convertTable.put("\\xC2\\xBB", "»");
-		convertTable.put("\\xC3\\xAA", "ê");
-		convertTable.put("\\xC3\\xB4", "ô");
-		convertTable.put("\\xC3\\xA7", "ç");
-		convertTable.put("\\xC3\\xAB", "ë");
-		convertTable.put("\\xC3\\xB2", "ò");
-		convertTable.put("\\xC3\\x89", "É");
-		convertTable.put("\\xC3\\xAE", "î");
-		convertTable.put("\\xC3\\xBB", "û");
-		convertTable.put("\\xC2\\xB0", "°");
-		convertTable.put("\\xC3\\xB9", "ð");
-		convertTable.put("\\xC3\\xB3", "ó");
-		convertTable.put("\\xC2\\xB1", "±");
-		convertTable.put("\\xC3\\x80", "À");
-		convertTable.put("\\xC3\\xA1", "á");
-		convertTable.put("\\xC3\\xAC", "á");
-		Iterator iter = convertTable.entrySet().iterator();
-		while (iter.hasNext())
-		{
-			Entry<String, String> entry = (Entry<String, String>) iter.next();
-			input = input.replaceAll(Matcher.quoteReplacement(entry.getKey()), entry.getValue());
-		}
-		int offset = input.indexOf("\\xC");
-		if (offset >= 0)
-		{
-			String msg = String.format("Still UTF-8 in input at %1$d see %2$s",
-				offset, input.substring(offset, offset+ 200));
-			System.out.println(msg);
-			logger.error(msg);
-		}
-		return input;
-	}
 	public boolean importString(String yamlContent){
 		Constructor c = new ImportConstructor();
 		TypeDescription descr =
@@ -186,7 +130,7 @@ public class Import {
 		int counter = 0;
 		int nrExceptions = 0;
 		Date d1 = new Date(System.currentTimeMillis());
-		for (Object obj : yaml.loadAll(patchUtfEscape(yamlContent))) {
+		for (Object obj : yaml.loadAll(yamlContent)) {
 			Company corp = (Company) obj;
 			companies.put(corp.getEan13(), corp);
 			for (int j = 0; j < corp.getRegistrations().length; j++) {
